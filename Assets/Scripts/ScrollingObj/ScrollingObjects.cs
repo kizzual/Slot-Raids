@@ -11,8 +11,10 @@ public class ScrollingObjects : MonoBehaviour
     [SerializeField] private float scrollingDuration = 3f;
     [SerializeField] private AnimationCurve curve;
     [SerializeField] private List<Prize> prizeList;
+    [SerializeField] private LayerMask layer;
    
     [HideInInspector] public bool _scrollingIsActive = false;
+    [HideInInspector] public Prize winPrize;
     private RectTransform _point;
     private float _elapsedTime; 
     private float _percentageComplete;
@@ -34,7 +36,7 @@ public class ScrollingObjects : MonoBehaviour
         {
             _elapsedTime = 0;
             randomIndex = Random.Range(40, 80);
-      //      ShuffleFullList(prizeList);
+            prizeList[randomIndex].gameObject.layer = 6;
             _scrollingIsActive = true;
         }
         else
@@ -42,6 +44,7 @@ public class ScrollingObjects : MonoBehaviour
             SwapPositionAndShuffle();
             _elapsedTime = 0;
             randomIndex = Random.Range(40, 80);
+            prizeList[randomIndex].gameObject.layer = 6;
             _scrollingIsActive = true;
         }
     }
@@ -61,25 +64,19 @@ public class ScrollingObjects : MonoBehaviour
                 _indexCurrentObject = randomIndex;
             }
         }
-
     }
     private void ShuffleFullList(List<Prize> list)
     {
         System.Random rand = new System.Random();
-        for (int i = list.Count - 1; i > 3 ; i--)
+        for (int i = list.Count - 1; i > 3; i--)
         {
-        //    int j = rand.Next(i + 1);
-            int j = Random.Range(2, list.Count -1);
+            int j = Random.Range(2, list.Count - 1);
 
+            Prize tmp = list[j];
+            list[j] = list[i];
+            list[i] = tmp;
 
-        //    if (j != 0 || j != 1|| j != 2)
-         //   {
-                Prize tmp = list[j];
-                list[j] = list[i];
-                list[i] = tmp;
-
-                SwapPosition(list[i], list[j]);
-         //   }
+            SwapPosition(list[i], list[j]);
         }
     }
     private void SwapPosition(Prize obj_1, Prize obj_2)
@@ -93,9 +90,11 @@ public class ScrollingObjects : MonoBehaviour
     {
         _point.transform.localPosition = Vector3.zero;
         SwapPosition(prizeList[0], prizeList[randomIndex]);
+       
         Prize tmp = prizeList[0];
         prizeList[0] = prizeList[randomIndex];
         prizeList[randomIndex] = tmp;
+        prizeList[0].gameObject.layer = 5;
         ShuffleFullList(prizeList);
     } 
     public void GenerateListObjects(List<Prize> _prizeList)
@@ -106,11 +105,5 @@ public class ScrollingObjects : MonoBehaviour
         }
 
          ShuffleFullList(prizeList);
-    }
-    private int CheckWinItem()
-    {
-
-
-        return 0;
     }
 }

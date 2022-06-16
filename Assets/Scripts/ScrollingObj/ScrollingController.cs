@@ -6,9 +6,12 @@ public class ScrollingController : MonoBehaviour
 {
     [SerializeField] private List<ScrollingObjects> scrollingObjects;
     [SerializeField] private GameController game_controller;
+    [SerializeField] private RayCheckingMatches _ray;
     private int _countActiveSlots;
     private bool _isScrolling = false;
     private bool _isActiveRaid;
+
+    public float distance;
     void Awake()
     {
         foreach (var item in GetComponentsInChildren<ScrollingObjects>())
@@ -27,12 +30,12 @@ public class ScrollingController : MonoBehaviour
             }
             else
             {
+                _ray.CheckingMatches(_countActiveSlots);
                 Debug.Log("SCROLL ENDED");
                 _isActiveRaid = false;
             }
         }
     }
-
     public void StartRaid()
     {
         if (!_isActiveRaid)
@@ -40,6 +43,8 @@ public class ScrollingController : MonoBehaviour
             StartCoroutine(StartingRaid());
         }
     }
+
+  
     private void CheckIsScrolling()
     {
         if(_countActiveSlots == 9)

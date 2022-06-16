@@ -7,7 +7,8 @@ public class Prize : MonoBehaviour
 {
     [SerializeField] public Type _Type;
     public Type type;
-   
+    [SerializeField] public ElementType _ElementType;
+    public ElementType elementType;
     public int goldPrize;
     public int profitPercent;
     public int defencePercent;
@@ -76,6 +77,12 @@ public enum Type
     item_egg_undead,
     item_egg_order,
     item_egg_demons,
-    
+}
+public enum ElementType
+{
+    Neutral,
+    Undead,
+    Order,
+    Demon
 }
 

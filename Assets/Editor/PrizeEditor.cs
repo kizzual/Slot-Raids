@@ -6,6 +6,7 @@ public class PrizeEditor : Editor
 {
  
     SerializedProperty type;
+    SerializedProperty elementType;
     SerializedProperty goldPrize;
     SerializedProperty profitPercent;
     SerializedProperty defencePercent;
@@ -17,6 +18,7 @@ public class PrizeEditor : Editor
      {
         // созраняем ссылку на скрипт, который контролирует этот инспектор
         type = serializedObject.FindProperty("_Type");
+        elementType = serializedObject.FindProperty("_ElementType");
         goldPrize = serializedObject.FindProperty("goldPrize");
         profitPercent = serializedObject.FindProperty("profitPercent");
         defencePercent = serializedObject.FindProperty("defencePercent");
@@ -30,6 +32,7 @@ public class PrizeEditor : Editor
     {
         serializedObject.Update();
         EditorGUILayout.PropertyField(type);
+        EditorGUILayout.PropertyField(elementType);
       
         EditorGUILayout.Space();
 
