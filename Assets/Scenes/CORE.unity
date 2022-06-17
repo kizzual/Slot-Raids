@@ -5376,6 +5376,102 @@ PrefabInstance:
       propertyPath: layer.m_Bits
       value: 64
       objectReference: {fileID: 0}
+    - target: {fileID: 3834027160096798748, guid: c5b0f67b8c5592c4494657b8e0555188, type: 3}
+      propertyPath: scrollingDuration
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 3834027160096798748, guid: c5b0f67b8c5592c4494657b8e0555188, type: 3}
+      propertyPath: curve.m_Curve.Array.size
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 3834027160096798748, guid: c5b0f67b8c5592c4494657b8e0555188, type: 3}
+      propertyPath: curve.m_Curve.Array.data[1].time
+      value: 0.27211678
+      objectReference: {fileID: 0}
+    - target: {fileID: 3834027160096798748, guid: c5b0f67b8c5592c4494657b8e0555188, type: 3}
+      propertyPath: curve.m_Curve.Array.data[2].time
+      value: 0.73071676
+      objectReference: {fileID: 0}
+    - target: {fileID: 3834027160096798748, guid: c5b0f67b8c5592c4494657b8e0555188, type: 3}
+      propertyPath: curve.m_Curve.Array.data[3].time
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3834027160096798748, guid: c5b0f67b8c5592c4494657b8e0555188, type: 3}
+      propertyPath: curve.m_Curve.Array.data[1].value
+      value: 0.5451609
+      objectReference: {fileID: 0}
+    - target: {fileID: 3834027160096798748, guid: c5b0f67b8c5592c4494657b8e0555188, type: 3}
+      propertyPath: curve.m_Curve.Array.data[2].value
+      value: 0.30158415
+      objectReference: {fileID: 0}
+    - target: {fileID: 3834027160096798748, guid: c5b0f67b8c5592c4494657b8e0555188, type: 3}
+      propertyPath: curve.m_Curve.Array.data[3].value
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3834027160096798748, guid: c5b0f67b8c5592c4494657b8e0555188, type: 3}
+      propertyPath: curve.m_Curve.Array.data[0].inSlope
+      value: 2.0034077
+      objectReference: {fileID: 0}
+    - target: {fileID: 3834027160096798748, guid: c5b0f67b8c5592c4494657b8e0555188, type: 3}
+      propertyPath: curve.m_Curve.Array.data[1].inSlope
+      value: 0.7361383
+      objectReference: {fileID: 0}
+    - target: {fileID: 3834027160096798748, guid: c5b0f67b8c5592c4494657b8e0555188, type: 3}
+      propertyPath: curve.m_Curve.Array.data[2].inSlope
+      value: 1.0312397
+      objectReference: {fileID: 0}
+    - target: {fileID: 3834027160096798748, guid: c5b0f67b8c5592c4494657b8e0555188, type: 3}
+      propertyPath: curve.m_Curve.Array.data[3].inSlope
+      value: 2.5936108
+      objectReference: {fileID: 0}
+    - target: {fileID: 3834027160096798748, guid: c5b0f67b8c5592c4494657b8e0555188, type: 3}
+      propertyPath: curve.m_Curve.Array.data[0].outSlope
+      value: 2.0034077
+      objectReference: {fileID: 0}
+    - target: {fileID: 3834027160096798748, guid: c5b0f67b8c5592c4494657b8e0555188, type: 3}
+      propertyPath: curve.m_Curve.Array.data[1].inWeight
+      value: 0.33333334
+      objectReference: {fileID: 0}
+    - target: {fileID: 3834027160096798748, guid: c5b0f67b8c5592c4494657b8e0555188, type: 3}
+      propertyPath: curve.m_Curve.Array.data[1].outSlope
+      value: 0.7361383
+      objectReference: {fileID: 0}
+    - target: {fileID: 3834027160096798748, guid: c5b0f67b8c5592c4494657b8e0555188, type: 3}
+      propertyPath: curve.m_Curve.Array.data[2].inWeight
+      value: 0.33333334
+      objectReference: {fileID: 0}
+    - target: {fileID: 3834027160096798748, guid: c5b0f67b8c5592c4494657b8e0555188, type: 3}
+      propertyPath: curve.m_Curve.Array.data[2].outSlope
+      value: 1.0312397
+      objectReference: {fileID: 0}
+    - target: {fileID: 3834027160096798748, guid: c5b0f67b8c5592c4494657b8e0555188, type: 3}
+      propertyPath: curve.m_Curve.Array.data[3].inWeight
+      value: 0.33333334
+      objectReference: {fileID: 0}
+    - target: {fileID: 3834027160096798748, guid: c5b0f67b8c5592c4494657b8e0555188, type: 3}
+      propertyPath: curve.m_Curve.Array.data[3].outSlope
+      value: 2.5936108
+      objectReference: {fileID: 0}
+    - target: {fileID: 3834027160096798748, guid: c5b0f67b8c5592c4494657b8e0555188, type: 3}
+      propertyPath: curve.m_Curve.Array.data[0].outWeight
+      value: 0.33333334
+      objectReference: {fileID: 0}
+    - target: {fileID: 3834027160096798748, guid: c5b0f67b8c5592c4494657b8e0555188, type: 3}
+      propertyPath: curve.m_Curve.Array.data[1].outWeight
+      value: 0.33333334
+      objectReference: {fileID: 0}
+    - target: {fileID: 3834027160096798748, guid: c5b0f67b8c5592c4494657b8e0555188, type: 3}
+      propertyPath: curve.m_Curve.Array.data[2].outWeight
+      value: 0.33333334
+      objectReference: {fileID: 0}
+    - target: {fileID: 3834027160096798748, guid: c5b0f67b8c5592c4494657b8e0555188, type: 3}
+      propertyPath: curve.m_Curve.Array.data[2].tangentMode
+      value: 34
+      objectReference: {fileID: 0}
+    - target: {fileID: 3834027160096798748, guid: c5b0f67b8c5592c4494657b8e0555188, type: 3}
+      propertyPath: curve.m_Curve.Array.data[3].tangentMode
+      value: 34
+      objectReference: {fileID: 0}
     - target: {fileID: 4055928081834002089, guid: c5b0f67b8c5592c4494657b8e0555188, type: 3}
       propertyPath: m_Name
       value: Scrolling obj prefab
@@ -9935,6 +10031,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bde7233bab40cd14596d87705129592c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  IsClosed: 0
   ItemPercent: 25
   DeathPercent: 25
   NumberOfElements: 1
@@ -11207,6 +11304,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1334611092}
     m_Modifications:
+    - target: {fileID: 3834027160096798748, guid: c5b0f67b8c5592c4494657b8e0555188, type: 3}
+      propertyPath: isActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4055928081834002089, guid: c5b0f67b8c5592c4494657b8e0555188, type: 3}
       propertyPath: m_Name
       value: Scrolling obj prefab
@@ -11617,6 +11718,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bde7233bab40cd14596d87705129592c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  IsClosed: 0
   ItemPercent: 30
   DeathPercent: 20
   NumberOfElements: 1
@@ -12839,6 +12941,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bde7233bab40cd14596d87705129592c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  IsClosed: 0
   ItemPercent: 10
   DeathPercent: 50
   NumberOfElements: 1

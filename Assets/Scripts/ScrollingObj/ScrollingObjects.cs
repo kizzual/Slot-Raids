@@ -35,7 +35,7 @@ public class ScrollingObjects : MonoBehaviour
         if(_indexCurrentObject == 0)
         {
             _elapsedTime = 0;
-            randomIndex = Random.Range(40, 80);
+            randomIndex = Random.Range(10, 50);
             prizeList[randomIndex].gameObject.layer = 6;
             _scrollingIsActive = true;
         }

@@ -22,7 +22,10 @@ public class GameController : MonoBehaviour
     }
     public void CurrentZone(Zone zone)
     {
-        _zone = zone;
+        if(!zone.IsClosed)
+        {
+            _zone = zone;
+        }
     }
     public void StartRaid()
     {

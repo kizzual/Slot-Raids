@@ -4,23 +4,24 @@ using UnityEngine;
 
 public class Zone : MonoBehaviour
 {
+    public bool IsClosed;
     public int ItemPercent = 30 ;
     public int DeathPercent =  20 ;
     public int NumberOfElements = 1;
     public enum zoneElement
     {
-        Green,
-        Purple,
-        Yellow,
-        Red
+        Neutral,
+        Undead,
+        Order,
+        Demon
     }
     public zoneElement ZoneElement;
     public enum additionalElement
     {
-        Green,
-        Purple,
-        Yellow,
-        Red
+        Neutral,
+        Undead,
+        Order,
+        Demon
     }
     public additionalElement AdditionalElement;
 

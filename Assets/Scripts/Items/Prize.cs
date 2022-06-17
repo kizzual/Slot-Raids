@@ -28,14 +28,7 @@ public class Prize : MonoBehaviour
         
     }
 
-    private void OnTriggerEnter(Collider other)
-    {
-     
-        //    var parent = GetComponentInParent<RotatingObject>();
-       //     parent.prize = this;
-
-        
-    }
+ 
     public void SwitchPosition(Vector3 newPosition)
     {
         currentPosition.transform.localPosition = newPosition;
