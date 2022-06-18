@@ -30,22 +30,19 @@ public class RayCheckingMatches : MonoBehaviour
 
     public void CheckingMatches(int activeSlotsCount)
     {
-        if (activeSlotsCount == 2)
+
+        if (activeSlotsCount >= 3 && activeSlotsCount < 6)
         {
             FirstlLineCheckMatch();
         }
-        else if (activeSlotsCount >= 3 && activeSlotsCount < 6)
-        {
-            FirstlLineCheckMatch(true);
-        }
         else if (activeSlotsCount >= 6 && activeSlotsCount < 9)
         {
-            FirstlLineCheckMatch(true);
+            FirstlLineCheckMatch();
             SecondLineCheckMatch();
         }
         else if (activeSlotsCount == 9)
         {
-            FirstlLineCheckMatch(true);
+            FirstlLineCheckMatch();
             SecondLineCheckMatch();
             ThirdLineCheckMatch();
             UpperDiagonallyCheckMatch();
@@ -53,28 +50,9 @@ public class RayCheckingMatches : MonoBehaviour
         }
     }
 
-    private bool FirstlLineCheckMatch(bool FullLineOpened = false)
+    private bool FirstlLineCheckMatch()
     {
-        if(!FullLineOpened)
-        {
-            RaycastHit2D[] hit;
-            hit = Physics2D.RaycastAll(firslLineStart.transform.position, _lineDirection, 7, layer);
-            Debug.Log(hit.Length);
-            if (hit[0].collider.GetComponent<Prize>()._Type == hit[1].collider.GetComponent<Prize>()._Type &&
-               hit[0].collider.GetComponent<Prize>()._ElementType == hit[1].collider.GetComponent<Prize>()._ElementType)
-            {
-                Debug.Log("First line Match 2");
-                return true;
-            }
-            else
-            {
-                Debug.Log("NOT Match");
-                return false;
-            }
 
-        }
-        else
-        {
             RaycastHit2D[] hit;
             hit = Physics2D.RaycastAll(firslLineStart.transform.position, _lineDirection, 7, layer);
             if (hit[0].collider.GetComponent<Prize>()._Type == hit[1].collider.GetComponent<Prize>()._Type &&
@@ -90,7 +68,7 @@ public class RayCheckingMatches : MonoBehaviour
                 Debug.Log("NOT Match");
                 return false;
             }
-        }
+        
     }
     private bool SecondLineCheckMatch()
     {
