@@ -10,7 +10,6 @@ public class InventoryControl : MonoBehaviour
     [SerializeField] private List<Inventory> Inventories;
 
     private  List<SavedInvetory> SavedInventories = new List<SavedInvetory>();
-
     private void Awake()
     {
         LoadInventory();
@@ -32,16 +31,48 @@ public class InventoryControl : MonoBehaviour
         }
     }
 
-
-    void Update()
-    {
-        
-    }
     private void InitialiseInventory()
     {
         for (int i = 0; i < SavedInventories.Count; i++)
         {
             Inventories[i].SetSaveInfo(SavedInventories[i]);
+        }
+    }
+
+    public void OpenFullInventory()
+    {
+        foreach (var item in Inventories)
+        {
+            item.OpenFullInventory();
+        }
+    } // open default inventory 
+    public void OpenInventoryWithModifier_eggs()    // open inventory  with modifer egg
+    {
+        foreach (var item in Inventories)
+        {
+            item.OpenOnly_Eggs();
+        }
+    }
+    public void OpenInventoryWithModifier_swords(Hero hero)    // open inventory  with modifer sword
+    {
+        foreach (var item in Inventories)
+        {
+            item.OpenOnly_Swords(hero.Level);
+        }
+    }
+    public void OpenInventoryWithModifier_shields(Hero hero)    // open inventory  with modifer shield
+    {
+        
+        foreach (var item in Inventories)
+        {
+            item.OpenOnly_Shields(hero.Level);
+        }
+    }
+    public void OpenInventoryWithModifier_amulets(Hero hero)    // open inventory  with modifer amulet
+    {
+        foreach (var item in Inventories)
+        {
+            item.OpenOnly_Amulets(hero.Level);
         }
     }
 
@@ -56,6 +87,8 @@ public class InventoryControl : MonoBehaviour
     #region Save / Load
     public void SaveInventory()
     {
+        SavedInventories.Clear();
+
         for (int i = 0; i < Inventories.Count; i++)
         {
             SavedInventories.Add(new SavedInvetory(Inventories[i]));

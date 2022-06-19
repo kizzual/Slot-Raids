@@ -39,11 +39,7 @@ public class Inventory : MonoBehaviour
     [SerializeField] private Text amulet_3_text;
 
 
-    void Start()
-    {
-        CountInitialise();
-        Initialise();
-    }
+
 
     private void Initialise()
     {
@@ -109,6 +105,264 @@ public class Inventory : MonoBehaviour
         amulet_1_text.text = _amulet_1_count.ToString();
         amulet_2_text.text = _amulet_2_count.ToString();
         amulet_3_text.text = _amulet_3_count.ToString();
+    }
+    public void OpenFullInventory()
+    {
+        CountInitialise();
+        Initialise();
+    }
+    public void OpenOnly_Eggs()
+    {
+        CountInitialise();
+        if (_eggs_count > 0)
+        {
+            egg_image.gameObject.SetActive(true);
+        }
+        else
+        {
+            egg_image.gameObject.SetActive(false);
+        }
+        sword_1_image.gameObject.SetActive(false);
+        sword_2_image.gameObject.SetActive(false);
+        sword_3_image.gameObject.SetActive(false);
+        shield_1_image.gameObject.SetActive(false);
+        shield_2_image.gameObject.SetActive(false);
+        shield_3_image.gameObject.SetActive(false);
+        amulet_1_image.gameObject.SetActive(false);
+        amulet_2_image.gameObject.SetActive(false);
+        amulet_3_image.gameObject.SetActive(false);
+    }
+    public void OpenOnly_Swords(int heroLvl)
+    {
+        CountInitialise();
+        switch (heroLvl)
+        {
+            case 1:
+                {
+                    if(_swords_1_count > 0)
+                    {
+                        sword_1_image.gameObject.SetActive(true);
+                    }
+                    else
+                    {
+                        sword_1_image.gameObject.SetActive(false);
+                    }
+                    sword_2_image.gameObject.SetActive(false);
+                    sword_3_image.gameObject.SetActive(false);
+                    break;
+                }
+            case 2:
+                {
+                    if (_swords_1_count > 0)
+                    {
+                        sword_1_image.gameObject.SetActive(true);
+                    }
+                    else
+                    {
+                        sword_1_image.gameObject.SetActive(false);
+                    }
+                    if (_swords_2_count > 0)
+                    {
+                        sword_2_image.gameObject.SetActive(true);
+                    }
+                    else
+                    {
+                        sword_2_image.gameObject.SetActive(false);
+                    }
+                    sword_3_image.gameObject.SetActive(false);
+                    break;
+                }
+            case 3:
+                {
+                    if (_swords_1_count > 0)
+                    {
+                        sword_1_image.gameObject.SetActive(true);
+                    }
+                    else
+                    {
+                        sword_1_image.gameObject.SetActive(false);
+                    }
+                    if (_swords_2_count > 0)
+                    {
+                        sword_2_image.gameObject.SetActive(true);
+                    }
+                    else
+                    {
+                        sword_2_image.gameObject.SetActive(false);
+                    }
+                    if (_swords_3_count > 0)
+                    {
+                        sword_3_image.gameObject.SetActive(true);
+                    }
+                    else
+                    {
+                        sword_3_image.gameObject.SetActive(false);
+                    }
+                    break;
+                }
+        }
+        egg_image.gameObject.SetActive(false);
+        shield_1_image.gameObject.SetActive(false);
+        shield_2_image.gameObject.SetActive(false);
+        shield_3_image.gameObject.SetActive(false);
+        amulet_1_image.gameObject.SetActive(false);
+        amulet_2_image.gameObject.SetActive(false);
+        amulet_3_image.gameObject.SetActive(false);
+    }
+    public void OpenOnly_Shields(int heroLvl)
+    {
+        CountInitialise();
+        switch (heroLvl)
+        {
+            case 1:
+                {
+                    if (_shield_1_count > 0)
+                    {
+                        shield_1_image.gameObject.SetActive(true);
+                    }
+                    else
+                    {
+                        shield_1_image.gameObject.SetActive(false);
+                    }
+                    shield_2_image.gameObject.SetActive(false);
+                    shield_3_image.gameObject.SetActive(false);
+                    break;
+                }
+            case 2:
+                {
+                    if (_shield_1_count > 0)
+                    {
+                        shield_1_image.gameObject.SetActive(true);
+                    }
+                    else
+                    {
+                        shield_1_image.gameObject.SetActive(false);
+                    }
+                    if (_shield_2_count > 0)
+                    {
+                        shield_2_image.gameObject.SetActive(true);
+                    }
+                    else
+                    {
+                        shield_2_image.gameObject.SetActive(false);
+                    }
+                    shield_3_image.gameObject.SetActive(false);
+                    break;
+                }
+            case 3:
+                {
+                    if (_shield_1_count > 0)
+                    {
+                        shield_1_image.gameObject.SetActive(true);
+                    }
+                    else
+                    {
+                        shield_1_image.gameObject.SetActive(false);
+                    }
+                    if (_shield_2_count > 0)
+                    {
+                        shield_2_image.gameObject.SetActive(true);
+                    }
+                    else
+                    {
+                        shield_2_image.gameObject.SetActive(false);
+                    }
+                    if (_shield_3_count > 0)
+                    {
+                        shield_3_image.gameObject.SetActive(true);
+                    }
+                    else
+                    {
+                        shield_3_image.gameObject.SetActive(false);
+                    }
+                    break;
+                }
+        }
+        egg_image.gameObject.SetActive(false);
+        sword_1_image.gameObject.SetActive(false);
+        sword_2_image.gameObject.SetActive(false);
+        sword_3_image.gameObject.SetActive(false);
+        amulet_1_image.gameObject.SetActive(false);
+        amulet_2_image.gameObject.SetActive(false);
+        amulet_3_image.gameObject.SetActive(false);
+    }
+    public void OpenOnly_Amulets(int heroLvl)
+    {
+        CountInitialise();
+        switch (heroLvl)
+        {
+            case 1:
+                {
+                    if (_amulet_1_count > 0)
+                    {
+                        amulet_1_image.gameObject.SetActive(true);
+                    }
+                    else
+                    {
+                        amulet_1_image.gameObject.SetActive(false);
+                    }
+                    amulet_2_image.gameObject.SetActive(false);
+                    amulet_3_image.gameObject.SetActive(false);
+                    break;
+                }
+            case 2:
+                {
+                    if (_amulet_1_count > 0)
+                    {
+                        amulet_1_image.gameObject.SetActive(true);
+                    }
+                    else
+                    {
+                        amulet_1_image.gameObject.SetActive(false);
+                    }
+                    if (_amulet_2_count > 0)
+                    {
+                        amulet_2_image.gameObject.SetActive(true);
+                    }
+                    else
+                    {
+                        amulet_2_image.gameObject.SetActive(false);
+                    }
+                    amulet_3_image.gameObject.SetActive(false);
+                    break;
+                }
+            case 3:
+                {
+                    if (_amulet_1_count > 0)
+                    {
+                        amulet_1_image.gameObject.SetActive(true);
+                    }
+                    else
+                    {
+                        amulet_1_image.gameObject.SetActive(false);
+                    }
+                    if (_amulet_2_count > 0)
+                    {
+                        amulet_2_image.gameObject.SetActive(true);
+                    }
+                    else
+                    {
+                        amulet_3_image.gameObject.SetActive(false);
+                    }
+                    if (_amulet_3_count > 0)
+                    {
+                        amulet_3_image.gameObject.SetActive(true);
+                    }
+                    else
+                    {
+                        amulet_3_image.gameObject.SetActive(false);
+                    }
+                    break;
+                }
+        }
+        egg_image.gameObject.SetActive(false);
+        sword_1_image.gameObject.SetActive(false);
+        sword_2_image.gameObject.SetActive(false);
+        sword_3_image.gameObject.SetActive(false);
+        shield_1_image.gameObject.SetActive(false);
+        shield_2_image.gameObject.SetActive(false);
+        shield_3_image.gameObject.SetActive(false);
+
     }
     public void SetSaveInfo(SavedInvetory loadInv)
     {
