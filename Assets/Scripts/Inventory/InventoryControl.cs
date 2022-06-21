@@ -7,7 +7,7 @@ public class InventoryControl : MonoBehaviour
 {
     const string SaveFilename = "Inventories";
 
-    [SerializeField] private List<Inventory> Inventories;
+    public List<Inventory> Inventories;
 
     private  List<SavedInvetory> SavedInventories = new List<SavedInvetory>();
     private void Awake()

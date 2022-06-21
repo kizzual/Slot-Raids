@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class SwitchPanel : MonoBehaviour
 {
@@ -8,8 +9,19 @@ public class SwitchPanel : MonoBehaviour
     public GameObject[] panel;
     [Header("Buttons")]
     public GameObject[] button;
+    public Sprite spriteOpen;
+    public Sprite spriteClose;
+    private Image image;
+    public GameObject Inventory;
+    public Image InventoryBtn;
+    private void Start()
+    {
+        image = InventoryBtn.GetComponent<Image>();
+    }
     public void ActivateCurrentButton(int indexCurrentButton)
     {
+        InventoryOnOff(true);
+
         for (int i = 0; i < panel.Length; i++)
         {
             if (i != indexCurrentButton)
@@ -23,5 +35,29 @@ public class SwitchPanel : MonoBehaviour
                 panel[i].SetActive(true);
             }
         }
+    }
+    public void InventoryOnOff(bool onlyClose = false)
+    {
+        if (onlyClose)
+        {
+            image.sprite = spriteOpen;
+            Inventory.SetActive(false);
+            return;
+        }
+        else
+        {
+            if (Inventory.activeSelf)
+            {
+                image.sprite = spriteOpen;
+                Inventory.SetActive(false);
+                return;
+            }
+            else
+            {
+                image.sprite = spriteClose;
+                Inventory.SetActive(true);
+            }
+        }
+
     }
 }
