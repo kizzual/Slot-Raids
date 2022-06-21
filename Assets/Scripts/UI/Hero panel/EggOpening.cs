@@ -18,18 +18,25 @@ public class EggOpening : MonoBehaviour
     [SerializeField] private Inventory undeadInventory;
     [SerializeField] private Inventory orderInventory;
     [SerializeField] private Inventory DemonInventory;
+
+    [SerializeField] private Character character;
+
     [SerializeField] private Button add_button;
+    [SerializeField] private GameObject frontPanel;
+
+    private HeroSlot currentSlot;
     void Update()
     {
         
     }
 
-    public void Add_NeutralEgg()
+    public void Open_NeutralEgg(HeroSlot slot)
     {
+        currentSlot = slot;
         neutralEggPanel.SetActive(true);
-        undeadEggPanel.SetActive(false);
-        orderEggPanel.SetActive(false);
-        DemonEggPanel.SetActive(false);
+    //    undeadEggPanel.SetActive(false);
+   //     orderEggPanel.SetActive(false);
+   //     DemonEggPanel.SetActive(false);
         neutralEggCount_text.text = neutralInventory._eggs_count.ToString();
         if(neutralInventory._eggs_count > 0)
         {
@@ -40,8 +47,9 @@ public class EggOpening : MonoBehaviour
             add_button.enabled = false;
         }
     }
-    public void Add_UndeadEgg()
+    public void Open_UndeadEgg(HeroSlot slot)
     {
+        currentSlot = slot;
         neutralEggPanel.SetActive(false);
         undeadEggPanel.SetActive(true);
         orderEggPanel.SetActive(false);
@@ -56,8 +64,9 @@ public class EggOpening : MonoBehaviour
             add_button.enabled = false;
         }
     }
-    public void Add_OrderEgg()
+    public void Open_OrderEgg(HeroSlot slot)
     {
+        currentSlot = slot;
         neutralEggPanel.SetActive(false);
         undeadEggPanel.SetActive(false);
         orderEggPanel.SetActive(true);
@@ -72,8 +81,9 @@ public class EggOpening : MonoBehaviour
             add_button.enabled = false;
         }
     }
-    public void Add_DemonEgg()
+    public void Open_DemonEgg(HeroSlot slot)
     {
+        currentSlot = slot;
         neutralEggPanel.SetActive(false);
         undeadEggPanel.SetActive(false);
         orderEggPanel.SetActive(false);
@@ -87,5 +97,42 @@ public class EggOpening : MonoBehaviour
         {
             add_button.enabled = false;
         }
+    }
+    public void Add_NeutralHero()
+    {
+        currentSlot.isEpmty = true;
+        neutralInventory._eggs_count--;
+        character.Add_NeutralHero();
+        ClosePanels();
+    }
+    public void Add_UndeadHero()
+    {
+        currentSlot.isEpmty = true;
+        undeadInventory._eggs_count--;
+        character.Add_UndeadHero();
+        ClosePanels();
+    }
+    public void Add_OrderHero()
+    {
+        currentSlot.isEpmty = true;
+        orderInventory._eggs_count--;
+        character.Add_OrderHero();
+        ClosePanels();
+    }
+    public void Add_DemonHero()
+    {
+        currentSlot.isEpmty = true;
+        DemonInventory._eggs_count--;
+        character.Add_DemonHero();
+        ClosePanels();
+    }
+    public void ClosePanels()
+    {
+        neutralEggPanel.SetActive(false);
+    //    undeadEggPanel.SetActive(false);
+    //    orderEggPanel.SetActive(false);
+    //    DemonEggPanel.SetActive(false);
+        frontPanel.SetActive(false);
+
     }
 }

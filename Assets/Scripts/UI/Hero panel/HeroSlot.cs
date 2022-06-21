@@ -9,13 +9,14 @@ public class HeroSlot : MonoBehaviour
     [SerializeField] private GameObject HeroPanel;
     [SerializeField] private GameObject EggPanel;
     [SerializeField] private GameObject FreePanel;
+
     [SerializeField] private Image heroIcon;
     [SerializeField] private Text heroRank_text;
     [SerializeField] private Text heroLevel_text;
     [SerializeField] private Text heroGoldProfit_text;
     [SerializeField] private Text heroGoldToLevelUp_text;
 
-
+    public Hero currentHero;
     void Start()
     {
 
@@ -32,9 +33,12 @@ public class HeroSlot : MonoBehaviour
         EggPanel.SetActive(false);
         FreePanel.SetActive(false);
         isEpmty = false;
-        
-   //     heroIcon.sprite = hero.image;
-     //   heroLvl_text.text = hero.Level.ToString();
+        ChooseCurrentHero(hero);
+        heroIcon.sprite = hero.imageRank_1;
+        //  heroRank_text.text = hero.
+        heroLevel_text.text = hero.Level.ToString();
+        //     heroGoldProfit_text
+        heroGoldToLevelUp_text.text = hero.goldToGrade.ToString();
     }
     public void AddEgg()
     {
@@ -48,5 +52,8 @@ public class HeroSlot : MonoBehaviour
         EggPanel.SetActive(false);
         FreePanel.SetActive(true);
     }
-
+    public void ChooseCurrentHero(Hero hero)
+    {
+        currentHero = hero;
+    }
 }

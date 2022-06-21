@@ -8,15 +8,7 @@ public class HeroSO : ScriptableObject
     public Sprite imageRank_1;
     public Sprite imageRank_2;
     public Sprite imageRank_3;
-    public enum Rare
-    {
-        Common,
-        Unusual,
-        Rare,
-        Epic,
-        Legendary
-    }
-    public Rare rare;
+
     public enum ElementType
     {
         Neutral,

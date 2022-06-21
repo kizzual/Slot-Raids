@@ -11,10 +11,10 @@ public class ScrollingObjects : MonoBehaviour
     [SerializeField] private float scrollingDuration = 3f;
     [SerializeField] private AnimationCurve curve;
     [SerializeField] private List<Prize> prizeList;
-    [SerializeField] private LayerMask layer;
    
     [HideInInspector] public bool _scrollingIsActive = false;
     [HideInInspector] public Prize winPrize;
+    [HideInInspector] public Hero currentHero;
     private RectTransform _point;
     private float _elapsedTime; 
     private float _percentageComplete;

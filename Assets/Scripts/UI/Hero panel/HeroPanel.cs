@@ -14,9 +14,9 @@ public class HeroPanel : MonoBehaviour
     }
     public ElementType elementType;
 
-    [SerializeField] private List<HeroSlot> heroSlots;
-
-
+    public List<HeroSlot> heroSlots;
+    [SerializeField] private EggOpening eggOpening;
+    [SerializeField] private GameObject frontPanel;
     void Start()
     {
         
@@ -36,9 +36,14 @@ public class HeroPanel : MonoBehaviour
             heroSlots[freeSlot].AddEgg();
         }
     }
-    public void AddHero(Hero hero, int indexPosition)
+    public void AddHero(Hero hero)
     {
-        heroSlots[indexPosition].AddHero(hero);
+        int freeSlot = CheckFreeSlot();
+        if (freeSlot != -1)
+        {
+            heroSlots[freeSlot].AddHero(hero);
+        }
+        
     }
 
     private int CheckFreeSlot()
@@ -52,5 +57,35 @@ public class HeroPanel : MonoBehaviour
         }
         return -1;
     }
+    public void Open_NeutralEgg(int slotIndex)
+    {
+        // добавить проверку времени
+        frontPanel.SetActive(true);
+        eggOpening.gameObject.SetActive(true);
+        eggOpening.Open_NeutralEgg(heroSlots[slotIndex]);
+    }
+    public void Open_UndeadEgg(int slotIndex)
+    {
+        // добавить проверку времени
 
+        frontPanel.SetActive(true);
+        eggOpening.gameObject.SetActive(true);
+        eggOpening.Open_NeutralEgg(heroSlots[slotIndex]);
+    }
+    public void Open_OrderEgg(int slotIndex)
+    {
+        // добавить проверку времени
+
+        frontPanel.SetActive(true);
+        eggOpening.gameObject.SetActive(true);
+        eggOpening.Open_NeutralEgg(heroSlots[slotIndex]);
+    }
+    public void Open_DemonEgg(int slotIndex)
+    {
+        // добавить проверку времени
+
+        frontPanel.SetActive(true);
+        eggOpening.gameObject.SetActive(true);
+        eggOpening.Open_NeutralEgg(heroSlots[slotIndex]);
+    }
 }

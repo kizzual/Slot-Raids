@@ -163,17 +163,17 @@ public class ScrollingController : MonoBehaviour
         _isScrolling = true;
 
     }
-  /*  public void FormationSlot(Zone zone, Character heroes, int index)
+    public void FormationSlot(Zone zone,  int index)
     {
         if (scrollingObjects[index].isActive)
         {
-            switch (heroes.heroes[index].Level)
+            switch (scrollingObjects[index].currentHero.Level)
             {
                 case 1:
                     {
                         List<Prize> prizeList = new List<Prize>();
-                        int itemsCountPerEach = Mathf.RoundToInt((((zone.ItemPercent + heroes.heroes[index].LuckPercent) / 100f) * 30f ));
-                        int eggCount = zone.ItemPercent + heroes.heroes[index].LuckPercent - (itemsCountPerEach * 3);
+                        int itemsCountPerEach = Mathf.RoundToInt((((zone.ItemPercent + scrollingObjects[index].currentHero.LuckPercent) / 100f) * 30f ));
+                        int eggCount = zone.ItemPercent + scrollingObjects[index].currentHero.LuckPercent - (itemsCountPerEach * 3);
                         for (int i = 0; i <= itemsCountPerEach; i++)
                         {
                             prizeList.Add(zone.items.sword_1);
@@ -190,7 +190,7 @@ public class ScrollingController : MonoBehaviour
                         {
                             prizeList.Add(zone.items.Egg);
                         }
-                        for (int i = 0; i < zone.DeathPercent - heroes.heroes[index].ProtectPercent; i++)
+                        for (int i = 0; i < zone.DeathPercent - scrollingObjects[index].currentHero.ProtectPercent; i++)
                         {
                             prizeList.Add(zone.items.death);
                         }
@@ -216,5 +216,5 @@ public class ScrollingController : MonoBehaviour
                     }
             }
         }
-    }*/
+    }
 }

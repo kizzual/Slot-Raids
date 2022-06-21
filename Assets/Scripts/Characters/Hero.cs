@@ -9,15 +9,6 @@ public class Hero : MonoBehaviour
     public Sprite imageRank_1;
     public Sprite imageRank_2;
     public Sprite imageRank_3;
-    public enum Rare
-    {
-        Common,
-        Unusual,
-        Rare,
-        Epic,
-        Legendary
-    }
-    public Rare rare;
     public enum ElementType
     {
         Neutral,
@@ -43,13 +34,18 @@ public class Hero : MonoBehaviour
 
 
 
-    public Hero(int id, int profit, int luck, int protect, int combo)
+    public Hero(HeroSO heroSo)
     {
-        ID = id;
-        Level = 1;
-        ProfitPercent = profit;
-        LuckPercent = luck;
-        ProtectPercent = protect;
-        ComboPercent = combo;
+        ID = heroSo.ID;
+        Name = heroSo.Name;
+        imageRank_1 = heroSo.imageRank_1;
+        imageRank_2 = heroSo.imageRank_2;
+        imageRank_3 = heroSo.imageRank_3;
+        elementType = (ElementType)heroSo.elementType;
+        Level = heroSo.Level;
+        ProfitPercent = heroSo.ProfitPercent;
+        LuckPercent = heroSo.LuckPercent;
+        ProtectPercent = heroSo.ProtectPercent;
+        ComboPercent = heroSo.ComboPercent;
     }
 }
