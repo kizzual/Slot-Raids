@@ -5,9 +5,18 @@ using UnityEngine;
 
 public class Character : MonoBehaviour
 {
-    public List<Hero> heroes;
+    [SerializeField] private List<HeroSO> heroesSo;
+    [SerializeField] private HeroPanel NeutralHeroes;
+    [SerializeField] private HeroPanel UndeadHeroes;
+    [SerializeField] private HeroPanel OrderHeroes;
+    [SerializeField] private HeroPanel DemonHeroes;
 
 
+    [SerializeField] private Inventory NeutralInventory; 
+    [SerializeField] private Inventory UndeadInventory; 
+    [SerializeField] private Inventory OrderInventory; 
+    [SerializeField] private Inventory DemonInventory; 
+    private List<Hero> _heroes = new List<Hero>();
 
 
     void Start()
@@ -16,42 +25,15 @@ public class Character : MonoBehaviour
     }
 
 
-    void Update()
-    {
-        
-    }
 
     public void AddHero()
     {
         var hero = new Hero(1, 10, 12, 6, 1);
-        heroes.Add(hero);
+        _heroes.Add(hero);
     }
-
-
-}
-[Serializable]
-public class Hero
-{
-    public int ID;
-    public int Level;
-    public int ProfitPercent;
-    public int LuckPercent;
-    public int ProtectPercent;
-    public int ComboPercent;
-
-    public int ItemProfit;
-    public int ItemProtect;
-    public int iemLuck;
-    
-    public Hero (int id, int profit, int luck, int protect, int combo)
+    public void OpenNeutralEgg()
     {
-        ID = id;
-        Level = 1;
-        ProfitPercent = profit ;
-        LuckPercent = luck;
-        ProtectPercent = protect;
-        ComboPercent = combo;
+
     }
-    
-    
+
 }

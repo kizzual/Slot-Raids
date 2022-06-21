@@ -163,7 +163,7 @@ public class ScrollingController : MonoBehaviour
         _isScrolling = true;
 
     }
-    public void FormationSlot(Zone zone, Character heroes, int index)
+  /*  public void FormationSlot(Zone zone, Character heroes, int index)
     {
         if (scrollingObjects[index].isActive)
         {
@@ -216,5 +216,5 @@ public class ScrollingController : MonoBehaviour
                     }
             }
         }
-    }
+    }*/
 }

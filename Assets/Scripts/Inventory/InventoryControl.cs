@@ -76,6 +76,7 @@ public class InventoryControl : MonoBehaviour
         }
     }
 
+
     public void SwitchPanels(int index)
     {
         foreach (var item in Inventories)
