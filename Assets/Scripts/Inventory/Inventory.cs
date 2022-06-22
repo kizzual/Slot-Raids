@@ -42,6 +42,7 @@ public class Inventory : MonoBehaviour
     public Sprite elementLogo;
 
 
+    #region Initialise
     private void Initialise()
     {
         if(_eggs_count > 0)
@@ -107,6 +108,8 @@ public class Inventory : MonoBehaviour
         amulet_2_text.text = _amulet_2_count.ToString();
         amulet_3_text.text = _amulet_3_count.ToString();
     }
+    #endregion
+    #region Open Inventory
     public void OpenFullInventory()
     {
         CountInitialise();
@@ -365,6 +368,8 @@ public class Inventory : MonoBehaviour
         shield_3_image.gameObject.SetActive(false);
 
     }
+    #endregion
+    #region Load / Save
     public void SetSaveInfo(SavedInvetory loadInv)
     {
         _eggs_count = loadInv._eggs_count;
@@ -395,4 +400,5 @@ public class Inventory : MonoBehaviour
         amulet_2 = _amulet_2_count;
         amulet_3 = _amulet_3_count;
     }
+    #endregion
 }

@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "DemonItemsSO", menuName = "ScriptableObjects/DemonItemsSO", order = 1)]
+[CreateAssetMenu(fileName = "UndeadItemsSO", menuName = "ScriptableObjects/UndeadItemsSO", order = 1)]
 public class UndeadItemsSO : ScriptableObject
 {
     public Prize gold_1;

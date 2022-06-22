@@ -23,7 +23,6 @@ public class EggOpening : MonoBehaviour
 
     [SerializeField] private Button add_button;
     [SerializeField] private GameObject frontPanel;
-
     private HeroSlot currentSlot;
     void Update()
     {
@@ -32,11 +31,12 @@ public class EggOpening : MonoBehaviour
 
     public void Open_NeutralEgg(HeroSlot slot)
     {
-        currentSlot = slot;
+        frontPanel.SetActive(true);
+           currentSlot = slot;
         neutralEggPanel.SetActive(true);
-    //    undeadEggPanel.SetActive(false);
-   //     orderEggPanel.SetActive(false);
-   //     DemonEggPanel.SetActive(false);
+        undeadEggPanel.SetActive(false);
+        orderEggPanel.SetActive(false);
+        DemonEggPanel.SetActive(false);
         neutralEggCount_text.text = neutralInventory._eggs_count.ToString();
         if(neutralInventory._eggs_count > 0)
         {
@@ -49,6 +49,8 @@ public class EggOpening : MonoBehaviour
     }
     public void Open_UndeadEgg(HeroSlot slot)
     {
+        frontPanel.SetActive(true);
+
         currentSlot = slot;
         neutralEggPanel.SetActive(false);
         undeadEggPanel.SetActive(true);
@@ -66,6 +68,8 @@ public class EggOpening : MonoBehaviour
     }
     public void Open_OrderEgg(HeroSlot slot)
     {
+        frontPanel.SetActive(true);
+
         currentSlot = slot;
         neutralEggPanel.SetActive(false);
         undeadEggPanel.SetActive(false);
@@ -83,6 +87,8 @@ public class EggOpening : MonoBehaviour
     }
     public void Open_DemonEgg(HeroSlot slot)
     {
+        frontPanel.SetActive(true);
+
         currentSlot = slot;
         neutralEggPanel.SetActive(false);
         undeadEggPanel.SetActive(false);
@@ -129,9 +135,9 @@ public class EggOpening : MonoBehaviour
     public void ClosePanels()
     {
         neutralEggPanel.SetActive(false);
-    //    undeadEggPanel.SetActive(false);
-    //    orderEggPanel.SetActive(false);
-    //    DemonEggPanel.SetActive(false);
+        undeadEggPanel.SetActive(false);
+        orderEggPanel.SetActive(false);
+        DemonEggPanel.SetActive(false);
         frontPanel.SetActive(false);
 
     }

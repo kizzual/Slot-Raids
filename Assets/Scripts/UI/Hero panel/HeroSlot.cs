@@ -9,14 +9,13 @@ public class HeroSlot : MonoBehaviour
     [SerializeField] private GameObject HeroPanel;
     [SerializeField] private GameObject EggPanel;
     [SerializeField] private GameObject FreePanel;
-
+    
     [SerializeField] private Image heroIcon;
     [SerializeField] private Text heroRank_text;
     [SerializeField] private Text heroLevel_text;
     [SerializeField] private Text heroGoldProfit_text;
     [SerializeField] private Text heroGoldToLevelUp_text;
-
-    public Hero currentHero;
+    [HideInInspector] public Hero currentHero;
     void Start()
     {
 
@@ -27,6 +26,7 @@ public class HeroSlot : MonoBehaviour
     {
 
     }
+
     public void AddHero(Hero hero)
     {
         HeroPanel.SetActive(true);
@@ -40,11 +40,34 @@ public class HeroSlot : MonoBehaviour
         //     heroGoldProfit_text
         heroGoldToLevelUp_text.text = hero.goldToGrade.ToString();
     }
-    public void AddEgg()
+    public void AddEgg(ElementType elementType, EggOpening eggOpening)
     {
-        HeroPanel.SetActive(false);
-        EggPanel.SetActive(true);
-        FreePanel.SetActive(false);
+        switch (elementType)
+        {
+            case ElementType.Neutral:
+                {
+                    eggOpening.Open_NeutralEgg(this);
+                    break;
+                }
+            case ElementType.Undead:
+                {
+                    eggOpening.Open_UndeadEgg(this);
+
+                    break;
+                }
+            case ElementType.Order:
+                {
+                    eggOpening.Open_OrderEgg(this);
+
+                    break;
+                }
+            case ElementType.Demon:
+                {
+                    eggOpening.Open_DemonEgg(this);
+
+                    break;
+                }
+        }
     }
     public void FreeSloActive()
     {

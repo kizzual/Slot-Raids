@@ -18,13 +18,13 @@ public class Selling : MonoBehaviour
     private int _currentCountInInventory;
     private int _currentCountForSelling;
     private int _currentRank;
-    public void TakeAllInfo(Prize prize, InventoryControl inventoryControl)
+    public void TakeAllInfo(Prize prize, Inventory Inventory)
     {
-        CheckElementinventory(prize, inventoryControl);
+        _currentInventory = Inventory;
         _currentCountInInventory = CheckElementType(prize);
         DisplayInfo(prize);
     }
-    private void CheckElementinventory(Prize prize, InventoryControl inventoryControl)
+/*    private void CheckElementinventory(Prize prize, InventoryControl inventoryControl)
     {
         // сверяем стихии что понять какой из 4х инвентарей нам нужен
         // 1- neutral 2- undead 3- order 4- demon
@@ -51,7 +51,7 @@ public class Selling : MonoBehaviour
                     break;
                 }
         }
-    }
+    }*/
     private int CheckElementType(Prize prize)
     {
         

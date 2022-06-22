@@ -6,6 +6,13 @@ using UnityEngine;
 public class InventoryControl : MonoBehaviour
 {
     const string SaveFilename = "Inventories";
+    [SerializeField] NeutralItemsSO neutralItemsSO;
+    [SerializeField] UndeadItemsSO undeadItemsSO;
+    [SerializeField] OrderItemsSO orderItemsSO;
+    [SerializeField] DemonItemsSO demonItemsSO;
+
+    [SerializeField] private Selling selling;
+    [SerializeField] private GameObject FrontPanel;
 
     public List<Inventory> Inventories;
     private  List<SavedInvetory> SavedInventories = new List<SavedInvetory>();
@@ -13,6 +20,175 @@ public class InventoryControl : MonoBehaviour
     {
         LoadInventory();
         InitialiseInventory();
+    }
+
+    public void SellNeutralItems(int indexItem)
+    {
+        Prize prize = new Prize();
+        if(indexItem == 1)
+        {
+            prize = neutralItemsSO.sword_1;
+        }
+        else if (indexItem == 2)
+        {
+            prize = neutralItemsSO.sword_2;
+        }
+        else if (indexItem == 3)
+        {
+            prize = neutralItemsSO.sword_3;
+        }
+        else if(indexItem == 4)
+        {
+            prize = neutralItemsSO.shield_1;
+        }
+        else if (indexItem == 5)
+        {
+            prize = neutralItemsSO.shield_2;
+        }
+        else if (indexItem == 6)
+        {
+            prize = neutralItemsSO.shield_3;
+        }
+        else if (indexItem == 7)
+        {
+            prize = neutralItemsSO.Amulet_1;
+        }
+        else if (indexItem == 8)
+        {
+            prize = neutralItemsSO.Amulet_2;
+        }
+        else if (indexItem == 9)
+        {
+            prize = neutralItemsSO.Amulet_3;
+        }
+        FrontPanel.SetActive(true);
+        selling.TakeAllInfo(prize, Inventories[0]);
+    }
+    public void SellUndeadItems(int indexItem)
+    {
+        Prize prize = new Prize();
+        if (indexItem == 1)
+        {
+            prize = undeadItemsSO.sword_1;
+        }
+        else if (indexItem == 2)
+        {
+            prize = undeadItemsSO.sword_2;
+        }
+        else if (indexItem == 3)
+        {
+            prize = undeadItemsSO.sword_3;
+        }
+        else if (indexItem == 4)
+        {
+            prize = undeadItemsSO.shield_1;
+        }
+        else if (indexItem == 5)
+        {
+            prize = undeadItemsSO.shield_2;
+        }
+        else if (indexItem == 6)
+        {
+            prize = undeadItemsSO.shield_3;
+        }
+        else if (indexItem == 7)
+        {
+            prize = undeadItemsSO.Amulet_1;
+        }
+        else if (indexItem == 8)
+        {
+            prize = undeadItemsSO.Amulet_2;
+        }
+        else if (indexItem == 9)
+        {
+            prize = undeadItemsSO.Amulet_3;
+        }
+        FrontPanel.SetActive(true);
+        selling.TakeAllInfo(prize, Inventories[1]);
+    }
+    public void SellOrderItems(int indexItem)
+    {
+        Prize prize = new Prize();
+        if (indexItem == 1)
+        {
+            prize = orderItemsSO.sword_1;
+        }
+        else if (indexItem == 2)
+        {
+            prize = orderItemsSO.sword_2;
+        }
+        else if (indexItem == 3)
+        {
+            prize = orderItemsSO.sword_3;
+        }
+        else if (indexItem == 4)
+        {
+            prize = orderItemsSO.shield_1;
+        }
+        else if (indexItem == 5)
+        {
+            prize = orderItemsSO.shield_2;
+        }
+        else if (indexItem == 6)
+        {
+            prize = orderItemsSO.shield_3;
+        }
+        else if (indexItem == 7)
+        {
+            prize = orderItemsSO.Amulet_1;
+        }
+        else if (indexItem == 8)
+        {
+            prize = orderItemsSO.Amulet_2;
+        }
+        else if (indexItem == 9)
+        {
+            prize = orderItemsSO.Amulet_3;
+        }
+        FrontPanel.SetActive(true);
+        selling.TakeAllInfo(prize, Inventories[2]);
+    }
+    public void SellDemonItems(int indexItem)
+    {
+        Prize prize = new Prize();
+        if (indexItem == 1)
+        {
+            prize = demonItemsSO.sword_1;
+        }
+        else if (indexItem == 2)
+        {
+            prize = demonItemsSO.sword_2;
+        }
+        else if (indexItem == 3)
+        {
+            prize = demonItemsSO.sword_3;
+        }
+        else if (indexItem == 4)
+        {
+            prize = demonItemsSO.shield_1;
+        }
+        else if (indexItem == 5)
+        {
+            prize = demonItemsSO.shield_2;
+        }
+        else if (indexItem == 6)
+        {
+            prize = demonItemsSO.shield_3;
+        }
+        else if (indexItem == 7)
+        {
+            prize = demonItemsSO.Amulet_1;
+        }
+        else if (indexItem == 8)
+        {
+            prize = demonItemsSO.Amulet_2;
+        }
+        else if (indexItem == 9)
+        {
+            prize = demonItemsSO.Amulet_3;
+        }
+        FrontPanel.SetActive(true);
+        selling.TakeAllInfo(prize, Inventories[3]);
     }
     private void OnEnable()
     {
@@ -29,7 +205,6 @@ public class InventoryControl : MonoBehaviour
 
         }
     }
-
     private void InitialiseInventory()
     {
         for (int i = 0; i < SavedInventories.Count; i++)
@@ -38,6 +213,8 @@ public class InventoryControl : MonoBehaviour
         }
     }
 
+
+    #region Open inventory
     public void OpenFullInventory()
     {
         foreach (var item in Inventories)
@@ -74,8 +251,7 @@ public class InventoryControl : MonoBehaviour
             item.OpenOnly_Amulets(hero.Level);
         }
     }
-
-
+    #endregion
     public void SwitchPanels(int index)
     {
         foreach (var item in Inventories)

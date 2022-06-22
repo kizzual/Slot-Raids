@@ -120,6 +120,7 @@ MonoBehaviour:
   type: 0
   _ElementType: 0
   elementType: 0
+  sellingPrice: 0
   goldPrize: 10
   profitPercent: 15
   defencePercent: 5

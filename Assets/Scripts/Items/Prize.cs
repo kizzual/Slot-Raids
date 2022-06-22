@@ -26,19 +26,13 @@ public class Prize : MonoBehaviour
 
     void Update()
     {
-        
+
     }
 
- 
     public void SwitchPosition(Vector3 newPosition)
     {
         currentPosition.transform.localPosition = newPosition;
     }
-    private void OnTriggerExit(Collider other)
-    {
-        
-    }
-
     public void TakeInfo(Prize prize)
     {
         _Type = prize._Type;
@@ -50,7 +44,10 @@ public class Prize : MonoBehaviour
         Image.sprite = prize.sprite;
 
     }
+    public void Initialise<T>(T SO)
+    {
 
+    }
 }
 public enum Type
 {

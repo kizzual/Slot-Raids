@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-
+ 
 public class HeroPanel : MonoBehaviour
 {
     public enum ElementType
@@ -13,7 +13,7 @@ public class HeroPanel : MonoBehaviour
         Demon
     }
     public ElementType elementType;
-
+    [SerializeField] Character characters;
     public List<HeroSlot> heroSlots;
     [SerializeField] private EggOpening eggOpening;
     [SerializeField] private GameObject frontPanel;
@@ -33,7 +33,7 @@ public class HeroPanel : MonoBehaviour
         int freeSlot = CheckFreeSlot();
         if(freeSlot != -1)
         {
-            heroSlots[freeSlot].AddEgg();
+            heroSlots[freeSlot].AddEgg((global::ElementType)elementType, eggOpening);
         }
     }
     public void AddHero(Hero hero)
