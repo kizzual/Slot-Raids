@@ -18,40 +18,43 @@ public class Selling : MonoBehaviour
     private int _currentCountInInventory;
     private int _currentCountForSelling;
     private int _currentRank;
+    private int testGold = 10;
+    private Prize _prize;
     public void TakeAllInfo(Prize prize, Inventory Inventory)
     {
+        _prize = prize;
         _currentInventory = Inventory;
         _currentCountInInventory = CheckElementType(prize);
         DisplayInfo(prize);
     }
-/*    private void CheckElementinventory(Prize prize, InventoryControl inventoryControl)
-    {
-        // сверяем стихии что понять какой из 4х инвентарей нам нужен
-        // 1- neutral 2- undead 3- order 4- demon
-        switch (prize._ElementType)
+    /*    private void CheckElementinventory(Prize prize, InventoryControl inventoryControl)
         {
-            case ElementType.Neutral:
-                {
-                    _currentInventory = inventoryControl.Inventories[0];
-                    break;
-                }
-            case ElementType.Undead:
-                {
-                    _currentInventory = inventoryControl.Inventories[1];
-                    break;
-                }
-            case ElementType.Order:
-                {
-                    _currentInventory = inventoryControl.Inventories[2];
-                    break;
-                }
-            case ElementType.Demon:
-                {
-                    _currentInventory = inventoryControl.Inventories[3];
-                    break;
-                }
-        }
-    }*/
+            // сверяем стихии что понять какой из 4х инвентарей нам нужен
+            // 1- neutral 2- undead 3- order 4- demon
+            switch (prize._ElementType)
+            {
+                case ElementType.Neutral:
+                    {
+                        _currentInventory = inventoryControl.Inventories[0];
+                        break;
+                    }
+                case ElementType.Undead:
+                    {
+                        _currentInventory = inventoryControl.Inventories[1];
+                        break;
+                    }
+                case ElementType.Order:
+                    {
+                        _currentInventory = inventoryControl.Inventories[2];
+                        break;
+                    }
+                case ElementType.Demon:
+                    {
+                        _currentInventory = inventoryControl.Inventories[3];
+                        break;
+                    }
+            }
+        }*/
     private int CheckElementType(Prize prize)
     {
         
@@ -157,7 +160,39 @@ public class Selling : MonoBehaviour
                 _currentCountForSelling = 0;
 
             currentItemsCount_text.text = _currentCountForSelling.ToString();
-            currentGoldSelling_text.text = (prize.sellingPrice * _currentCountForSelling).ToString();
+            currentGoldSelling_text.text = ((prize.sellingPrice + testGold) * _currentCountForSelling).ToString();
         }
+    }
+    public void AddItemForSelling()
+    {
+        if (_currentCountForSelling < _currentCountInInventory)
+        {
+            _currentCountForSelling += 1;
+            currentItemsCount_text.text = _currentCountForSelling.ToString();
+            currentGoldSelling_text.text = ((_prize.sellingPrice + testGold) * _currentCountForSelling).ToString();
+        }
+    }
+    public void ReduceItemForSelling()
+    {
+        if (_currentCountForSelling > 0)
+        {
+            _currentCountForSelling -= 1;
+            currentItemsCount_text.text = _currentCountForSelling.ToString();
+            currentGoldSelling_text.text = ((_prize.sellingPrice + testGold) * _currentCountForSelling).ToString();
+        }
+    }
+    public void MaxItemForSelling()
+    {
+        _currentCountForSelling = _currentCountInInventory;
+        currentItemsCount_text.text = _currentCountForSelling.ToString();
+        currentGoldSelling_text.text = ((_prize.sellingPrice + testGold) * _currentCountForSelling).ToString();
+    }
+    public void SellingItem()
+    {
+        _currentCountInInventory -= _currentCountForSelling;
+        itemCountInInvetory_text.text = _currentCountInInventory.ToString();
+        _currentCountForSelling = 0;
+        currentItemsCount_text.text = "0";
+        currentGoldSelling_text.text = "0";
     }
 }
