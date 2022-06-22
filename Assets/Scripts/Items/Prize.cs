@@ -9,6 +9,7 @@ public class Prize : MonoBehaviour
     public Type type;
     [SerializeField] public ElementType _ElementType;
     public ElementType elementType;
+    public int sellingPrice;
     public int goldPrize;
     public int profitPercent;
     public int defencePercent;

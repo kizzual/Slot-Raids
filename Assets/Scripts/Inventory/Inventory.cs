@@ -39,6 +39,7 @@ public class Inventory : MonoBehaviour
     [SerializeField] private Text amulet_3_text;
 
 
+    public Sprite elementLogo;
 
 
     private void Initialise()
