@@ -20,7 +20,8 @@ public class EggOpening : MonoBehaviour
     [SerializeField] private Inventory DemonInventory;
 
     [SerializeField] private Character character;
-
+    [SerializeField] private Sprite AddButton_activeSprite;
+    [SerializeField] private Sprite AddButton_InActiveSprite;
     [SerializeField] private Button add_button;
     [SerializeField] private GameObject frontPanel;
     private HeroSlot currentSlot;
@@ -32,7 +33,7 @@ public class EggOpening : MonoBehaviour
     public void Open_NeutralEgg(HeroSlot slot)
     {
         frontPanel.SetActive(true);
-           currentSlot = slot;
+        currentSlot = slot;
         neutralEggPanel.SetActive(true);
         undeadEggPanel.SetActive(false);
         orderEggPanel.SetActive(false);
@@ -40,10 +41,12 @@ public class EggOpening : MonoBehaviour
         neutralEggCount_text.text = neutralInventory._eggs_count.ToString();
         if(neutralInventory._eggs_count > 0)
         {
+            add_button.gameObject.GetComponent<Image>().sprite = AddButton_activeSprite;
             add_button.enabled = true;
         }
         else
         {
+            add_button.gameObject.GetComponent<Image>().sprite = AddButton_InActiveSprite;
             add_button.enabled = false;
         }
     }
@@ -59,10 +62,12 @@ public class EggOpening : MonoBehaviour
         undeadEggCount_text.text = undeadInventory._eggs_count.ToString();
         if (undeadInventory._eggs_count > 0)
         {
+            add_button.gameObject.GetComponent<Image>().sprite = AddButton_activeSprite;
             add_button.enabled = true;
         }
         else
         {
+            add_button.gameObject.GetComponent<Image>().sprite = AddButton_InActiveSprite;
             add_button.enabled = false;
         }
     }
@@ -78,10 +83,12 @@ public class EggOpening : MonoBehaviour
         orderEggCount_text.text = orderInventory._eggs_count.ToString();
         if (orderInventory._eggs_count > 0)
         {
+            add_button.gameObject.GetComponent<Image>().sprite = AddButton_activeSprite;
             add_button.enabled = true;
         }
         else
         {
+            add_button.gameObject.GetComponent<Image>().sprite = AddButton_InActiveSprite;
             add_button.enabled = false;
         }
     }
@@ -97,39 +104,37 @@ public class EggOpening : MonoBehaviour
         demonEggCount_text.text = DemonInventory._eggs_count.ToString();
         if (DemonInventory._eggs_count > 0)
         {
+            add_button.gameObject.GetComponent<Image>().sprite = AddButton_activeSprite;
             add_button.enabled = true;
         }
         else
         {
+            add_button.gameObject.GetComponent<Image>().sprite = AddButton_InActiveSprite;
             add_button.enabled = false;
         }
     }
-    public void Add_NeutralHero()
+    public void Add_EggNeutral()
     {
-        currentSlot.isEpmty = true;
         neutralInventory._eggs_count--;
-        character.Add_NeutralHero();
+        character.Add_EggNeutral();
         ClosePanels();
     }
-    public void Add_UndeadHero()
+    public void Add_EggUndead()
     {
-        currentSlot.isEpmty = true;
         undeadInventory._eggs_count--;
-        character.Add_UndeadHero();
+        character.Add_EggUndead();
         ClosePanels();
     }
-    public void Add_OrderHero()
+    public void Add_EggOrder()
     {
-        currentSlot.isEpmty = true;
         orderInventory._eggs_count--;
-        character.Add_OrderHero();
+        character.Add_EggOrder();
         ClosePanels();
     }
-    public void Add_DemonHero()
+    public void Add_EggDemon()
     {
-        currentSlot.isEpmty = true;
         DemonInventory._eggs_count--;
-        character.Add_DemonHero();
+        character.Add_EggDemon();
         ClosePanels();
     }
     public void ClosePanels()

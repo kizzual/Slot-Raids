@@ -4,14 +4,15 @@ using UnityEngine;
 
 public class ScrollingController : MonoBehaviour
 {
-    [SerializeField] private List<ScrollingObjects> scrollingObjects;
-    [SerializeField] private GameController game_controller;
+    public List<ScrollingObjects> scrollingObjects;
+//    [SerializeField] private GameController game_controller;
     [SerializeField] private RayCheckingMatches _ray;
     private int _countActiveSlots;
     private bool _isScrolling = false;
     private bool _isActiveRaid;
+    private Zone _currentZone;
 
-    public float distance;
+   // public float distance;
     void Awake()
     {
         foreach (var item in GetComponentsInChildren<ScrollingObjects>())
@@ -44,7 +45,14 @@ public class ScrollingController : MonoBehaviour
         }
     }
 
-  
+    public void SwitchCurrentZone(Zone zone)
+    {
+        if (!zone.IsClosed)
+        {
+            _currentZone = zone;
+        }
+    }
+
     private void CheckIsScrolling()
     {
         if(_countActiveSlots == 9)
@@ -163,57 +171,60 @@ public class ScrollingController : MonoBehaviour
         _isScrolling = true;
 
     }
-    public void FormationSlot(Zone zone,  int index)
+    public void FormationSlot()
     {
-        if (scrollingObjects[index].isActive)
+        for (int index = 0; index < scrollingObjects.Count; index++)
         {
-            switch (scrollingObjects[index].currentHero.Level)
+            if (scrollingObjects[index].isActive)
             {
-                case 1:
-                    {
-                        List<Prize> prizeList = new List<Prize>();
-                        int itemsCountPerEach = Mathf.RoundToInt((((zone.ItemPercent + scrollingObjects[index].currentHero.LuckPercent) / 100f) * 30f ));
-                        int eggCount = zone.ItemPercent + scrollingObjects[index].currentHero.LuckPercent - (itemsCountPerEach * 3);
-                        for (int i = 0; i <= itemsCountPerEach; i++)
+                switch (scrollingObjects[index].currentHero.Level)
+                {
+                    case 1:
                         {
-                            prizeList.Add(zone.items.sword_1);
-                        }
-                        for (int i = 0; i <= itemsCountPerEach; i++)
-                        {
-                            prizeList.Add(zone.items.shield_1);
-                        }
-                        for (int i = 0; i <= itemsCountPerEach; i++)
-                        {
-                            prizeList.Add(zone.items.Amulet_1);
-                        }
-                        for (int i = 0; i < eggCount; i++)
-                        {
-                            prizeList.Add(zone.items.Egg);
-                        }
-                        for (int i = 0; i < zone.DeathPercent - scrollingObjects[index].currentHero.ProtectPercent; i++)
-                        {
-                            prizeList.Add(zone.items.death);
-                        }
+                            List<Prize> prizeList = new List<Prize>();
+                            int itemsCountPerEach = Mathf.RoundToInt((((_currentZone.ItemPercent + scrollingObjects[index].currentHero.LuckPercent) / 100f) * 30f));
+                            int eggCount = _currentZone.ItemPercent + scrollingObjects[index].currentHero.LuckPercent - (itemsCountPerEach * 3);
+                            for (int i = 0; i <= itemsCountPerEach; i++)
+                            {
+                                prizeList.Add(_currentZone.items.sword_1);
+                            }
+                            for (int i = 0; i <= itemsCountPerEach; i++)
+                            {
+                                prizeList.Add(_currentZone.items.shield_1);
+                            }
+                            for (int i = 0; i <= itemsCountPerEach; i++)
+                            {
+                                prizeList.Add(_currentZone.items.Amulet_1);
+                            }
+                            for (int i = 0; i < eggCount; i++)
+                            {
+                                prizeList.Add(_currentZone.items.Egg);
+                            }
+                            for (int i = 0; i < _currentZone.DeathPercent - scrollingObjects[index].currentHero.ProtectPercent; i++)
+                            {
+                                prizeList.Add(_currentZone.items.death);
+                            }
 
-                        int goldCOunt = 100 - prizeList.Count;
-                        int gold_1  = Mathf.RoundToInt((goldCOunt / 100f) * 50f);
-                        int gold_2  = Mathf.RoundToInt((goldCOunt / 100f) * 30f);
-                        for (int i = 0; i <= gold_1; i++)
-                        {
-                            prizeList.Add(zone.items.gold_1);
-                        }
-                        for (int i = 0; i < gold_2; i++)
-                        {
-                            prizeList.Add(zone.items.gold_2);
-                        }
-                        for (int i = 0; i < 100 - (gold_1 + gold_2); i++)
-                        {
-                            prizeList.Add(zone.items.gold_3);
-                        }
+                            int goldCOunt = 100 - prizeList.Count;
+                            int gold_1 = Mathf.RoundToInt((goldCOunt / 100f) * 50f);
+                            int gold_2 = Mathf.RoundToInt((goldCOunt / 100f) * 30f);
+                            for (int i = 0; i <= gold_1; i++)
+                            {
+                                prizeList.Add(_currentZone.items.gold_1);
+                            }
+                            for (int i = 0; i < gold_2; i++)
+                            {
+                                prizeList.Add(_currentZone.items.gold_2);
+                            }
+                            for (int i = 0; i < 100 - (gold_1 + gold_2); i++)
+                            {
+                                prizeList.Add(_currentZone.items.gold_3);
+                            }
 
-                        scrollingObjects[index].GenerateListObjects(prizeList);
-                        break;
-                    }
+                            scrollingObjects[index].GenerateListObjects(prizeList);
+                            break;
+                        }
+                }
             }
         }
     }

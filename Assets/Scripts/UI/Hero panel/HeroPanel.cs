@@ -17,6 +17,7 @@ public class HeroPanel : MonoBehaviour
     public List<HeroSlot> heroSlots;
     [SerializeField] private EggOpening eggOpening;
     [SerializeField] private GameObject frontPanel;
+    [SerializeField] private Sprite EggImage;
     void Start()
     {
         
@@ -27,23 +28,25 @@ public class HeroPanel : MonoBehaviour
     {
         
     }
-
     public void AddEgg()
+    {
+         int freeSlot = CheckFreeSlot();
+        if (freeSlot != -1)
+        {
+            heroSlots[freeSlot].AddEgg(EggImage);
+        }
+    }
+    public void OpenInventoryToCheckEggs()
     {
         int freeSlot = CheckFreeSlot();
         if(freeSlot != -1)
         {
-            heroSlots[freeSlot].AddEgg((global::ElementType)elementType, eggOpening);
+            heroSlots[freeSlot].OpenInventoryToCheckEggs((global::ElementType)elementType, eggOpening);
         }
     }
-    public void AddHero(Hero hero)
+    public void AddHero(Hero hero, int index)
     {
-        int freeSlot = CheckFreeSlot();
-        if (freeSlot != -1)
-        {
-            heroSlots[freeSlot].AddHero(hero);
-        }
-        
+            heroSlots[index].AddHero(hero);       
     }
 
     private int CheckFreeSlot()
@@ -70,7 +73,7 @@ public class HeroPanel : MonoBehaviour
 
         frontPanel.SetActive(true);
         eggOpening.gameObject.SetActive(true);
-        eggOpening.Open_NeutralEgg(heroSlots[slotIndex]);
+        eggOpening.Open_UndeadEgg(heroSlots[slotIndex]);
     }
     public void Open_OrderEgg(int slotIndex)
     {
@@ -78,7 +81,7 @@ public class HeroPanel : MonoBehaviour
 
         frontPanel.SetActive(true);
         eggOpening.gameObject.SetActive(true);
-        eggOpening.Open_NeutralEgg(heroSlots[slotIndex]);
+        eggOpening.Open_OrderEgg(heroSlots[slotIndex]);
     }
     public void Open_DemonEgg(int slotIndex)
     {
@@ -86,6 +89,6 @@ public class HeroPanel : MonoBehaviour
 
         frontPanel.SetActive(true);
         eggOpening.gameObject.SetActive(true);
-        eggOpening.Open_NeutralEgg(heroSlots[slotIndex]);
+        eggOpening.Open_DemonEgg(heroSlots[slotIndex]);
     }
 }

@@ -5,6 +5,7 @@ using UnityEngine.UI;
 
 public class HeroSlot : MonoBehaviour
 {
+
     public bool isEpmty = true;
     [SerializeField] private GameObject HeroPanel;
     [SerializeField] private GameObject EggPanel;
@@ -15,7 +16,10 @@ public class HeroSlot : MonoBehaviour
     [SerializeField] private Text heroLevel_text;
     [SerializeField] private Text heroGoldProfit_text;
     [SerializeField] private Text heroGoldToLevelUp_text;
-    [HideInInspector] public Hero currentHero;
+    [SerializeField] private Image EggImage;
+
+    public Hero currentHero;   // панель для отображения
+
     void Start()
     {
 
@@ -27,20 +31,32 @@ public class HeroSlot : MonoBehaviour
 
     }
 
-    public void AddHero(Hero hero)
+    public void AddEgg(Sprite img)
     {
+        //запустить таймер
+        isEpmty = false;
+        EggImage.sprite = img;
+        HeroPanel.SetActive(false);
+        EggPanel.SetActive(true);
+        FreePanel.SetActive(false);
+    }
+    
+    public void AddHero(Hero hero)      // добавить анимацию открытия 
+    {
+        currentHero.Initialise(hero);
+    //    _hero = hero;
         HeroPanel.SetActive(true);
         EggPanel.SetActive(false);
         FreePanel.SetActive(false);
-        isEpmty = false;
-        ChooseCurrentHero(hero);
-        heroIcon.sprite = hero.imageRank_1;
+
+        
+        heroIcon.sprite = hero.heroIcon;
         //  heroRank_text.text = hero.
         heroLevel_text.text = hero.Level.ToString();
         //     heroGoldProfit_text
         heroGoldToLevelUp_text.text = hero.goldToGrade.ToString();
     }
-    public void AddEgg(ElementType elementType, EggOpening eggOpening)
+    public void OpenInventoryToCheckEggs(ElementType elementType, EggOpening eggOpening)
     {
         switch (elementType)
         {
@@ -75,8 +91,5 @@ public class HeroSlot : MonoBehaviour
         EggPanel.SetActive(false);
         FreePanel.SetActive(true);
     }
-    public void ChooseCurrentHero(Hero hero)
-    {
-        currentHero = hero;
-    }
+   
 }

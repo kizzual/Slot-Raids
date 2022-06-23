@@ -11,10 +11,12 @@ public class ScrollingObjects : MonoBehaviour
     [SerializeField] private float scrollingDuration = 3f;
     [SerializeField] private AnimationCurve curve;
     [SerializeField] private List<Prize> prizeList;
+    [SerializeField] private RaidSlotInfo raidSlotInfo;
    
     [HideInInspector] public bool _scrollingIsActive = false;
     [HideInInspector] public Prize winPrize;
     [HideInInspector] public Hero currentHero;
+
     private RectTransform _point;
     private float _elapsedTime; 
     private float _percentageComplete;
@@ -25,10 +27,29 @@ public class ScrollingObjects : MonoBehaviour
     {
         _point = GetComponent<RectTransform>();
     }
-
     void FixedUpdate()
     {
         Scrolling();
+    }
+    private void OnEnable()
+    {
+        if(currentHero != null)
+        {
+            isActive = true;
+            raidSlotInfo.ActiveHero();
+
+        }
+        else if(currentHero == null)  //проверку голды
+        {
+            isActive = false;
+            raidSlotInfo.ActiveEmpty();
+        }
+    }
+ 
+    public void AddCurrentHero(Hero hero)
+    {
+        raidSlotInfo.InitialiseHero(hero);
+        isActive = true;
     }
     public void StartScrolling()
     {

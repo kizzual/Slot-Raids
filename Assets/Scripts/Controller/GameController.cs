@@ -37,7 +37,7 @@ public class GameController : MonoBehaviour
           {
           //    scrollingController.FormationSlot(_zone, heroes, i); // изменить на цикл
           }
-        scrollingController.FormationSlot(_zone,  0); // изменить на цикл
+   //     scrollingController.FormationSlot(_zone,  0); // изменить на цикл
     }
   
 }

@@ -5,66 +5,161 @@ using UnityEngine;
 
 public class Character : MonoBehaviour
 {
-    [SerializeField] private List<HeroSO> neutralHeroes;
-    [SerializeField] private List<HeroSO> undeadHeroes;
-    [SerializeField] private List<HeroSO> orderHeroes;
-    [SerializeField] private List<HeroSO> demonHeroes;
-
-    [SerializeField] private HeroPanel NeutralHeroes;
-    [SerializeField] private HeroPanel UndeadHeroes;
-    [SerializeField] private HeroPanel OrderHeroes;
-    [SerializeField] private HeroPanel DemonHeroes;
+    const string SaveFilename = "activeHeroes";
 
 
-    [SerializeField] private Inventory NeutralInventory; 
-    [SerializeField] private Inventory UndeadInventory; 
-    [SerializeField] private Inventory OrderInventory; 
-    [SerializeField] private Inventory DemonInventory; 
-    private List<Hero> _heroes = new List<Hero>();
+    [SerializeField] private List<Hero> neutralHeroes;
+    [SerializeField] private List<Hero> undeadHeroes;
+    [SerializeField] private List<Hero> orderHeroes;
+    [SerializeField] private List<Hero> demonHeroes;
 
-    public CharacterCharacteristics testq;
-    public ScrollingObjects scrollingObjects;
-    void Start()
+    [SerializeField] private List<HeroPanel> HeroPanels;
+    [SerializeField] private CharacterController characterController;
+    private List<SaveActiveHero> saveActiveHero = new List<SaveActiveHero>();
+
+    private void Awake()
     {
-        
+        if (PlayerPrefs.HasKey("firstTime"))
+        {
+            LoadInventory();
+            InitialiseActiveHero();
+        }
     }
 
-    public void Add_NeutralHero()
+    private void OnEnable()
     {
-        int indextHero = UnityEngine.Random.Range(0, neutralHeroes.Count + 1);
-        Hero hero = new Hero(neutralHeroes[1]);
-        neutralHeroes.RemoveAt(1);
-        NeutralHeroes.AddHero(hero);
+        SwitchPanels(0);
     }
-    public void Add_UndeadHero()
+    public void Add_NeutralHero(int index)
     {
-        int indextHero = UnityEngine.Random.Range(0, undeadHeroes.Count + 1);
-        Hero hero = new Hero(undeadHeroes[indextHero]);
+        int indextHero = UnityEngine.Random.Range(0, neutralHeroes.Count);
+        HeroPanels[0].AddHero(neutralHeroes[indextHero], index);
+        neutralHeroes.RemoveAt(indextHero);
+    }
+    public void Add_UndeadHero(int index)
+    {
+        int indextHero = UnityEngine.Random.Range(0, undeadHeroes.Count);
+        HeroPanels[1].AddHero(undeadHeroes[indextHero], index);
         undeadHeroes.RemoveAt(indextHero);
-        UndeadHeroes.AddHero(hero);
     }
-    public void Add_OrderHero()
+    public void Add_OrderHero(int index)
     {
-        int indextHero = UnityEngine.Random.Range(0, orderHeroes.Count + 1);
-        Hero hero = new Hero(orderHeroes[indextHero]);
+        int indextHero = UnityEngine.Random.Range(0, orderHeroes.Count);
+        HeroPanels[2].AddHero(orderHeroes[indextHero], index);
         orderHeroes.RemoveAt(indextHero);
-        OrderHeroes.AddHero(hero);
     }
-    public void Add_DemonHero()
+    public void Add_DemonHero(int index)
     {
-        int indextHero = UnityEngine.Random.Range(0, demonHeroes.Count + 1);
-        Hero hero = new Hero(demonHeroes[indextHero]);
+        int indextHero = UnityEngine.Random.Range(0, demonHeroes.Count);
+        HeroPanels[3].AddHero(demonHeroes[indextHero], index);
         demonHeroes.RemoveAt(indextHero);
-        DemonHeroes.AddHero(hero);
     }
  
-    public void test()
+    public void Add_EggNeutral()
     {
-        testq.ShowCharacteristics(NeutralHeroes.heroSlots[0].currentHero, scrollingObjects);
+        HeroPanels[0].AddEgg();
     }
-    public void test_1()
+    public void Add_EggUndead()
     {
-        gameObject.SetActive(true);
+        HeroPanels[1].AddEgg();
+    }
+    public void Add_EggOrder()
+    {
+        HeroPanels[2].AddEgg();
+    }
+    public void Add_EggDemon()
+    {
+        HeroPanels[3].AddEgg();
+    }
+    public void SwitchPanels(int index)
+    {
+        foreach (var item in HeroPanels)
+        {
+            item.gameObject.SetActive(false);
+        }
+        HeroPanels[index].gameObject.SetActive(true);
     }
 
+
+
+    private void InitialiseActiveHero()
+    {
+        LoadInventory();
+
+        for (int i = 0; i < HeroPanels[0].heroSlots.Count; i++)
+        {
+            Hero hero = characterController.FindHero(saveActiveHero[i]);
+            if(hero != null)
+            {
+                HeroPanels[0].heroSlots[i].currentHero.SetInfo(hero);
+            }
+        }
+        for (int i = HeroPanels[0].heroSlots.Count; i < HeroPanels[0].heroSlots.Count + HeroPanels[1].heroSlots.Count; i++)
+        {
+            Hero hero = characterController.FindHero(saveActiveHero[i]);
+            if (hero != null)
+            {
+                HeroPanels[0].heroSlots[i].currentHero.SetInfo(hero);
+            }
+        }
+        for (int i = HeroPanels[0].heroSlots.Count + HeroPanels[1].heroSlots.Count; i < HeroPanels[0].heroSlots.Count + HeroPanels[1].heroSlots.Count + HeroPanels[2].heroSlots.Count; i++)
+        {
+            Hero hero = characterController.FindHero(saveActiveHero[i]);
+            if (hero != null)
+            {
+                HeroPanels[0].heroSlots[i].currentHero.SetInfo(hero);
+            }
+        }
+        for (int i = HeroPanels[0].heroSlots.Count + HeroPanels[1].heroSlots.Count + HeroPanels[2].heroSlots.Count; i < HeroPanels[0].heroSlots.Count + HeroPanels[2].heroSlots.Count + HeroPanels[3].heroSlots.Count + HeroPanels[3].heroSlots.Count; i++)
+        {
+            Hero hero = characterController.FindHero(saveActiveHero[i]);
+            if (hero != null)
+            {
+                HeroPanels[0].heroSlots[i].currentHero.SetInfo(hero);
+            }
+        }
+    }
+    #region Save / Load
+    public void SaveInventory()
+    {
+        saveActiveHero.Clear();
+
+        for (int i = 0; i < HeroPanels[0].heroSlots.Count; i++)
+        {
+            saveActiveHero.Add(new SaveActiveHero(HeroPanels[0].heroSlots[i].currentHero));
+        }
+        for (int i = 0; i < HeroPanels[1].heroSlots.Count; i++)
+        {
+            saveActiveHero.Add(new SaveActiveHero(HeroPanels[0].heroSlots[i].currentHero));
+        }
+        for (int i = 0; i < HeroPanels[2].heroSlots.Count; i++)
+        {
+            saveActiveHero.Add(new SaveActiveHero(HeroPanels[0].heroSlots[i].currentHero));
+        }
+        for (int i = 0; i < HeroPanels[3].heroSlots.Count; i++)
+        {
+            saveActiveHero.Add(new SaveActiveHero(HeroPanels[0].heroSlots[i].currentHero));
+        }
+
+
+        FileHandler.SaveToJSON<SaveActiveHero>(saveActiveHero, SaveFilename);
+    }
+    private void LoadInventory()
+    {
+        saveActiveHero = FileHandler.ReadListFromJSON<SaveActiveHero>(SaveFilename);
+    }
+
+    #endregion
 }
+[Serializable]
+public class SaveActiveHero
+{
+    public int ID;
+    public string Name;
+    public SaveActiveHero(Hero hero)
+    {
+        ID = hero.ID;
+        Name = hero.Name;
+    }
+}
+
