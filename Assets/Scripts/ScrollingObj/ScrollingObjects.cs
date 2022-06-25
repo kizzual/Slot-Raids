@@ -22,7 +22,7 @@ public class ScrollingObjects : MonoBehaviour
     private float _percentageComplete;
     private int _indexCurrentObject = 0;
     private int randomIndex;
-
+    [SerializeField] private CharacterCharacteristics TESDST;
     void Start()
     {
         _point = GetComponent<RectTransform>();
@@ -46,8 +46,19 @@ public class ScrollingObjects : MonoBehaviour
         }
     }
  
+
+    public void OpenCharacterCharacteristics()
+    {
+        TESDST.ShowCharacteristics(currentHero);
+    }
+    public void TESTERCHEK()
+    {
+        Debug.Log(currentHero.Level + " CURE LEVEL");
+    }
+
     public void AddCurrentHero(Hero hero)
     {
+        currentHero = hero;
         raidSlotInfo.InitialiseHero(hero);
         isActive = true;
     }

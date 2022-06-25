@@ -49,7 +49,7 @@ public class HeroPanel : MonoBehaviour
             heroSlots[index].AddHero(hero);       
     }
 
-    private int CheckFreeSlot()
+    public int CheckFreeSlot()
     {
         for (int i = 0; i < heroSlots.Count; i++)
         {

@@ -16,7 +16,8 @@ public class InventoryControl : MonoBehaviour
 
     public List<Inventory> Inventories;
     private  List<SavedInvetory> SavedInventories = new List<SavedInvetory>();
-    private void Awake()
+ 
+    public void Loading()
     {
         LoadInventory();
         InitialiseInventory();

@@ -43,6 +43,7 @@ public class HeroSlot : MonoBehaviour
     
     public void AddHero(Hero hero)      // добавить анимацию открытия 
     {
+        Debug.Log(hero.ID);
         currentHero.Initialise(hero);
     //    _hero = hero;
         HeroPanel.SetActive(true);

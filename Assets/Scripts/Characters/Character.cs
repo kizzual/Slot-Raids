@@ -16,8 +16,9 @@ public class Character : MonoBehaviour
     [SerializeField] private List<HeroPanel> HeroPanels;
     [SerializeField] private CharacterController characterController;
     private List<SaveActiveHero> saveActiveHero = new List<SaveActiveHero>();
+    private List<Hero> activeHeroes = new List<Hero>();
 
-    private void Awake()
+    public void Loading()
     {
         if (PlayerPrefs.HasKey("firstTime"))
         {
@@ -25,7 +26,10 @@ public class Character : MonoBehaviour
             InitialiseActiveHero();
         }
     }
-
+    public void ChangesCharacteristics()
+    {
+        characterController.ChangesCharacteristics(activeHeroes);
+    }
     private void OnEnable()
     {
         SwitchPanels(0);
@@ -34,24 +38,29 @@ public class Character : MonoBehaviour
     {
         int indextHero = UnityEngine.Random.Range(0, neutralHeroes.Count);
         HeroPanels[0].AddHero(neutralHeroes[indextHero], index);
+        activeHeroes.Add(neutralHeroes[indextHero]);
         neutralHeroes.RemoveAt(indextHero);
     }
     public void Add_UndeadHero(int index)
     {
         int indextHero = UnityEngine.Random.Range(0, undeadHeroes.Count);
         HeroPanels[1].AddHero(undeadHeroes[indextHero], index);
+        Debug.Log("NAME =  " + undeadHeroes[indextHero].ID);
+        activeHeroes.Add(neutralHeroes[indextHero]);
         undeadHeroes.RemoveAt(indextHero);
     }
     public void Add_OrderHero(int index)
     {
         int indextHero = UnityEngine.Random.Range(0, orderHeroes.Count);
         HeroPanels[2].AddHero(orderHeroes[indextHero], index);
+        activeHeroes.Add(neutralHeroes[indextHero]);
         orderHeroes.RemoveAt(indextHero);
     }
     public void Add_DemonHero(int index)
     {
         int indextHero = UnityEngine.Random.Range(0, demonHeroes.Count);
         HeroPanels[3].AddHero(demonHeroes[indextHero], index);
+        activeHeroes.Add(neutralHeroes[indextHero]);
         demonHeroes.RemoveAt(indextHero);
     }
  
@@ -84,38 +93,44 @@ public class Character : MonoBehaviour
 
     private void InitialiseActiveHero()
     {
-        LoadInventory();
 
-        for (int i = 0; i < HeroPanels[0].heroSlots.Count; i++)
+        for (int i = 0; i < saveActiveHero.Count; i++)
         {
-            Hero hero = characterController.FindHero(saveActiveHero[i]);
-            if(hero != null)
+            for (int j = 0; j < neutralHeroes.Count; j++)
             {
-                HeroPanels[0].heroSlots[i].currentHero.SetInfo(hero);
+                if(saveActiveHero[i].ID == neutralHeroes[j].ID)
+                {
+                    HeroPanels[0].AddHero(neutralHeroes[j], HeroPanels[0].CheckFreeSlot());
+                    activeHeroes.Add(neutralHeroes[j]);
+                    neutralHeroes.Remove(neutralHeroes[j]);
+                }
             }
-        }
-        for (int i = HeroPanels[0].heroSlots.Count; i < HeroPanels[0].heroSlots.Count + HeroPanels[1].heroSlots.Count; i++)
-        {
-            Hero hero = characterController.FindHero(saveActiveHero[i]);
-            if (hero != null)
+            for (int j = 0; j < undeadHeroes.Count; j++)
             {
-                HeroPanels[0].heroSlots[i].currentHero.SetInfo(hero);
+                if (saveActiveHero[i].ID == undeadHeroes[j].ID)
+                {
+                    HeroPanels[1].AddHero(undeadHeroes[j], HeroPanels[0].CheckFreeSlot());
+                    activeHeroes.Add(undeadHeroes[j]);
+                    undeadHeroes.Remove(undeadHeroes[j]);
+                }
             }
-        }
-        for (int i = HeroPanels[0].heroSlots.Count + HeroPanels[1].heroSlots.Count; i < HeroPanels[0].heroSlots.Count + HeroPanels[1].heroSlots.Count + HeroPanels[2].heroSlots.Count; i++)
-        {
-            Hero hero = characterController.FindHero(saveActiveHero[i]);
-            if (hero != null)
+            for (int j = 0; j < orderHeroes.Count; j++)
             {
-                HeroPanels[0].heroSlots[i].currentHero.SetInfo(hero);
+                if (saveActiveHero[i].ID == orderHeroes[j].ID)
+                {
+                    HeroPanels[2].AddHero(orderHeroes[j], HeroPanels[0].CheckFreeSlot());
+                    activeHeroes.Add(orderHeroes[j]);
+                    orderHeroes.Remove(orderHeroes[j]);
+                }
             }
-        }
-        for (int i = HeroPanels[0].heroSlots.Count + HeroPanels[1].heroSlots.Count + HeroPanels[2].heroSlots.Count; i < HeroPanels[0].heroSlots.Count + HeroPanels[2].heroSlots.Count + HeroPanels[3].heroSlots.Count + HeroPanels[3].heroSlots.Count; i++)
-        {
-            Hero hero = characterController.FindHero(saveActiveHero[i]);
-            if (hero != null)
+            for (int j = 0; j < demonHeroes.Count; j++)
             {
-                HeroPanels[0].heroSlots[i].currentHero.SetInfo(hero);
+                if (saveActiveHero[i].ID == demonHeroes[j].ID)
+                {
+                    HeroPanels[3].AddHero(demonHeroes[j], HeroPanels[0].CheckFreeSlot());
+                    activeHeroes.Add(demonHeroes[j]);
+                    demonHeroes.Remove(demonHeroes[j]);
+                }
             }
         }
     }
@@ -124,23 +139,10 @@ public class Character : MonoBehaviour
     {
         saveActiveHero.Clear();
 
-        for (int i = 0; i < HeroPanels[0].heroSlots.Count; i++)
+        for (int i = 0; i < activeHeroes.Count; i++)
         {
-            saveActiveHero.Add(new SaveActiveHero(HeroPanels[0].heroSlots[i].currentHero));
+            saveActiveHero.Add(new SaveActiveHero(activeHeroes[i]));
         }
-        for (int i = 0; i < HeroPanels[1].heroSlots.Count; i++)
-        {
-            saveActiveHero.Add(new SaveActiveHero(HeroPanels[0].heroSlots[i].currentHero));
-        }
-        for (int i = 0; i < HeroPanels[2].heroSlots.Count; i++)
-        {
-            saveActiveHero.Add(new SaveActiveHero(HeroPanels[0].heroSlots[i].currentHero));
-        }
-        for (int i = 0; i < HeroPanels[3].heroSlots.Count; i++)
-        {
-            saveActiveHero.Add(new SaveActiveHero(HeroPanels[0].heroSlots[i].currentHero));
-        }
-
 
         FileHandler.SaveToJSON<SaveActiveHero>(saveActiveHero, SaveFilename);
     }

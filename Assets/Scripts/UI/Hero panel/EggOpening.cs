@@ -33,6 +33,7 @@ public class EggOpening : MonoBehaviour
     public void Open_NeutralEgg(HeroSlot slot)
     {
         frontPanel.SetActive(true);
+        gameObject.SetActive(true);
         currentSlot = slot;
         neutralEggPanel.SetActive(true);
         undeadEggPanel.SetActive(false);
@@ -53,7 +54,7 @@ public class EggOpening : MonoBehaviour
     public void Open_UndeadEgg(HeroSlot slot)
     {
         frontPanel.SetActive(true);
-
+        gameObject.SetActive(true);
         currentSlot = slot;
         neutralEggPanel.SetActive(false);
         undeadEggPanel.SetActive(true);
@@ -74,7 +75,7 @@ public class EggOpening : MonoBehaviour
     public void Open_OrderEgg(HeroSlot slot)
     {
         frontPanel.SetActive(true);
-
+        gameObject.SetActive(true);
         currentSlot = slot;
         neutralEggPanel.SetActive(false);
         undeadEggPanel.SetActive(false);
@@ -95,7 +96,7 @@ public class EggOpening : MonoBehaviour
     public void Open_DemonEgg(HeroSlot slot)
     {
         frontPanel.SetActive(true);
-
+        gameObject.SetActive(true);
         currentSlot = slot;
         neutralEggPanel.SetActive(false);
         undeadEggPanel.SetActive(false);

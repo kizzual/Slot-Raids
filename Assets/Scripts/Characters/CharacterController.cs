@@ -20,6 +20,41 @@ public class CharacterController : MonoBehaviour
             InitialiseHeroes();
         }
     }
+
+    public void ChangesCharacteristics(List<Hero> heroes)
+    {
+        for (int i = 0; i < heroes.Count; i++)
+        {
+            for (int j = 0; j < neutralHeros.Count; j++)
+            {
+                if(heroes[i].ID == neutralHeros[j].ID)
+                {
+                    neutralHeros[j].Initialise(heroes[i]);
+                }
+            }
+            for (int j = 0; j < undeadHeros.Count; j++)
+            {
+                if (heroes[i].ID == undeadHeros[j].ID)
+                {
+                    undeadHeros[j].Initialise(heroes[i]);
+                }
+            }
+            for (int j = 0; j < orderHeros.Count; j++)
+            {
+                if (heroes[i].ID == orderHeros[j].ID)
+                {
+                    orderHeros[j].Initialise(heroes[i]);
+                }
+            }
+            for (int j = 0; j < demonHeros.Count; j++)
+            {
+                if (heroes[i].ID == demonHeros[j].ID)
+                {
+                    demonHeros[j].Initialise(heroes[i]);
+                }
+            }
+        }
+    }
     public Hero FindHero(SaveActiveHero saveActiveHero)
     {
         foreach (var item in neutralHeros)
@@ -93,7 +128,7 @@ public class CharacterController : MonoBehaviour
         {
             SavedHeroes.Add(new SavedHero(demonHeros[i]));
         }
-
+        PlayerPrefs.SetInt("firstTime", 1);
         FileHandler.SaveToJSON<SavedHero>(SavedHeroes, SaveFilename);
     }
     private void LoadInventory()
@@ -126,7 +161,7 @@ public class SavedHero
     public int Level;
     public int rank;
 
-    public float goldToGrade;
+    public int goldToGrade;
 
     public int ProfitPercent;
     public int LuckPercent;
