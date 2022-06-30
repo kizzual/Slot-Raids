@@ -161,9 +161,9 @@ public class SavedHero
     public int Level;
     public int rank;
 
-    public int goldToGrade;
+    public long goldToGrade;
 
-    public int ProfitPercent;
+    public long ProfitPercent;
     public int LuckPercent;
     public int ProtectPercent;
     public int ComboPercent;

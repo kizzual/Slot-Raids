@@ -6,10 +6,10 @@ using UnityEngine;
 public class InventoryControl : MonoBehaviour
 {
     const string SaveFilename = "Inventories";
-    [SerializeField] NeutralItemsSO neutralItemsSO;
-    [SerializeField] UndeadItemsSO undeadItemsSO;
-    [SerializeField] OrderItemsSO orderItemsSO;
-    [SerializeField] DemonItemsSO demonItemsSO;
+    [SerializeField] private NeutralItemsSO neutralItemsSO;
+    [SerializeField] private UndeadItemsSO undeadItemsSO;
+    [SerializeField] private OrderItemsSO orderItemsSO;
+    [SerializeField] private DemonItemsSO demonItemsSO;
 
     [SerializeField] private Selling selling;
     [SerializeField] private GameObject FrontPanel;
@@ -22,7 +22,381 @@ public class InventoryControl : MonoBehaviour
         LoadInventory();
         InitialiseInventory();
     }
+    
+    public void SellAllItems(int indexPanel)
+    {
+        if(indexPanel == 0)
+        {
+            int gold = 0;
+            if (Inventories[indexPanel]._eggs_count > 0)
+            {
+                gold += (Inventories[indexPanel]._eggs_count * neutralItemsSO.Egg.sellingPrice);
+            }
+            if (Inventories[indexPanel]._swords_1_count > 0)
+            {
+                gold += (Inventories[indexPanel]._swords_1_count * neutralItemsSO.sword_1.sellingPrice);
+            }
+            if (Inventories[indexPanel]._swords_2_count > 0)
+            {
+                gold += (Inventories[indexPanel]._swords_2_count * neutralItemsSO.sword_2.sellingPrice);
+            }
+            if (Inventories[indexPanel]._swords_3_count > 0)
+            {
+                gold += (Inventories[indexPanel]._swords_3_count * neutralItemsSO.sword_3.sellingPrice);
+            }
+            if (Inventories[indexPanel]._shield_1_count > 0)
+            {
+                gold += (Inventories[indexPanel]._shield_1_count * neutralItemsSO.shield_1.sellingPrice);
+            }
+            if (Inventories[indexPanel]._shield_2_count > 0)
+            {
+                gold += (Inventories[indexPanel]._shield_2_count * neutralItemsSO.shield_2.sellingPrice);
+            }
+            if (Inventories[indexPanel]._shield_3_count > 0)
+            {
+                gold += (Inventories[indexPanel]._shield_3_count * neutralItemsSO.shield_3.sellingPrice);
+            }
+            if (Inventories[indexPanel]._amulet_1_count > 0)
+            {
+                gold += (Inventories[indexPanel]._amulet_1_count * neutralItemsSO.Amulet_1.sellingPrice);
+            }
+            if (Inventories[indexPanel]._amulet_2_count > 0)
+            {
+                gold += (Inventories[indexPanel]._amulet_2_count * neutralItemsSO.Amulet_2.sellingPrice);
+            }
+            if (Inventories[indexPanel]._amulet_3_count > 0)
+            {
+                gold += (Inventories[indexPanel]._amulet_3_count * neutralItemsSO.Amulet_3.sellingPrice);
+            }
+            Inventories[indexPanel].SellAllItems();
+            Gold.AddGold(gold);
+        }
+        if (indexPanel == 1)
+        {
+            int gold = 0;
+            if (Inventories[indexPanel]._eggs_count > 0)
+            {
+                gold += (Inventories[indexPanel]._eggs_count * undeadItemsSO.Egg.sellingPrice);
+            }
+            if (Inventories[indexPanel]._swords_1_count > 0)
+            {
+                gold += (Inventories[indexPanel]._swords_1_count * undeadItemsSO.sword_1.sellingPrice);
+            }
+            if (Inventories[indexPanel]._swords_2_count > 0)
+            {
+                gold += (Inventories[indexPanel]._swords_2_count * undeadItemsSO.sword_2.sellingPrice);
+            }
+            if (Inventories[indexPanel]._swords_3_count > 0)
+            {
+                gold += (Inventories[indexPanel]._swords_3_count * undeadItemsSO.sword_3.sellingPrice);
+            }
+            if (Inventories[indexPanel]._shield_1_count > 0)
+            {
+                gold += (Inventories[indexPanel]._shield_1_count * undeadItemsSO.shield_1.sellingPrice);
+            }
+            if (Inventories[indexPanel]._shield_2_count > 0)
+            {
+                gold += (Inventories[indexPanel]._shield_2_count * undeadItemsSO.shield_2.sellingPrice);
+            }
+            if (Inventories[indexPanel]._shield_3_count > 0)
+            {
+                gold += (Inventories[indexPanel]._shield_3_count * undeadItemsSO.shield_3.sellingPrice);
+            }
+            if (Inventories[indexPanel]._amulet_1_count > 0)
+            {
+                gold += (Inventories[indexPanel]._amulet_1_count * undeadItemsSO.Amulet_1.sellingPrice);
+            }
+            if (Inventories[indexPanel]._amulet_2_count > 0)
+            {
+                gold += (Inventories[indexPanel]._amulet_2_count * undeadItemsSO.Amulet_2.sellingPrice);
+            }
+            if (Inventories[indexPanel]._amulet_3_count > 0)
+            {
+                gold += (Inventories[indexPanel]._amulet_3_count * undeadItemsSO.Amulet_3.sellingPrice);
+            }
+            Inventories[indexPanel].SellAllItems();
+            Gold.AddGold(gold);
+        }
+        if (indexPanel == 2)
+        {
+            int gold = 0;
+            if (Inventories[indexPanel]._eggs_count > 0)
+            {
+                gold += (Inventories[indexPanel]._eggs_count * orderItemsSO.Egg.sellingPrice);
+            }
+            if (Inventories[indexPanel]._swords_1_count > 0)
+            {
+                gold += (Inventories[indexPanel]._swords_1_count * orderItemsSO.sword_1.sellingPrice);
+            }
+            if (Inventories[indexPanel]._swords_2_count > 0)
+            {
+                gold += (Inventories[indexPanel]._swords_2_count * orderItemsSO.sword_2.sellingPrice);
+            }
+            if (Inventories[indexPanel]._swords_3_count > 0)
+            {
+                gold += (Inventories[indexPanel]._swords_3_count * orderItemsSO.sword_3.sellingPrice);
+            }
+            if (Inventories[indexPanel]._shield_1_count > 0)
+            {
+                gold += (Inventories[indexPanel]._shield_1_count * orderItemsSO.shield_1.sellingPrice);
+            }
+            if (Inventories[indexPanel]._shield_2_count > 0)
+            {
+                gold += (Inventories[indexPanel]._shield_2_count * orderItemsSO.shield_2.sellingPrice);
+            }
+            if (Inventories[indexPanel]._shield_3_count > 0)
+            {
+                gold += (Inventories[indexPanel]._shield_3_count * orderItemsSO.shield_3.sellingPrice);
+            }
+            if (Inventories[indexPanel]._amulet_1_count > 0)
+            {
+                gold += (Inventories[indexPanel]._amulet_1_count * orderItemsSO.Amulet_1.sellingPrice);
+            }
+            if (Inventories[indexPanel]._amulet_2_count > 0)
+            {
+                gold += (Inventories[indexPanel]._amulet_2_count * orderItemsSO.Amulet_2.sellingPrice);
+            }
+            if (Inventories[indexPanel]._amulet_3_count > 0)
+            {
+                gold += (Inventories[indexPanel]._amulet_3_count * orderItemsSO.Amulet_3.sellingPrice);
+            }
+            Inventories[indexPanel].SellAllItems();
+            Gold.AddGold(gold);
+        }
+        if (indexPanel == 3)
+        {
+            int gold = 0;
+            if (Inventories[indexPanel]._eggs_count > 0)
+            {
+                gold += (Inventories[indexPanel]._eggs_count * demonItemsSO.Egg.sellingPrice);
+            }
+            if (Inventories[indexPanel]._swords_1_count > 0)
+            {
+                gold += (Inventories[indexPanel]._swords_1_count * demonItemsSO.sword_1.sellingPrice);
+            }
+            if (Inventories[indexPanel]._swords_2_count > 0)
+            {
+                gold += (Inventories[indexPanel]._swords_2_count * demonItemsSO.sword_2.sellingPrice);
+            }
+            if (Inventories[indexPanel]._swords_3_count > 0)
+            {
+                gold += (Inventories[indexPanel]._swords_3_count * demonItemsSO.sword_3.sellingPrice);
+            }
+            if (Inventories[indexPanel]._shield_1_count > 0)
+            {
+                gold += (Inventories[indexPanel]._shield_1_count * demonItemsSO.shield_1.sellingPrice);
+            }
+            if (Inventories[indexPanel]._shield_2_count > 0)
+            {
+                gold += (Inventories[indexPanel]._shield_2_count * demonItemsSO.shield_2.sellingPrice);
+            }
+            if (Inventories[indexPanel]._shield_3_count > 0)
+            {
+                gold += (Inventories[indexPanel]._shield_3_count * demonItemsSO.shield_3.sellingPrice);
+            }
+            if (Inventories[indexPanel]._amulet_1_count > 0)
+            {
+                gold += (Inventories[indexPanel]._amulet_1_count * demonItemsSO.Amulet_1.sellingPrice);
+            }
+            if (Inventories[indexPanel]._amulet_2_count > 0)
+            {
+                gold += (Inventories[indexPanel]._amulet_2_count * demonItemsSO.Amulet_2.sellingPrice);
+            }
+            if (Inventories[indexPanel]._amulet_3_count > 0)
+            {
+                gold += (Inventories[indexPanel]._amulet_3_count * demonItemsSO.Amulet_3.sellingPrice);
+            }
+            Inventories[indexPanel].SellAllItems();
+            Gold.AddGold(gold);
+        }
 
+    }
+    private void CheckSellGold()
+    {
+        for (int indexPanel = 0; indexPanel < Inventories.Count; indexPanel++)
+        {
+            if (indexPanel == 0)
+            {
+                int gold = 0;
+                if (Inventories[indexPanel]._eggs_count > 0)
+                {
+                    gold += (Inventories[indexPanel]._eggs_count * neutralItemsSO.Egg.sellingPrice);
+                }
+                if (Inventories[indexPanel]._swords_1_count > 0)
+                {
+                    gold += (Inventories[indexPanel]._swords_1_count * neutralItemsSO.sword_1.sellingPrice);
+                }
+                if (Inventories[indexPanel]._swords_2_count > 0)
+                {
+                    gold += (Inventories[indexPanel]._swords_2_count * neutralItemsSO.sword_2.sellingPrice);
+                }
+                if (Inventories[indexPanel]._swords_3_count > 0)
+                {
+                    gold += (Inventories[indexPanel]._swords_3_count * neutralItemsSO.sword_3.sellingPrice);
+                }
+                if (Inventories[indexPanel]._shield_1_count > 0)
+                {
+                    gold += (Inventories[indexPanel]._shield_1_count * neutralItemsSO.shield_1.sellingPrice);
+                }
+                if (Inventories[indexPanel]._shield_2_count > 0)
+                {
+                    gold += (Inventories[indexPanel]._shield_2_count * neutralItemsSO.shield_2.sellingPrice);
+                }
+                if (Inventories[indexPanel]._shield_3_count > 0)
+                {
+                    gold += (Inventories[indexPanel]._shield_3_count * neutralItemsSO.shield_3.sellingPrice);
+                }
+                if (Inventories[indexPanel]._amulet_1_count > 0)
+                {
+                    gold += (Inventories[indexPanel]._amulet_1_count * neutralItemsSO.Amulet_1.sellingPrice);
+                }
+                if (Inventories[indexPanel]._amulet_2_count > 0)
+                {
+                    gold += (Inventories[indexPanel]._amulet_2_count * neutralItemsSO.Amulet_2.sellingPrice);
+                }
+                if (Inventories[indexPanel]._amulet_3_count > 0)
+                {
+                    gold += (Inventories[indexPanel]._amulet_3_count * neutralItemsSO.Amulet_3.sellingPrice);
+                }
+                Inventories[indexPanel].DisplaySellingGold(gold);
+            }
+            if (indexPanel == 1)
+            {
+                int gold = 0;
+                if (Inventories[indexPanel]._eggs_count > 0)
+                {
+                    gold += (Inventories[indexPanel]._eggs_count * undeadItemsSO.Egg.sellingPrice);
+                }
+                if (Inventories[indexPanel]._swords_1_count > 0)
+                {
+                    gold += (Inventories[indexPanel]._swords_1_count * undeadItemsSO.sword_1.sellingPrice);
+                }
+                if (Inventories[indexPanel]._swords_2_count > 0)
+                {
+                    gold += (Inventories[indexPanel]._swords_2_count * undeadItemsSO.sword_2.sellingPrice);
+                }
+                if (Inventories[indexPanel]._swords_3_count > 0)
+                {
+                    gold += (Inventories[indexPanel]._swords_3_count * undeadItemsSO.sword_3.sellingPrice);
+                }
+                if (Inventories[indexPanel]._shield_1_count > 0)
+                {
+                    gold += (Inventories[indexPanel]._shield_1_count * undeadItemsSO.shield_1.sellingPrice);
+                }
+                if (Inventories[indexPanel]._shield_2_count > 0)
+                {
+                    gold += (Inventories[indexPanel]._shield_2_count * undeadItemsSO.shield_2.sellingPrice);
+                }
+                if (Inventories[indexPanel]._shield_3_count > 0)
+                {
+                    gold += (Inventories[indexPanel]._shield_3_count * undeadItemsSO.shield_3.sellingPrice);
+                }
+                if (Inventories[indexPanel]._amulet_1_count > 0)
+                {
+                    gold += (Inventories[indexPanel]._amulet_1_count * undeadItemsSO.Amulet_1.sellingPrice);
+                }
+                if (Inventories[indexPanel]._amulet_2_count > 0)
+                {
+                    gold += (Inventories[indexPanel]._amulet_2_count * undeadItemsSO.Amulet_2.sellingPrice);
+                }
+                if (Inventories[indexPanel]._amulet_3_count > 0)
+                {
+                    gold += (Inventories[indexPanel]._amulet_3_count * undeadItemsSO.Amulet_3.sellingPrice);
+                }
+                Inventories[indexPanel].DisplaySellingGold(gold);
+            }
+            if (indexPanel == 2)
+            {
+                int gold = 0;
+                if (Inventories[indexPanel]._eggs_count > 0)
+                {
+                    gold += (Inventories[indexPanel]._eggs_count * orderItemsSO.Egg.sellingPrice);
+                }
+                if (Inventories[indexPanel]._swords_1_count > 0)
+                {
+                    gold += (Inventories[indexPanel]._swords_1_count * orderItemsSO.sword_1.sellingPrice);
+                }
+                if (Inventories[indexPanel]._swords_2_count > 0)
+                {
+                    gold += (Inventories[indexPanel]._swords_2_count * orderItemsSO.sword_2.sellingPrice);
+                }
+                if (Inventories[indexPanel]._swords_3_count > 0)
+                {
+                    gold += (Inventories[indexPanel]._swords_3_count * orderItemsSO.sword_3.sellingPrice);
+                }
+                if (Inventories[indexPanel]._shield_1_count > 0)
+                {
+                    gold += (Inventories[indexPanel]._shield_1_count * orderItemsSO.shield_1.sellingPrice);
+                }
+                if (Inventories[indexPanel]._shield_2_count > 0)
+                {
+                    gold += (Inventories[indexPanel]._shield_2_count * orderItemsSO.shield_2.sellingPrice);
+                }
+                if (Inventories[indexPanel]._shield_3_count > 0)
+                {
+                    gold += (Inventories[indexPanel]._shield_3_count * orderItemsSO.shield_3.sellingPrice);
+                }
+                if (Inventories[indexPanel]._amulet_1_count > 0)
+                {
+                    gold += (Inventories[indexPanel]._amulet_1_count * orderItemsSO.Amulet_1.sellingPrice);
+                }
+                if (Inventories[indexPanel]._amulet_2_count > 0)
+                {
+                    gold += (Inventories[indexPanel]._amulet_2_count * orderItemsSO.Amulet_2.sellingPrice);
+                }
+                if (Inventories[indexPanel]._amulet_3_count > 0)
+                {
+                    gold += (Inventories[indexPanel]._amulet_3_count * orderItemsSO.Amulet_3.sellingPrice);
+                }
+                Inventories[indexPanel].DisplaySellingGold(gold);
+            }
+            if (indexPanel == 3)
+            {
+                int gold = 0;
+                if (Inventories[indexPanel]._eggs_count > 0)
+                {
+                    gold += (Inventories[indexPanel]._eggs_count * demonItemsSO.Egg.sellingPrice);
+                }
+                if (Inventories[indexPanel]._swords_1_count > 0)
+                {
+                    gold += (Inventories[indexPanel]._swords_1_count * demonItemsSO.sword_1.sellingPrice);
+                }
+                if (Inventories[indexPanel]._swords_2_count > 0)
+                {
+                    gold += (Inventories[indexPanel]._swords_2_count * demonItemsSO.sword_2.sellingPrice);
+                }
+                if (Inventories[indexPanel]._swords_3_count > 0)
+                {
+                    gold += (Inventories[indexPanel]._swords_3_count * demonItemsSO.sword_3.sellingPrice);
+                }
+                if (Inventories[indexPanel]._shield_1_count > 0)
+                {
+                    gold += (Inventories[indexPanel]._shield_1_count * demonItemsSO.shield_1.sellingPrice);
+                }
+                if (Inventories[indexPanel]._shield_2_count > 0)
+                {
+                    gold += (Inventories[indexPanel]._shield_2_count * demonItemsSO.shield_2.sellingPrice);
+                }
+                if (Inventories[indexPanel]._shield_3_count > 0)
+                {
+                    gold += (Inventories[indexPanel]._shield_3_count * demonItemsSO.shield_3.sellingPrice);
+                }
+                if (Inventories[indexPanel]._amulet_1_count > 0)
+                {
+                    gold += (Inventories[indexPanel]._amulet_1_count * demonItemsSO.Amulet_1.sellingPrice);
+                }
+                if (Inventories[indexPanel]._amulet_2_count > 0)
+                {
+                    gold += (Inventories[indexPanel]._amulet_2_count * demonItemsSO.Amulet_2.sellingPrice);
+                }
+                if (Inventories[indexPanel]._amulet_3_count > 0)
+                {
+                    gold += (Inventories[indexPanel]._amulet_3_count * demonItemsSO.Amulet_3.sellingPrice);
+                }
+                Inventories[indexPanel].DisplaySellingGold(gold);
+            }
+        }
+    }
     public void SellNeutralItems(int indexItem)
     {
         Prize prize = new Prize();
@@ -193,6 +567,7 @@ public class InventoryControl : MonoBehaviour
     }
     private void OnEnable()
     {
+        CheckSellGold();
         for (int i = 0; i < Inventories.Count; i++)
         {
             if(i == 0)
@@ -204,17 +579,116 @@ public class InventoryControl : MonoBehaviour
                 Inventories[i].gameObject.SetActive(false);
             }
 
+
         }
     }
     private void InitialiseInventory()
     {
-        for (int i = 0; i < SavedInventories.Count; i++)
+        if (SavedInventories.Count < 1)
         {
-            Inventories[i].SetSaveInfo(SavedInventories[i]);
+            foreach (var item in Inventories)
+            {
+
+                item.CountInitialise();
+                item.Initialise();
+
+            }
+        }
+        else 
+        {
+            for (int i = 0; i < SavedInventories.Count; i++)
+            {
+                Inventories[i].SetSaveInfo(SavedInventories[i]);
+            }
         }
     }
 
+    public void WinItems(List<Prize> prize)
+    {
+        for (int i = 0; i < prize.Count; i++)
+        {
+            switch (prize[i]._Type)
+            {
+                case Type.death:
+                    break;
+                case Type.item_sword_1:
+                    if (CheckELement(prize[i]) != null)
+                        CheckELement(prize[i])._swords_1_count++;
+                    break;
+                case Type.item_sword_2:
+                    if (CheckELement(prize[i]) != null)
+                        CheckELement(prize[i])._swords_2_count++;
+                    break;
+                case Type.item_sword_3:
+                    if (CheckELement(prize[i]) != null)
+                        CheckELement(prize[i])._swords_3_count++;
+                    break;
+                case Type.item_shield_1:
+                    if (CheckELement(prize[i]) != null)
+                        CheckELement(prize[i])._shield_1_count++;
+                    break;
+                case Type.item_shield_2:
+                    if (CheckELement(prize[i]) != null)
+                        CheckELement(prize[i])._shield_2_count++;
+                    break;
+                case Type.item_shield_3:
+                    if (CheckELement(prize[i]) != null)
+                        CheckELement(prize[i])._shield_3_count++;
+                    break;
+                case Type.item_amulet_1:
+                    if (CheckELement(prize[i]) != null)
+                        CheckELement(prize[i])._amulet_1_count++;
+                    break;
+                case Type.item_amulet_2:
+                    if (CheckELement(prize[i]) != null)
+                        CheckELement(prize[i])._amulet_2_count++;
+                    break;
+                case Type.item_amulet_3:
+                    if (CheckELement(prize[i]) != null)
+                        CheckELement(prize[i])._amulet_2_count++;
+                    break;
+                case Type.item_egg_neutral:
+                    if (CheckELement(prize[i]) != null)
+                        CheckELement(prize[i])._eggs_count++;
+                    break;
+                case Type.item_egg_undead:
+                    if (CheckELement(prize[i]) != null)
+                        CheckELement(prize[i])._eggs_count++;
+                    break;
+                case Type.item_egg_order:
+                    if (CheckELement(prize[i]) != null)
+                        CheckELement(prize[i])._eggs_count++;
+                    break;
+                case Type.item_egg_demons:
+                    if (CheckELement(prize[i]) != null)
+                        CheckELement(prize[i])._eggs_count++;
+                    break;
+                default:
+                    break;
+            }
+            foreach (var item in Inventories)
+            {
+                item.CountInitialise();
+                item.Initialise();
+            }
+        }
+    }
 
+    private Inventory CheckELement(Prize prize)
+    {
+        switch (prize._ElementType)
+        {
+            case ElementType.Neutral:
+                return Inventories[0];
+            case ElementType.Undead:
+                return Inventories[1];
+            case ElementType.Order:
+                return Inventories[2];
+            case ElementType.Demon:
+                return Inventories[3];
+        }
+        return null;
+    }    
     #region Open inventory
     public void OpenFullInventory()
     {

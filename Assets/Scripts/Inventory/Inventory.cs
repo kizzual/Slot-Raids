@@ -6,7 +6,7 @@ using UnityEngine.UI;
 public class Inventory : MonoBehaviour
 {
     public string _name;
-    [HideInInspector] public int _eggs_count;
+   public int _eggs_count;
     [HideInInspector] public int _swords_1_count;
     [HideInInspector] public int _swords_2_count;
     [HideInInspector] public int _swords_3_count;
@@ -38,12 +38,29 @@ public class Inventory : MonoBehaviour
     [SerializeField] private Image amulet_3_image;
     [SerializeField] private Text amulet_3_text;
 
-
+    [SerializeField] private Text SellingGold;
     public Sprite elementLogo;
-
-
+    public void SellAllItems()
+    {
+        _eggs_count = 0;
+        _swords_1_count = 0;
+        _swords_2_count = 0;
+        _swords_3_count = 0;
+        _shield_1_count = 0;
+        _shield_2_count = 0;
+        _shield_3_count = 0;
+        _amulet_1_count = 0;
+        _amulet_2_count = 0;
+        _amulet_3_count = 0;
+        SellingGold.text = "0";
+        Initialise();
+    }
     #region Initialise
-    private void Initialise()
+    public void DisplaySellingGold(int gold)
+    {
+        SellingGold.text = ConvertText.FormatNumb(gold);
+    }
+    public void Initialise()
     {
         if(_eggs_count > 0)
             egg_image.gameObject.SetActive(true);
@@ -95,7 +112,7 @@ public class Inventory : MonoBehaviour
         else
             amulet_3_image.gameObject.SetActive(false);
     }
-    private void CountInitialise()
+    public void CountInitialise()
     {
         egg_text.text = _eggs_count.ToString();
         sword_1_text.text = _swords_1_count.ToString();
@@ -401,4 +418,6 @@ public class Inventory : MonoBehaviour
         amulet_3 = _amulet_3_count;
     }
     #endregion
+
+
 }

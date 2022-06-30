@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MapChange : MonoBehaviour
+public class SwitchLocation : MonoBehaviour
 {
     [SerializeField] private GameObject[] _raidLocation;
     public void SwitchRaidLocation(int indexLocation)
@@ -18,5 +18,9 @@ public class MapChange : MonoBehaviour
                 _raidLocation[i].SetActive(true);
             }
         }
+    }
+    private void OnEnable()
+    {
+        SwitchRaidLocation(0);
     }
 }

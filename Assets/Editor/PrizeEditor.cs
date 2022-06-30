@@ -7,6 +7,9 @@ public class PrizeEditor : Editor
  
     SerializedProperty type;
     SerializedProperty elementType;
+
+    SerializedProperty sellingPrice;
+    SerializedProperty openingTime;
     SerializedProperty goldPrize;
     SerializedProperty profitPercent;
     SerializedProperty defencePercent;
@@ -19,6 +22,9 @@ public class PrizeEditor : Editor
         // созраняем ссылку на скрипт, который контролирует этот инспектор
         type = serializedObject.FindProperty("_Type");
         elementType = serializedObject.FindProperty("_ElementType");
+
+        sellingPrice = serializedObject.FindProperty("sellingPrice");
+        openingTime = serializedObject.FindProperty("openingTime");
         goldPrize = serializedObject.FindProperty("goldPrize");
         profitPercent = serializedObject.FindProperty("profitPercent");
         defencePercent = serializedObject.FindProperty("defencePercent");
@@ -46,14 +52,22 @@ public class PrizeEditor : Editor
         else if (type.enumValueIndex == (int)Type.item_sword_1 || type.enumValueIndex == (int)Type.item_sword_2 || type.enumValueIndex == (int)Type.item_sword_3)
         {
             EditorGUILayout.PropertyField(profitPercent);
+            EditorGUILayout.PropertyField(sellingPrice);
         }
         else if (type.enumValueIndex == (int)Type.item_shield_1 || type.enumValueIndex == (int)Type.item_shield_2 || type.enumValueIndex == (int)Type.item_shield_3)
         {
             EditorGUILayout.PropertyField(defencePercent);
+            EditorGUILayout.PropertyField(sellingPrice);
         }
         else if (type.enumValueIndex == (int)Type.item_amulet_1 || type.enumValueIndex == (int)Type.item_amulet_2 || type.enumValueIndex == (int)Type.item_amulet_3)
         {
             EditorGUILayout.PropertyField(luckPercent);
+            EditorGUILayout.PropertyField(sellingPrice);
+        }
+        else if (type.enumValueIndex == (int)Type.item_egg_demons || type.enumValueIndex == (int)Type.item_egg_neutral || type.enumValueIndex == (int)Type.item_egg_order || type.enumValueIndex == (int)Type.item_egg_undead)
+        {
+            EditorGUILayout.PropertyField(openingTime);
+            EditorGUILayout.PropertyField(sellingPrice);
         }
         EditorGUILayout.PropertyField(Sprite);
         // фиксируем - произошли ли изменения в инспекторе

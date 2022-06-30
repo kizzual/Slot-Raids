@@ -34,6 +34,10 @@ public class HeroPanel : MonoBehaviour
         if (freeSlot != -1)
         {
             heroSlots[freeSlot].AddEgg(EggImage);
+            if (heroSlots[freeSlot + 1] != null)
+            {
+                heroSlots[freeSlot + 1].ActivateFreePanel();
+            }
         }
     }
     public void OpenInventoryToCheckEggs()

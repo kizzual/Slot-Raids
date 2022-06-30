@@ -38,10 +38,15 @@ public class AddingItems : MonoBehaviour
     [SerializeField] private OrderItemsSO _orderItems_so;
     [SerializeField] private DemonItemsSO _demonItems_so;
 
+    [SerializeField] private Image sword_image;
+    [SerializeField] private Image shield_image;
+    [SerializeField] private Image amulet_image;
+
     [SerializeField] private GameObject frontPanel;
     private Hero currentHero;
     private Inventory currentInventory;
     private GameObject characterCharacteristics_panel;
+    [SerializeField] private CharacterCharacteristics Characteristics;
     enum CurrentItem
     {
         Sword,
@@ -51,6 +56,7 @@ public class AddingItems : MonoBehaviour
     CurrentItem currentItem;
     public void OpenSwordItem(Hero hero, GameObject panel)
     {
+        Characteristics = panel.GetComponent<CharacterCharacteristics>();
         frontPanel.SetActive(true);
         gameObject.SetActive(true);
         panel.SetActive(false);
@@ -80,40 +86,29 @@ public class AddingItems : MonoBehaviour
                 break;
         }
 
-        Debug.Log("current element = " + hero.elementType);
-        Debug.Log("current rank = " + hero.rank);
-        Debug.Log("swords_1 count  = " + currentInventory._swords_1_count);
-        Debug.Log("swords_2 count  = " + currentInventory._swords_2_count);
-        Debug.Log("swords_3 count  = " + currentInventory._swords_3_count);
         itemName.text = "SWORD";
         if(currentInventory._swords_1_count > 0)
         {
-            Debug.Log("Enter_sword 1");
             panel_rank1.SetActive(true);
             Items_1_image.sprite = _neutralItems_so.sword_1.sprite;
             item_1_count.text = currentInventory._swords_1_count.ToString();
         }
         else
         {
-            Debug.Log("Exit_sword1");
-
             panel_rank1.SetActive(false);
         }
         if (currentInventory._swords_2_count > 0 && hero.rank == 2)
         {
-            Debug.Log("Enter_sword 2");
             panel_rank2.SetActive(true);
             Items_2_image.sprite = _neutralItems_so.sword_2.sprite;
             item_2_count.text = currentInventory._swords_2_count.ToString();
         }
         else
         {
-            Debug.Log("EXXIT 2");
             panel_rank2.SetActive(false);
         }
         if (currentInventory._swords_3_count > 0 && hero.rank == 3 )
         {
-            Debug.Log("Enter_sword 3");
             panel_rank3.SetActive(true);
             Items_3_image.sprite = _neutralItems_so.sword_3.sprite;
             item_3_count.text = currentInventory._swords_3_count.ToString();
@@ -134,7 +129,7 @@ public class AddingItems : MonoBehaviour
         currentItem = CurrentItem.Shield;
         characterCharacteristics_panel = panel;
         panel.SetActive(false);
-
+      
         switch (hero.elementType)
         {
             case Hero.ElementType.Neutral:
@@ -156,10 +151,6 @@ public class AddingItems : MonoBehaviour
             default:
                 break;
         }
-
-        Debug.Log("Shield 1 count  = " + currentInventory._shield_1_count);
-        Debug.Log("shield 2 count  = " + currentInventory._shield_2_count);
-        Debug.Log("shield 3 count  = " + currentInventory._shield_3_count);
 
         itemName.text = "SHIELD";
         if (currentInventory._shield_1_count > 0)
@@ -281,6 +272,12 @@ public class AddingItems : MonoBehaviour
                 checkCurrent_3.SetActive(true);
             }
         }
+        else
+        {
+            checkCurrent_1.SetActive(false);
+            checkCurrent_2.SetActive(false);
+            checkCurrent_3.SetActive(false);
+        }
     }
     private void CheckButtonShield(Prize prize)
     {
@@ -342,59 +339,74 @@ public class AddingItems : MonoBehaviour
             checkCurrent_3.SetActive(false);
             if(currentItem == CurrentItem.Sword)
             {
-                if(currentInventory == neutralInventory)
+                sword_image.enabled = true;
+                if (currentInventory == neutralInventory)
                 {
                     currentHero.TakeItem(_neutralItems_so.sword_1);
+                    sword_image.sprite = _neutralItems_so.sword_1.sprite;
                 }
                 else if (currentInventory == undeadInventory)
                 {
                     currentHero.TakeItem(_undeadItems_so.sword_1);
+                    sword_image.sprite = _undeadItems_so.sword_1.sprite;
                 }
                 else if (currentInventory == orderInventory)
                 {
                     currentHero.TakeItem(_orderItems_so.sword_1);
+                    sword_image.sprite = _orderItems_so.sword_1.sprite;
                 }
                 else if (currentInventory == demonInventory)
                 {
                     currentHero.TakeItem(_demonItems_so.sword_1);
+                    sword_image.sprite = _demonItems_so.sword_1.sprite;
                 }
             }
             else if (currentItem == CurrentItem.Shield)
             {
+                shield_image.enabled = true;
                 if (currentInventory == neutralInventory)
                 {
                     currentHero.TakeItem(_neutralItems_so.shield_1);
+                    shield_image.sprite = _neutralItems_so.shield_1.sprite;
                 }
                 else if (currentInventory == undeadInventory)
                 {
                     currentHero.TakeItem(_undeadItems_so.shield_1);
+                    shield_image.sprite = _undeadItems_so.shield_1.sprite;
                 }
                 else if (currentInventory == orderInventory)
                 {
                     currentHero.TakeItem(_orderItems_so.shield_1);
+                    shield_image.sprite = _orderItems_so.shield_1.sprite;
                 }
                 else if (currentInventory == demonInventory)
                 {
                     currentHero.TakeItem(_demonItems_so.shield_1);
+                    shield_image.sprite = _demonItems_so.shield_1.sprite;
                 }
             }
             else if (currentItem == CurrentItem.Amulet)
             {
+                amulet_image.enabled = true;
                 if (currentInventory == neutralInventory)
                 {
                     currentHero.TakeItem(_neutralItems_so.Amulet_1);
+                    amulet_image.sprite = _undeadItems_so.Amulet_1.sprite;
                 }
                 else if (currentInventory == undeadInventory)
                 {
                     currentHero.TakeItem(_undeadItems_so.Amulet_1);
+                    amulet_image.sprite = _undeadItems_so.Amulet_1.sprite;
                 }
                 else if (currentInventory == orderInventory)
                 {
                     currentHero.TakeItem(_orderItems_so.Amulet_1);
+                    amulet_image.sprite = _orderItems_so.Amulet_1.sprite;
                 }
                 else if (currentInventory == demonInventory)
                 {
                     currentHero.TakeItem(_demonItems_so.Amulet_1);
+                    amulet_image.sprite = _demonItems_so.Amulet_1.sprite;
                 }
             }
 
@@ -406,59 +418,74 @@ public class AddingItems : MonoBehaviour
             checkCurrent_3.SetActive(false);
             if (currentItem == CurrentItem.Sword)
             {
+                sword_image.enabled = true;
                 if (currentInventory == neutralInventory)
                 {
                     currentHero.TakeItem(_neutralItems_so.sword_2);
+                    sword_image.sprite = _neutralItems_so.sword_2.sprite;
                 }
                 else if (currentInventory == undeadInventory)
                 {
                     currentHero.TakeItem(_undeadItems_so.sword_2);
+                    sword_image.sprite = _undeadItems_so.sword_2.sprite;
                 }
                 else if (currentInventory == orderInventory)
                 {
                     currentHero.TakeItem(_orderItems_so.sword_2);
+                    sword_image.sprite = _orderItems_so.sword_2.sprite;
                 }
                 else if (currentInventory == demonInventory)
                 {
                     currentHero.TakeItem(_demonItems_so.sword_2);
+                    sword_image.sprite = _demonItems_so.sword_2.sprite;
                 }
             }
             else if (currentItem == CurrentItem.Shield)
             {
+                shield_image.enabled = true;
                 if (currentInventory == neutralInventory)
                 {
                     currentHero.TakeItem(_neutralItems_so.shield_2);
+                    shield_image.sprite = _neutralItems_so.shield_2.sprite;
                 }
                 else if (currentInventory == undeadInventory)
                 {
                     currentHero.TakeItem(_undeadItems_so.shield_2);
+                    shield_image.sprite = _undeadItems_so.shield_2.sprite;
                 }
                 else if (currentInventory == orderInventory)
                 {
                     currentHero.TakeItem(_orderItems_so.shield_2);
+                    shield_image.sprite = _orderItems_so.shield_2.sprite;
                 }
                 else if (currentInventory == demonInventory)
                 {
                     currentHero.TakeItem(_demonItems_so.shield_2);
+                    shield_image.sprite = _demonItems_so.shield_2.sprite;
                 }
             }
             else if (currentItem == CurrentItem.Amulet)
             {
+                amulet_image.enabled = true;
                 if (currentInventory == neutralInventory)
                 {
                     currentHero.TakeItem(_neutralItems_so.Amulet_2);
+                    amulet_image.sprite = _neutralItems_so.Amulet_2.sprite;
                 }
                 else if (currentInventory == undeadInventory)
                 {
                     currentHero.TakeItem(_undeadItems_so.Amulet_2);
+                    amulet_image.sprite = _undeadItems_so.Amulet_1.sprite;
                 }
                 else if (currentInventory == orderInventory)
                 {
                     currentHero.TakeItem(_orderItems_so.Amulet_2);
+                    amulet_image.sprite = _orderItems_so.Amulet_1.sprite;
                 }
                 else if (currentInventory == demonInventory)
                 {
                     currentHero.TakeItem(_demonItems_so.Amulet_2);
+                    amulet_image.sprite = _demonItems_so.Amulet_1.sprite;
                 }
             }
         }
@@ -469,59 +496,74 @@ public class AddingItems : MonoBehaviour
             checkCurrent_3.SetActive(true);
             if (currentItem == CurrentItem.Sword)
             {
+                sword_image.enabled = true;
                 if (currentInventory == neutralInventory)
                 {
                     currentHero.TakeItem(_neutralItems_so.sword_3);
+                    sword_image.sprite = _neutralItems_so.sword_3.sprite;
                 }
                 else if (currentInventory == undeadInventory)
                 {
                     currentHero.TakeItem(_undeadItems_so.sword_3);
+                    sword_image.sprite = _undeadItems_so.sword_3.sprite;
                 }
                 else if (currentInventory == orderInventory)
                 {
                     currentHero.TakeItem(_orderItems_so.sword_3);
+                    sword_image.sprite = _orderItems_so.sword_3.sprite;
                 }
                 else if (currentInventory == demonInventory)
                 {
                     currentHero.TakeItem(_demonItems_so.sword_3);
+                    sword_image.sprite = _demonItems_so.sword_3.sprite;
                 }
             }
             else if (currentItem == CurrentItem.Shield)
             {
+                shield_image.enabled = true;
                 if (currentInventory == neutralInventory)
                 {
                     currentHero.TakeItem(_neutralItems_so.shield_3);
+                    shield_image.sprite = _neutralItems_so.shield_3.sprite;
                 }
                 else if (currentInventory == undeadInventory)
                 {
                     currentHero.TakeItem(_undeadItems_so.shield_3);
+                    shield_image.sprite = _undeadItems_so.shield_3.sprite;
                 }
                 else if (currentInventory == orderInventory)
                 {
                     currentHero.TakeItem(_orderItems_so.shield_3);
+                    shield_image.sprite = _orderItems_so.shield_3.sprite;
                 }
                 else if (currentInventory == demonInventory)
                 {
                     currentHero.TakeItem(_demonItems_so.shield_3);
+                    shield_image.sprite = _demonItems_so.shield_3.sprite;
                 }
             }
             else if (currentItem == CurrentItem.Amulet)
             {
+                amulet_image.enabled = true;
                 if (currentInventory == neutralInventory)
                 {
                     currentHero.TakeItem(_neutralItems_so.Amulet_3);
+                    amulet_image.sprite = _neutralItems_so.Amulet_3.sprite;
                 }
                 else if (currentInventory == undeadInventory)
                 {
                     currentHero.TakeItem(_undeadItems_so.Amulet_3);
+                    amulet_image.sprite = _undeadItems_so.Amulet_1.sprite;
                 }
                 else if (currentInventory == orderInventory)
                 {
                     currentHero.TakeItem(_orderItems_so.Amulet_3);
+                    amulet_image.sprite = _orderItems_so.Amulet_1.sprite;
                 }
                 else if (currentInventory == demonInventory)
                 {
                     currentHero.TakeItem(_demonItems_so.Amulet_3);
+                    amulet_image.sprite = _demonItems_so.Amulet_1.sprite;
                 }
 
             }
@@ -529,6 +571,7 @@ public class AddingItems : MonoBehaviour
     }
     public void ClosePanel()
     {
+        Characteristics.DisplayInfo();
         gameObject.SetActive(false);
         characterCharacteristics_panel.SetActive(true);
     }

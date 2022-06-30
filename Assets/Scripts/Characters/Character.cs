@@ -13,8 +13,13 @@ public class Character : MonoBehaviour
     [SerializeField] private List<Hero> orderHeroes;
     [SerializeField] private List<Hero> demonHeroes;
 
+    
+
+
     [SerializeField] private List<HeroPanel> HeroPanels;
     [SerializeField] private CharacterController characterController;
+    [SerializeField] private CharacterCharacteristics Characteristics;
+
     private List<SaveActiveHero> saveActiveHero = new List<SaveActiveHero>();
     private List<Hero> activeHeroes = new List<Hero>();
 
@@ -46,21 +51,21 @@ public class Character : MonoBehaviour
         int indextHero = UnityEngine.Random.Range(0, undeadHeroes.Count);
         HeroPanels[1].AddHero(undeadHeroes[indextHero], index);
         Debug.Log("NAME =  " + undeadHeroes[indextHero].ID);
-        activeHeroes.Add(neutralHeroes[indextHero]);
+        activeHeroes.Add(undeadHeroes[indextHero]);
         undeadHeroes.RemoveAt(indextHero);
     }
     public void Add_OrderHero(int index)
     {
         int indextHero = UnityEngine.Random.Range(0, orderHeroes.Count);
         HeroPanels[2].AddHero(orderHeroes[indextHero], index);
-        activeHeroes.Add(neutralHeroes[indextHero]);
+        activeHeroes.Add(orderHeroes[indextHero]);
         orderHeroes.RemoveAt(indextHero);
     }
     public void Add_DemonHero(int index)
     {
         int indextHero = UnityEngine.Random.Range(0, demonHeroes.Count);
         HeroPanels[3].AddHero(demonHeroes[indextHero], index);
-        activeHeroes.Add(neutralHeroes[indextHero]);
+        activeHeroes.Add(demonHeroes[indextHero]);
         demonHeroes.RemoveAt(indextHero);
     }
  
@@ -89,6 +94,10 @@ public class Character : MonoBehaviour
         HeroPanels[index].gameObject.SetActive(true);
     }
 
+    public void OpenCharacterCharacteristics(Hero hero)
+    {
+        Characteristics.ShowCharacteristics(hero);
+    }
 
 
     private void InitialiseActiveHero()

@@ -5,16 +5,16 @@ using UnityEngine.UI;
 
 public class ScrollingObjects : MonoBehaviour
 {
-     public bool isActive;
+    public bool isActive = false;
 
     [Header("Scroll settings")]
     [SerializeField] private float scrollingDuration = 3f;
     [SerializeField] private AnimationCurve curve;
     [SerializeField] private List<Prize> prizeList;
-    [SerializeField] private RaidSlotInfo raidSlotInfo;
+     public RaidSlotInfo raidSlotInfo;
    
-    [HideInInspector] public bool _scrollingIsActive = false;
-    [HideInInspector] public Prize winPrize;
+    public bool _scrollingIsActive = false;
+ public Prize winPrize;
     [HideInInspector] public Hero currentHero;
 
     private RectTransform _point;
@@ -22,7 +22,8 @@ public class ScrollingObjects : MonoBehaviour
     private float _percentageComplete;
     private int _indexCurrentObject = 0;
     private int randomIndex;
-    [SerializeField] private CharacterCharacteristics TESDST;
+    [SerializeField] private CharacterCharacteristics Characteristics;
+
     void Start()
     {
         _point = GetComponent<RectTransform>();
@@ -31,7 +32,7 @@ public class ScrollingObjects : MonoBehaviour
     {
         Scrolling();
     }
-    private void OnEnable()
+/*    private void OnEnable()
     {
         if(currentHero != null)
         {
@@ -44,16 +45,12 @@ public class ScrollingObjects : MonoBehaviour
             isActive = false;
             raidSlotInfo.ActiveEmpty();
         }
-    }
+    }*/
  
 
     public void OpenCharacterCharacteristics()
     {
-        TESDST.ShowCharacteristics(currentHero);
-    }
-    public void TESTERCHEK()
-    {
-        Debug.Log(currentHero.Level + " CURE LEVEL");
+        Characteristics.ShowCharacteristics(currentHero);
     }
 
     public void AddCurrentHero(Hero hero)
@@ -66,18 +63,22 @@ public class ScrollingObjects : MonoBehaviour
     {
         if(_indexCurrentObject == 0)
         {
+            ShuffleFullList(prizeList);
             _elapsedTime = 0;
-            randomIndex = Random.Range(10, 50);
+            randomIndex = Random.Range(40, 80);
             prizeList[randomIndex].gameObject.layer = 6;
             _scrollingIsActive = true;
+            winPrize = prizeList[randomIndex];
         }
         else
         {
+            ShuffleFullList(prizeList);
             SwapPositionAndShuffle();
             _elapsedTime = 0;
             randomIndex = Random.Range(40, 80);
             prizeList[randomIndex].gameObject.layer = 6;
             _scrollingIsActive = true;
+            winPrize = prizeList[randomIndex];
         }
     }
     private void Scrolling()
@@ -93,7 +94,9 @@ public class ScrollingObjects : MonoBehaviour
             {
                 _scrollingIsActive = false;
                 _point.transform.localPosition = new Vector3(0, -prizeList[randomIndex].transform.localPosition.y, 0);
+                winPrize = prizeList[randomIndex];
                 _indexCurrentObject = randomIndex;
+
             }
         }
     }
@@ -135,7 +138,5 @@ public class ScrollingObjects : MonoBehaviour
         {
             prizeList[i].TakeInfo(_prizeList[i]);
         }
-
-         ShuffleFullList(prizeList);
     }
 }

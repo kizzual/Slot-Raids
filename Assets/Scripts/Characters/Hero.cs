@@ -25,10 +25,12 @@ public class Hero : MonoBehaviour
     public int rank;
 
 
-    public int goldToGrade;
+    public long goldToGrade;
     public int gradeFactor;
 
-    public int ProfitPercent;
+    public int startGold;
+
+    public long ProfitPercent;
     public int LuckPercent;
     public int ProtectPercent;
     public int ComboPercent;
@@ -41,25 +43,33 @@ public class Hero : MonoBehaviour
     public Prize Shield;
     public Prize Amulet;
 
-
+ //   [HideInInspector] public int totalGoldProfit;
     public void TakeItem(Prize prize)
     {
         if (prize._Type == Type.item_sword_1 || prize._Type == Type.item_sword_2 || prize._Type == Type.item_sword_3)
         {
             Sword = prize;
+            ItemProfit = Sword.profitPercent;
+            ProfitPercent = ProfitPercent + ItemProfit;
         }
         else if(prize._Type == Type.item_shield_1 || prize._Type == Type.item_shield_2 || prize._Type == Type.item_shield_3)
         {
             Shield = prize;
+            ItemProtect = Shield.defencePercent;
+            ProtectPercent = ProtectPercent +  ItemProtect;
         }
         else if(prize._Type == Type.item_amulet_1 || prize._Type == Type.item_amulet_2 || prize._Type == Type.item_amulet_3)
         {
             Amulet = prize;
+            iemLuck = Amulet.luckPercent;
+            LuckPercent = LuckPercent +  iemLuck;
         }
+        ProfitPercent = GoldProfit();
         Debug.Log("Добавлен айтем " + prize.name);
     }
     public void Initialise(Hero heroSo)
     {
+        startGold = heroSo.startGold;
         ID = heroSo.ID;
         Name = heroSo.Name;
         heroIcon = heroSo.heroIcon;
@@ -69,12 +79,12 @@ public class Hero : MonoBehaviour
         elementType = heroSo.elementType;
         Level = heroSo.Level;
         rank = heroSo.rank;
-        goldToGrade = heroSo.goldToGrade;
-
-        if(heroSo.Sword != null)
+        goldToGrade = heroSo.GoldToGrade();
+        if (heroSo.Sword != null)
         {
             Sword = heroSo.Sword;
             ItemProfit = heroSo.Sword.profitPercent;
+
         }
         if(heroSo.Shield != null)
         {
@@ -92,17 +102,32 @@ public class Hero : MonoBehaviour
         LuckPercent = heroSo.LuckPercent;
         ComboPercent = heroSo.ComboPercent;
 
-        ProfitPercent += ((ProfitPercent / 100) * ItemProfit);
-        ProtectPercent += ((ProtectPercent / 100) * ItemProtect);
-        LuckPercent += ((LuckPercent / 100) * iemLuck);
+        ProfitPercent +=  ItemProfit;
+        ProtectPercent +=  ItemProtect;
+        LuckPercent +=  iemLuck;
     }
+    public int GoldProfit() => startGold * Level * Level;
+    public int GoldToGrade() => startGold * (Level + 1) * (Level + 1) * 100; 
     public void LelelUp()
     {
         //изменения значений
-        Level++;
+        if (Level < 100)
+        {
+            Level++;
+            if (Level == 50)
+            {
+                rank = 2;
+            }
+            else if (Level == 100)
+            {
+                rank = 3;
+            }
+            goldToGrade = GoldToGrade();
+            ProfitPercent = GoldProfit();
+        }
     }
     public void GetInfo(out int _ID, out string _name, out Sprite _heroIcon, out Sprite rank_1, out Sprite rank_2, out Sprite rank_3,
-        out int _Level, out int _rank, out int _goldToGrade, out int _ProfitPercent, out int _LuckPercent, out int _ProtectPercent, out int _ComboPercent,
+        out int _Level, out int _rank, out long _goldToGrade, out long _ProfitPercent, out int _LuckPercent, out int _ProtectPercent, out int _ComboPercent,
         out Prize _Sword, out Prize _Shield, out Prize _Amulet)
     {
         _ID = ID;
@@ -155,9 +180,9 @@ public class Hero : MonoBehaviour
         LuckPercent = savedHero.LuckPercent;
         ComboPercent = savedHero.ComboPercent;
 
-        ProfitPercent += ((ProfitPercent / 100) * ItemProfit);
-        ProtectPercent += ((ProtectPercent / 100) * ItemProtect);
-        LuckPercent += ((LuckPercent / 100) * iemLuck);
+        ProfitPercent += ItemProfit;
+        ProtectPercent +=  ItemProtect;
+        LuckPercent +=  iemLuck;
 
 
 
@@ -172,7 +197,8 @@ public class Hero : MonoBehaviour
         imageRank_3 = savedHero.imageRank_3;
         Level = savedHero.Level;
         rank = savedHero.rank;
-        goldToGrade = savedHero.goldToGrade;
+        startGold = savedHero.startGold;
+        goldToGrade = savedHero.GoldToGrade();
 
         if (savedHero.Sword != null)
         {
@@ -194,8 +220,8 @@ public class Hero : MonoBehaviour
         LuckPercent = savedHero.LuckPercent;
         ComboPercent = savedHero.ComboPercent;
 
-        ProfitPercent += ((ProfitPercent / 100) * ItemProfit);
-        ProtectPercent += ((ProtectPercent / 100) * ItemProtect);
-        LuckPercent += ((LuckPercent / 100) * iemLuck);
+        ProfitPercent += ItemProfit;
+        ProtectPercent +=  ItemProtect;
+        LuckPercent +=  iemLuck;
     }
 }

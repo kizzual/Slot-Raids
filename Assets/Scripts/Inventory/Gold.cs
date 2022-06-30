@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class Gold : MonoBehaviour
 {
-    public static int currentGold = 100;
+    public static long currentGold = 100000000;
     private static Text goldText;
     private void Awake()
     {
@@ -13,21 +13,21 @@ public class Gold : MonoBehaviour
             LoadGold();
 
         goldText = GetComponentInChildren<Text>();
-        goldText.text = currentGold.ToString();
+        goldText.text = ConvertText.FormatNumb(currentGold);
     }
 
     public static void AddGold(int value)
     {
         currentGold += value;
-        goldText.text = currentGold.ToString();
+        goldText.text = ConvertText.FormatNumb(currentGold);
     }
 
-    public static void SpendGold(int value)
+    public static void SpendGold(long value)
     {
         currentGold -= value;
-        goldText.text = currentGold.ToString();
+        goldText.text = ConvertText.FormatNumb(currentGold);
     }
-    public static int GetCurrentGold() => currentGold;
-    public static void SaveGold() => PlayerPrefs.SetInt("Gold", currentGold);
+    public static long GetCurrentGold() => currentGold;
+    public static void SaveGold() => PlayerPrefs.SetInt("Gold", (int)currentGold);
     private void LoadGold() => currentGold = PlayerPrefs.GetInt("Gold");
 }

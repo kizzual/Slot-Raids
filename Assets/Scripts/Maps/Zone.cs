@@ -8,6 +8,7 @@ public class Zone : MonoBehaviour
     public int ItemPercent = 30 ;
     public int DeathPercent =  20 ;
     public int NumberOfElements = 1;
+    public int zoneRank;
     public enum zoneElement
     {
         Neutral,
@@ -25,6 +26,9 @@ public class Zone : MonoBehaviour
     }
     public additionalElement AdditionalElement;
 
-    public NeutralItemsSO items;
+    public NeutralItemsSO neutralItems;
+    public UndeadItemsSO undeadItems;
+    public OrderItemsSO orderItems;
+    public DemonItemsSO demonItems;
 
 }

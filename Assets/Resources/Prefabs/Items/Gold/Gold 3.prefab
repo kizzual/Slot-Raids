@@ -120,8 +120,10 @@ MonoBehaviour:
   type: 0
   _ElementType: 0
   elementType: 0
+  sellingPrice: 0
+  openingTime: 0
   goldPrize: 15
   profitPercent: 15
   defencePercent: 5
   luckPercent: 2
-  sprite: {fileID: 21300000, guid: ad2de4f12f1b0d34ba4a8b3552b15d90, type: 3}
+  sprite: {fileID: 21300000, guid: ffc53c7754c0ddc4caf3c43c737c0bd7, type: 3}

@@ -9,7 +9,10 @@ public class Prize : MonoBehaviour
     public Type type;
     [SerializeField] public ElementType _ElementType;
     public ElementType elementType;
+
     public int sellingPrice;
+    public int openingTime;
+
     public int goldPrize;
     public int profitPercent;
     public int defencePercent;
@@ -24,11 +27,6 @@ public class Prize : MonoBehaviour
         Image = GetComponent<Image>();
     }
 
-    void Update()
-    {
-
-    }
-
     public void SwitchPosition(Vector3 newPosition)
     {
         currentPosition.transform.localPosition = newPosition;
@@ -36,6 +34,8 @@ public class Prize : MonoBehaviour
     public void TakeInfo(Prize prize)
     {
         _Type = prize._Type;
+        sellingPrice = prize.sellingPrice;
+        openingTime = prize.openingTime;
         goldPrize = prize.goldPrize;
         profitPercent = prize.profitPercent;
         defencePercent = prize.defencePercent;
@@ -44,10 +44,7 @@ public class Prize : MonoBehaviour
         Image.sprite = prize.sprite;
 
     }
-    public void Initialise<T>(T SO)
-    {
-
-    }
+ 
 }
 public enum Type
 {

@@ -22,7 +22,7 @@ public class EggOpening : MonoBehaviour
     [SerializeField] private Character character;
     [SerializeField] private Sprite AddButton_activeSprite;
     [SerializeField] private Sprite AddButton_InActiveSprite;
-    [SerializeField] private Button add_button;
+    [SerializeField] private List<Button> add_button;
     [SerializeField] private GameObject frontPanel;
     private HeroSlot currentSlot;
     void Update()
@@ -42,13 +42,19 @@ public class EggOpening : MonoBehaviour
         neutralEggCount_text.text = neutralInventory._eggs_count.ToString();
         if(neutralInventory._eggs_count > 0)
         {
-            add_button.gameObject.GetComponent<Image>().sprite = AddButton_activeSprite;
-            add_button.enabled = true;
+            foreach (var item in add_button)
+            {
+                item.gameObject.GetComponent<Image>().sprite = AddButton_activeSprite;
+                item.enabled = true;
+            }
         }
         else
         {
-            add_button.gameObject.GetComponent<Image>().sprite = AddButton_InActiveSprite;
-            add_button.enabled = false;
+            foreach (var item in add_button)
+            {
+                item.gameObject.GetComponent<Image>().sprite = AddButton_InActiveSprite;
+                item.enabled = false;
+            }
         }
     }
     public void Open_UndeadEgg(HeroSlot slot)
@@ -63,13 +69,19 @@ public class EggOpening : MonoBehaviour
         undeadEggCount_text.text = undeadInventory._eggs_count.ToString();
         if (undeadInventory._eggs_count > 0)
         {
-            add_button.gameObject.GetComponent<Image>().sprite = AddButton_activeSprite;
-            add_button.enabled = true;
+            foreach (var item in add_button)
+            {
+                item.gameObject.GetComponent<Image>().sprite = AddButton_activeSprite;
+                item.enabled = true;
+            }          
         }
         else
         {
-            add_button.gameObject.GetComponent<Image>().sprite = AddButton_InActiveSprite;
-            add_button.enabled = false;
+            foreach (var item in add_button)
+            {
+                item.gameObject.GetComponent<Image>().sprite = AddButton_InActiveSprite;
+                item.enabled = false;
+            }
         }
     }
     public void Open_OrderEgg(HeroSlot slot)
@@ -84,13 +96,22 @@ public class EggOpening : MonoBehaviour
         orderEggCount_text.text = orderInventory._eggs_count.ToString();
         if (orderInventory._eggs_count > 0)
         {
-            add_button.gameObject.GetComponent<Image>().sprite = AddButton_activeSprite;
-            add_button.enabled = true;
+
+            foreach (var item in add_button)
+            {
+                item.gameObject.GetComponent<Image>().sprite = AddButton_activeSprite;
+                item.enabled = true;
+            }
+     
         }
         else
         {
-            add_button.gameObject.GetComponent<Image>().sprite = AddButton_InActiveSprite;
-            add_button.enabled = false;
+            foreach (var item in add_button)
+            {
+                item.gameObject.GetComponent<Image>().sprite = AddButton_InActiveSprite;
+                item.enabled = false;
+            }
+         
         }
     }
     public void Open_DemonEgg(HeroSlot slot)
@@ -105,13 +126,20 @@ public class EggOpening : MonoBehaviour
         demonEggCount_text.text = DemonInventory._eggs_count.ToString();
         if (DemonInventory._eggs_count > 0)
         {
-            add_button.gameObject.GetComponent<Image>().sprite = AddButton_activeSprite;
-            add_button.enabled = true;
+            foreach (var item in add_button)
+            {
+                item.gameObject.GetComponent<Image>().sprite = AddButton_activeSprite;
+                item.enabled = true;
+            }
+          
         }
         else
         {
-            add_button.gameObject.GetComponent<Image>().sprite = AddButton_InActiveSprite;
-            add_button.enabled = false;
+            foreach (var item in add_button)
+            {
+                item.gameObject.GetComponent<Image>().sprite = AddButton_InActiveSprite;
+                item.enabled = false;
+            }
         }
     }
     public void Add_EggNeutral()

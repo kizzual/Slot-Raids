@@ -12,16 +12,20 @@ public class Selling : MonoBehaviour
     [SerializeField] private Text itemCountInInvetory_text;
     [SerializeField] private Text currentItemsCount_text;
     [SerializeField] private Text currentGoldSelling_text;
+    [SerializeField] private GameObject frontPanel;
 
-    private Inventory _currentInventory;
+    public Inventory _currentInventory;
     private string _itemName;
     private int _currentCountInInventory;
     private int _currentCountForSelling;
     private int _currentRank;
-    private int testGold = 10;
-    private Prize _prize;
+    private int testGold = 0;
+    private int _totalGold;
+    public Prize _prize;
     public void TakeAllInfo(Prize prize, Inventory Inventory)
     {
+        frontPanel.SetActive(true);
+        gameObject.SetActive(true);
         _prize = prize;
         _currentInventory = Inventory;
         _currentCountInInventory = CheckElementType(prize);
@@ -160,7 +164,7 @@ public class Selling : MonoBehaviour
                 _currentCountForSelling = 0;
 
             currentItemsCount_text.text = _currentCountForSelling.ToString();
-            currentGoldSelling_text.text = ((prize.sellingPrice + testGold) * _currentCountForSelling).ToString();
+            currentGoldSelling_text.text = ConvertText.FormatNumb(((prize.sellingPrice + testGold) * _currentCountForSelling));
         }
     }
     public void AddItemForSelling()
@@ -169,7 +173,7 @@ public class Selling : MonoBehaviour
         {
             _currentCountForSelling += 1;
             currentItemsCount_text.text = _currentCountForSelling.ToString();
-            currentGoldSelling_text.text = ((_prize.sellingPrice + testGold) * _currentCountForSelling).ToString();
+            currentGoldSelling_text.text = ConvertText.FormatNumb(((_prize.sellingPrice + testGold) * _currentCountForSelling));
         }
     }
     public void ReduceItemForSelling()
@@ -178,21 +182,73 @@ public class Selling : MonoBehaviour
         {
             _currentCountForSelling -= 1;
             currentItemsCount_text.text = _currentCountForSelling.ToString();
-            currentGoldSelling_text.text = ((_prize.sellingPrice + testGold) * _currentCountForSelling).ToString();
+            currentGoldSelling_text.text = ConvertText.FormatNumb(((_prize.sellingPrice + testGold) * _currentCountForSelling));
         }
     }
     public void MaxItemForSelling()
     {
         _currentCountForSelling = _currentCountInInventory;
         currentItemsCount_text.text = _currentCountForSelling.ToString();
-        currentGoldSelling_text.text = ((_prize.sellingPrice + testGold) * _currentCountForSelling).ToString();
+        currentGoldSelling_text.text = ConvertText.FormatNumb(((_prize.sellingPrice + testGold) * _currentCountForSelling));
     }
     public void SellingItem()
     {
+        _totalGold = 0;
+        _totalGold = _prize.sellingPrice * _currentCountForSelling;
         _currentCountInInventory -= _currentCountForSelling;
-        itemCountInInvetory_text.text = _currentCountInInventory.ToString();
-        _currentCountForSelling = 0;
-        currentItemsCount_text.text = "0";
-        currentGoldSelling_text.text = "0";
+        switch (_prize._Type)
+        { 
+            case Type.item_sword_1:
+                _currentInventory._swords_1_count = _currentCountInInventory;
+                break;
+            case Type.item_sword_2:
+                _currentInventory._swords_2_count = _currentCountInInventory;
+                break;
+            case Type.item_sword_3:
+                _currentInventory._swords_3_count = _currentCountInInventory;
+                break;
+            case Type.item_shield_1:
+                _currentInventory._shield_1_count = _currentCountInInventory;
+                break;
+            case Type.item_shield_2:
+                _currentInventory._shield_2_count = _currentCountInInventory;
+                break;
+            case Type.item_shield_3:
+                _currentInventory._shield_3_count = _currentCountInInventory;
+                break;
+            case Type.item_amulet_1:
+                _currentInventory._amulet_1_count = _currentCountInInventory;
+                break;
+            case Type.item_amulet_2:
+                _currentInventory._amulet_2_count = _currentCountInInventory;
+                break;
+            case Type.item_amulet_3:
+                _currentInventory._amulet_3_count = _currentCountInInventory;
+                break;
+
+/*            case Type.item_egg_neutral:
+                break;
+            case Type.item_egg_undead:
+                break;
+            case Type.item_egg_order:
+                break;
+            case Type.item_egg_demons:
+                break;
+*/
+        }
+
+
+
+         
+        _currentInventory.CountInitialise();
+        _currentInventory.Initialise();
+        Gold.AddGold(_totalGold);
+        frontPanel.SetActive(false);
+        gameObject.SetActive(false);
+    }
+    public void ClosePanel()
+    {
+        gameObject.SetActive(false);
+        frontPanel.SetActive(false);
     }
 }
