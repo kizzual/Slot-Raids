@@ -111,7 +111,7 @@ public class AddingItems : MonoBehaviour
         {
             panel_rank1.SetActive(false);
         }
-        if (currentInventory._swords_2_count > 0 && hero.rank == 2)
+        if (currentInventory._swords_2_count > 0 && hero.rank >= 2)
         {
             switch (hero.elementType)
             {
@@ -135,8 +135,9 @@ public class AddingItems : MonoBehaviour
         {
             panel_rank2.SetActive(false);
         }
-        if (currentInventory._swords_3_count > 0 && hero.rank == 3 )
+        if (currentInventory._swords_3_count > 0 && hero.rank >= 3 )
         {
+            Debug.Log("Swotd 3");
             switch (hero.elementType)
             {
                 case Hero.ElementType.Neutral:
@@ -219,7 +220,7 @@ public class AddingItems : MonoBehaviour
         {
             panel_rank1.SetActive(false);
         }
-        if (currentInventory._shield_2_count > 0 && hero.rank == 2)
+        if (currentInventory._shield_2_count > 0 && hero.rank >= 2)
         {
             switch (hero.elementType)
             {
@@ -243,8 +244,9 @@ public class AddingItems : MonoBehaviour
         {
             panel_rank2.SetActive(false);
         }
-        if (currentInventory._shield_3_count > 0 && hero.rank == 3)
+        if (currentInventory._shield_3_count > 0 && hero.rank >= 3)
         {
+
             switch (hero.elementType)
             {
                 case Hero.ElementType.Neutral:
@@ -325,7 +327,8 @@ public class AddingItems : MonoBehaviour
         {
             panel_rank1.SetActive(false);
         }
-        if (currentInventory._amulet_2_count > 0 && hero.rank == 2)
+
+        if (currentInventory._amulet_2_count > 0 && hero.rank >= 2)
         {
             switch (hero.elementType)
             {
@@ -347,10 +350,13 @@ public class AddingItems : MonoBehaviour
         }
         else
         {
+            Debug.Log("ASDSAD");
             panel_rank2.SetActive(false);
         }
-        if (currentInventory._amulet_3_count > 0 && hero.rank == 3)
+        if (currentInventory._amulet_3_count > 0 && hero.rank >= 3)
         {
+            Debug.Log("aulet 3");
+
             switch (hero.elementType)
             {
                 case Hero.ElementType.Neutral:

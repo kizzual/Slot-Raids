@@ -2792,26 +2792,20 @@ public class WinControl : MonoBehaviour
 
     private bool CHeckElementMerge(Hero hero, Zone zone)
     {
-        if (hero != null)
+
+        if (hero.elementType == Hero.ElementType.Neutral && zone.ZoneElement == Zone.zoneElement.Neutral ||
+           hero.elementType == Hero.ElementType.Undead && zone.ZoneElement == Zone.zoneElement.Undead ||
+           hero.elementType == Hero.ElementType.Order && zone.ZoneElement == Zone.zoneElement.Order ||
+           hero.elementType == Hero.ElementType.Demon && zone.ZoneElement == Zone.zoneElement.Demon)
         {
-            if (hero.elementType == Hero.ElementType.Neutral && zone.ZoneElement == Zone.zoneElement.Neutral ||
-               hero.elementType == Hero.ElementType.Undead && zone.ZoneElement == Zone.zoneElement.Undead ||
-               hero.elementType == Hero.ElementType.Order && zone.ZoneElement == Zone.zoneElement.Order ||
-               hero.elementType == Hero.ElementType.Demon && zone.ZoneElement == Zone.zoneElement.Demon)
-            {
-                return true;
-            }
-            else
-            {
-                return false;
-            }
+            return true;
         }
         else
         {
             return false;
         }
-    }
 
+    }
     private void CheckWinPrize_fromSlot(Prize prize, int i, bool elementIsMerge = false)
     {
         if (scrollingObjects[i].currentHero != null)

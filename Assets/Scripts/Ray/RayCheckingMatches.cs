@@ -280,6 +280,7 @@ public class RayCheckingMatches : MonoBehaviour
     private void OpenComboTExt()
     {
         IsCombo = true;
+        _timer = 0;
         foreach (var item in comboText)
         {
             item.SetActive(true);

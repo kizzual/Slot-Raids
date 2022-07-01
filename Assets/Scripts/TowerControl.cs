@@ -71,6 +71,10 @@ public class TowerControl : MonoBehaviour
                 GradeTower_image[i].enabled = false;
             }
         }
+        if(currentGradeTower == 9)
+        {
+            countToGrade_text.text = "MAX";
+        }
     }
     public void GradeTower()
     {

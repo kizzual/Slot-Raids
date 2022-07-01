@@ -54,7 +54,7 @@ public class CharacterCharacteristics : MonoBehaviour
     }
     public void GradeLevel()
     {
-        if(Gold.GetCurrentGold() >= currentHero.goldToGrade)
+        if(Gold.GetCurrentGold() >= currentHero.goldToGrade && currentHero.Level < 100)
         {
             currentHero.LelelUp();
             Gold.SpendGold(currentHero.goldToGrade);
@@ -240,7 +240,7 @@ public class CharacterCharacteristics : MonoBehaviour
             shieldImage.enabled = true;
             shieldImage.sprite = hero.Shield.sprite;
            
-            shield_profit.text = "PROFIT +" + hero.ItemProtect.ToString() + "%";
+            shield_profit.text = "PROTECT +" + hero.ItemProtect.ToString() + "%";
         }
         else
         {
@@ -252,7 +252,7 @@ public class CharacterCharacteristics : MonoBehaviour
             amuletImage.enabled = true;
             amuletImage.sprite = hero.Amulet.sprite;
        
-            amulet_profit.text = "PROFIT +" + hero.iemLuck.ToString() + "%";
+            amulet_profit.text = "LUCK +" + hero.iemLuck.ToString() + "%";
         }
         else
         {
