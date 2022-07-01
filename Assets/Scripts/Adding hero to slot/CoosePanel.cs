@@ -15,12 +15,20 @@ public class CoosePanel : MonoBehaviour
     [SerializeField] private ScrollingController scrollingController;
     [SerializeField] private GameObject FrontPanel;
     private ScrollingObjects _currentSlot;
+    public SwitchPanel switchPanel;
 
     public void Initialise()
     {
 
     }
     private void OnEnable()
+    {
+        CheckHeroInSlots();
+
+
+
+    }
+    public void CheckHeroInSlots()
     {
         for (int i = 0; i < neutral_chooseSlots.Count; i++)
         {
@@ -35,6 +43,11 @@ public class CoosePanel : MonoBehaviour
                     }
                 }
                 neutral_chooseSlots[i].Initialise(neutral_heroPanel.heroSlots[i].currentHero, isFree, scrollingController, _currentSlot);
+                Debug.Log(isFree);
+            }
+            else
+            {
+                neutral_chooseSlots[i].isEmpty = true;
             }
         }
         for (int i = 0; i < undead_chooseSlots.Count; i++)
@@ -51,6 +64,10 @@ public class CoosePanel : MonoBehaviour
                 }
                 undead_chooseSlots[i].Initialise(undead_heroPanel.heroSlots[i].currentHero, isFree, scrollingController, _currentSlot);
             }
+            else
+            {
+                undead_chooseSlots[i].isEmpty = true;
+            }
         }
         for (int i = 0; i < uorder_chooseSlots.Count; i++)
         {
@@ -65,6 +82,10 @@ public class CoosePanel : MonoBehaviour
                     }
                 }
                 uorder_chooseSlots[i].Initialise(order_heroPanel.heroSlots[i].currentHero, isFree, scrollingController, _currentSlot);
+            }
+            else
+            {
+                uorder_chooseSlots[i].isEmpty = true;
             }
         }
         for (int i = 0; i < demon_chooseSlots.Count; i++)
@@ -81,11 +102,45 @@ public class CoosePanel : MonoBehaviour
                 }
                 demon_chooseSlots[i].Initialise(demon_heroPanel.heroSlots[i].currentHero, isFree, scrollingController, _currentSlot);
             }
+            else
+            {
+                demon_chooseSlots[i].isEmpty = true;
+            }
 
         }
-        
-    }
+        if (FindEmpetySlot(neutral_chooseSlots) != -1)
+        {
+            Debug.Log("2");
 
+            neutral_chooseSlots[FindEmpetySlot(neutral_chooseSlots)].ShowClosedPanel_txt();
+        }
+        if (FindEmpetySlot(undead_chooseSlots) != -1)
+        {
+            undead_chooseSlots[FindEmpetySlot(undead_chooseSlots)].ShowClosedPanel_txt();
+        }
+        if (FindEmpetySlot(uorder_chooseSlots) != -1)
+        {
+            uorder_chooseSlots[FindEmpetySlot(uorder_chooseSlots)].ShowClosedPanel_txt();
+        }
+        if (FindEmpetySlot(demon_chooseSlots) != -1)
+        {
+            demon_chooseSlots[FindEmpetySlot(demon_chooseSlots)].ShowClosedPanel_txt();
+        }
+
+
+    }
+    private int FindEmpetySlot(List<ChooseSlot> panels)
+    {
+        Debug.Log("panels 0 = " + panels[0].isEmpty);
+        for (int i = 0; i < panels.Count; i++)
+        {
+            if(panels[i].isEmpty)
+            {
+                return i;
+            }
+        }
+        return -1;
+    }
     public void OpenChoosePanel(ScrollingObjects scrollingObjects)
     {
         FrontPanel.SetActive(true);
@@ -105,6 +160,47 @@ public class CoosePanel : MonoBehaviour
     {
         FrontPanel.SetActive(false);
         gameObject.SetActive(false);
+    }
+    public void FreeHero()
+    {
+        _currentSlot.currentHero = null;
+        CheckHeroInSlots();
+
+    }
+
+    public void OpenCharPanel(int index)
+    {
+        gameObject.SetActive(false);
+        FrontPanel.SetActive(false);
+        switchPanel.ActivateCurrentButton(1);
+        if(index == 0 )
+        {
+            neutral_heroPanel.gameObject.SetActive(true);
+            undead_heroPanel.gameObject.SetActive(false);
+            order_heroPanel.gameObject.SetActive(false);
+            demon_heroPanel.gameObject.SetActive(false);
+        }
+        else if(index == 1)
+        {
+            neutral_heroPanel.gameObject.SetActive(false);
+            undead_heroPanel.gameObject.SetActive(true);
+            order_heroPanel.gameObject.SetActive(false);
+            demon_heroPanel.gameObject.SetActive(false);
+        }
+        else if (index == 2)
+        {
+            neutral_heroPanel.gameObject.SetActive(false);
+            undead_heroPanel.gameObject.SetActive(false);
+            order_heroPanel.gameObject.SetActive(true);
+            demon_heroPanel.gameObject.SetActive(false);
+        }
+        else if (index == 1)
+        {
+            neutral_heroPanel.gameObject.SetActive(false);
+            undead_heroPanel.gameObject.SetActive(false);
+            order_heroPanel.gameObject.SetActive(false);
+            demon_heroPanel.gameObject.SetActive(true);
+        }
     }
 
 }

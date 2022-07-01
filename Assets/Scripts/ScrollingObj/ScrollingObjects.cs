@@ -14,7 +14,7 @@ public class ScrollingObjects : MonoBehaviour
      public RaidSlotInfo raidSlotInfo;
    
     public bool _scrollingIsActive = false;
- public Prize winPrize;
+    public Prize winPrize;
     [HideInInspector] public Hero currentHero;
 
     private RectTransform _point;
@@ -50,9 +50,14 @@ public class ScrollingObjects : MonoBehaviour
 
     public void OpenCharacterCharacteristics()
     {
-        Characteristics.ShowCharacteristics(currentHero);
+        Characteristics.ShowCharacteristics(currentHero,this);
     }
-
+    public void Freehero()
+    {
+        currentHero = null;
+        isActive = false;
+        raidSlotInfo.ActiveEmpty();
+    }
     public void AddCurrentHero(Hero hero)
     {
         currentHero = hero;

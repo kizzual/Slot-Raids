@@ -7,7 +7,7 @@ public class ScrollingController : MonoBehaviour
 {
     public List<ScrollingObjects> scrollingObjects;
     [SerializeField] private RayCheckingMatches _ray;
-    private int _countActiveSlots;
+    public int _countActiveSlots;
     public bool _isScrolling = false;
     private bool _isActiveRaid;
     [HideInInspector] public Zone _currentZone;
@@ -23,7 +23,7 @@ public class ScrollingController : MonoBehaviour
     [SerializeField] private List<Text> Combo_gold_text;
     [SerializeField] private List<Sprite> BorderSPrites;
     [SerializeField] private GameController raidController;
-
+    private List<ScrollingObjects> activeScrol = new List<ScrollingObjects>();
     public float _timer;
     void Awake()
     {
@@ -58,14 +58,15 @@ public class ScrollingController : MonoBehaviour
     public void StartRaid()
     {
         _countActiveSlots = 0;
-        
+        activeScrol.Clear();
         if (!_isActiveRaid)
         {
             foreach (var item in scrollingObjects)
             {
-                if (item.isActive)
+                if (item.isActive && item.currentHero != null)
                 {
-                    _countActiveSlots++;        
+                    _countActiveSlots++;
+                    activeScrol.Add(item);
                 }
             }
 
@@ -117,6 +118,7 @@ public class ScrollingController : MonoBehaviour
             }
         }
         raidController.SwitchButtons(_currentZone);
+        FormingSlots();
     }
     public void OpenSlot(int index)
     {
@@ -124,105 +126,18 @@ public class ScrollingController : MonoBehaviour
     }
     private void CheckIsScrolling()
     {
-        if (_countActiveSlots == 9)
+        for (int i = 0; i < activeScrol.Count; i++)
         {
-            if (!scrollingObjects[0]._scrollingIsActive &&
-               !scrollingObjects[1]._scrollingIsActive &&
-               !scrollingObjects[2]._scrollingIsActive &&
-               !scrollingObjects[3]._scrollingIsActive &&
-               !scrollingObjects[4]._scrollingIsActive &&
-               !scrollingObjects[5]._scrollingIsActive &&
-               !scrollingObjects[6]._scrollingIsActive &&
-               !scrollingObjects[7]._scrollingIsActive &&
-               !scrollingObjects[8]._scrollingIsActive)
+            if (!activeScrol[i]._scrollingIsActive)
+            {
+                activeScrol.RemoveAt(i);
+            }
+            if(activeScrol.Count < 1)
             {
                 _isScrolling = false;
             }
         }
-        if (_countActiveSlots == 8)
-        {
-            if (!scrollingObjects[0]._scrollingIsActive &&
-               !scrollingObjects[1]._scrollingIsActive &&
-               !scrollingObjects[2]._scrollingIsActive &&
-               !scrollingObjects[3]._scrollingIsActive &&
-               !scrollingObjects[4]._scrollingIsActive &&
-               !scrollingObjects[5]._scrollingIsActive &&
-               !scrollingObjects[6]._scrollingIsActive &&
-               !scrollingObjects[7]._scrollingIsActive)
-            {
-                _isScrolling = false;
-            }
-        }
-        if (_countActiveSlots == 7)
-        {
-            if (!scrollingObjects[0]._scrollingIsActive &&
-               !scrollingObjects[1]._scrollingIsActive &&
-               !scrollingObjects[2]._scrollingIsActive &&
-               !scrollingObjects[3]._scrollingIsActive &&
-               !scrollingObjects[4]._scrollingIsActive &&
-               !scrollingObjects[5]._scrollingIsActive &&
-               !scrollingObjects[6]._scrollingIsActive)
-            {
-                _isScrolling = false;
-            }
-        }
-        if (_countActiveSlots == 6)
-        {
-            if (!scrollingObjects[0]._scrollingIsActive &&
-               !scrollingObjects[1]._scrollingIsActive &&
-               !scrollingObjects[2]._scrollingIsActive &&
-               !scrollingObjects[3]._scrollingIsActive &&
-               !scrollingObjects[4]._scrollingIsActive &&
-               !scrollingObjects[5]._scrollingIsActive)
-            {
-                _isScrolling = false;
-            }
-        }
-        if (_countActiveSlots == 5)
-        {
-            if (!scrollingObjects[0]._scrollingIsActive &&
-               !scrollingObjects[1]._scrollingIsActive &&
-               !scrollingObjects[2]._scrollingIsActive &&
-               !scrollingObjects[3]._scrollingIsActive &&
-               !scrollingObjects[4]._scrollingIsActive)
-            {
-                _isScrolling = false;
-            }
-        }
-        if (_countActiveSlots == 4)
-        {
-            if (!scrollingObjects[0]._scrollingIsActive &&
-               !scrollingObjects[1]._scrollingIsActive &&
-               !scrollingObjects[2]._scrollingIsActive &&
-               !scrollingObjects[3]._scrollingIsActive)
-            {
-                _isScrolling = false;
-            }
-        }
-        if (_countActiveSlots == 3)
-        {
-            if (!scrollingObjects[0]._scrollingIsActive &&
-               !scrollingObjects[1]._scrollingIsActive &&
-               !scrollingObjects[2]._scrollingIsActive)
-            {
-                _isScrolling = false;
-            }
-        }
-        if (_countActiveSlots == 2)
-        {
-            if (!scrollingObjects[0]._scrollingIsActive &&
-               !scrollingObjects[1]._scrollingIsActive)
-            {
-                _isScrolling = false;
-            }
-        }
-        if (_countActiveSlots == 1)
-        {
-            if (!scrollingObjects[0]._scrollingIsActive)
-            {
-                _isScrolling = false;
-            }
-        }
+  
     }
     private IEnumerator StartingRaid()
     {
@@ -256,8 +171,6 @@ public class ScrollingController : MonoBehaviour
             }
         }
     }
-
-
 
 
     public void FormingSlots()

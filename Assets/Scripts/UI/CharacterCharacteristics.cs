@@ -28,6 +28,7 @@ public class CharacterCharacteristics : MonoBehaviour
     [SerializeField] private Image shieldImage;
     [SerializeField] private Image amuletImage;
 
+    [SerializeField] private Image FreeButton;
 
     [SerializeField] private Sprite neutralElement_Image;
     [SerializeField] private Sprite undeadElement_Image;
@@ -57,7 +58,14 @@ public class CharacterCharacteristics : MonoBehaviour
         {
             currentHero.LelelUp();
             Gold.SpendGold(currentHero.goldToGrade);
-            ShowCharacteristics(currentHero);
+            if(currentSlot != null)
+            {
+                ShowCharacteristics(currentHero, currentSlot);
+            }
+            else
+            {
+                ShowCharacteristics(currentHero);
+            }
             foreach (var item in heroPnels)
             {
                 foreach (var tmp in item.heroSlots)
@@ -74,7 +82,7 @@ public class CharacterCharacteristics : MonoBehaviour
     {
         front_panel.SetActive(false);
         gameObject.SetActive(false);
-     //   scrollController.FormingSlots();
+        scrollController.FormingSlots();
 
     }
     public void AddSword()
@@ -182,8 +190,17 @@ public class CharacterCharacteristics : MonoBehaviour
 
 
     }
-    public void ShowCharacteristics(Hero hero)
+    public void ShowCharacteristics(Hero hero, ScrollingObjects slot = null)
     {
+        if(slot != null)
+        {
+            currentSlot = slot;
+            FreeButton.gameObject.SetActive(true);
+        }
+        else
+        {
+            FreeButton.gameObject.SetActive(false);
+        }
         currentHero = hero;
         front_panel.SetActive(true);
         gameObject.SetActive(true);
@@ -785,5 +802,13 @@ public class CharacterCharacteristics : MonoBehaviour
         }
 
 
+    }
+
+    public void FreeHero()
+    {
+        if (currentSlot != null)
+        {
+            currentSlot.Freehero();
+        }
     }
 }

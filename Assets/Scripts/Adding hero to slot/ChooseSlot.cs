@@ -14,11 +14,12 @@ public class ChooseSlot : MonoBehaviour
     [SerializeField] private GameObject HeroPanel;
     [SerializeField] private GameObject EggPanel;
     [SerializeField] private GameObject FreeSlotPanel;
+    [SerializeField] private GameObject FreeSlotPanel_txt;
     private ScrollingController _scrollingController;
     private ScrollingObjects _currentSlot;
     public  Hero currentHero;
     private bool isFree;
-    private bool isEmpty;
+    public bool isEmpty;
 
     public void Initialise(Hero hero, bool isFree, ScrollingController scrollingController, ScrollingObjects currentSlot)
     {
@@ -34,7 +35,7 @@ public class ChooseSlot : MonoBehaviour
         HeroPanel.SetActive(true);
         EggPanel.SetActive(false);
         FreeSlotPanel.SetActive(false);
-
+        FreeSlotPanel_txt.SetActive(false);
         if (isFree)
         {
             freePanel.SetActive(false);
@@ -45,6 +46,22 @@ public class ChooseSlot : MonoBehaviour
             freePanel.SetActive(true);
             choosePanel.SetActive(false);
         }
+    }
+    public void ShowClosedPanel()
+    {
+        Debug.Log("3");
+
+        HeroPanel.SetActive(false);
+        EggPanel.SetActive(false);
+        FreeSlotPanel.SetActive(true);
+        FreeSlotPanel_txt.SetActive(false);
+    }
+    public void ShowClosedPanel_txt()
+    {
+        HeroPanel.SetActive(false);
+        EggPanel.SetActive(false);
+        FreeSlotPanel.SetActive(false);
+        FreeSlotPanel_txt.SetActive(true);
     }
 
 

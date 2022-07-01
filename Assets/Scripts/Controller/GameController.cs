@@ -11,8 +11,8 @@ public class GameController : MonoBehaviour
     [SerializeField] List<Image> RaidButtons_Filed;
     public Button currentButton;
 
-    [SerializeField] private int CountToFireButton;
-    private int _buttonsCount;
+    [SerializeField] private float CountToFireButton;
+    private float _buttonsCount;
     [SerializeField] private int TImeToReloadButton;
     private float _timer;
     private float _afkTimer;
@@ -22,7 +22,9 @@ public class GameController : MonoBehaviour
     public List<float> isOpening = new List<float>();
     private List<HeroSlot> heroSlot = new List<HeroSlot>();
     private const float timeToEggOpen = 86400;
-  
+
+
+    public TowerControl tower;
     private void Awake()
     {
         _buttonsCount = CountToFireButton;
@@ -50,10 +52,6 @@ public class GameController : MonoBehaviour
         if( _buttonSoREeloading )
         {
             _timer += Time.fixedDeltaTime;
-            for (int i = 0; i < RaidButtons_Filed.Count; i++)
-            {
-                RaidButtons_Filed[i].fillAmount = (_timer / TImeToReloadButton);
-            }
 
             if (_timer >= TImeToReloadButton)
             {
@@ -106,16 +104,15 @@ public class GameController : MonoBehaviour
     }
     public void StartRaid()
     {
-        bool canRaid = false;
+        int heroCanRaid = 0;
         foreach (var item in scrollingController.scrollingObjects)
         {
             if(item.currentHero != null)
             {
-                canRaid = true;
-                break;
+                heroCanRaid ++;
             }    
         }
-        if (_buttonsCount > 0 && canRaid)
+        if (_buttonsCount > 0 && heroCanRaid > 0  && CheckForReadySlotScrolling())
         {
             Debug.Log("CanRaid");
             HideHeroPanels();
@@ -128,6 +125,23 @@ public class GameController : MonoBehaviour
             _buttonsCount--;
             currentButton.GetComponent<RaiButtonAnimation>().StartAnimation();
         }
+        for (int i = 0; i < RaidButtons_Filed.Count; i++)
+        {
+            RaidButtons_Filed[i].fillAmount = (_buttonsCount / CountToFireButton);
+        }
+    }
+    private bool CheckForReadySlotScrolling()           //загрушка пока не перепишется получение предметов
+    {
+       
+        for (int i = 0; i <= tower.currentGradeTower; i++)
+        {
+            Debug.Log("asd");
+            if (scrollingController.scrollingObjects[i].currentHero == null)
+            {
+                return false;
+            }
+        }
+        return true;
     }
     private void ReloadButton()
     {
@@ -137,7 +151,12 @@ public class GameController : MonoBehaviour
             _buttonSoREeloading = false;
             _timer = 0;
         }
+        for (int i = 0; i < RaidButtons_Filed.Count; i++)
+        {
+            RaidButtons_Filed[i].fillAmount = (_buttonsCount / CountToFireButton);
+        }
         _timer = 0;
+       
     }
     private void HideHeroPanels()  //добавить анимацию
     {

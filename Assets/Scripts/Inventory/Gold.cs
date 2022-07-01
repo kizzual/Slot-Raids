@@ -5,11 +5,13 @@ using UnityEngine.UI;
 
 public class Gold : MonoBehaviour
 {
-    public static long currentGold = 100000000;
+    public static long currentGold = 0;
     private static Text goldText;
+    [SerializeField] private long gold;
     private void Awake()
     {
-        if(PlayerPrefs.HasKey("Gold"))
+        currentGold = gold;
+        if (PlayerPrefs.HasKey("Gold"))
             LoadGold();
 
         goldText = GetComponentInChildren<Text>();

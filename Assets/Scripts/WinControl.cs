@@ -2239,7 +2239,7 @@ public class WinControl : MonoBehaviour
                     }
 
                 }
-
+                                                                        
 
                 if (rayCast.ThirdLineCheckMatch_vertical())
                 {
@@ -2792,13 +2792,19 @@ public class WinControl : MonoBehaviour
 
     private bool CHeckElementMerge(Hero hero, Zone zone)
     {
-
-        if(hero.elementType == Hero.ElementType.Neutral && zone.ZoneElement == Zone.zoneElement.Neutral ||
-           hero.elementType == Hero.ElementType.Undead && zone.ZoneElement == Zone.zoneElement.Undead ||
-           hero.elementType == Hero.ElementType.Order && zone.ZoneElement == Zone.zoneElement.Order ||
-           hero.elementType == Hero.ElementType.Demon && zone.ZoneElement == Zone.zoneElement.Demon )
+        if (hero != null)
         {
-            return true;
+            if (hero.elementType == Hero.ElementType.Neutral && zone.ZoneElement == Zone.zoneElement.Neutral ||
+               hero.elementType == Hero.ElementType.Undead && zone.ZoneElement == Zone.zoneElement.Undead ||
+               hero.elementType == Hero.ElementType.Order && zone.ZoneElement == Zone.zoneElement.Order ||
+               hero.elementType == Hero.ElementType.Demon && zone.ZoneElement == Zone.zoneElement.Demon)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
         else
         {
@@ -2808,61 +2814,63 @@ public class WinControl : MonoBehaviour
 
     private void CheckWinPrize_fromSlot(Prize prize, int i, bool elementIsMerge = false)
     {
-        switch (scrollingObjects[i].winPrize._Type)
+        if (scrollingObjects[i].currentHero != null)
         {
-            case Type.gold_1:
-                goldWin += WinGold(1, scrollingObjects[i].currentHero, elementIsMerge);
-                break;
-            case Type.gold_2:
-                goldWin += WinGold(2, scrollingObjects[i].currentHero, elementIsMerge);
-                break;
-            case Type.gold_3:
-                goldWin += WinGold(3, scrollingObjects[i].currentHero, elementIsMerge);
-                break;
-            case Type.death:
-                Debug.Log("Deadt");
-                break;
-            case Type.item_sword_1:
-                winPrizes.Add(scrollingObjects[i].winPrize);
-                break;
-            case Type.item_sword_2:
-                winPrizes.Add(scrollingObjects[i].winPrize);
-                break;
-            case Type.item_sword_3:
-                winPrizes.Add(scrollingObjects[i].winPrize);
-                break;
-            case Type.item_shield_1:
-                winPrizes.Add(scrollingObjects[i].winPrize);
-                break;
-            case Type.item_shield_2:
-                winPrizes.Add(scrollingObjects[i].winPrize);
-                break;
-            case Type.item_shield_3:
-                winPrizes.Add(scrollingObjects[i].winPrize);
-                break;
-            case Type.item_amulet_1:
-                winPrizes.Add(scrollingObjects[i].winPrize);
-                break;
-            case Type.item_amulet_2:
-                winPrizes.Add(scrollingObjects[i].winPrize);
-                break;
-            case Type.item_amulet_3:
-                winPrizes.Add(scrollingObjects[i].winPrize);
-                break;
-            case Type.item_egg_neutral:
-                winPrizes.Add(scrollingObjects[i].winPrize);
-                break;
-            case Type.item_egg_undead:
-                winPrizes.Add(scrollingObjects[i].winPrize);
-                break;
-            case Type.item_egg_order:
-                winPrizes.Add(scrollingObjects[i].winPrize);
-                break;
-            case Type.item_egg_demons:
-                winPrizes.Add(scrollingObjects[i].winPrize);
-                break;
+            switch (scrollingObjects[i].winPrize._Type)
+            {
+                case Type.gold_1:
+                    goldWin += WinGold(1, scrollingObjects[i].currentHero, elementIsMerge);
+                    break;
+                case Type.gold_2:
+                    goldWin += WinGold(2, scrollingObjects[i].currentHero, elementIsMerge);
+                    break;
+                case Type.gold_3:
+                    goldWin += WinGold(3, scrollingObjects[i].currentHero, elementIsMerge);
+                    break;
+                case Type.death:
+                    Debug.Log("Deadt");
+                    break;
+                case Type.item_sword_1:
+                    winPrizes.Add(scrollingObjects[i].winPrize);
+                    break;
+                case Type.item_sword_2:
+                    winPrizes.Add(scrollingObjects[i].winPrize);
+                    break;
+                case Type.item_sword_3:
+                    winPrizes.Add(scrollingObjects[i].winPrize);
+                    break;
+                case Type.item_shield_1:
+                    winPrizes.Add(scrollingObjects[i].winPrize);
+                    break;
+                case Type.item_shield_2:
+                    winPrizes.Add(scrollingObjects[i].winPrize);
+                    break;
+                case Type.item_shield_3:
+                    winPrizes.Add(scrollingObjects[i].winPrize);
+                    break;
+                case Type.item_amulet_1:
+                    winPrizes.Add(scrollingObjects[i].winPrize);
+                    break;
+                case Type.item_amulet_2:
+                    winPrizes.Add(scrollingObjects[i].winPrize);
+                    break;
+                case Type.item_amulet_3:
+                    winPrizes.Add(scrollingObjects[i].winPrize);
+                    break;
+                case Type.item_egg_neutral:
+                    winPrizes.Add(scrollingObjects[i].winPrize);
+                    break;
+                case Type.item_egg_undead:
+                    winPrizes.Add(scrollingObjects[i].winPrize);
+                    break;
+                case Type.item_egg_order:
+                    winPrizes.Add(scrollingObjects[i].winPrize);
+                    break;
+                case Type.item_egg_demons:
+                    winPrizes.Add(scrollingObjects[i].winPrize);
+                    break;
+            }
         }
-
     }
 
 

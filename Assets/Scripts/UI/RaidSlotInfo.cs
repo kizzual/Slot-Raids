@@ -79,7 +79,7 @@ public class RaidSlotInfo : MonoBehaviour
             item.enabled = true;
         }
     }
-    public void ActiveEmpty(Zone zone)
+    public void ActiveEmpty(Zone zone = null)
     {
         HeroPanel.SetActive(false);
         EmptyPanel.SetActive(true);
@@ -89,8 +89,9 @@ public class RaidSlotInfo : MonoBehaviour
             item.enabled = false;
         }
     }
-    public void ActiveClosed(Zone zone)
+    public void ActiveClosed(Zone zone = null)
     {
+
         HeroPanel.SetActive(false);
         EmptyPanel.SetActive(false);
         ClosedPanel.SetActive(true);
@@ -98,6 +99,8 @@ public class RaidSlotInfo : MonoBehaviour
         {
             item.enabled = false;
         }
+
+
     }
     public void SwitchBackground(Zone zone)
     {

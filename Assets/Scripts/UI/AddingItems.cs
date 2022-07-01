@@ -529,7 +529,7 @@ public class AddingItems : MonoBehaviour
                 if (currentInventory == neutralInventory)
                 {
                     currentHero.TakeItem(_neutralItems_so.Amulet_1);
-                    amulet_image.sprite = _undeadItems_so.Amulet_1.sprite;
+                    amulet_image.sprite = _neutralItems_so.Amulet_1.sprite;
                 }
                 else if (currentInventory == undeadInventory)
                 {
