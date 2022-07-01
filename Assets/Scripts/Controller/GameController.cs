@@ -8,6 +8,7 @@ public class GameController : MonoBehaviour
     [SerializeField] private ScrollingController scrollingController;
 
     [SerializeField] List<RaiButtonAnimation> RaidButtons;
+    [SerializeField] List<Image> RaidButtons_Filed;
     public Button currentButton;
 
     [SerializeField] private int CountToFireButton;
@@ -20,7 +21,8 @@ public class GameController : MonoBehaviour
 
     public List<float> isOpening = new List<float>();
     private List<HeroSlot> heroSlot = new List<HeroSlot>();
-    private const float timeToEggOpen = 86400;    
+    private const float timeToEggOpen = 86400;
+  
     private void Awake()
     {
         _buttonsCount = CountToFireButton;
@@ -48,7 +50,10 @@ public class GameController : MonoBehaviour
         if( _buttonSoREeloading )
         {
             _timer += Time.fixedDeltaTime;
-          
+            for (int i = 0; i < RaidButtons_Filed.Count; i++)
+            {
+                RaidButtons_Filed[i].fillAmount = (_timer / TImeToReloadButton);
+            }
 
             if (_timer >= TImeToReloadButton)
             {

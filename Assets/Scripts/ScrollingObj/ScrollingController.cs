@@ -301,6 +301,7 @@ public class ScrollingController : MonoBehaviour
             {
                 if (zone.ZoneElement == Zone.zoneElement.Neutral)
                 {
+                    Debug.Log("neutralItems");
                     prizeList.Add(_currentZone.neutralItems.sword_1);
                 }
                 else if(zone.ZoneElement == Zone.zoneElement.Undead)
@@ -309,10 +310,12 @@ public class ScrollingController : MonoBehaviour
                 }
                 else if (zone.ZoneElement == Zone.zoneElement.Order)
                 {
+                    Debug.Log("orderItems");
                     prizeList.Add(_currentZone.orderItems.sword_1);
                 }
                 else if (zone.ZoneElement == Zone.zoneElement.Demon)
                 {
+                    Debug.Log("demonItems");
                     prizeList.Add(_currentZone.demonItems.sword_1);
                 }
             }
@@ -1427,6 +1430,7 @@ public class ScrollingController : MonoBehaviour
     }
     public List<Prize> FormingZone_3(Hero hero, Zone zone, int indexSlot)
     {
+
         if (hero.rank == 1)
         {
             if (hero.elementType == Hero.ElementType.Neutral && zone.ZoneElement == Zone.zoneElement.Neutral ||
@@ -1442,14 +1446,14 @@ public class ScrollingController : MonoBehaviour
                     if (zone.ZoneElement == Zone.zoneElement.Neutral)
                     {
                         prizeList.Add(_currentZone.neutralItems.sword_1);
-                    }
+                                            }
                     else if (zone.ZoneElement == Zone.zoneElement.Undead)
                     {
                         prizeList.Add(_currentZone.undeadItems.sword_1);
                     }
                     else if (zone.ZoneElement == Zone.zoneElement.Order)
                     {
-                        prizeList.Add(_currentZone.orderItems.sword_1);
+                       prizeList.Add(_currentZone.orderItems.sword_1);
                     }
                     else if (zone.ZoneElement == Zone.zoneElement.Demon)
                     {

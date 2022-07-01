@@ -60,12 +60,13 @@ public class Hero : MonoBehaviour
         }
         else if(prize._Type == Type.item_amulet_1 || prize._Type == Type.item_amulet_2 || prize._Type == Type.item_amulet_3)
         {
+            Debug.Log("ASD");
             Amulet = prize;
             iemLuck = Amulet.luckPercent;
             LuckPercent = LuckPercent +  iemLuck;
         }
         ProfitPercent = GoldProfit();
-        Debug.Log("Добавлен айтем " + prize.name);
+        Debug.Log("Добавлен айтем типа  =  " + prize._Type);
     }
     public void Initialise(Hero heroSo)
     {

@@ -90,7 +90,21 @@ public class AddingItems : MonoBehaviour
         if(currentInventory._swords_1_count > 0)
         {
             panel_rank1.SetActive(true);
-            Items_1_image.sprite = _neutralItems_so.sword_1.sprite;
+            switch (hero.elementType)
+            {
+                case Hero.ElementType.Neutral:
+                    Items_1_image.sprite = _neutralItems_so.sword_1.sprite;
+                    break;
+                case Hero.ElementType.Undead:
+                    Items_1_image.sprite = _undeadItems_so.sword_1.sprite;
+                    break;
+                case Hero.ElementType.Order:
+                    Items_1_image.sprite = _orderItems_so.sword_1.sprite;
+                    break;
+                case Hero.ElementType.Demon:
+                    Items_1_image.sprite = _demonItems_so.sword_1.sprite;
+                    break;
+            }
             item_1_count.text = currentInventory._swords_1_count.ToString();
         }
         else
@@ -99,8 +113,22 @@ public class AddingItems : MonoBehaviour
         }
         if (currentInventory._swords_2_count > 0 && hero.rank == 2)
         {
+            switch (hero.elementType)
+            {
+                case Hero.ElementType.Neutral:
+                    Items_2_image.sprite = _neutralItems_so.sword_2.sprite;
+                    break;
+                case Hero.ElementType.Undead:
+                    Items_2_image.sprite = _undeadItems_so.sword_2.sprite;
+                    break;
+                case Hero.ElementType.Order:
+                    Items_2_image.sprite = _orderItems_so.sword_2.sprite;
+                    break;
+                case Hero.ElementType.Demon:
+                    Items_2_image.sprite = _demonItems_so.sword_2.sprite;
+                    break;
+            }
             panel_rank2.SetActive(true);
-            Items_2_image.sprite = _neutralItems_so.sword_2.sprite;
             item_2_count.text = currentInventory._swords_2_count.ToString();
         }
         else
@@ -109,8 +137,22 @@ public class AddingItems : MonoBehaviour
         }
         if (currentInventory._swords_3_count > 0 && hero.rank == 3 )
         {
+            switch (hero.elementType)
+            {
+                case Hero.ElementType.Neutral:
+                    Items_3_image.sprite = _neutralItems_so.sword_3.sprite;
+                    break;
+                case Hero.ElementType.Undead:
+                    Items_3_image.sprite = _undeadItems_so.sword_3.sprite;
+                    break;
+                case Hero.ElementType.Order:
+                    Items_3_image.sprite = _orderItems_so.sword_3.sprite;
+                    break;
+                case Hero.ElementType.Demon:
+                    Items_3_image.sprite = _demonItems_so.sword_3.sprite;
+                    break;
+            }
             panel_rank3.SetActive(true);
-            Items_3_image.sprite = _neutralItems_so.sword_3.sprite;
             item_3_count.text = currentInventory._swords_3_count.ToString();
         }
         else
@@ -155,8 +197,22 @@ public class AddingItems : MonoBehaviour
         itemName.text = "SHIELD";
         if (currentInventory._shield_1_count > 0)
         {
+            switch (hero.elementType)
+            {
+                case Hero.ElementType.Neutral:
+                    Items_1_image.sprite = _neutralItems_so.shield_1.sprite;
+                    break;
+                case Hero.ElementType.Undead:
+                    Items_1_image.sprite = _undeadItems_so.shield_1.sprite;
+                    break;
+                case Hero.ElementType.Order:
+                    Items_1_image.sprite = _orderItems_so.shield_1.sprite;
+                    break;
+                case Hero.ElementType.Demon:
+                    Items_1_image.sprite = _demonItems_so.shield_1.sprite;
+                    break;
+            }
             panel_rank1.SetActive(true);
-            Items_1_image.sprite = _neutralItems_so.shield_1.sprite;
             item_1_count.text = currentInventory._shield_1_count.ToString();
         }
         else
@@ -165,8 +221,22 @@ public class AddingItems : MonoBehaviour
         }
         if (currentInventory._shield_2_count > 0 && hero.rank == 2)
         {
+            switch (hero.elementType)
+            {
+                case Hero.ElementType.Neutral:
+                    Items_2_image.sprite = _neutralItems_so.shield_2.sprite;
+                    break;
+                case Hero.ElementType.Undead:
+                    Items_2_image.sprite = _undeadItems_so.shield_2.sprite;
+                    break;
+                case Hero.ElementType.Order:
+                    Items_2_image.sprite = _orderItems_so.shield_2.sprite;
+                    break;
+                case Hero.ElementType.Demon:
+                    Items_2_image.sprite = _demonItems_so.shield_2.sprite;
+                    break;
+            }
             panel_rank2.SetActive(true);
-            Items_2_image.sprite = _neutralItems_so.shield_2.sprite;
             item_2_count.text = currentInventory._shield_2_count.ToString();
         }
         else
@@ -175,8 +245,22 @@ public class AddingItems : MonoBehaviour
         }
         if (currentInventory._shield_3_count > 0 && hero.rank == 3)
         {
+            switch (hero.elementType)
+            {
+                case Hero.ElementType.Neutral:
+                    Items_3_image.sprite = _neutralItems_so.shield_3.sprite;
+                    break;
+                case Hero.ElementType.Undead:
+                    Items_3_image.sprite = _undeadItems_so.shield_3.sprite;
+                    break;
+                case Hero.ElementType.Order:
+                    Items_3_image.sprite = _orderItems_so.shield_3.sprite;
+                    break;
+                case Hero.ElementType.Demon:
+                    Items_3_image.sprite = _demonItems_so.shield_3.sprite;
+                    break;
+            }
             panel_rank3.SetActive(true);
-            Items_3_image.sprite = _neutralItems_so.shield_3.sprite;
             item_3_count.text = currentInventory._shield_3_count.ToString();
         }
         else
@@ -219,8 +303,22 @@ public class AddingItems : MonoBehaviour
         itemName.text = "AMULET";
         if (currentInventory._amulet_1_count > 0)
         {
+            switch (hero.elementType)
+            {
+                case Hero.ElementType.Neutral:
+                    Items_1_image.sprite = _neutralItems_so.Amulet_1.sprite;
+                    break;
+                case Hero.ElementType.Undead:
+                    Items_1_image.sprite = _undeadItems_so.Amulet_1.sprite;
+                    break;
+                case Hero.ElementType.Order:
+                    Items_1_image.sprite = _orderItems_so.Amulet_1.sprite;
+                    break;
+                case Hero.ElementType.Demon:
+                    Items_1_image.sprite = _demonItems_so.Amulet_1.sprite;
+                    break;
+            }
             panel_rank1.SetActive(true);
-            Items_1_image.sprite = _neutralItems_so.Amulet_1.sprite;
             item_1_count.text = currentInventory._amulet_1_count.ToString();
         }
         else
@@ -229,8 +327,22 @@ public class AddingItems : MonoBehaviour
         }
         if (currentInventory._amulet_2_count > 0 && hero.rank == 2)
         {
+            switch (hero.elementType)
+            {
+                case Hero.ElementType.Neutral:
+                    Items_2_image.sprite = _neutralItems_so.Amulet_2.sprite;
+                    break;
+                case Hero.ElementType.Undead:
+                    Items_2_image.sprite = _undeadItems_so.Amulet_2.sprite;
+                    break;
+                case Hero.ElementType.Order:
+                    Items_2_image.sprite = _orderItems_so.Amulet_2.sprite;
+                    break;
+                case Hero.ElementType.Demon:
+                    Items_2_image.sprite = _demonItems_so.Amulet_2.sprite;
+                    break;
+            }
             panel_rank2.SetActive(true);
-            Items_2_image.sprite = _neutralItems_so.Amulet_2.sprite;
             item_2_count.text = currentInventory._amulet_2_count.ToString();
         }
         else
@@ -239,8 +351,22 @@ public class AddingItems : MonoBehaviour
         }
         if (currentInventory._amulet_3_count > 0 && hero.rank == 3)
         {
+            switch (hero.elementType)
+            {
+                case Hero.ElementType.Neutral:
+                    Items_3_image.sprite = _neutralItems_so.Amulet_3.sprite;
+                    break;
+                case Hero.ElementType.Undead:
+                    Items_3_image.sprite = _undeadItems_so.Amulet_3.sprite;
+                    break;
+                case Hero.ElementType.Order:
+                    Items_3_image.sprite = _orderItems_so.Amulet_3.sprite;
+                    break;
+                case Hero.ElementType.Demon:
+                    Items_3_image.sprite = _demonItems_so.Amulet_3.sprite;
+                    break;
+            }
             panel_rank3.SetActive(true);
-            Items_3_image.sprite = _neutralItems_so.Amulet_3.sprite;
             item_3_count.text = currentInventory._amulet_3_count.ToString();
         }
         else
@@ -302,6 +428,12 @@ public class AddingItems : MonoBehaviour
                 checkCurrent_3.SetActive(true);
             }
         }
+        else
+        {
+            checkCurrent_1.SetActive(false);
+            checkCurrent_2.SetActive(false);
+            checkCurrent_3.SetActive(false);
+        }
     }
 
     private void CheckButtonAmulet(Prize prize)
@@ -326,6 +458,12 @@ public class AddingItems : MonoBehaviour
                 checkCurrent_2.SetActive(false);
                 checkCurrent_3.SetActive(true);
             }
+        }
+        else
+        {
+            checkCurrent_1.SetActive(false);
+            checkCurrent_2.SetActive(false);
+            checkCurrent_3.SetActive(false);
         }
     }
 
@@ -400,11 +538,13 @@ public class AddingItems : MonoBehaviour
                 }
                 else if (currentInventory == orderInventory)
                 {
+
                     currentHero.TakeItem(_orderItems_so.Amulet_1);
                     amulet_image.sprite = _orderItems_so.Amulet_1.sprite;
                 }
                 else if (currentInventory == demonInventory)
                 {
+
                     currentHero.TakeItem(_demonItems_so.Amulet_1);
                     amulet_image.sprite = _demonItems_so.Amulet_1.sprite;
                 }
@@ -553,17 +693,18 @@ public class AddingItems : MonoBehaviour
                 else if (currentInventory == undeadInventory)
                 {
                     currentHero.TakeItem(_undeadItems_so.Amulet_3);
-                    amulet_image.sprite = _undeadItems_so.Amulet_1.sprite;
+                    amulet_image.sprite = _undeadItems_so.Amulet_3.sprite;
                 }
                 else if (currentInventory == orderInventory)
                 {
+
                     currentHero.TakeItem(_orderItems_so.Amulet_3);
-                    amulet_image.sprite = _orderItems_so.Amulet_1.sprite;
+                    amulet_image.sprite = _orderItems_so.Amulet_3.sprite;
                 }
                 else if (currentInventory == demonInventory)
                 {
                     currentHero.TakeItem(_demonItems_so.Amulet_3);
-                    amulet_image.sprite = _demonItems_so.Amulet_1.sprite;
+                    amulet_image.sprite = _demonItems_so.Amulet_3.sprite;
                 }
 
             }
@@ -571,7 +712,7 @@ public class AddingItems : MonoBehaviour
     }
     public void ClosePanel()
     {
-        Characteristics.DisplayInfo();
+ //       Characteristics.DisplayInfo();
         gameObject.SetActive(false);
         characterCharacteristics_panel.SetActive(true);
     }

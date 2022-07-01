@@ -676,6 +676,8 @@ public class InventoryControl : MonoBehaviour
 
     private Inventory CheckELement(Prize prize)
     {
+        Debug.Log("prize element = " + prize._ElementType);
+
         switch (prize._ElementType)
         {
             case ElementType.Neutral:

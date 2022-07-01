@@ -114,9 +114,6 @@ public class CharacterCharacteristics : MonoBehaviour
             defence_profit.text = currentHero.ProtectPercent.ToString() + "%";
             combo_profit.text = "X" + currentHero.ComboPercent.ToString();
             goldToGrade.text = ConvertText.FormatNumb(currentHero.goldToGrade);
-            Debug.Log("luck =   " + currentHero.LuckPercent);
-            Debug.Log("profit =   " + currentHero.ProfitPercent);
-            Debug.Log("defence =   " + currentHero.ProtectPercent);
             if (currentHero.Sword != null)
             {
                 swordImage.enabled = true;
@@ -278,6 +275,10 @@ public class CharacterCharacteristics : MonoBehaviour
     }
     private void DisplayMainImage()
     {
+        Debug.Log("currentHero.elementType =  " + currentHero.elementType);
+        Debug.Log("currentHero.rank =  " + currentHero.rank);
+        Debug.Log("currentHero.ID =  " + currentHero.ID);
+
         foreach (var item in neutral_main_image)
         {
             item.SetActive(false);
@@ -420,78 +421,78 @@ public class CharacterCharacteristics : MonoBehaviour
         {
             if (currentHero.rank == 1)
             {
-                if (currentHero.ID == 1)
+                if (currentHero.ID == 11)
                 {
                     undead_main_image[0].SetActive(true);
                 }
-                else if (currentHero.ID == 2)
+                else if (currentHero.ID == 12)
                 {
                     undead_main_image[3].SetActive(true);
                 }
-                else if (currentHero.ID == 3)
+                else if (currentHero.ID == 13)
                 {
                     undead_main_image[6].SetActive(true);
                 }
-                else if (currentHero.ID == 4)
+                else if (currentHero.ID == 14)
                 {
                     undead_main_image[9].SetActive(true);
                 }
-                else if (currentHero.ID == 5)
+                else if (currentHero.ID == 15)
                 {
                     undead_main_image[12].SetActive(true);
                 }
-                else if (currentHero.ID == 6)
+                else if (currentHero.ID == 16)
                 {
                     undead_main_image[15].SetActive(true);
                 }
-                else if (currentHero.ID == 7)
+                else if (currentHero.ID == 17)
                 {
                     undead_main_image[18].SetActive(true);
                 }
-                else if (currentHero.ID == 8)
+                else if (currentHero.ID == 18)
                 {
                     undead_main_image[21].SetActive(true);
                 }
-                else if (currentHero.ID == 9)
+                else if (currentHero.ID == 19)
                 {
                     undead_main_image[24].SetActive(true);
                 }
             }
             else if (currentHero.rank == 2)
             {
-                if (currentHero.ID == 1)
+                if (currentHero.ID == 11)
                 {
                     undead_main_image[1].SetActive(true);
                 }
-                else if (currentHero.ID == 2)
+                else if (currentHero.ID == 12)
                 {
                     undead_main_image[4].SetActive(true);
                 }
-                else if (currentHero.ID == 3)
+                else if (currentHero.ID == 13)
                 {
                     undead_main_image[7].SetActive(true);
                 }
-                else if (currentHero.ID == 4)
+                else if (currentHero.ID == 14)
                 {
                     undead_main_image[10].SetActive(true);
                 }
-                else if (currentHero.ID == 5)
+                else if (currentHero.ID == 15)
                 {
                     undead_main_image[13].SetActive(true);
                 }
-                else if (currentHero.ID == 6)
+                else if (currentHero.ID == 16)
                 {
                     undead_main_image[16].SetActive(true);
                 }
-                else if (currentHero.ID == 7)
+                else if (currentHero.ID == 17)
                 {
                     undead_main_image[19].SetActive(true);
                 }
-                else if (currentHero.ID == 8)
+                else if (currentHero.ID == 18)
                 {
                     undead_main_image[22].SetActive(true);
                 }
-                else if (currentHero.ID == 9)
+                else if (currentHero.ID == 19)
                 {
                     undead_main_image[25].SetActive(true);
                 }
@@ -499,39 +500,39 @@ public class CharacterCharacteristics : MonoBehaviour
             }
             else if (currentHero.rank == 3)
             {
-                if (currentHero.ID == 1)
+                if (currentHero.ID == 11)
                 {
                     undead_main_image[2].SetActive(true);
                 }
-                else if (currentHero.ID == 2)
+                else if (currentHero.ID == 12)
                 {
                     undead_main_image[5].SetActive(true);
                 }
-                else if (currentHero.ID == 3)
+                else if (currentHero.ID == 13)
                 {
                     undead_main_image[8].SetActive(true);
                 }
-                else if (currentHero.ID == 4)
+                else if (currentHero.ID == 14)
                 {
                     undead_main_image[11].SetActive(true);
                 }
-                else if (currentHero.ID == 5)
+                else if (currentHero.ID == 15)
                 {
                     undead_main_image[14].SetActive(true);
                 }
-                else if (currentHero.ID == 6)
+                else if (currentHero.ID == 16)
                 {
                     undead_main_image[17].SetActive(true);
                 }
-                else if (currentHero.ID == 7)
+                else if (currentHero.ID == 17)
                 {
                     undead_main_image[20].SetActive(true);
                 }
-                else if (currentHero.ID == 8)
+                else if (currentHero.ID == 18)
                 {
                     undead_main_image[23].SetActive(true);
                 }
-                else if (currentHero.ID == 9)
+                else if (currentHero.ID == 19)
                 {
                     undead_main_image[26].SetActive(true);
                 }
@@ -542,78 +543,78 @@ public class CharacterCharacteristics : MonoBehaviour
         {
             if (currentHero.rank == 1)
             {
-                if (currentHero.ID == 1)
+                if (currentHero.ID == 21)
                 {
                     order_main_image[0].SetActive(true);
                 }
-                else if (currentHero.ID == 2)
+                else if (currentHero.ID == 22)
                 {
                     order_main_image[3].SetActive(true);
                 }
-                else if (currentHero.ID == 3)
+                else if (currentHero.ID == 23)
                 {
                     order_main_image[6].SetActive(true);
                 }
-                else if (currentHero.ID == 4)
+                else if (currentHero.ID == 24)
                 {
                     order_main_image[9].SetActive(true);
                 }
-                else if (currentHero.ID == 5)
+                else if (currentHero.ID == 25)
                 {
                     order_main_image[12].SetActive(true);
                 }
-                else if (currentHero.ID == 6)
+                else if (currentHero.ID == 26)
                 {
                     order_main_image[15].SetActive(true);
                 }
-                else if (currentHero.ID == 7)
+                else if (currentHero.ID == 27)
                 {
                     order_main_image[18].SetActive(true);
                 }
-                else if (currentHero.ID == 8)
+                else if (currentHero.ID == 28)
                 {
                     order_main_image[21].SetActive(true);
                 }
-                else if (currentHero.ID == 9)
+                else if (currentHero.ID == 29)
                 {
                     order_main_image[24].SetActive(true);
                 }
             }
             else if (currentHero.rank == 2)
             {
-                if (currentHero.ID == 1)
+                if (currentHero.ID == 21)
                 {
                     order_main_image[1].SetActive(true);
                 }
-                else if (currentHero.ID == 2)
+                else if (currentHero.ID == 22)
                 {
                     order_main_image[4].SetActive(true);
                 }
-                else if (currentHero.ID == 3)
+                else if (currentHero.ID == 23)
                 {
                     order_main_image[7].SetActive(true);
                 }
-                else if (currentHero.ID == 4)
+                else if (currentHero.ID == 24)
                 {
                     order_main_image[10].SetActive(true);
                 }
-                else if (currentHero.ID == 5)
+                else if (currentHero.ID == 25)
                 {
                     order_main_image[13].SetActive(true);
                 }
-                else if (currentHero.ID == 6)
+                else if (currentHero.ID == 26)
                 {
                     order_main_image[16].SetActive(true);
                 }
-                else if (currentHero.ID == 7)
+                else if (currentHero.ID == 27)
                 {
                     order_main_image[19].SetActive(true);
                 }
-                else if (currentHero.ID == 8)
+                else if (currentHero.ID == 28)
                 {
                     order_main_image[22].SetActive(true);
                 }
-                else if (currentHero.ID == 9)
+                else if (currentHero.ID == 29)
                 {
                     order_main_image[25].SetActive(true);
                 }
@@ -621,39 +622,39 @@ public class CharacterCharacteristics : MonoBehaviour
             }
             else if (currentHero.rank == 3)
             {
-                if (currentHero.ID == 1)
+                if (currentHero.ID == 21)
                 {
                     order_main_image[2].SetActive(true);
                 }
-                else if (currentHero.ID == 2)
+                else if (currentHero.ID == 22)
                 {
                     order_main_image[5].SetActive(true);
                 }
-                else if (currentHero.ID == 3)
+                else if (currentHero.ID == 23)
                 {
                     order_main_image[8].SetActive(true);
                 }
-                else if (currentHero.ID == 4)
+                else if (currentHero.ID == 24)
                 {
                     order_main_image[11].SetActive(true);
                 }
-                else if (currentHero.ID == 5)
+                else if (currentHero.ID == 25)
                 {
                     order_main_image[14].SetActive(true);
                 }
-                else if (currentHero.ID == 6)
+                else if (currentHero.ID == 26)
                 {
                     order_main_image[17].SetActive(true);
                 }
-                else if (currentHero.ID == 7)
+                else if (currentHero.ID == 27)
                 {
                     order_main_image[20].SetActive(true);
                 }
-                else if (currentHero.ID == 8)
+                else if (currentHero.ID == 28)
                 {
                     order_main_image[23].SetActive(true);
                 }
-                else if (currentHero.ID == 9)
+                else if (currentHero.ID == 29)
                 {
                     order_main_image[26].SetActive(true);
                 }
@@ -664,78 +665,78 @@ public class CharacterCharacteristics : MonoBehaviour
         {
             if (currentHero.rank == 1)
             {
-                if (currentHero.ID == 1)
+                if (currentHero.ID == 31)
                 {
                     demon_main_image[0].SetActive(true);
                 }
-                else if (currentHero.ID == 2)
+                else if (currentHero.ID == 32)
                 {
                     demon_main_image[3].SetActive(true);
                 }
-                else if (currentHero.ID == 3)
+                else if (currentHero.ID == 33)
                 {
                     demon_main_image[6].SetActive(true);
                 }
-                else if (currentHero.ID == 4)
+                else if (currentHero.ID == 34)
                 {
                     demon_main_image[9].SetActive(true);
                 }
-                else if (currentHero.ID == 5)
+                else if (currentHero.ID == 35)
                 {
                     demon_main_image[12].SetActive(true);
                 }
-                else if (currentHero.ID == 6)
+                else if (currentHero.ID == 36)
                 {
                     demon_main_image[15].SetActive(true);
                 }
-                else if (currentHero.ID == 7)
+                else if (currentHero.ID == 37)
                 {
                     demon_main_image[18].SetActive(true);
                 }
-                else if (currentHero.ID == 8)
+                else if (currentHero.ID == 38)
                 {
                     demon_main_image[21].SetActive(true);
                 }
-                else if (currentHero.ID == 9)
+                else if (currentHero.ID == 39)
                 {
                     demon_main_image[24].SetActive(true);
                 }
             }
             else if (currentHero.rank == 2)
             {
-                if (currentHero.ID == 1)
+                if (currentHero.ID == 31)
                 {
                     demon_main_image[1].SetActive(true);
                 }
-                else if (currentHero.ID == 2)
+                else if (currentHero.ID == 32)
                 {
                     demon_main_image[4].SetActive(true);
                 }
-                else if (currentHero.ID == 3)
+                else if (currentHero.ID == 33)
                 {
                     demon_main_image[7].SetActive(true);
                 }
-                else if (currentHero.ID == 4)
+                else if (currentHero.ID == 34)
                 {
                     demon_main_image[10].SetActive(true);
                 }
-                else if (currentHero.ID == 5)
+                else if (currentHero.ID == 35)
                 {
                     demon_main_image[13].SetActive(true);
                 }
-                else if (currentHero.ID == 6)
+                else if (currentHero.ID == 36)
                 {
                     demon_main_image[16].SetActive(true);
                 }
-                else if (currentHero.ID == 7)
+                else if (currentHero.ID == 37)
                 {
                     demon_main_image[19].SetActive(true);
                 }
-                else if (currentHero.ID == 8)
+                else if (currentHero.ID == 38)
                 {
                     demon_main_image[22].SetActive(true);
                 }
-                else if (currentHero.ID == 9)
+                else if (currentHero.ID == 39)
                 {
                     demon_main_image[25].SetActive(true);
                 }
@@ -743,39 +744,39 @@ public class CharacterCharacteristics : MonoBehaviour
             }
             else if (currentHero.rank == 3)
             {
-                if (currentHero.ID == 1)
+                if (currentHero.ID == 31)
                 {
                     demon_main_image[2].SetActive(true);
                 }
-                else if (currentHero.ID == 2)
+                else if (currentHero.ID == 32)
                 {
                     demon_main_image[5].SetActive(true);
                 }
-                else if (currentHero.ID == 3)
+                else if (currentHero.ID == 33)
                 {
                     demon_main_image[8].SetActive(true);
                 }
-                else if (currentHero.ID == 4)
+                else if (currentHero.ID == 34)
                 {
                     demon_main_image[11].SetActive(true);
                 }
-                else if (currentHero.ID == 5)
+                else if (currentHero.ID == 35)
                 {
                     demon_main_image[14].SetActive(true);
                 }
-                else if (currentHero.ID == 6)
+                else if (currentHero.ID == 36)
                 {
                     demon_main_image[17].SetActive(true);
                 }
-                else if (currentHero.ID == 7)
+                else if (currentHero.ID == 37)
                 {
                     demon_main_image[20].SetActive(true);
                 }
-                else if (currentHero.ID == 8)
+                else if (currentHero.ID == 38)
                 {
                     demon_main_image[23].SetActive(true);
                 }
-                else if (currentHero.ID == 9)
+                else if (currentHero.ID == 39)
                 {
                     demon_main_image[26].SetActive(true);
                 }

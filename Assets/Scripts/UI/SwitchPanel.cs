@@ -66,7 +66,7 @@ public class SwitchPanel : MonoBehaviour
     {
         for (int i = 0; i < panel.Length; i++)
         {
-            if (i != 2)
+            if (i != 0)
             {
                 button[i].gameObject.transform.GetChild(1).gameObject.SetActive(false);
                 panel[i].SetActive(false);

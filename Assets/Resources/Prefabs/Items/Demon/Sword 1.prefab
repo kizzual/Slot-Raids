@@ -120,7 +120,7 @@ MonoBehaviour:
   type: 0
   _ElementType: 3
   elementType: 0
-  sellingPrice: 10
+  sellingPrice: 100
   openingTime: 0
   goldPrize: 5
   profitPercent: 5

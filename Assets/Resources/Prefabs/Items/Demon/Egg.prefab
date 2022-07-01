@@ -68,7 +68,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: af09ea1f476107f40ab91c1709eb58ae, type: 3}
+  m_Sprite: {fileID: 21300000, guid: de204d923a6a47844bb9b545413a9fed, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -120,10 +120,10 @@ MonoBehaviour:
   type: 0
   _ElementType: 3
   elementType: 0
-  sellingPrice: 50
+  sellingPrice: 100000
   openingTime: 0
   goldPrize: 0
   profitPercent: 15
   defencePercent: 5
   luckPercent: 2
-  sprite: {fileID: 21300000, guid: af09ea1f476107f40ab91c1709eb58ae, type: 3}
+  sprite: {fileID: 21300000, guid: de204d923a6a47844bb9b545413a9fed, type: 3}

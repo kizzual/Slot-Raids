@@ -126,4 +126,14 @@ public class HeroSlot : MonoBehaviour
         ClosedPanel.SetActive(false);
     }
 
+    public void UpgradeHero()
+    {
+        if(Gold.GetCurrentGold() >= currentHero.goldToGrade)
+        {
+            Gold.SpendGold(currentHero.goldToGrade);
+            currentHero.LelelUp();
+            DisplayHEroInfo();
+        }
+
+    }
 }

@@ -24,6 +24,10 @@ public class EggOpening : MonoBehaviour
     [SerializeField] private Sprite AddButton_InActiveSprite;
     [SerializeField] private List<Button> add_button;
     [SerializeField] private GameObject frontPanel;
+    [SerializeField] private Image neutralEgg;
+    [SerializeField] private Image undeadEgg;
+    [SerializeField] private Image orderEgg;
+    [SerializeField] private Image demonEgg;
     private HeroSlot currentSlot;
     void Update()
     {
@@ -42,6 +46,7 @@ public class EggOpening : MonoBehaviour
         neutralEggCount_text.text = neutralInventory._eggs_count.ToString();
         if(neutralInventory._eggs_count > 0)
         {
+            neutralEgg.enabled = true;
             foreach (var item in add_button)
             {
                 item.gameObject.GetComponent<Image>().sprite = AddButton_activeSprite;
@@ -50,6 +55,7 @@ public class EggOpening : MonoBehaviour
         }
         else
         {
+            neutralEgg.enabled = false;
             foreach (var item in add_button)
             {
                 item.gameObject.GetComponent<Image>().sprite = AddButton_InActiveSprite;
@@ -69,6 +75,7 @@ public class EggOpening : MonoBehaviour
         undeadEggCount_text.text = undeadInventory._eggs_count.ToString();
         if (undeadInventory._eggs_count > 0)
         {
+            undeadEgg.enabled = true;
             foreach (var item in add_button)
             {
                 item.gameObject.GetComponent<Image>().sprite = AddButton_activeSprite;
@@ -77,6 +84,7 @@ public class EggOpening : MonoBehaviour
         }
         else
         {
+            undeadEgg.enabled = false;
             foreach (var item in add_button)
             {
                 item.gameObject.GetComponent<Image>().sprite = AddButton_InActiveSprite;
@@ -96,7 +104,7 @@ public class EggOpening : MonoBehaviour
         orderEggCount_text.text = orderInventory._eggs_count.ToString();
         if (orderInventory._eggs_count > 0)
         {
-
+            orderEgg.enabled = true;
             foreach (var item in add_button)
             {
                 item.gameObject.GetComponent<Image>().sprite = AddButton_activeSprite;
@@ -106,6 +114,7 @@ public class EggOpening : MonoBehaviour
         }
         else
         {
+            orderEgg.enabled = false;
             foreach (var item in add_button)
             {
                 item.gameObject.GetComponent<Image>().sprite = AddButton_InActiveSprite;
@@ -126,6 +135,7 @@ public class EggOpening : MonoBehaviour
         demonEggCount_text.text = DemonInventory._eggs_count.ToString();
         if (DemonInventory._eggs_count > 0)
         {
+            demonEgg.enabled = true;
             foreach (var item in add_button)
             {
                 item.gameObject.GetComponent<Image>().sprite = AddButton_activeSprite;
@@ -135,6 +145,7 @@ public class EggOpening : MonoBehaviour
         }
         else
         {
+            demonEgg.enabled = false;
             foreach (var item in add_button)
             {
                 item.gameObject.GetComponent<Image>().sprite = AddButton_InActiveSprite;

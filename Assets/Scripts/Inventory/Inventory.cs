@@ -7,13 +7,13 @@ public class Inventory : MonoBehaviour
 {
     public string _name;
    public int _eggs_count;
-    [HideInInspector] public int _swords_1_count;
+ public int _swords_1_count;
     [HideInInspector] public int _swords_2_count;
     [HideInInspector] public int _swords_3_count;
-    [HideInInspector] public int _shield_1_count;
+ public int _shield_1_count;
     [HideInInspector] public int _shield_2_count;
     [HideInInspector] public int _shield_3_count;
-    [HideInInspector] public int _amulet_1_count;
+ public int _amulet_1_count;
     [HideInInspector] public int _amulet_2_count;
     [HideInInspector] public int _amulet_3_count;
 

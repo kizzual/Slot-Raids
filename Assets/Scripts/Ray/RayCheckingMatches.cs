@@ -31,7 +31,8 @@ public class RayCheckingMatches : MonoBehaviour
     [SerializeField] private GameObject Line_upper_diagonaly_panel;
 
     [SerializeField] private List<GameObject> comboText;
-
+    private bool IsCombo = false;
+    private float _timer;
     void Start()
     {
         _lineDirection = transform.TransformDirection(Vector3.right);
@@ -40,6 +41,18 @@ public class RayCheckingMatches : MonoBehaviour
         _diagonallyDirectionToDown = transform.TransformDirection(Vector3.right + Vector3.down);
     }
 
+    private void Update()
+    {
+        if (IsCombo)
+        {
+            _timer += Time.deltaTime;
+            if(_timer >= 3)
+            {
+                IsCombo = false;
+                CloseCombo();
+            }
+        }
+    }
     public void CheckingMatches(int activeSlotsCount)
     {
         if (activeSlotsCount >= 3 && activeSlotsCount < 6)
@@ -266,6 +279,7 @@ public class RayCheckingMatches : MonoBehaviour
     }
     private void OpenComboTExt()
     {
+        IsCombo = true;
         foreach (var item in comboText)
         {
             item.SetActive(true);

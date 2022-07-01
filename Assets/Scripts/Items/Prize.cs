@@ -42,7 +42,7 @@ public class Prize : MonoBehaviour
         luckPercent = prize.luckPercent;
         name = prize.name;
         Image.sprite = prize.sprite;
-
+        _ElementType = prize._ElementType;
     }
  
 }
