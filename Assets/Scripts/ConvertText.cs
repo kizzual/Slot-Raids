@@ -28,44 +28,8 @@ public static class ConvertText
 
     //    return string.Format("{0}{1}", num, names[i]);
           return num.ToString(format: "#.##") + names[i];
-        /*   var tmp = 5252/1000;
-           Debug.Log(String.Format("{0:0.00K}", tmp));
-           double i = 0;
-           if (num < 1000)
-           {
-               return num.ToString();
-           }
-           if (num >= 1000 && num <= 1000000)
-           {
-               i = (double)(num / 1000);
-               return string.Format( " {0:0.00K}", i); ;
-
-           }
-           if (num >= 1000000 && num <= 1000000000)
-           {
-               i = (double)(num / 1000000);
-               return string.Format( " {0:0.00M}", i); ;
-           }
-           if (num >= 1000000000)
-           {
-               i = (double)(num / 1000000000);
-               return string.Format( " {0:0.00B}", i); ;
-           }
-           return num.ToString();*/
     }
 
 
-    /* public static string Convert(decimal value)
-     {
-         if(value < 1000)
-         {
-             return value.ToString();
-         }
-         if(value >= 1000 &&  value < 10000)
-         {
-             return (value / 1000).ToString() + "." + 
-         }
-
-     }*/
 }
 
