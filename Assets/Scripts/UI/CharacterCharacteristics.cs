@@ -245,7 +245,7 @@ public class CharacterCharacteristics : MonoBehaviour
         else
         {
            shieldImage.enabled = false;
-            shield_profit.text = "PROFIT +0%";
+            shield_profit.text = "PROTECT +0%";
         }
         if (hero.Amulet != null)
         {
@@ -257,7 +257,7 @@ public class CharacterCharacteristics : MonoBehaviour
         else
         {
             amuletImage.enabled = false;
-            amulet_profit.text = "PROFIT +0%";
+            amulet_profit.text = "LUCK +0%";
         }
         foreach (var item in elementImage)
         {
