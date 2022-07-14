@@ -1,11 +1,11 @@
 using UnityEditor;
 using UnityEngine;
 
-[CustomEditor(typeof(Prize))]
+//[CustomEditor(typeof(Prize))]
 public class PrizeEditor : Editor
 {
  
-    SerializedProperty type;
+ /*   SerializedProperty type;
     SerializedProperty elementType;
 
     SerializedProperty sellingPrice;
@@ -72,5 +72,5 @@ public class PrizeEditor : Editor
         EditorGUILayout.PropertyField(Sprite);
         // фиксируем - произошли ли изменения в инспекторе
         serializedObject.ApplyModifiedProperties();
-    }
+    }*/
 }
