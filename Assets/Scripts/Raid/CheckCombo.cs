@@ -12,11 +12,16 @@ public class CheckCombo : MonoBehaviour
     [SerializeField] private GameObject diagonallyLine_toDown;
     [SerializeField] private GameObject diagonallyLine_toUp;
     private int activeSlots = 0;
+    private int m_combo= 0;
+    private int m_unluck= 0;
     private float m_timer = 0;
     private bool m_isCombo;
+    private int m_boostGold = 1;
     public void ActivateEvent()
     {
         GlovalEventSystem.OnRaidComplete += Combo;
+        GlovalEventSystem.OnGoldBoostActivate += GoldBoostActivate;
+        GlovalEventSystem.OnGoldBoostDeActivate += GoldBoostDeActivate;
     }
 
     private void FixedUpdate()
@@ -51,12 +56,13 @@ public class CheckCombo : MonoBehaviour
         diagonallyLine_toUp.SetActive(false);
 
 
-
         List<Item> winItems = new List<Item>();
         if (winItems.Count > 0)
             winItems.Clear();
         long winGold = 0;
         bool isFullCombo = false;
+        m_combo = 0;
+        m_unluck = 0;
 
 
 
@@ -87,9 +93,11 @@ public class CheckCombo : MonoBehaviour
                     {
                         winGold += slots[i].m_currentHero.GetGoldProfit();
                         winItems.Add(slots[i].GetDice().winItem);
-                    }    
+                    }
                     else if (slots[i].GetDice().prize == DiceControll.Prize.Gold)
                         winGold += slots[i].m_currentHero.GetGoldProfit();
+                    else if (slots[i].GetDice().prize == DiceControll.Prize.Death)
+                        m_unluck++;
                 }
             }
             // проверка комбинаций
@@ -104,6 +112,7 @@ public class CheckCombo : MonoBehaviour
                 winItems.Add(slots[2].GetDice().winItem);
                 firstLine_horizontal.SetActive(true);
                 m_isCombo = true;
+                m_combo++;
             }
             if (CheckLineCombo(slots[3], slots[4], slots[5]))
             {
@@ -116,6 +125,7 @@ public class CheckCombo : MonoBehaviour
                 winItems.Add(slots[5].GetDice().winItem);
                 secondLine_horizontal.SetActive(true);
                 m_isCombo = true;
+                m_combo++;
             }
             if (CheckLineCombo(slots[6], slots[7], slots[8]))
             {
@@ -128,6 +138,7 @@ public class CheckCombo : MonoBehaviour
                 winItems.Add(slots[8].GetDice().winItem);
                 thirdLine_horizontal.SetActive(true);
                 m_isCombo = true;
+                m_combo++;
             }
             if (CheckLineCombo(slots[0], slots[3], slots[6]))
             {
@@ -140,6 +151,7 @@ public class CheckCombo : MonoBehaviour
                 winItems.Add(slots[6].GetDice().winItem);
                 firstLine_vertical.SetActive(true);
                 m_isCombo = true;
+                m_combo++;
             }
             if (CheckLineCombo(slots[1], slots[5], slots[7]))
             {
@@ -152,6 +164,7 @@ public class CheckCombo : MonoBehaviour
                 winItems.Add(slots[7].GetDice().winItem);
                 secondLine_vertical.SetActive(true);
                 m_isCombo = true;
+                m_combo++;
             }
             if (CheckLineCombo(slots[2], slots[5], slots[8]))
             {
@@ -164,6 +177,7 @@ public class CheckCombo : MonoBehaviour
                 winItems.Add(slots[8].GetDice().winItem);
                 thirdLine_vertical.SetActive(true);
                 m_isCombo = true;
+                m_combo++;
             }
             if (CheckLineCombo(slots[0], slots[4], slots[8]))
             {
@@ -176,6 +190,7 @@ public class CheckCombo : MonoBehaviour
                 winItems.Add(slots[8].GetDice().winItem);
                 diagonallyLine_toDown.SetActive(true);
                 m_isCombo = true;
+                m_combo++;
             }
             if (CheckLineCombo(slots[2], slots[4], slots[6]))
             {
@@ -188,14 +203,15 @@ public class CheckCombo : MonoBehaviour
                 winItems.Add(slots[6].GetDice().winItem);
                 diagonallyLine_toUp.SetActive(true);
                 m_isCombo = true;
+                m_combo++;
             }
 
             // выдача призов
             
-            Gold.AddGold(winGold);
-            GlovalEventSystem.WinGold(winGold);
+            Gold.AddGold(winGold * m_boostGold);
+            GlovalEventSystem.WinGold(winGold * m_boostGold);
             ItemsAwarding(winItems);
-
+            GlovalEventSystem.CheckAchievement(winItems, winGold * m_boostGold, m_combo, m_unluck);
         }
     }
 
@@ -258,4 +274,6 @@ public class CheckCombo : MonoBehaviour
         }
         GlovalEventSystem.WinItems(winItems);
     }
+    private void GoldBoostActivate(int value) => m_boostGold = value;
+    private void GoldBoostDeActivate() => m_boostGold = 1;
 }

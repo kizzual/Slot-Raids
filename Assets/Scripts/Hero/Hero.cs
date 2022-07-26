@@ -38,7 +38,28 @@ public class Hero : MonoBehaviour
     public Item m_amulet { get; set; }
 
     private int m_swordBonus;
+    private int m_luckBoost = 0;
+    private int m_unLuckBoost = 0;
+    private int m_combo = 0;
 
+    public void AddBust(int luck, int unLuck, int combo)
+    {
+        m_luckBoost = luck;
+        m_unLuckBoost = unLuck;
+        m_combo = combo;
+        Luck += m_luckBoost;
+        UnLuck -= m_unLuckBoost;
+        Combo += m_combo;
+    }
+    public void RemoveBoost()
+    {
+        Luck -= m_luckBoost;
+        UnLuck += m_unLuckBoost;
+        Combo -= m_combo;
+        m_luckBoost = 0;
+        m_unLuckBoost = 0;
+        m_combo = 0;
+    }
     public Item GetItem_Sword()
     {
         if (m_sword != null)
@@ -135,7 +156,6 @@ public class Hero : MonoBehaviour
     {
         if (currentRaidSlot != 0)
         {
-
             if (CurrentZone.Current_Zone.typeElement == Type__Element.Neutral && typeElement == TypeElement.Neutral ||
                 CurrentZone.Current_Zone.typeElement == Type__Element.Undead && typeElement == TypeElement.Undead ||
                 CurrentZone.Current_Zone.typeElement == Type__Element.Order && typeElement == TypeElement.Order ||
@@ -143,13 +163,13 @@ public class Hero : MonoBehaviour
             {
                 if (typeBonus == TypeBonus.Luck_percent)
                 {
-                    return Luck + Luck_Element_bonus;
+                    return Luck + Luck_Element_bonus + CurrentZone.Current_Zone.Luck;
                 }
                 else
-                    return Luck;
+                    return Luck + CurrentZone.Current_Zone.Luck;
             }
             else
-                return Luck;
+                return Luck + CurrentZone.Current_Zone.Luck;
         }
         else
             return Luck;
@@ -165,12 +185,12 @@ public class Hero : MonoBehaviour
                 CurrentZone.Current_Zone.typeElement == Type__Element.Demon && typeElement == TypeElement.Demon)
             {
                 if (typeBonus == TypeBonus.Protect_percent)
-                    return UnLuck - Protect_Element_bonus;
+                    return UnLuck - Protect_Element_bonus + CurrentZone.Current_Zone.UnLuck;
                 else
-                    return UnLuck;
+                    return UnLuck + CurrentZone.Current_Zone.UnLuck;
             }
             else
-                return UnLuck;
+                return UnLuck + CurrentZone.Current_Zone.UnLuck;
         }
         else
             return UnLuck;

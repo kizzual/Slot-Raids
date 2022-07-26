@@ -11,6 +11,8 @@ public class GameController : MonoBehaviour
     [SerializeField] private Sell_controll sell_controll;
     [SerializeField] private Inventory_controll inventory_controll;
     [SerializeField] private CheckCombo checkCombo;
+    [SerializeField] private Tower_quest tower_quest;
+    [SerializeField] private Boost_Controll boost_Controll;
 
     void Awake()
     {
@@ -23,6 +25,8 @@ public class GameController : MonoBehaviour
         sell_controll.ActivateEvent();
         inventory_controll.ActivateEvent();
         checkCombo.ActivateEvent();
+        tower_quest.ActivateEvent();
+        boost_Controll.ActivateEvent();
     }
 
 

@@ -53,7 +53,7 @@ public class Saver : MonoBehaviour
 
         //////////// загрузка героев ///////////////
         //  если герои будут открываться по очереди этот цикл
-        if (m_heroSaver != null)
+      /*  if (m_heroSaver != null)
         {
             for (int i = 0; i < heroes.Count; i++)
             {
@@ -71,10 +71,10 @@ public class Saver : MonoBehaviour
                     }
                 }
             }
-        }
+        }*/
 
         //      если герои будут открываться в разнобой то этот цикл
-     /*   if (m_heroSaver != null)
+        if (m_heroSaver != null)
         {
             for (int i = 0; i < heroes.Count; i++)
             {
@@ -98,27 +98,31 @@ public class Saver : MonoBehaviour
                     }
                 }
             }
-        }*/
+        }
      //////////// загрузка инвентаря ///////////////
-        inventory_Controll.LoadInventory(m_inventorySavers);
+        if(m_inventorySavers != null)
+            inventory_Controll.LoadInventory(m_inventorySavers);
 
-     //////////// загрузка текущей карты ///////////
-        CurrentZone.SetZone(m_zoneSaver.zone);
-        raid_control.Switchlocation(m_zoneSaver.zone);
-        switch (m_zoneSaver.zone.typeElement)
+        //////////// загрузка текущей карты ///////////
+        if (m_zoneSaver != null)
         {
-            case Type__Element.Neutral:
-                switchLocation.SwitchRaidLocation(0);
-                break;
-            case Type__Element.Undead:
-                switchLocation.SwitchRaidLocation(1);
-                break;
-            case Type__Element.Order:
-                switchLocation.SwitchRaidLocation(2);
-                break;
-            case Type__Element.Demon:
-                switchLocation.SwitchRaidLocation(3);
-                break;
+            CurrentZone.SetZone(m_zoneSaver.zone);
+            raid_control.Switchlocation(m_zoneSaver.zone);
+            switch (m_zoneSaver.zone.typeElement)
+            {
+                case Type__Element.Neutral:
+                    switchLocation.SwitchRaidLocation(0);
+                    break;
+                case Type__Element.Undead:
+                    switchLocation.SwitchRaidLocation(1);
+                    break;
+                case Type__Element.Order:
+                    switchLocation.SwitchRaidLocation(2);
+                    break;
+                case Type__Element.Demon:
+                    switchLocation.SwitchRaidLocation(3);
+                    break;
+            }
         }
     }
 }

@@ -18,6 +18,9 @@ public static class GlovalEventSystem
     public static Action<List<Item>> OnWinItems;
     public static Action<List<Raid_UI>> OnRaidComplete;
     public static Action OnRotateComplete;
+    public static Action<List<Item>, long, int, int > OnCheckAchievement;
+    public static Action <int> OnGoldBoostActivate;
+    public static Action  OnGoldBoostDeActivate;
 
     public static void RotateComplete() => OnRotateComplete?.Invoke();
     public static void HeroUpgrade(Hero hero) => OnHeroUpgrade?.Invoke(hero);
@@ -34,6 +37,9 @@ public static class GlovalEventSystem
     public static void RaidComplete(List<Raid_UI> slots) => OnRaidComplete?.Invoke(slots);
     public static void WinGold(long value) => OnWinGold?.Invoke(value);
     public static void WinItems(List<Item> items) => OnWinItems?.Invoke(items);
+    public static void CheckAchievement(List<Item> items, long goldValue, int comboValue, int unLuckValue) => OnCheckAchievement?.Invoke(items, goldValue, comboValue, unLuckValue);
+    public static void GoldBoostActivate(int value) => OnGoldBoostActivate?.Invoke(value);
+    public static void GoldBoostDeActivate() => OnGoldBoostDeActivate?.Invoke();
 
 
 }
