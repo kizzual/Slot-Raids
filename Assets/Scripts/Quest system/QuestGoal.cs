@@ -21,7 +21,7 @@ public class QuestGoal
     public bool IsItemColeted() => (firstItem_currentAmount >= firstItem_requiredAmount && secondItem_currentAmount >= secondItem_requiredAmount);
     public void GoldGathering(long value) => currentAmount = value;
     public void ComboGathering(int value) => currentAmount += value;
-    public void RaidGathering(int value) => currentAmount += value;
+    public void RaidGathering(int value) => currentAmount = value;
     public void UpgradeTower(int value) => currentAmount = value;
     public void LuckGathering(int value) => currentAmount += value;
     public void UnLuckGathering(int value) => currentAmount += value;

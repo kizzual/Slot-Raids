@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class Boost_Controll : MonoBehaviour
 {
+    public List<BoostCard> FullCardList;
+    public List<BoostCard> activeCard;
     public BoostCard CurrentBoost;
     public List<Hero> Heroes;
     public List<Zone> Zones;
@@ -44,7 +46,7 @@ public class Boost_Controll : MonoBehaviour
     }
     private void CheckBoostType()
     {
-        if (CurrentBoost.cardBoostType == CardBoostType.GoldProfit)
+      /*  if (CurrentBoost.cardBoostType == CardBoostType.GoldProfit)
         {
             GlovalEventSystem.GoldBoostActivate(CurrentBoost.GoldProfit);
         }
@@ -133,7 +135,7 @@ public class Boost_Controll : MonoBehaviour
                     item.AddBust(0, 0, CurrentBoost.Combo);
                 }
             }
-        }
+        }*/
 
     }
     private void RemoveBoost()

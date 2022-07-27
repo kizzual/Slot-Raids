@@ -4,13 +4,14 @@ public class Quest
 {
     public bool isActive;
     public bool PassItems;
-    public string Titile;
+    public int id;
     public string Descripsion;
     public enum RewardType
     {
         Hero,
         Gold,
-        Boost
+        Boost,
+        Slot
     }
     public RewardType rewardType;
 
