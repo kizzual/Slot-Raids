@@ -5,12 +5,15 @@ using UnityEngine;
 public class Tower_quest : MonoBehaviour
 {
     [SerializeField] private List<Tower_q_UI> tower_Quest_UI;
+    [SerializeField] private QuestUI questUI;
+
 
     [SerializeField] private List<Quest> first_Line_quest;
     [SerializeField] private List<Quest> second_Line_quest;
     [SerializeField] private List<Quest> third_Line_quest;
     [SerializeField] private TowerUpgrade towerUpgrade;
     [SerializeField] private Inventory_controll inventory_controll;
+    [SerializeField] private GameObject QuestPanel;
 
 
     public void ActivateEvent()
@@ -27,13 +30,18 @@ public class Tower_quest : MonoBehaviour
     private int m_currentCombo = 0;
     private int m_currentLuck = 0;
     private int m_currentUnLuck = 0;
+    private int m_raid = 0;
     private List<Item> m_items = new List<Item>();
     private void OnEnable()
     {
-        RaidConplete();
         First_Line_Quest_Initialise();
         Second_Line_Quest_Initialise();
         Third_Line_Quest_Initialise();
+        questUI.Initialise(m_currentGold, m_currentRaid);
+    }
+    public void OpenQuestPanel()
+    {
+        QuestPanel.SetActive(true);
     }
     public void RaidComplete(List<Item> items, long goldValue, int combo, int unLuck)
     {
@@ -42,8 +50,13 @@ public class Tower_quest : MonoBehaviour
         m_currentCombo = combo;
         m_currentLuck = items.Count;
         m_currentUnLuck = unLuck;
+        m_raid++;
         m_items = items;
+        questUI.Initialise(m_currentGold, m_currentRaid);
         RaidConplete();
+        First_Line_Quest_Initialise();
+        Second_Line_Quest_Initialise();
+        Third_Line_Quest_Initialise();
     }
     public void RaidConplete()
     {
@@ -79,7 +92,7 @@ public class Tower_quest : MonoBehaviour
             }
             else if (first_Line_quest[m_currentFirstLineQuestindex].goal.goalType == GoalType.Raid_Gathering) //
             {
-                first_Line_quest[m_currentFirstLineQuestindex].goal.RaidGathering(m_currentRaid);
+                first_Line_quest[m_currentFirstLineQuestindex].goal.RaidGathering(m_raid);
                 if (first_Line_quest[m_currentFirstLineQuestindex].goal.IsReached())
                 {
                     tower_Quest_UI[0].QuestComplete();
@@ -308,6 +321,9 @@ public class Tower_quest : MonoBehaviour
                 }
             }
         }
+     
+       
+      
     }
 
 
@@ -315,6 +331,7 @@ public class Tower_quest : MonoBehaviour
     {
         if (m_currentFirstLineQuestindex < first_Line_quest.Count)
         {
+            RaidConplete();
             tower_Quest_UI[0].Initialise_quest(first_Line_quest[m_currentFirstLineQuestindex]);
         }
         else
@@ -454,7 +471,8 @@ public class Tower_quest : MonoBehaviour
                     //���� ����
                     break;
             }
-            m_currentFirstLineQuestindex++;
+            m_raid = 0;
+           m_currentFirstLineQuestindex++;
             First_Line_Quest_Initialise();
         }
 
@@ -463,6 +481,7 @@ public class Tower_quest : MonoBehaviour
     {
         if (m_currentSecondLineQuestindex < second_Line_quest.Count)
         {
+            RaidConplete();
             tower_Quest_UI[1].Initialise_quest(second_Line_quest[m_currentSecondLineQuestindex]);
         }
         else
@@ -610,6 +629,7 @@ public class Tower_quest : MonoBehaviour
     {
         if (m_currentThitrdLineQuestindex < third_Line_quest.Count)
         {
+            RaidConplete();
             tower_Quest_UI[2].Initialise_quest(third_Line_quest[m_currentThitrdLineQuestindex]);
         }
         else

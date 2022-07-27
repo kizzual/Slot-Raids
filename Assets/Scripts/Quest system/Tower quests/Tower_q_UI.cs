@@ -12,16 +12,29 @@ public class Tower_q_UI : MonoBehaviour
     [SerializeField] private Image first_item_image;
     [SerializeField] private Image second_item_image;
     [SerializeField] private Image prize_image;
-    [SerializeField] private Image quest_complete_button;
+    [SerializeField] private GameObject quest_complete_button;
+    [SerializeField] private GameObject quest_complete_button_green;
 
 
  
     public void Initialise_quest(Quest quest)
     {
-   //     second_count.gameObject.SetActive(false);
-    //    second_item_image.gameObject.SetActive(false);
-
-        quest_title.text = quest.Titile;
+        second_item_image.gameObject.SetActive(false);
+        quest_complete_button.SetActive(true);
+        quest_complete_button_green.SetActive(false);
+        if(quest.goal.secondItem != null)
+        {
+            second_item_image.gameObject.SetActive(true);
+            second_item_image.sprite = quest.goal.secondItem.GetComponent<Image>().sprite;
+        }
+        if(quest.goal.firstItem == null)
+            first_item_image.enabled = false;
+        else
+        {
+            first_item_image.enabled = true;
+            first_item_image.sprite = quest.goal.firstItem.GetComponent<Image>().sprite;
+        }
+        quest_title.text = quest.id.ToString();
         quest_description.text = quest.Descripsion;
         first_count.text = quest.goal.currentAmount.ToString() + "/" + quest.goal.requiredAmount.ToString();
         prize_image.sprite = quest.RewardIcon;
@@ -29,7 +42,8 @@ public class Tower_q_UI : MonoBehaviour
 
     public void QuestComplete()
     {
-        // включить квест комплит кнопку
+        quest_complete_button.SetActive(false);
+        quest_complete_button_green.SetActive(true);
     }
 
 

@@ -33,7 +33,7 @@ public class SwitchTabs : MonoBehaviour
 
         for (int i = 0; i < panel.Length; i++)
         {
-            if (i != indexCurrentButton)
+            if (i != indexCurrentButton && i != 2)
             {
                 button[i].gameObject.transform.GetChild(1).gameObject.SetActive(false);
                 panel[i].SetActive(false);
@@ -73,7 +73,7 @@ public class SwitchTabs : MonoBehaviour
     {
         for (int i = 0; i < panel.Length; i++)
         {
-            if (i != 0)
+            if (i != 0 && i != 2)
             {
                 button[i].gameObject.transform.GetChild(1).gameObject.SetActive(false);
                 panel[i].SetActive(false);

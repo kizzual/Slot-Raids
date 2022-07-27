@@ -13,18 +13,29 @@ public class BoostCard : MonoBehaviour
     public int Luck;
     public int UnLuck;
     public int Combo;
-
-
+    public int ItemProfit;
+    public int UpgradeHeroDiscount;
+    public bool isOpened;
 }
 public enum CardBoostType
 {
     GoldProfit,
-    LuckZoneProfit,
-    UnLuckZoneProfit,
-    LuckZoneProfit_byElement,
-    UnLuckZoneProfit_byElement,
-    HerLuck_byElement,
-    HeroUnLuck_byElement,
-    HeroCombo,
-    HeroCombo_byElement
+    GoldProfit_byElement,
+    GoldProfit_byHeroes,
+
+    itemProfit,
+    itemProfit_byElement,
+    itemProfit_byHeroes,
+
+    LuckProfit,
+    LuckProfit_byElement,
+    LuckProfit_byHero,
+
+    UnLuckProfit,
+    UnLuckProfit_byElement,  
+    UnLuckProfit_byHero,
+
+    Combo,
+    Combo_byElement,
+    Combo_byHeroe,
 }

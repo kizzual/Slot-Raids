@@ -190,7 +190,7 @@ public class Raid_UI : MonoBehaviour
     }
     public void CheckSlot()
     {
-        if (SlotNumber != 1)
+        if (SlotNumber != 10)
         {
             if (isOpened)
             {
