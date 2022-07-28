@@ -11,13 +11,15 @@ public class Quest
         Hero,
         Gold,
         Boost,
+        Location,
         Slot
     }
     public RewardType rewardType;
 
     public Hero HeroReward;
     public long GoldReward;
-
+    public Zone Location;
+    public BoostCard BoostCard;
     public Sprite RewardIcon;
     public QuestGoal goal;
 
