@@ -11,6 +11,7 @@ public class Zone : MonoBehaviour
     public int goldProfit { get; set; } = 1;
     public int itemProfit { get; set; } = 1;
     public List<Item> ItemsOnZone;
+    public bool isOpened;
 
     private int m_luckBoost = 0;
     private int m_unLuckBoost = 0;

@@ -9,8 +9,10 @@ public class Tower_q_UI : MonoBehaviour
     [SerializeField] private Text quest_description;
     [SerializeField] private Text first_count;
     [SerializeField] private Text second_count;
+    [SerializeField] private Text third_count;
     [SerializeField] private Image first_item_image;
     [SerializeField] private Image second_item_image;
+    [SerializeField] private Image third_item_image;
     [SerializeField] private Image prize_image;
     [SerializeField] private GameObject quest_complete_button;
     [SerializeField] private GameObject quest_complete_button_green;
@@ -33,6 +35,14 @@ public class Tower_q_UI : MonoBehaviour
         {
             first_item_image.enabled = true;
             first_item_image.sprite = quest.goal.firstItem.GetComponent<Image>().sprite;
+        }
+
+        if (quest.goal.thirdItem == null)
+            third_item_image.enabled = false;
+        else
+        {
+            third_item_image.enabled = true;
+            third_item_image.sprite = quest.goal.thirdItem.GetComponent<Image>().sprite;
         }
         quest_title.text = quest.id.ToString();
         quest_description.text = quest.Descripsion;
