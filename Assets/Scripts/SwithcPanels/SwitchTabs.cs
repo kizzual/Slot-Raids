@@ -14,6 +14,7 @@ public class SwitchTabs : MonoBehaviour
     private Image image;
     public GameObject Inventory;
     public Image InventoryBtn;
+    public GameObject boostPanel;
     private void Start()
     {
         image = InventoryBtn.GetComponent<Image>();
@@ -30,15 +31,36 @@ public class SwitchTabs : MonoBehaviour
     public void ActivateCurrentButton(int indexCurrentButton)
     {
         InventoryOnOff(true);
+        boostPanel.SetActive(false);
 
-        for (int i = 0; i < panel.Length; i++)
+   /*     for (int i = 0; i < panel.Length; i++)
         {
-            if (i != indexCurrentButton && i != 2)
+            if (i != indexCurrentButton)
             {
                 button[i].gameObject.transform.GetChild(1).gameObject.SetActive(false);
                 panel[i].SetActive(false);
             }
             else
+            {
+                button[i].gameObject.transform.GetChild(1).gameObject.SetActive(true);
+                panel[i].SetActive(true);
+            }
+        }*/
+        for (int i = 0; i < panel.Length; i++)
+        {
+            if (i != 2)
+            {
+                button[i].gameObject.transform.GetChild(1).gameObject.SetActive(false);
+                panel[i].SetActive(false);
+            }
+            else if(i == 2)
+            {
+                button[i].gameObject.transform.GetChild(1).gameObject.SetActive(false);
+            }
+        }
+        for (int i = 0; i < panel.Length; i++)
+        {
+           if(i == indexCurrentButton)
             {
                 button[i].gameObject.transform.GetChild(1).gameObject.SetActive(true);
                 panel[i].SetActive(true);
@@ -71,14 +93,34 @@ public class SwitchTabs : MonoBehaviour
     }
     private void OnEnable()
     {
+        /* for (int i = 0; i < panel.Length; i++)
+         {
+             if (i != 0 && i != 2)
+             {
+                 button[i].gameObject.transform.GetChild(1).gameObject.SetActive(false);
+                 panel[i].SetActive(false);
+             }
+             else
+             {
+                 button[i].gameObject.transform.GetChild(1).gameObject.SetActive(true);
+                 panel[i].SetActive(true);
+             }
+         }*/
         for (int i = 0; i < panel.Length; i++)
         {
-            if (i != 0 && i != 2)
+            if (i != 2)
             {
                 button[i].gameObject.transform.GetChild(1).gameObject.SetActive(false);
                 panel[i].SetActive(false);
             }
-            else
+            else if (i == 2)
+            {
+                button[i].gameObject.transform.GetChild(1).gameObject.SetActive(false);
+            }
+        }
+        for (int i = 0; i < panel.Length; i++)
+        {
+            if (i == 0)
             {
                 button[i].gameObject.transform.GetChild(1).gameObject.SetActive(true);
                 panel[i].SetActive(true);

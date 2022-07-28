@@ -9,17 +9,21 @@ public class Raid_button : MonoBehaviour
     [SerializeField] private Image scrolling;
     [SerializeField] private float autoRaidTimer;
     [SerializeField] private float playerRaidTimer;
+    [SerializeField] private List<Sprite> ButtonsSprite;
+    [SerializeField] private Image currentButton;
     private Animator m_animator;
-    private enum ButtonState
+    public enum ButtonState
     {
         Stopped,
         AutoRaid,
         PlayerRaid
     }
-    private ButtonState buttonState;
-    private float m_timer;
-    private bool m_isStopping = false;
+    public ButtonState buttonState;
+    public float m_timer;
+    public bool m_isStopping = false;
     private bool m_imageIsHide = false;
+    public bool m_canRaid;
+    public bool isAutoRaid_boost { get; set; }
     void FixedUpdate()
     {
         if (buttonState == ButtonState.AutoRaid)
@@ -27,22 +31,52 @@ public class Raid_button : MonoBehaviour
             m_timer += Time.fixedDeltaTime;
 
             scrolling.fillAmount = m_timer / autoRaidTimer;
-            if (m_timer > autoRaidTimer)
+            if (isAutoRaid_boost)
             {
-                if (!m_isStopping)
+                if (m_timer >= playerRaidTimer)
                 {
-                    buttonState = ButtonState.Stopped;
-                    GoToAutoRaid();
+                    if (!m_isStopping)
+                    {
+                        buttonState = ButtonState.Stopped;
+                        GoToAutoRaid();
+                    }
+                    else
+                    {
+                        buttonState = ButtonState.Stopped;
+                        m_timer = 0;
+                    }
                 }
-                else
+            }
+            else if (!isAutoRaid_boost)
+            {
+                if (m_timer >= autoRaidTimer)
                 {
-                    buttonState = ButtonState.Stopped;
-                    m_timer = 0;
+                    if (!m_isStopping)
+                    {
+                        buttonState = ButtonState.Stopped;
+                        GoToAutoRaid();
+                    }
+                    else
+                    {
+                        buttonState = ButtonState.Stopped;
+                        m_timer = 0;
+                    }
+
+                }
+            }
+
+
+            if (m_timer >= autoRaidTimer / 2)
+            {
+                if (m_canRaid)
+                {
+                    currentButton.sprite = ButtonsSprite[1];
+                    m_canRaid = false;
                 }
             }
 
         }
-        else if (buttonState == ButtonState.PlayerRaid)
+/*        else if (buttonState == ButtonState.PlayerRaid)
         {
             m_timer += Time.fixedDeltaTime;
 
@@ -53,27 +87,24 @@ public class Raid_button : MonoBehaviour
                 buttonState = ButtonState.Stopped;
                 m_timer = 0;
             }
-        }
-        else if(buttonState == ButtonState.Stopped)
+        }*/
+        else if (buttonState == ButtonState.Stopped)
         {
-            if(m_imageIsHide)
+            if (m_imageIsHide)
             {
                 m_timer += Time.fixedDeltaTime;
 
-                if (m_timer > 2f)
+                if (m_timer > 1.5f)
                 {
                     m_imageIsHide = false;
                     raid_control.CheckSlots();
                 }
             }
-            
+
         }
     }
     private void OnEnable()
     {
-        buttonState = ButtonState.Stopped;
-        m_timer = 0;
-        m_imageIsHide = false;
         m_animator = GetComponent<Animator>();
     }
     public void GoToPlayerRaid()
@@ -82,8 +113,9 @@ public class Raid_button : MonoBehaviour
         {
             m_imageIsHide = true;
             m_isStopping = false;
-            if (buttonState == ButtonState.Stopped)
+            if (buttonState == ButtonState.Stopped || m_timer >= autoRaidTimer / 2)
             {
+                m_canRaid = true;
                 m_timer = 0;
                 buttonState = ButtonState.PlayerRaid;
                 m_animator.SetTrigger("Press");
@@ -95,10 +127,12 @@ public class Raid_button : MonoBehaviour
     {
         if (raid_control.ChecnCanRaid())
         {
+            currentButton.sprite = ButtonsSprite[0];
             m_imageIsHide = true;
             m_isStopping = false;
-            if (buttonState == ButtonState.Stopped)
+            if (buttonState == ButtonState.Stopped || m_canRaid == false)
             {
+                m_canRaid = true;
                 m_timer = 0;
                 buttonState = ButtonState.AutoRaid;
                 raid_control.StartRaid();

@@ -28,14 +28,14 @@ public class Zone : MonoBehaviour
         m_goldBoost = goldProfit;
         m_itemBoost = itemProfit;
         Luck += m_luckBoost;
-        UnLuck += m_unLuckBoost;
+        UnLuck -= m_unLuckBoost;
         this.goldProfit += m_goldBoost;
         this.itemProfit += m_itemBoost;
     }
     public void RemoveBoost()
     {
         Luck -= m_luckBoost;
-        UnLuck -= m_unLuckBoost;
+        UnLuck += m_unLuckBoost;
         goldProfit -= m_goldBoost;
         itemProfit -= m_itemBoost;
         m_luckBoost = 0;

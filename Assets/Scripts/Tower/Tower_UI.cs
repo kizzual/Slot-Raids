@@ -13,7 +13,8 @@ public class Tower_UI : MonoBehaviour
     {
         for (int i = 0; i < gradeNumber; i++)
         {
-            GradeTower_image[i].enabled = true;
+            GradeTower_image[i].gameObject.SetActive(true);
+
         }
         GradeCount.text = gradeNumber.ToString() + "/" + 9.ToString() + " SLOTS";
         GoldToGrade.text = ConvertText.FormatNumb(goldToGrade);

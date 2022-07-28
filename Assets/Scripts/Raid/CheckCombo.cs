@@ -17,6 +17,7 @@ public class CheckCombo : MonoBehaviour
     private float m_timer = 0;
     private bool m_isCombo;
     private int m_boostGold = 1;
+    private int m_boostItem = 1;
     public void ActivateEvent()
     {
         GlovalEventSystem.OnRaidComplete += Combo;
@@ -91,8 +92,12 @@ public class CheckCombo : MonoBehaviour
                 {
                     if (slots[i].GetDice().prize == DiceControll.Prize.Item)
                     {
+                        for (int j = 0; j < m_boostItem; j++)
+                        {
+                            winItems.Add(slots[i].GetDice().winItem);
+                        }
                         winGold += slots[i].m_currentHero.GetGoldProfit();
-                        winItems.Add(slots[i].GetDice().winItem);
+                       
                     }
                     else if (slots[i].GetDice().prize == DiceControll.Prize.Gold)
                         winGold += slots[i].m_currentHero.GetGoldProfit();
@@ -275,5 +280,7 @@ public class CheckCombo : MonoBehaviour
         GlovalEventSystem.WinItems(winItems);
     }
     private void GoldBoostActivate(int value) => m_boostGold = value;
+    private void ItemBoostActivate(int value) => m_boostItem = value;
     private void GoldBoostDeActivate() => m_boostGold = 1;
+    private void ItemBoostDeActivate() => m_boostItem = 1;
 }

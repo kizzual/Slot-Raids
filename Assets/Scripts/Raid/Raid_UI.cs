@@ -42,6 +42,7 @@ public class Raid_UI : MonoBehaviour
     [SerializeField] private List<Image> arrows;
     [SerializeField] private List<Image> elementArrow;
     [SerializeField] private DiceControll diceControll;
+
     public Hero m_currentHero { get; set; }
     public bool isOpened { get; set; }
     public int SlotNumber;
@@ -59,21 +60,22 @@ public class Raid_UI : MonoBehaviour
         {
             item.gameObject.SetActive(false);
         }
-        switch (hero.typeElement)
-        {
-            case TypeElement.Neutral:
-                elementIcon.sprite = neutralIcon;
-                break;
-            case TypeElement.Undead:
-                elementIcon.sprite = undeadIcon;
-                break;
-            case TypeElement.Order:
-                elementIcon.sprite = orderIcon;
-                break;
-            case TypeElement.Demon:
-                elementIcon.sprite = demonIcon;
-                break;
-        }
+        /*   switch (hero.typeElement)
+           {
+               case TypeElement.Neutral:
+                   elementIcon.sprite = neutralIcon;
+                   break;
+               case TypeElement.Undead:
+                   elementIcon.sprite = undeadIcon;
+                   break;
+               case TypeElement.Order:
+                   elementIcon.sprite = orderIcon;
+                   break;
+               case TypeElement.Demon:
+                   elementIcon.sprite = demonIcon;
+                   break;
+           }*/
+      
         SwitchBorder_andArrows();
         diceControll.OpenCurrentDice(hero);
 

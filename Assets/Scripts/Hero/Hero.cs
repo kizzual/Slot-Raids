@@ -41,15 +41,21 @@ public class Hero : MonoBehaviour
     private int m_luckBoost = 0;
     private int m_unLuckBoost = 0;
     private int m_combo = 0;
+    private int m_discounteToGrade = 1;
+    public int profitBoost { get; set; } = 1;
+    public int itemProfitBoost { get; set; } = 1;
 
-    public void AddBust(int luck, int unLuck, int combo)
+    public void AddBust(int luck, int unLuck, int combo, int goldProfit, int itemProfit)
     {
         m_luckBoost = luck;
         m_unLuckBoost = unLuck;
         m_combo = combo;
+        profitBoost = goldProfit;
+        itemProfitBoost = itemProfit;
         Luck += m_luckBoost;
         UnLuck -= m_unLuckBoost;
         Combo += m_combo;
+
     }
     public void RemoveBoost()
     {
@@ -59,6 +65,13 @@ public class Hero : MonoBehaviour
         m_luckBoost = 0;
         m_unLuckBoost = 0;
         m_combo = 0;
+        profitBoost = 1;
+        itemProfitBoost = 1;
+        m_discounteToGrade = 1;
+    }
+    public void AddDiscountBoost(int value)
+    {
+        m_discounteToGrade = value;
     }
     public Item GetItem_Sword()
     {

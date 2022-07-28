@@ -80,6 +80,7 @@ public class Raid_control : MonoBehaviour
     {
         for (int i = 0; i < gradeNumber; i++)
         {
+            Debug.Log("GRADE");
             raid_slot[i].isOpened = true;
             raid_slot[i].CheckSlot();
 

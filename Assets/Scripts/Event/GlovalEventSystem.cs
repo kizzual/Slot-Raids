@@ -21,6 +21,8 @@ public static class GlovalEventSystem
     public static Action<List<Item>, long, int, int > OnCheckAchievement;
     public static Action <int> OnGoldBoostActivate;
     public static Action  OnGoldBoostDeActivate;
+    public static Action <int> OnItemBoostActivate;
+    public static Action  OnItemBoostDeActivate;
 
     public static void RotateComplete() => OnRotateComplete?.Invoke();
     public static void HeroUpgrade(Hero hero) => OnHeroUpgrade?.Invoke(hero);
@@ -40,6 +42,8 @@ public static class GlovalEventSystem
     public static void CheckAchievement(List<Item> items, long goldValue, int comboValue, int unLuckValue) => OnCheckAchievement?.Invoke(items, goldValue, comboValue, unLuckValue);
     public static void GoldBoostActivate(int value) => OnGoldBoostActivate?.Invoke(value);
     public static void GoldBoostDeActivate() => OnGoldBoostDeActivate?.Invoke();
+    public static void ItemBoostActivate(int value) => OnItemBoostActivate?.Invoke(value);
+    public static void ItemBoostDeActivate() => OnItemBoostDeActivate?.Invoke();
 
 
 }

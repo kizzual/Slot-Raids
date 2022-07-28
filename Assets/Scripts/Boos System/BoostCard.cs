@@ -38,4 +38,7 @@ public enum CardBoostType
     Combo,
     Combo_byElement,
     Combo_byHeroe,
+
+    Discount,
+    Discout_byHero
 }

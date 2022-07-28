@@ -22,9 +22,10 @@ public class TowerUpgrade : MonoBehaviour
     {
         if(Gold.GetCurrentGold() >= m_goldToGrade && currentGrade < 9)
         {
-            GlovalEventSystem.UpgradeTower(currentGrade);
-            Gold.SpendGold(m_goldToGrade);
             currentGrade++;
+            GlovalEventSystem.UpgradeTower(currentGrade);
+            Debug.Log("EROR");
+            Gold.SpendGold(m_goldToGrade);
             PlayerPrefs.SetInt("TowerLvl", currentGrade);
             CheckGoldToGrade();
             m_tower_ui.ChangeTowerSprite(currentGrade, m_goldToGrade);
