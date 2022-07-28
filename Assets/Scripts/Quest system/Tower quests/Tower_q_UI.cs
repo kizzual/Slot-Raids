@@ -22,6 +22,8 @@ public class Tower_q_UI : MonoBehaviour
     public void Initialise_quest(Quest quest)
     {
         second_item_image.gameObject.SetActive(false);
+        third_item_image.gameObject.SetActive(false);
+
         quest_complete_button.SetActive(true);
         quest_complete_button_green.SetActive(false);
         if(quest.goal.secondItem != null)

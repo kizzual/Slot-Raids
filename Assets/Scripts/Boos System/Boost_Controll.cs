@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Boost_Controll : MonoBehaviour
 {
@@ -11,6 +12,7 @@ public class Boost_Controll : MonoBehaviour
     public List<Zone> Zones;
     public int RaidToActivateBoost_required;
     public BoostCard CurrentBoost;
+    public Image manaImg;
     private float m_timer;
     private int m_currentRaid;
     private void FixedUpdate()
@@ -231,6 +233,8 @@ public class Boost_Controll : MonoBehaviour
         if (m_currentRaid < RaidToActivateBoost_required)
         {
             m_currentRaid++;
+            float tmp = ((float)m_currentRaid / (float)RaidToActivateBoost_required);
+            manaImg.fillAmount = tmp;
         }
     }
 
