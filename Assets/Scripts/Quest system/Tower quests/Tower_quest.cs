@@ -16,7 +16,9 @@ public class Tower_quest : MonoBehaviour
     [SerializeField] private GameObject QuestPanel;
     [SerializeField] private Boost_Controll boost_Controll;
     [SerializeField] private GameObject Boost;
+    [SerializeField] private GameObject Boostimg;
     [SerializeField] private GameObject Attention;
+    [SerializeField] private GameObject TowerButton;
 
     public void ActivateEvent()
     {
@@ -50,6 +52,8 @@ public class Tower_quest : MonoBehaviour
     public void OpenQuestPanel()
     {
         QuestPanel.SetActive(true);
+        TowerButton.transform.GetChild(1).gameObject.SetActive(false);
+        TowerButton.transform.GetChild(2).gameObject.SetActive(true);
     }
     public void RaidComplete(List<Item> items, long goldValue, int combo, int unLuck)
     {
@@ -1050,7 +1054,7 @@ public class Tower_quest : MonoBehaviour
                                 break;
                         }
                     }
-                    if (second_Line_quest[m_currentSecondLineQuestindex].goal.secondItem != null)
+                    if (second_Line_quest[m_currentSecondLineQuestindex].goal.thirdItem != null)
                     {
                         switch (second_Line_quest[m_currentSecondLineQuestindex].goal.thirdItem.typeItem)
                         {
@@ -1348,6 +1352,7 @@ public class Tower_quest : MonoBehaviour
         else if(m_currentThitrdLineQuestindex == 0)
         {
             Boost.SetActive(true);
+            Boostimg.SetActive(true);
             boost_Controll.OpenCard(third_Line_quest[m_currentThitrdLineQuestindex].BoostCard);
             m_currentThitrdLineQuestindex++;
             Third_Line_Quest_Initialise();

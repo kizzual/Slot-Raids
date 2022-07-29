@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -12,17 +13,26 @@ public class Boost_Controll : MonoBehaviour
     public List<Zone> Zones;
     public int RaidToActivateBoost_required;
     public BoostCard CurrentBoost;
-    public Image manaImg;
+    public List<Image> manaImg;
     private float m_timer;
     private int m_currentRaid;
-    [SerializeField] private GameObject AttentionIcon;
+    [SerializeField] private List<GameObject> AttentionIcon;
+    [SerializeField] private GameObject TowerButton;
+    [SerializeField] private Image mana_Img;
+    [SerializeField] private GameObject rng_button;
+    [SerializeField] private GameObject Remove_button;
+    [SerializeField] private GameObject MainText;
+    [SerializeField] private Text Timer;
     private void FixedUpdate()
     {
         if (CurrentBoost != null)
         {
             if (CurrentBoost.isActive)
             {
-                m_timer += Time.fixedDeltaTime;
+                TimeSpan ts = TimeSpan.FromSeconds(CurrentBoost.TimeDuration - m_timer);
+                Timer.text = ts.Minutes.ToString() + ":" + ts.Seconds.ToString();
+                
+                   m_timer += Time.fixedDeltaTime;
 
                 if (m_timer >= CurrentBoost.TimeDuration)
                 {
@@ -48,14 +58,34 @@ public class Boost_Controll : MonoBehaviour
                 CurrentBoost.isActive = true;
                 if (m_currentRaid >= RaidToActivateBoost_required)
                 {
-                    AttentionIcon.SetActive(true);
+                    foreach (var item in AttentionIcon)
+                    {
+                        item.SetActive(true);
+                    }
                 }
                 else
                 {
-                    AttentionIcon.SetActive(false);
+                    foreach (var item in AttentionIcon)
+                    {
+                        item.SetActive(false);
+                    }
                 }
+                Remove_button.SetActive(true);
+                rng_button.SetActive(false);
+                float tmp = ((float)m_currentRaid / (float)RaidToActivateBoost_required);
+                foreach (var item in manaImg)
+                {
+                    item.fillAmount = tmp;
+                }
+                mana_Img.fillAmount = tmp;
+                Timer.gameObject.SetActive(true);
+                MainText.gameObject.SetActive(false);
+                boostUI.InActiveButton();
+                Debug.Log("TEST");
+                SoundControl._instance.ActivateBoost();
             }
         }
+
     }
     private void CheckBoostType()
     {
@@ -238,6 +268,14 @@ public class Boost_Controll : MonoBehaviour
             item.RemoveBoost();
         }
         GlovalEventSystem.GoldBoostDeActivate();
+        GlovalEventSystem.ItemBoostDeActivate();
+        Remove_button.SetActive(false);
+        rng_button.SetActive(true);
+        CurrentBoost.isActive = false;
+        Timer.gameObject.SetActive(false);
+        MainText.gameObject.SetActive(true);
+        SoundControl._instance.DeActivateBoost();
+
     }
     private void RaidComplete(List<Item> items)
     {
@@ -245,22 +283,50 @@ public class Boost_Controll : MonoBehaviour
         {
             m_currentRaid++;
             float tmp = ((float)m_currentRaid / (float)RaidToActivateBoost_required);
-            manaImg.fillAmount = tmp;
+            foreach (var item in manaImg)
+            {
+                item.fillAmount = tmp;
+            }
+            mana_Img.fillAmount = tmp;
         }
-        if(m_currentRaid >= RaidToActivateBoost_required)
+
+        if (m_currentRaid >= RaidToActivateBoost_required)
         {
-            AttentionIcon.SetActive(true);
+            foreach (var item in AttentionIcon)
+            {
+                item.SetActive(true);
+            }
+            if(CurrentBoost != null)
+               boostUI.ActivaButton_b();
+            if (CurrentBoost != null)
+            {
+                if (CurrentBoost.isActive)
+                {
+                    boostUI.InActiveButton();
+                }
+                else
+                {
+                    boostUI.ActivaButton_b();
+                }
+            }
         }
         else
         {
-            AttentionIcon.SetActive(false);
+            foreach (var item in AttentionIcon)
+            {
+                item.SetActive(false);
+            }
+
         }
-        boostUI.ActiveteBoostButton(m_currentRaid, RaidToActivateBoost_required);
+       
+    //    boostUI.ActiveteBoostButton(m_currentRaid, RaidToActivateBoost_required);
     }
     public void OpenBoostPanel()
     {
-        boostUI.ActiveteBoostButton(m_currentRaid, RaidToActivateBoost_required);
+       // boostUI.ActiveteBoostButton(m_currentRaid, RaidToActivateBoost_required);
         boostUI.gameObject.SetActive(true);
+        TowerButton.transform.GetChild(1).gameObject.SetActive(false);
+        TowerButton.transform.GetChild(2).gameObject.SetActive(true);
     }
     public void OpenCard(BoostCard card)
     {
@@ -271,18 +337,38 @@ public class Boost_Controll : MonoBehaviour
     {
         if (activeCard.Count > 1)
         {
-            int rng = Random.Range(0, activeCard.Count);
+            int rng = UnityEngine.Random.Range(0, activeCard.Count);
             CurrentBoost = activeCard[rng];
             boostUI.ShowCard(activeCard[rng]);
         }
     }
     private void OnEnable()
     {
-        if (activeCard.Count > 0)
+        if (activeCard.Count > 0 && CurrentBoost == null)
         {
-            int rng = Random.Range(0, activeCard.Count);
+            int rng = UnityEngine.Random.Range(0, activeCard.Count);
             CurrentBoost = activeCard[rng];
             boostUI.ShowCard(activeCard[rng]);
+        }
+        else if(CurrentBoost != null)
+        {
+            boostUI.ShowCard(CurrentBoost);
+            if (CurrentBoost.isActive)
+            {
+                Remove_button.SetActive(true);
+                rng_button.SetActive(false);
+                Timer.gameObject.SetActive(true);
+                MainText.gameObject.SetActive(false);
+                boostUI.InActiveButton();
+            }
+            else
+            {
+                Remove_button.SetActive(false);
+                rng_button.SetActive(true);
+                Timer.gameObject.SetActive(false);
+                MainText.gameObject.SetActive(true);
+                boostUI.ActivaButton_b();
+            }
         }
 
     }

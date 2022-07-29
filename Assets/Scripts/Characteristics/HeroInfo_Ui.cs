@@ -47,6 +47,7 @@ public class HeroInfo_Ui : MonoBehaviour
     [SerializeField] private List<GameObject> UndeadSpriteList;
     [SerializeField] private List<GameObject> OrderSpriteList;
     [SerializeField] private List<GameObject> DemonSpriteList;
+    [SerializeField] private Text DicesCount;
     public void InitialiseHero(Hero hero)
     {
 
@@ -166,6 +167,8 @@ public class HeroInfo_Ui : MonoBehaviour
             amulet_image.gameObject.SetActive(false);
             item_amulet_luck.text = "0%";
         }
+        DicesCount.text = "D " + hero.cube.edgesNumber;
+        hero_name.text = hero.HeroName;
         hero_lvl.text = hero.Level.ToString();
         hero_rank.text = hero.Rank.ToString();
         average_Profit.text = hero.GetGoldProfit().ToString();

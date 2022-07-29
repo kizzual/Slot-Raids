@@ -23,6 +23,9 @@ public class CheckCombo : MonoBehaviour
         GlovalEventSystem.OnRaidComplete += Combo;
         GlovalEventSystem.OnGoldBoostActivate += GoldBoostActivate;
         GlovalEventSystem.OnGoldBoostDeActivate += GoldBoostDeActivate;
+        GlovalEventSystem.OnItemBoostActivate += ItemBoostActivate;
+        GlovalEventSystem.OnItemBoostDeActivate += ItemBoostDeActivate;
+        GlovalEventSystem.OnRaidStart += CloseCombo;
     }
 
     private void FixedUpdate()
@@ -283,4 +286,15 @@ public class CheckCombo : MonoBehaviour
     private void ItemBoostActivate(int value) => m_boostItem = value;
     private void GoldBoostDeActivate() => m_boostGold = 1;
     private void ItemBoostDeActivate() => m_boostItem = 1;
+    private void CloseCombo()
+    {
+        firstLine_horizontal.SetActive(false);
+        firstLine_vertical.SetActive(false);
+        secondLine_horizontal.SetActive(false);
+        secondLine_vertical.SetActive(false);
+        thirdLine_horizontal.SetActive(false);
+        thirdLine_vertical.SetActive(false);
+        diagonallyLine_toDown.SetActive(false);
+        diagonallyLine_toUp.SetActive(false);
+    }
 }

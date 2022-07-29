@@ -39,8 +39,6 @@ public class Rotate : MonoBehaviour
                 transform.rotation = Quaternion.RotateTowards(transform.rotation, Quaternion.Euler(cubeNumber[_edge]), endRotateSpeed);
                 if (transform.rotation == Quaternion.Euler(cubeNumber[_edge]))
                 {
-                    Debug.Log("End");
-                    Debug.Log(_edge + 1);
                     _isActive = false;
                     GlovalEventSystem.RotateComplete();
                 }

@@ -118,8 +118,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   typeElement: 1
   typeItem: 2
-  Selling_price: 150
+  Selling_price: 10000
   Gold_profit: 0
   Protect_profit: 0
-  Luck_profit: 10
+  Luck_profit: 7
   Rank: 2

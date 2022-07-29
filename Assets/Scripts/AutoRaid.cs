@@ -11,7 +11,9 @@ public class AutoRaid : MonoBehaviour
     [SerializeField] private Raid_button raid_button;
 
     [SerializeField] private Animator PlayeBut_anim;
-    [SerializeField] private Animator PauseBut_anim;
+    [SerializeField] public Animator PauseBut_anim;
+    public GameObject PauseImg;
+    public GameObject PlayImg;
     private float m_timer;
     private bool m_isActive;
 
@@ -37,6 +39,8 @@ public class AutoRaid : MonoBehaviour
         m_timer = 0;
         PlayeBut_anim.SetBool("IsActive", true);
         PauseBut_anim.SetBool("IsActive", false);
+        PlayImg.SetActive(false);
+        PauseImg.SetActive(true);
         timer.gameObject.SetActive(true);
 
         // animatioan start
@@ -48,8 +52,21 @@ public class AutoRaid : MonoBehaviour
         m_isActive = false;
         m_timer = 0;
         PlayeBut_anim.SetBool("IsActive", false);
-        PauseBut_anim.SetBool("IsActive", true);
         timer.gameObject.SetActive(false);
+        if(PauseBut_anim.GetBool("IsActive"))
+        {
+            PauseBut_anim.SetBool("IsActive", false);
+            raid_button.GoToAutoRaid();
+            PlayImg.SetActive(false);
+            PauseImg.SetActive(true);
+        }
+        else
+        {
+            PauseBut_anim.SetBool("IsActive", true);
+            PlayImg.SetActive(true);
+            PauseImg.SetActive(false);
+        }
+        
         // animatioan pause
     }
 }

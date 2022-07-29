@@ -11,6 +11,7 @@ public class Raid_button : MonoBehaviour
     [SerializeField] private float playerRaidTimer;
     [SerializeField] private List<Sprite> ButtonsSprite;
     [SerializeField] private Image currentButton;
+    [SerializeField] private AutoRaid autoraid;
     private Animator m_animator;
     public enum ButtonState
     {
@@ -23,6 +24,7 @@ public class Raid_button : MonoBehaviour
     public bool m_isStopping = false;
     private bool m_imageIsHide = false;
     public bool m_canRaid;
+    private float m_hideTimer;
     public bool isAutoRaid_boost { get; set; }
     void FixedUpdate()
     {
@@ -64,7 +66,16 @@ public class Raid_button : MonoBehaviour
 
                 }
             }
+            if (m_imageIsHide)
+            {
+                m_hideTimer += Time.fixedDeltaTime;
 
+                if (m_hideTimer > 3f)
+                {
+                    m_imageIsHide = false;
+                    raid_control.CheckSlots();
+                }
+            }
 
             if (m_timer >= autoRaidTimer / 2)
             {
@@ -90,16 +101,7 @@ public class Raid_button : MonoBehaviour
         }*/
         else if (buttonState == ButtonState.Stopped)
         {
-            if (m_imageIsHide)
-            {
-                m_timer += Time.fixedDeltaTime;
-
-                if (m_timer > 1.5f)
-                {
-                    m_imageIsHide = false;
-                    raid_control.CheckSlots();
-                }
-            }
+           
 
         }
     }
@@ -127,16 +129,21 @@ public class Raid_button : MonoBehaviour
     {
         if (raid_control.ChecnCanRaid())
         {
+            
             currentButton.sprite = ButtonsSprite[0];
+            m_hideTimer = 0;
             m_imageIsHide = true;
             m_isStopping = false;
             if (buttonState == ButtonState.Stopped || m_canRaid == false)
             {
                 m_canRaid = true;
                 m_timer = 0;
+                autoraid.PauseBut_anim.SetBool("IsActive", false);
                 buttonState = ButtonState.AutoRaid;
                 raid_control.StartRaid();
                 m_animator.SetTrigger("Press");
+                autoraid.PlayImg.SetActive(false);
+                autoraid.PauseImg.SetActive(true);
             }
         }
     }

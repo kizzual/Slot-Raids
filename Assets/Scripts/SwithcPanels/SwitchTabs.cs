@@ -58,14 +58,26 @@ public class SwitchTabs : MonoBehaviour
                 button[i].gameObject.transform.GetChild(1).gameObject.SetActive(false);
             }
         }
+        button[0].gameObject.transform.GetChild(2).gameObject.SetActive(true);
         for (int i = 0; i < panel.Length; i++)
         {
-           if(i == indexCurrentButton)
+           if(i == indexCurrentButton && i !=0)
             {
                 button[i].gameObject.transform.GetChild(1).gameObject.SetActive(true);
+                button[0].gameObject.transform.GetChild(2).gameObject.SetActive(true);
                 panel[i].SetActive(true);
             }
+           else if(i == indexCurrentButton && i == 0)
+            {
+                panel[i].SetActive(true);
+                button[i].gameObject.transform.GetChild(1).gameObject.SetActive(true);
+                button[0].gameObject.transform.GetChild(2).gameObject.SetActive(false);
+            }
         }
+        if (button[2].gameObject.transform.GetChild(1).gameObject.activeSelf)
+            SoundControl._instance.UnMuteSound();
+        else
+            SoundControl._instance.MuteSound();
     }
     public void InventoryOnOff(bool onlyClose = false)
     {

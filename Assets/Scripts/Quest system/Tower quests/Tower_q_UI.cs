@@ -54,6 +54,10 @@ public class Tower_q_UI : MonoBehaviour
         {
             first_count.text = quest.goal.firstItem_currentAmount.ToString() + "/" + quest.goal.firstItem_requiredAmount.ToString();
         }
+        if(quest.goal.goalType == GoalType.Gold_Gathering)
+        {
+            first_count.text = ConvertText.FormatNumb(quest.goal.currentAmount) + "/" + ConvertText.FormatNumb(quest.goal.requiredAmount);
+        }
         else
         {
             first_count.text = quest.goal.currentAmount.ToString() + "/" + quest.goal.requiredAmount.ToString();

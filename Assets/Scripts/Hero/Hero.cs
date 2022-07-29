@@ -36,7 +36,7 @@ public class Hero : MonoBehaviour
     public Item m_sword { get; set; }
     public Item m_shield { get; set; }
     public Item m_amulet { get; set; }
-
+    public string HeroName;
     private int m_swordBonus;
     private int m_luckBoost = 0;
     private int m_unLuckBoost = 0;
@@ -215,12 +215,28 @@ public class Hero : MonoBehaviour
     public int GetCombo() => Combo;
     private void ChangeGoldToGrade()
     {
-        if (Level != 1)
+        if (m_discounteToGrade != 1)
         {
-            GoldToGrade += Mathf.RoundToInt((GoldToGrade / 100f * Grade_percent));
+            if (Level != 1)
+            {
+                GoldToGrade += Mathf.RoundToInt((GoldToGrade / 100f * Grade_percent));
+                GoldToGrade -= Mathf.RoundToInt((GoldToGrade / 100f) * m_discounteToGrade);
+            }
+            else
+            {
+                GoldToGrade = Base_Grade;
+                GoldToGrade -= Mathf.RoundToInt((GoldToGrade / 100f) * m_discounteToGrade);
+            }
         }
         else
-            GoldToGrade = Base_Grade;
+        {
+            if (Level != 1)
+            {
+                GoldToGrade += Mathf.RoundToInt((GoldToGrade / 100f * Grade_percent));
+            }
+            else
+                GoldToGrade = Base_Grade;
+        }
     }
     private void ChangeMultiplier()
     {
@@ -248,7 +264,6 @@ public class Hero : MonoBehaviour
         int UnLuckCount = Mathf.RoundToInt((cube.edgesNumber / 100f) * GetUnLuckProfit());
         cube.SwitchColors(UnLuckCount, luckCount);
     }
-
     public void LoadHero(HeroSaver hero)
     {
         Level = hero.Level;
@@ -262,7 +277,6 @@ public class Hero : MonoBehaviour
             AddItem(hero.Amulet);
         Initialise();
     }
-
 }
 [System.Serializable]
 public enum TypeElement

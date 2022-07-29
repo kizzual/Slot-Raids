@@ -219,7 +219,10 @@ public class Raid_control : MonoBehaviour
                     m_currentSlotCount++;
                 }
             }
-           
+            GlovalEventSystem.RaidStart();
+            SoundControl._instance.StartRaidSound();
+
+
         }  
     }
     public bool ChecnCanRaid()
