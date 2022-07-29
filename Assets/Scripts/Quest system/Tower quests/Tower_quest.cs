@@ -1351,6 +1351,7 @@ public class Tower_quest : MonoBehaviour
         }
         else if(m_currentThitrdLineQuestindex == 0)
         {
+            Debug.Log("Boost activate");
             Boost.SetActive(true);
             Boostimg.SetActive(true);
             boost_Controll.OpenCard(third_Line_quest[m_currentThitrdLineQuestindex].BoostCard);

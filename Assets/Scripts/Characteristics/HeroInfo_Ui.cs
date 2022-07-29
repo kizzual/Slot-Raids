@@ -20,7 +20,7 @@ public class HeroInfo_Ui : MonoBehaviour
     [SerializeField] private Text comfo_factor;
     [SerializeField] private Text hero_luck;
     [SerializeField] private Text hero_unluck;
-    [SerializeField] private Text gold_to_grade;
+    [SerializeField] private List<Text> gold_to_grade;
     //cube
     [SerializeField] private Text item_sword_profit;
     [SerializeField] private Text item_shield_protect;
@@ -48,6 +48,8 @@ public class HeroInfo_Ui : MonoBehaviour
     [SerializeField] private List<GameObject> OrderSpriteList;
     [SerializeField] private List<GameObject> DemonSpriteList;
     [SerializeField] private Text DicesCount;
+    [SerializeField] private GameObject canGrade;
+    [SerializeField] private GameObject cannotGrade;
     public void InitialiseHero(Hero hero)
     {
 
@@ -176,7 +178,10 @@ public class HeroInfo_Ui : MonoBehaviour
         comfo_factor.text = hero.GetCombo().ToString();
         hero_luck.text = "%" + hero.GetLuckProfit().ToString();
         hero_unluck.text = "%" + hero.GetUnLuckProfit().ToString();
-        gold_to_grade.text = hero.GoldToGrade.ToString();
+        foreach (var item in gold_to_grade)
+        {
+            item.text = hero.GoldToGrade.ToString();
+        }
         if (hero.currentRaidSlot != 0)
             free_button.SetActive(true);
         else
@@ -195,6 +200,16 @@ public class HeroInfo_Ui : MonoBehaviour
                 dices[i].MakeGreen();
             else if (hero.cube.edges[i].edgeType == EdgeScript.EdgeType.Unluck)
                 dices[i].MakeRed();
+        }
+        if (Gold.GetCurrentGold() >= hero.GoldToGrade)
+        {
+            canGrade.SetActive(true);
+            cannotGrade.SetActive(false);
+        }
+        else
+        {
+            canGrade.SetActive(false);
+            cannotGrade.SetActive(true);
         }
     }
     private void CloseZoneBonus()

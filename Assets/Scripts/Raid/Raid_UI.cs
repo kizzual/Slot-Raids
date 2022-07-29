@@ -30,6 +30,8 @@ public class Raid_UI : MonoBehaviour
     [SerializeField] private GameObject unraid_panel;
     [SerializeField] private List<GameObject> backGrounds;
 
+    [SerializeField] private GameObject canGrade;
+    [SerializeField] private GameObject cannotGrade;
     [Space]
     [Header("UI elements")]
     [SerializeField] private Text Rank;
@@ -66,7 +68,16 @@ public class Raid_UI : MonoBehaviour
      
         SwitchBorder_andArrows();
         diceControll.OpenCurrentDice(hero);
-
+        if(Gold.GetCurrentGold() >= hero.GoldToGrade)
+        {
+            canGrade.SetActive(true);
+            cannotGrade.SetActive(false);
+        }
+        else
+        {
+            canGrade.SetActive(false);
+            cannotGrade.SetActive(true);
+        }
     }
     public void SwitchBorder_andArrows()
     {

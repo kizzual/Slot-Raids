@@ -4260,7 +4260,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &7066365305791027959
 RectTransform:
   m_ObjectHideFlags: 0
@@ -4683,6 +4683,8 @@ MonoBehaviour:
   - {fileID: 4379961636971864106}
   - {fileID: 7066365305084292215}
   - {fileID: 9182257329679285714}
+  canGrade: {fileID: 7865311324229651311}
+  cannotGrade: {fileID: 8109466090296620450}
   Rank: {fileID: 7066365304815633925}
   lvl: {fileID: 7066365304291841748}
   combo: {fileID: 7066365305607652766}
