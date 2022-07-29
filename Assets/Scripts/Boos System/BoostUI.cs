@@ -30,7 +30,7 @@ public class BoostUI : MonoBehaviour
             BoostReady.SetActive(false);
         }
         float tmp = (float)currentRaids / (float)requirementRaids;
-        Debug.Log(tmp);
         manaImg.fillAmount = tmp;
     }
+
 }

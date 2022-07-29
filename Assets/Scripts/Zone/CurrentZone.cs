@@ -13,7 +13,7 @@ public class CurrentZone : MonoBehaviour
     }
 
 
-    private void Start()
+    private void Awake()
     {
         SetZone(zone);
         Debug.Log(zone.name);

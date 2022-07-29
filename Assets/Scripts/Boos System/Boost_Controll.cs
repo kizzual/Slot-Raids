@@ -15,6 +15,7 @@ public class Boost_Controll : MonoBehaviour
     public Image manaImg;
     private float m_timer;
     private int m_currentRaid;
+    [SerializeField] private GameObject AttentionIcon;
     private void FixedUpdate()
     {
         if (CurrentBoost != null)
@@ -37,14 +38,24 @@ public class Boost_Controll : MonoBehaviour
     }
     public void ActivateBoost()
     {
-        if (!CurrentBoost.isActive && m_currentRaid >= RaidToActivateBoost_required)
+        if (activeCard.Count > 0)
         {
-            m_timer = 0;
-            m_currentRaid = 0;
-            CheckBoostType();
-            CurrentBoost.isActive = true;
+            if (!CurrentBoost.isActive && m_currentRaid >= RaidToActivateBoost_required)
+            {
+                m_timer = 0;
+                m_currentRaid = 0;
+                CheckBoostType();
+                CurrentBoost.isActive = true;
+                if (m_currentRaid >= RaidToActivateBoost_required)
+                {
+                    AttentionIcon.SetActive(true);
+                }
+                else
+                {
+                    AttentionIcon.SetActive(false);
+                }
+            }
         }
-
     }
     private void CheckBoostType()
     {
@@ -236,8 +247,16 @@ public class Boost_Controll : MonoBehaviour
             float tmp = ((float)m_currentRaid / (float)RaidToActivateBoost_required);
             manaImg.fillAmount = tmp;
         }
+        if(m_currentRaid >= RaidToActivateBoost_required)
+        {
+            AttentionIcon.SetActive(true);
+        }
+        else
+        {
+            AttentionIcon.SetActive(false);
+        }
+        boostUI.ActiveteBoostButton(m_currentRaid, RaidToActivateBoost_required);
     }
-
     public void OpenBoostPanel()
     {
         boostUI.ActiveteBoostButton(m_currentRaid, RaidToActivateBoost_required);
@@ -250,9 +269,22 @@ public class Boost_Controll : MonoBehaviour
     }
     public void RandomizeCard()
     {
-        int rng = Random.Range(0, activeCard.Count);
-        CurrentBoost = activeCard[rng];
-        boostUI.ShowCard(activeCard[rng]);
+        if (activeCard.Count > 1)
+        {
+            int rng = Random.Range(0, activeCard.Count);
+            CurrentBoost = activeCard[rng];
+            boostUI.ShowCard(activeCard[rng]);
+        }
+    }
+    private void OnEnable()
+    {
+        if (activeCard.Count > 0)
+        {
+            int rng = Random.Range(0, activeCard.Count);
+            CurrentBoost = activeCard[rng];
+            boostUI.ShowCard(activeCard[rng]);
+        }
+
     }
 }
 

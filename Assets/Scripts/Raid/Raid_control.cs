@@ -9,6 +9,13 @@ public class Raid_control : MonoBehaviour
     [SerializeField] private List<Text> winSwords;
     [SerializeField] private List<Text> winShields;
     [SerializeField] private List<Text> winAmulets;
+    [SerializeField] private List<Text> nameOfLocation;
+    [SerializeField] private List<Text> luckLocation;
+    [SerializeField] private List<Text> unLuckLocation;
+    [SerializeField] private List<Image> elementLocation;
+    [SerializeField] private List<Image> item_1_icon;
+    [SerializeField] private List<Image> item_2_icon;
+    [SerializeField] private List<Sprite> elementLogo;
 
     private int m_currentSlotCount = 0;
 
@@ -38,6 +45,53 @@ public class Raid_control : MonoBehaviour
         foreach (var item in winAmulets)
         {
             item.text = 0.ToString();
+        }
+        foreach (var item in nameOfLocation)
+        {
+            item.text = CurrentZone.Current_Zone.nameLocation;
+        }
+        foreach (var item in luckLocation)
+        {
+            item.text = CurrentZone.Current_Zone.Luck.ToString();
+        }
+        foreach (var item in unLuckLocation)
+        {
+            item.text = CurrentZone.Current_Zone.UnLuck.ToString();
+        }
+        foreach (var item in item_1_icon)
+        {
+            item.sprite = CurrentZone.Current_Zone.ItemsOnZone[0].GetComponent<Image>().sprite;
+        }
+        foreach (var item in item_2_icon)
+        {
+            item.sprite = CurrentZone.Current_Zone.ItemsOnZone[1].GetComponent<Image>().sprite;
+        }
+        switch (CurrentZone.Current_Zone.typeElement)
+        {
+            case Type__Element.Neutral:
+                foreach (var item in elementLocation)
+                {
+                    item.sprite = elementLogo[0];
+                }
+                break;
+            case Type__Element.Undead:
+                foreach (var item in elementLocation)
+                {
+                    item.sprite = elementLogo[1];
+                }
+                break;
+            case Type__Element.Order:
+                foreach (var item in elementLocation)
+                {
+                    item.sprite = elementLogo[2];
+                }
+                break;
+            case Type__Element.Demon:
+                foreach (var item in elementLocation)
+                {
+                    item.sprite = elementLogo[3];
+                }
+                break;
         }
 
     }
@@ -74,6 +128,54 @@ public class Raid_control : MonoBehaviour
         foreach (var item in raid_slot)
         {
             item.SwitchBorder_andArrows();
+        }
+        foreach (var item in nameOfLocation)
+        {
+            item.text = CurrentZone.Current_Zone.nameLocation;
+        }
+        foreach (var item in luckLocation)
+        {
+            item.text = CurrentZone.Current_Zone.Luck.ToString();
+        }
+        foreach (var item in unLuckLocation)
+        {
+            item.text = CurrentZone.Current_Zone.UnLuck.ToString();
+        }
+
+        switch (CurrentZone.Current_Zone.typeElement)
+        {
+            case Type__Element.Neutral:
+                foreach (var item in elementLocation)
+                {
+                    item.sprite = elementLogo[0];
+                }
+                break;
+            case Type__Element.Undead:
+                foreach (var item in elementLocation)
+                {
+                    item.sprite = elementLogo[1];
+                }
+                break;
+            case Type__Element.Order:
+                foreach (var item in elementLocation)
+                {
+                    item.sprite = elementLogo[2];
+                }
+                break;
+            case Type__Element.Demon:
+                foreach (var item in elementLocation)
+                {
+                    item.sprite = elementLogo[3];
+                }
+                break;
+        }
+        foreach (var item in item_1_icon)
+        {
+            item.sprite = CurrentZone.Current_Zone.ItemsOnZone[0].GetComponent<Image>().sprite;
+        }
+        foreach (var item in item_2_icon)
+        {
+            item.sprite = CurrentZone.Current_Zone.ItemsOnZone[1].GetComponent<Image>().sprite;
         }
     }
     private void OnGradeTower(int gradeNumber)
@@ -113,6 +215,7 @@ public class Raid_control : MonoBehaviour
                     raid_slot[i].GetDice().CheckRandomIndex();
                     raid_slot[i].GetDice().StartRotate();
                     raid_slot[i].m_currentHero.GoToRaid();
+                    CurrentZone.Current_Zone.GoToRaid();
                     m_currentSlotCount++;
                 }
             }

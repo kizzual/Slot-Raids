@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 public class GameController : MonoBehaviour
@@ -11,7 +12,7 @@ public class GameController : MonoBehaviour
     [SerializeField] private Sell_controll sell_controll;
     [SerializeField] private Inventory_controll inventory_controll;
     [SerializeField] private CheckCombo checkCombo;
-    [SerializeField] private Tower_quest tower_quest;
+    [SerializeField] private List<Tower_quest> tower_quest;
     [SerializeField] private Boost_Controll boost_Controll;
 
     void Awake()
@@ -25,7 +26,10 @@ public class GameController : MonoBehaviour
         sell_controll.ActivateEvent();
         inventory_controll.ActivateEvent();
         checkCombo.ActivateEvent();
-        tower_quest.ActivateEvent();
+        foreach (var item in tower_quest)
+        {
+            item.ActivateEvent();
+        }
         boost_Controll.ActivateEvent();
     }
 

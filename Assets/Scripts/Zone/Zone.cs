@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Zone : MonoBehaviour
 {
@@ -13,6 +14,13 @@ public class Zone : MonoBehaviour
     public List<Item> ItemsOnZone;
     public bool isOpened;
 
+    public string nameLocation;
+
+    public Button button;
+    public GameObject IsOpenedPanel;
+    public GameObject IscloseddPanel;
+    public GameObject currentZoneCheck;
+    public int RaidsCount { get; set; } = 0;
     private int m_luckBoost = 0;
     private int m_unLuckBoost = 0;
     private int m_goldBoost = 0;
@@ -21,6 +29,10 @@ public class Zone : MonoBehaviour
     {
         CurrentZone.SetZone(zone);
         GlovalEventSystem.SwitchLocation(zone);
+    }
+    public void GoToRaid()
+    {
+        RaidsCount++;
     }
     public void AddBust(int luck, int unluck, int goldProfit, int itemProfit)
     {
@@ -43,6 +55,30 @@ public class Zone : MonoBehaviour
         m_unLuckBoost = 0;
         m_goldBoost = 1;
         m_itemBoost = 1;
+    }
+    private void OnEnable()
+    {
+        if(isOpened)
+        {
+            if(CurrentZone.Current_Zone == this)
+            {
+                currentZoneCheck.SetActive(true);
+            }
+            else
+            {
+                currentZoneCheck.SetActive(false);
+            }
+            IsOpenedPanel.SetActive(true);
+            IscloseddPanel.SetActive(false);
+            button.enabled = true;
+        }
+        else
+        {
+            currentZoneCheck.SetActive(false);
+            IsOpenedPanel.SetActive(false);
+            IscloseddPanel.SetActive(true);
+            button.enabled = false;
+        }
     }
 }
 [System.Serializable]

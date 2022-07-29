@@ -39,6 +39,9 @@ public class Raid_UI : MonoBehaviour
     [SerializeField] private Image heroIcon;
     [SerializeField] private Image elementIcon;
     [SerializeField] private Image border;
+    [SerializeField] private Image backGround;
+    [SerializeField] private List<Sprite> BG;
+
     [SerializeField] private List<Image> arrows;
     [SerializeField] private List<Image> elementArrow;
     [SerializeField] private DiceControll diceControll;
@@ -51,7 +54,7 @@ public class Raid_UI : MonoBehaviour
         ActivePanel_Hero();
         m_currentHero = hero;
         m_currentHero.currentRaidSlot = SlotNumber;
-        Rank.text = hero.Rank.ToString();
+        Rank.text = "D " + hero.cube.edgesNumber.ToString();
         lvl.text = hero.Level.ToString();
         combo.text = "x" + hero.GetCombo().ToString();
         goldToGrade.text = ConvertText.FormatNumb(hero.GoldToGrade);
@@ -60,22 +63,7 @@ public class Raid_UI : MonoBehaviour
         {
             item.gameObject.SetActive(false);
         }
-        /*   switch (hero.typeElement)
-           {
-               case TypeElement.Neutral:
-                   elementIcon.sprite = neutralIcon;
-                   break;
-               case TypeElement.Undead:
-                   elementIcon.sprite = undeadIcon;
-                   break;
-               case TypeElement.Order:
-                   elementIcon.sprite = orderIcon;
-                   break;
-               case TypeElement.Demon:
-                   elementIcon.sprite = demonIcon;
-                   break;
-           }*/
-      
+     
         SwitchBorder_andArrows();
         diceControll.OpenCurrentDice(hero);
 
@@ -100,8 +88,10 @@ public class Raid_UI : MonoBehaviour
                 border.sprite = borderSPrites[0];
                 if (m_currentHero != null)
                 {
+                    backGround.sprite = BG[0];
                     if (m_currentHero.typeElement == TypeElement.Neutral)
                     {
+                        
                         border.sprite = borderSPrites[1];
                         foreach (var item in elementArrow)
                         {
@@ -119,6 +109,7 @@ public class Raid_UI : MonoBehaviour
                 border.sprite = borderSPrites[2];
                 if (m_currentHero != null)
                 {
+                    backGround.sprite = BG[1];
                     if (m_currentHero.typeElement == TypeElement.Undead)
                     {
                         border.sprite = borderSPrites[3];
@@ -138,6 +129,7 @@ public class Raid_UI : MonoBehaviour
                 border.sprite = borderSPrites[4];
                 if (m_currentHero != null)
                 {
+                    backGround.sprite = BG[2];
                     if (m_currentHero.typeElement == TypeElement.Order)
                     {
                         border.sprite = borderSPrites[5];
@@ -157,6 +149,7 @@ public class Raid_UI : MonoBehaviour
                 border.sprite = borderSPrites[6];
                 if (m_currentHero != null)
                 {
+                    backGround.sprite = BG[3];
                     if (m_currentHero.typeElement == TypeElement.Demon)
                     {
                         border.sprite = borderSPrites[7];

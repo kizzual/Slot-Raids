@@ -18,7 +18,7 @@ public class Tower_q_UI : MonoBehaviour
     [SerializeField] private GameObject quest_complete_button_green;
 
 
- 
+
     public void Initialise_quest(Quest quest)
     {
         second_item_image.gameObject.SetActive(false);
@@ -26,17 +26,21 @@ public class Tower_q_UI : MonoBehaviour
 
         quest_complete_button.SetActive(true);
         quest_complete_button_green.SetActive(false);
-        if(quest.goal.secondItem != null)
+
+        if (quest.goal.secondItem != null)
         {
             second_item_image.gameObject.SetActive(true);
             second_item_image.sprite = quest.goal.secondItem.GetComponent<Image>().sprite;
+            second_count.text = quest.goal.secondItem_currentAmount.ToString() + "/" + quest.goal.secondItem_requiredAmount.ToString();
+
         }
-        if(quest.goal.firstItem == null)
+        if (quest.goal.firstItem == null)
             first_item_image.enabled = false;
         else
         {
             first_item_image.enabled = true;
             first_item_image.sprite = quest.goal.firstItem.GetComponent<Image>().sprite;
+            third_count.text = quest.goal.thirdItem_currentAmount.ToString() + "/" + quest.goal.thirdItem_requiredAmount.ToString();
         }
 
         if (quest.goal.thirdItem == null)
@@ -46,9 +50,16 @@ public class Tower_q_UI : MonoBehaviour
             third_item_image.enabled = true;
             third_item_image.sprite = quest.goal.thirdItem.GetComponent<Image>().sprite;
         }
+        if (quest.goal.goalType == GoalType.Item_Gathering)
+        {
+            first_count.text = quest.goal.firstItem_currentAmount.ToString() + "/" + quest.goal.firstItem_requiredAmount.ToString();
+        }
+        else
+        {
+            first_count.text = quest.goal.currentAmount.ToString() + "/" + quest.goal.requiredAmount.ToString();
+        }
         quest_title.text = quest.id.ToString();
         quest_description.text = quest.Descripsion;
-        first_count.text = quest.goal.currentAmount.ToString() + "/" + quest.goal.requiredAmount.ToString();
         prize_image.sprite = quest.RewardIcon;
     }
 

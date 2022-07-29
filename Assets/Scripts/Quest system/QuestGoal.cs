@@ -38,7 +38,8 @@ public class QuestGoal
         secondItem_currentAmount += secondItemCount;
         thirdItem_currentAmount += thirdItem;
     }
-    public void RaidGarhering_byElement(int value) => currentAmount += value;
+    public void RaidGarhering_byElement(int value) => currentAmount = value;
+    public void RaidGarhering_byZone(int value) => currentAmount = value;
     public void HeroRaid() => currentAmount = HeroToRaid.raidsCount;
 
 }
