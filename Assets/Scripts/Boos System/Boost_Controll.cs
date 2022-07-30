@@ -327,6 +327,33 @@ public class Boost_Controll : MonoBehaviour
         boostUI.gameObject.SetActive(true);
         TowerButton.transform.GetChild(1).gameObject.SetActive(false);
         TowerButton.transform.GetChild(2).gameObject.SetActive(true);
+        if (activeCard.Count > 0 && CurrentBoost == null)
+        {
+            Debug.Log("ASD");
+            int rng = UnityEngine.Random.Range(0, activeCard.Count);
+            CurrentBoost = activeCard[rng];
+            boostUI.ShowCard(activeCard[rng]);
+        }
+        else if (CurrentBoost != null)
+        {
+            boostUI.ShowCard(CurrentBoost);
+            if (CurrentBoost.isActive)
+            {
+                Remove_button.SetActive(true);
+                rng_button.SetActive(false);
+                Timer.gameObject.SetActive(true);
+                MainText.gameObject.SetActive(false);
+                boostUI.InActiveButton();
+            }
+            else
+            {
+                Remove_button.SetActive(false);
+                rng_button.SetActive(true);
+                Timer.gameObject.SetActive(false);
+                MainText.gameObject.SetActive(true);
+                boostUI.ActivaButton_b();
+            }
+        }
     }
     public void OpenCard(BoostCard card)
     {
@@ -346,6 +373,7 @@ public class Boost_Controll : MonoBehaviour
     {
         if (activeCard.Count > 0 && CurrentBoost == null)
         {
+            Debug.Log("ASD");
             int rng = UnityEngine.Random.Range(0, activeCard.Count);
             CurrentBoost = activeCard[rng];
             boostUI.ShowCard(activeCard[rng]);

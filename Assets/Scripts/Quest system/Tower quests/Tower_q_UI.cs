@@ -52,14 +52,19 @@ public class Tower_q_UI : MonoBehaviour
         }
         if (quest.goal.goalType == GoalType.Item_Gathering)
         {
+            Debug.Log("123");
             first_count.text = quest.goal.firstItem_currentAmount.ToString() + "/" + quest.goal.firstItem_requiredAmount.ToString();
         }
-        if(quest.goal.goalType == GoalType.Gold_Gathering)
+        else  if(quest.goal.goalType == GoalType.Gold_Gathering)
         {
+            Debug.Log("1111");
+
             first_count.text = ConvertText.FormatNumb(quest.goal.currentAmount) + "/" + ConvertText.FormatNumb(quest.goal.requiredAmount);
         }
         else
         {
+            Debug.Log("2222");
+
             first_count.text = quest.goal.currentAmount.ToString() + "/" + quest.goal.requiredAmount.ToString();
         }
         quest_title.text = quest.id.ToString();
