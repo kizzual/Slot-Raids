@@ -7,8 +7,6 @@ public class TowerUpgrade : MonoBehaviour
     private long m_goldToGrade;
     public int currentGrade { get; set; }
     private Tower_UI m_tower_ui;
-    public GameObject Test_1;
-    public GameObject Test_2;
     private void Start()
     {
         m_tower_ui = GetComponent<Tower_UI>();
@@ -25,14 +23,12 @@ public class TowerUpgrade : MonoBehaviour
     {
         if(Gold.GetCurrentGold() >= m_goldToGrade && currentGrade < 9)
         {
-            Test_1.SetActive(true);
             Gold.SpendGold(m_goldToGrade);
             currentGrade++;
          //   PlayerPrefs.SetInt("TowerLvl", currentGrade);
             CheckGoldToGrade();
             m_tower_ui.ChangeTowerSprite(currentGrade, m_goldToGrade);
             GlovalEventSystem.UpgradeTower(currentGrade);
-            Test_2.SetActive(true);
         }
     }
 
