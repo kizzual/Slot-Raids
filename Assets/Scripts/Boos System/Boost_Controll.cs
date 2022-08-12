@@ -19,19 +19,18 @@ public class Boost_Controll : MonoBehaviour
     [SerializeField] private List<GameObject> AttentionIcon;
     [SerializeField] private GameObject TowerButton;
     [SerializeField] private Image mana_Img;
-    [SerializeField] private GameObject rng_button;
-    [SerializeField] private GameObject Remove_button;
-    [SerializeField] private GameObject MainText;
-    [SerializeField] private Text Timer;
+    private List<BoostCard> RandomCards = new List<BoostCard>();
+
     private void FixedUpdate()
-    {
+    { 
         if (CurrentBoost != null)
         {
             if (CurrentBoost.isActive)
             {
-                TimeSpan ts = TimeSpan.FromSeconds(CurrentBoost.TimeDuration - m_timer);
-                Timer.text = ts.Minutes.ToString() + ":" + ts.Seconds.ToString();
-                
+                if(boostUI.gameObject.activeSelf)
+                {
+                    boostUI.ShowActiveBoost(m_timer, CurrentBoost);
+                }
                    m_timer += Time.fixedDeltaTime;
 
                 if (m_timer >= CurrentBoost.TimeDuration)
@@ -48,44 +47,29 @@ public class Boost_Controll : MonoBehaviour
     }
     public void ActivateBoost()
     {
-        if (activeCard.Count > 0)
+        if(CurrentBoost != null)
         {
-            if (!CurrentBoost.isActive && m_currentRaid >= RaidToActivateBoost_required)
+            if(m_currentRaid >= RaidToActivateBoost_required)
             {
                 m_timer = 0;
                 m_currentRaid = 0;
-                CheckBoostType();
                 CurrentBoost.isActive = true;
+                boostUI.SwitchCurrentCardImage(CurrentBoost);
                 if (m_currentRaid >= RaidToActivateBoost_required)
-                {
-                    foreach (var item in AttentionIcon)
-                    {
-                        item.SetActive(true);
-                    }
-                }
+                    GlovalEventSystem.BoostIsReady();
                 else
-                {
-                    foreach (var item in AttentionIcon)
-                    {
-                        item.SetActive(false);
-                    }
-                }
-                Remove_button.SetActive(true);
-                rng_button.SetActive(false);
+                    GlovalEventSystem.BoostIsNotReady();
                 float tmp = ((float)m_currentRaid / (float)RaidToActivateBoost_required);
                 foreach (var item in manaImg)
                 {
                     item.fillAmount = tmp;
                 }
                 mana_Img.fillAmount = tmp;
-                Timer.gameObject.SetActive(true);
-                MainText.gameObject.SetActive(false);
-                boostUI.InActiveButton();
-                Debug.Log("TEST");
+                CheckBoostType();
                 SoundControl._instance.ActivateBoost();
+                GlovalEventSystem.TutorialStepsThirdPart(17);
             }
         }
-
     }
     private void CheckBoostType()
     {
@@ -259,6 +243,7 @@ public class Boost_Controll : MonoBehaviour
     }
     public void RemoveBoost()
     {
+        CurrentBoost.isActive = false;
         foreach (var item in Heroes)
         {
             item.RemoveBoost();
@@ -269,13 +254,10 @@ public class Boost_Controll : MonoBehaviour
         }
         GlovalEventSystem.GoldBoostDeActivate();
         GlovalEventSystem.ItemBoostDeActivate();
-        Remove_button.SetActive(false);
-        rng_button.SetActive(true);
         CurrentBoost.isActive = false;
-        Timer.gameObject.SetActive(false);
-        MainText.gameObject.SetActive(true);
         SoundControl._instance.DeActivateBoost();
-
+        CurrentBoost = null;
+        RandomizeCard();
     }
     private void RaidComplete(List<Item> items)
     {
@@ -291,69 +273,35 @@ public class Boost_Controll : MonoBehaviour
         }
 
         if (m_currentRaid >= RaidToActivateBoost_required)
+            GlovalEventSystem.BoostIsReady();
+        else
+            GlovalEventSystem.BoostIsNotReady();
+       
+    }
+    public void OpenBoostPanel()
+    {
+        boostUI.gameObject.SetActive(true);
+        TowerButton.transform.GetChild(1).gameObject.SetActive(false);
+        TowerButton.transform.GetChild(2).gameObject.SetActive(true);
+        GlovalEventSystem.TutorialStepsThirdPart(16);
+        if (CurrentBoost != null)
         {
-            foreach (var item in AttentionIcon)
+            if(CurrentBoost.isActive)
             {
-                item.SetActive(true);
+                boostUI.ShowActiveBoost(m_timer, CurrentBoost);
             }
-            if(CurrentBoost != null)
-               boostUI.ActivaButton_b();
-            if (CurrentBoost != null)
+            else
             {
-                if (CurrentBoost.isActive)
-                {
-                    boostUI.InActiveButton();
-                }
-                else
-                {
-                    boostUI.ActivaButton_b();
-                }
+                RandomizeCard();
+                return;
             }
         }
         else
         {
-            foreach (var item in AttentionIcon)
-            {
-                item.SetActive(false);
-            }
-
+            RandomizeCard();
+            return;
         }
        
-    //    boostUI.ActiveteBoostButton(m_currentRaid, RaidToActivateBoost_required);
-    }
-    public void OpenBoostPanel()
-    {
-       // boostUI.ActiveteBoostButton(m_currentRaid, RaidToActivateBoost_required);
-        boostUI.gameObject.SetActive(true);
-        TowerButton.transform.GetChild(1).gameObject.SetActive(false);
-        TowerButton.transform.GetChild(2).gameObject.SetActive(true);
-        if (activeCard.Count > 0 && CurrentBoost == null)
-        {
-            Debug.Log("ASD");
-            int rng = UnityEngine.Random.Range(0, activeCard.Count);
-            CurrentBoost = activeCard[rng];
-            boostUI.ShowCard(activeCard[rng]);
-        }
-        else if (CurrentBoost != null)
-        {
-            boostUI.ShowCard(CurrentBoost);
-            if (CurrentBoost.isActive)
-            {
-                Remove_button.SetActive(true);
-                rng_button.SetActive(false);
-                Timer.gameObject.SetActive(true);
-                MainText.gameObject.SetActive(false);
-                boostUI.InActiveButton();
-            }
-            else
-            {
-                Remove_button.SetActive(false);
-                rng_button.SetActive(true);
-                Timer.gameObject.SetActive(false);
-                MainText.gameObject.SetActive(true);
-                boostUI.ActivaButton_b();
-            }
-        }
     }
     public void OpenCard(BoostCard card)
     {
@@ -362,42 +310,48 @@ public class Boost_Controll : MonoBehaviour
     }
     public void RandomizeCard()
     {
-        if (activeCard.Count > 1)
+        if (activeCard.Count > 0)
         {
-            int rng = UnityEngine.Random.Range(0, activeCard.Count);
-            CurrentBoost = activeCard[rng];
-            boostUI.ShowCard(activeCard[rng]);
-        }
-    }
-    private void OnEnable()
-    {
-        if (activeCard.Count > 0 && CurrentBoost == null)
-        {
-            Debug.Log("ASD");
-            int rng = UnityEngine.Random.Range(0, activeCard.Count);
-            CurrentBoost = activeCard[rng];
-            boostUI.ShowCard(activeCard[rng]);
-        }
-        else if(CurrentBoost != null)
-        {
-            boostUI.ShowCard(CurrentBoost);
-            if (CurrentBoost.isActive)
+            RandomCards.Clear();
+            if (activeCard.Count <= 3)
             {
-                Remove_button.SetActive(true);
-                rng_button.SetActive(false);
-                Timer.gameObject.SetActive(true);
-                MainText.gameObject.SetActive(false);
-                boostUI.InActiveButton();
+                for (int i = 0; i < activeCard.Count; i++)
+                {
+                    RandomCards.Add(activeCard[i]);
+                }
             }
             else
             {
-                Remove_button.SetActive(false);
-                rng_button.SetActive(true);
-                Timer.gameObject.SetActive(false);
-                MainText.gameObject.SetActive(true);
-                boostUI.ActivaButton_b();
+                int check = 0;
+                while (activeCard.Count < 3 || check < 20)
+                {
+                    check++;
+                    int rng = UnityEngine.Random.Range(0, activeCard.Count);
+                    if (activeCard.Count == 0)
+                    {
+                        RandomCards.Add(activeCard[rng]);
+                    }
+                    else
+                    {
+                        bool isEmptyCard = true;
+                        foreach (var item in RandomCards)
+                        {
+                            if (activeCard[rng] == item)
+                                isEmptyCard = false;
+                        }
+                        if (isEmptyCard)
+                            RandomCards.Add(activeCard[rng]);
+                    }
+                }
             }
         }
+        boostUI.ShowCard(RandomCards);
+    }
+
+    public void ChooseBoostCard(int index)
+    {
+        CurrentBoost = RandomCards[index];
+        ActivateBoost();
 
     }
 }

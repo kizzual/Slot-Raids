@@ -24,8 +24,18 @@ public static class GlovalEventSystem
     public static Action <int> OnItemBoostActivate;
     public static Action  OnItemBoostDeActivate;
     public static Action  OnRaidStart;
+    public static Action  OnBoostIsReady;
+    public static Action  OnBoostIsNotReady;
+    public static Action <int>  OnTutorialSteps;
+    public static Action <int>  OnTutorialStepsSecondPart;
+    public static Action <int>  OnTutorialStepsThirdPart;
 
     public static void RotateComplete() => OnRotateComplete?.Invoke();
+    public static void TutorialSteps(int stepNumber) => OnTutorialSteps?.Invoke(stepNumber);
+    public static void TutorialStepsSecondPart(int stepNumber) => OnTutorialStepsSecondPart?.Invoke(stepNumber);
+    public static void TutorialStepsThirdPart(int stepNumber) => OnTutorialStepsThirdPart?.Invoke(stepNumber);
+    public static void BoostIsReady() => OnBoostIsReady?.Invoke();
+    public static void BoostIsNotReady() => OnBoostIsNotReady?.Invoke();
     public static void HeroUpgrade(Hero hero) => OnHeroUpgrade?.Invoke(hero);
     public static void AddingHeroToSlot(Raid_UI slot) => OnAddingHeoToSlot?.Invoke(slot);
     public static void RemoveFromSlot(int slotNum) => OnRemoveFromSlot?.Invoke(slotNum);

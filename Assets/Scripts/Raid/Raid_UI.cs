@@ -231,6 +231,13 @@ public class Raid_UI : MonoBehaviour
 
             //    DisplayHeroInfirmation();
             GlovalEventSystem.HeroUpgrade(m_currentHero);
+            SoundControl._instance.ClickBTN();
+            if (Tutorial.CheckTutorStep() == 10)
+                GlovalEventSystem.TutorialStepsSecondPart(9);
+        }
+        else
+        {
+            SoundControl._instance.NoMoney();
         }
     }
 
@@ -240,7 +247,11 @@ public class Raid_UI : MonoBehaviour
         CheckSlot();
     }
     public DiceControll GetDice() => diceControll;
-    public void AddHero() => GlovalEventSystem.AddingHeroToSlot(this);
+    public void AddHero()
+    {
+        GlovalEventSystem.AddingHeroToSlot(this);
+        GlovalEventSystem.TutorialSteps(6);
+    }
     public void OpenStats() => GlovalEventSystem.OpenHeroStats(m_currentHero);
     public void CloseUnraidPanel() => unraid_panel.SetActive(false);
     public void OpenUnraidPanel() => unraid_panel.SetActive(true);

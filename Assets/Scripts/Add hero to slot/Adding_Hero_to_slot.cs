@@ -59,7 +59,7 @@ public class Adding_Hero_to_slot : MonoBehaviour
             GlovalEventSystem.RemoveFromSlot(currentSlot.m_currentHero.currentRaidSlot);
         }
         currentSlot.Initialise(slot_ui.m_CurrentHero);
-
+        GlovalEventSystem.TutorialSteps(7);
         slot_ui.Initialise();
     }
     public void RemoveHeroToSlot(Slot_UI slot_UI)
@@ -73,6 +73,7 @@ public class Adding_Hero_to_slot : MonoBehaviour
     {
         frontPanel.SetActive(false);
         gameObject.SetActive(false);
+        GlovalEventSystem.TutorialSteps(8);
     }
 
 }

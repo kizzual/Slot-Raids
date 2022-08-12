@@ -129,24 +129,28 @@ public class Raid_button : MonoBehaviour
     {
         if (raid_control.ChecnCanRaid())
         {
-            
-            currentButton.sprite = ButtonsSprite[0];
-            m_hideTimer = 0;
-            m_imageIsHide = true;
-            m_isStopping = false;
-            if (buttonState == ButtonState.Stopped || m_canRaid == false)
-            {
-                m_canRaid = true;
-                m_timer = 0;
-                autoraid.PauseBut_anim.SetBool("IsActive", false);
-                buttonState = ButtonState.AutoRaid;
-                raid_control.StartRaid();
-                m_animator.SetTrigger("Press");
-                autoraid.PlayImg.SetActive(false);
-                autoraid.PauseImg.SetActive(true);
+            if (Tutorial.CheckTutorStep() != 10)
+            { 
+                currentButton.sprite = ButtonsSprite[0];
+                m_hideTimer = 0;
+               m_imageIsHide = true;
+               m_isStopping = false;
+                if (buttonState == ButtonState.Stopped || m_canRaid == false)
+                {
+                    m_canRaid = true;
+                    m_timer = 0;
+                    autoraid.PauseBut_anim.SetBool("IsActive", false);
+                    buttonState = ButtonState.AutoRaid;
+                    raid_control.StartRaid();
+                    m_animator.SetTrigger("Press");
+                    autoraid.PlayImg.SetActive(false);
+                    autoraid.PauseImg.SetActive(true);
+                    GlovalEventSystem.TutorialSteps(9);
+                }
             }
         }
     }
+
     public void PauseRaid()
     {
         m_isStopping = true;

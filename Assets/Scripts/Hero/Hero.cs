@@ -275,6 +275,7 @@ public class Hero : MonoBehaviour
             AddItem(hero.Sword);
         if (hero.Amulet != null)
             AddItem(hero.Amulet);
+        raidsCount = hero.raidsCount;
         Initialise();
     }
 }

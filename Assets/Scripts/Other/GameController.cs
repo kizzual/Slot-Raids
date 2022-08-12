@@ -14,6 +14,8 @@ public class GameController : MonoBehaviour
     [SerializeField] private CheckCombo checkCombo;
     [SerializeField] private List<Tower_quest> tower_quest;
     [SerializeField] private Boost_Controll boost_Controll;
+    [SerializeField] private AttentionIcon attentionIcon;
+    [SerializeField] private Tutorial tutorial;
 
     void Awake()
     {
@@ -31,6 +33,8 @@ public class GameController : MonoBehaviour
             item.ActivateEvent();
         }
         boost_Controll.ActivateEvent();
+        attentionIcon.ActivateEvent();
+        tutorial.ActivateEvent();
     }
 
 

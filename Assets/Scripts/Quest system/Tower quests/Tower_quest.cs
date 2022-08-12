@@ -8,29 +8,30 @@ public class Tower_quest : MonoBehaviour
     [SerializeField] private QuestUI questUI;
 
 
-    [SerializeField] private List<Quest> first_Line_quest;
-    [SerializeField] private List<Quest> second_Line_quest;
-    [SerializeField] private List<Quest> third_Line_quest;
+    public List<Quest> first_Line_quest;
+    public List<Quest> second_Line_quest;
+    public List<Quest> third_Line_quest;
     [SerializeField] private TowerUpgrade towerUpgrade;
     [SerializeField] private Inventory_controll inventory_controll;
     [SerializeField] private GameObject QuestPanel;
     [SerializeField] private Boost_Controll boost_Controll;
     [SerializeField] private GameObject Boost;
     [SerializeField] private GameObject Boostimg;
-    [SerializeField] private GameObject Attention;
+    [SerializeField] private List<GameObject> Attention;
     [SerializeField] private GameObject TowerButton;
 
     public void ActivateEvent()
     {
+        GlovalEventSystem.OnUpgradeTower += AttentionIcon;
         GlovalEventSystem.OnCheckAchievement += RaidComplete;
     }
 
-    private int m_currentFirstLineQuestindex = 0;
-    private int m_currentSecondLineQuestindex = 0;
-    private int m_currentThitrdLineQuestindex = 0;
+    public int m_currentFirstLineQuestindex { get; set; } = 0;
+    public int m_currentSecondLineQuestindex { get; set; } = 0;
+    public int m_currentThitrdLineQuestindex { get; set; } = 0;
 
-    private int m_currentRaid = 0;
-    private long m_currentGold = 0;
+    public int m_currentRaid { get; set; } = 0;
+    public long m_currentGold { get; set; } = 0;
     private int m_currentCombo = 0;
     private int m_currentLuck = 0;
     private int m_currentUnLuck = 0;
@@ -39,7 +40,7 @@ public class Tower_quest : MonoBehaviour
     private int m_raid_byElement_undead = 0;
     private int m_raid_byElement_order = 0;
     private int m_raid_byElement_demon = 0;
-
+    
     public List<Item> m_items;// = new List<Item>();
     private void OnEnable()
     {
@@ -49,14 +50,21 @@ public class Tower_quest : MonoBehaviour
         questUI.Initialise(m_currentGold, m_currentRaid);
         AttentionIcon();
     }
+
     public void OpenQuestPanel()
     {
         QuestPanel.SetActive(true);
         TowerButton.transform.GetChild(1).gameObject.SetActive(false);
         TowerButton.transform.GetChild(2).gameObject.SetActive(true);
+        GlovalEventSystem.TutorialSteps(2);
+        if(Tutorial.CheckTutorStep() == 14)
+        {
+            GlovalEventSystem.TutorialStepsThirdPart(13);
+        }
     }
     public void RaidComplete(List<Item> items, long goldValue, int combo, int unLuck)
     {
+
         m_items.Clear();
         for (int i = 0; i < items.Count; i++)
         {
@@ -183,7 +191,7 @@ public class Tower_quest : MonoBehaviour
         AttentionIcon();
     }
     public void RaidConplete()
-    { 
+    {
         if (m_currentFirstLineQuestindex < first_Line_quest.Count)
         {
             if (first_Line_quest[m_currentFirstLineQuestindex].goal.goalType == GoalType.Gold_Gathering)
@@ -193,7 +201,7 @@ public class Tower_quest : MonoBehaviour
                     first_Line_quest[m_currentFirstLineQuestindex].goal.GoldGathering(Gold.GetCurrentGold());
                     if (first_Line_quest[m_currentFirstLineQuestindex].goal.IsReached())
                     {
-                        tower_Quest_UI[0].QuestComplete();
+                           tower_Quest_UI[0].QuestComplete();
                     }
                 }
                 else
@@ -570,8 +578,8 @@ public class Tower_quest : MonoBehaviour
                 third_Line_quest[m_currentThitrdLineQuestindex].goal.RaidGathering(m_currentRaid);
                 if (third_Line_quest[m_currentThitrdLineQuestindex].goal.IsReached())
                 {
-     
-                    tower_Quest_UI[2].QuestComplete();
+                    tower_Quest_UI[2].QuestComplete(); 
+                    GlovalEventSystem.TutorialStepsThirdPart(11);
                 }
             }
             else if (third_Line_quest[m_currentThitrdLineQuestindex].goal.goalType == GoalType.Upgrade_Tower)
@@ -688,21 +696,119 @@ public class Tower_quest : MonoBehaviour
 
     }
 
-    private void AttentionIcon()
+    private void AttentionIcon(int tmp = 0)
     {
-  /*      if(first_Line_quest[m_currentFirstLineQuestindex].goal.IsReached() ||
-            second_Line_quest[m_currentSecondLineQuestindex].goal.IsReached() ||
-            third_Line_quest[m_currentThitrdLineQuestindex].goal.IsReached() )
+        RaidConplete();
+        if (first_Line_quest[m_currentFirstLineQuestindex].goal.goalType == GoalType.Item_Gathering)
         {
-            Attention.SetActive(true);
-            Debug.Log("ACTIVE", gameObject);
+            if(first_Line_quest[m_currentFirstLineQuestindex].goal.IsItemColeted())
+            {
+                foreach (var item in Attention)
+                {
+                    item.SetActive(true);
+                }
+                return;
+            }
+            else
+            {
+                foreach (var item in Attention)
+                {
+                    item.SetActive(false);
+                }
+            }
         }
         else
         {
-            Attention.SetActive(false);
-            Debug.Log("DEACTIVE", gameObject);
+            if(first_Line_quest[m_currentFirstLineQuestindex].goal.IsReached())
+            {
+                foreach (var item in Attention)
+                {
+                    item.SetActive(true);
+                }
+                return;
+            }
+            else
+            {
+                foreach (var item in Attention)
+                {
+                    item.SetActive(false);
+                }
+            }
+        }
+        if(second_Line_quest[m_currentSecondLineQuestindex].goal.goalType == GoalType.Item_Gathering)
+        {
+            if (second_Line_quest[m_currentSecondLineQuestindex].goal.IsItemColeted())
+            {
+                foreach (var item in Attention)
+                {
+                    item.SetActive(true);
+                }
+                return;
 
-        }*/
+            }
+            else
+            {
+                foreach (var item in Attention)
+                {
+                    item.SetActive(false);
+                }
+            }
+        }
+        else
+        {
+            if (second_Line_quest[m_currentSecondLineQuestindex].goal.IsReached())
+            {
+                foreach (var item in Attention)
+                {
+                    item.SetActive(true);
+                }
+                return;
+            }
+            else
+            {
+                foreach (var item in Attention)
+                {
+                    item.SetActive(false);
+                }
+            }
+        }
+        if (third_Line_quest[m_currentThitrdLineQuestindex].goal.goalType == GoalType.Item_Gathering)
+        {
+            if (third_Line_quest[m_currentThitrdLineQuestindex].goal.IsItemColeted())
+            {
+                foreach (var item in Attention)
+                {
+                    item.SetActive(true);
+                }
+                return;
+
+            }
+            else
+            {
+                foreach (var item in Attention)
+                {
+                    item.SetActive(false);
+                }
+            }
+        }
+        else
+        {
+            if (third_Line_quest[m_currentThitrdLineQuestindex].goal.IsReached())
+            {
+                foreach (var item in Attention)
+                {
+                    item.SetActive(true);
+                }
+                return;
+            }
+            else
+            {
+                foreach (var item in Attention)
+                {
+                    item.SetActive(false);
+                }
+            }
+        }
     }
     private void First_Line_Quest_Initialise()
     {
@@ -714,6 +820,7 @@ public class Tower_quest : MonoBehaviour
         }
         else
             tower_Quest_UI[0].gameObject.SetActive(false);
+        AttentionIcon();
     }
     public void First_Line_Quest_finish()  // �������� �������� �������� ������� �������� �����
     {
@@ -921,6 +1028,7 @@ public class Tower_quest : MonoBehaviour
            m_currentFirstLineQuestindex++;
             First_Line_Quest_Initialise();
         }
+        GlovalEventSystem.TutorialSteps(3);
 
     }
     private void Second_Line_Quest_Initialise()
@@ -933,17 +1041,175 @@ public class Tower_quest : MonoBehaviour
         }
         else
             tower_Quest_UI[1].gameObject.SetActive(false);
+        AttentionIcon();
     }
     public void Second_Line_Quest_finish()  // �������� �������� �������� ������� �������� �����
     {
-        if (second_Line_quest[m_currentSecondLineQuestindex].PassItems)
+        if (Tutorial.CheckTutorStep() >= 3)
         {
-            switch (second_Line_quest[m_currentSecondLineQuestindex].goal.goalType)
+            if (second_Line_quest[m_currentSecondLineQuestindex].PassItems)
             {
-                case GoalType.Gold_Gathering:
-                    if (Gold.GetCurrentGold() >= second_Line_quest[m_currentSecondLineQuestindex].goal.requiredAmount)
-                    {
-                        Gold.SpendGold(second_Line_quest[m_currentSecondLineQuestindex].goal.requiredAmount);
+                switch (second_Line_quest[m_currentSecondLineQuestindex].goal.goalType)
+                {
+                    case GoalType.Gold_Gathering:
+                        if (Gold.GetCurrentGold() >= second_Line_quest[m_currentSecondLineQuestindex].goal.requiredAmount)
+                        {
+                            Gold.SpendGold(second_Line_quest[m_currentSecondLineQuestindex].goal.requiredAmount);
+                            switch (second_Line_quest[m_currentSecondLineQuestindex].rewardType)
+                            {
+                                case Quest.RewardType.Hero:
+                                    second_Line_quest[m_currentSecondLineQuestindex].HeroReward.isOpened = true;
+                                    break;
+                                case Quest.RewardType.Gold:
+                                    Gold.AddGold(second_Line_quest[m_currentSecondLineQuestindex].GoldReward);
+                                    break;
+                                case Quest.RewardType.Boost:
+                                    boost_Controll.OpenCard(second_Line_quest[m_currentSecondLineQuestindex].BoostCard);
+                                    break;
+                                case Quest.RewardType.Location:
+                                    second_Line_quest[m_currentSecondLineQuestindex].Location.isOpened = true;
+                                    break;
+                            }
+                            m_currentSecondLineQuestindex++;
+                            Second_Line_Quest_Initialise();
+                        }
+                        break;
+                    case GoalType.Item_Gathering:
+                        if (second_Line_quest[m_currentSecondLineQuestindex].goal.firstItem != null)
+                        {
+                            switch (second_Line_quest[m_currentSecondLineQuestindex].goal.firstItem.typeItem)
+                            {
+                                case TypeItem.Sword:
+                                    for (int i = 0; i < second_Line_quest[m_currentSecondLineQuestindex].goal.firstItem_requiredAmount; i++)
+                                    {
+                                        if (second_Line_quest[m_currentSecondLineQuestindex].goal.firstItem.typeElement == Type_Element.Neutral)
+                                            inventory_controll.TakeItem_sword(second_Line_quest[m_currentSecondLineQuestindex].goal.firstItem.Rank, TypeElement.Neutral);
+                                        else if (second_Line_quest[m_currentSecondLineQuestindex].goal.firstItem.typeElement == Type_Element.Undead)
+                                            inventory_controll.TakeItem_sword(second_Line_quest[m_currentSecondLineQuestindex].goal.firstItem.Rank, TypeElement.Undead);
+                                        else if (second_Line_quest[m_currentSecondLineQuestindex].goal.firstItem.typeElement == Type_Element.Order)
+                                            inventory_controll.TakeItem_sword(second_Line_quest[m_currentSecondLineQuestindex].goal.firstItem.Rank, TypeElement.Order);
+                                        else if (second_Line_quest[m_currentSecondLineQuestindex].goal.firstItem.typeElement == Type_Element.Demon)
+                                            inventory_controll.TakeItem_sword(second_Line_quest[m_currentSecondLineQuestindex].goal.firstItem.Rank, TypeElement.Demon);
+                                    }
+                                    break;
+                                case TypeItem.Shield:
+                                    for (int i = 0; i < second_Line_quest[m_currentSecondLineQuestindex].goal.firstItem_requiredAmount; i++)
+                                    {
+                                        if (second_Line_quest[m_currentSecondLineQuestindex].goal.firstItem.typeElement == Type_Element.Neutral)
+                                            inventory_controll.TakeItem_shield(second_Line_quest[m_currentSecondLineQuestindex].goal.firstItem.Rank, TypeElement.Neutral);
+                                        else if (second_Line_quest[m_currentSecondLineQuestindex].goal.firstItem.typeElement == Type_Element.Undead)
+                                            inventory_controll.TakeItem_shield(second_Line_quest[m_currentSecondLineQuestindex].goal.firstItem.Rank, TypeElement.Undead);
+                                        else if (second_Line_quest[m_currentSecondLineQuestindex].goal.firstItem.typeElement == Type_Element.Order)
+                                            inventory_controll.TakeItem_shield(second_Line_quest[m_currentSecondLineQuestindex].goal.firstItem.Rank, TypeElement.Order);
+                                        else if (second_Line_quest[m_currentSecondLineQuestindex].goal.firstItem.typeElement == Type_Element.Demon)
+                                            inventory_controll.TakeItem_shield(second_Line_quest[m_currentSecondLineQuestindex].goal.firstItem.Rank, TypeElement.Demon);
+                                    }
+                                    break;
+                                case TypeItem.Amulet:
+                                    for (int i = 0; i < second_Line_quest[m_currentSecondLineQuestindex].goal.firstItem_requiredAmount; i++)
+                                    {
+                                        if (second_Line_quest[m_currentSecondLineQuestindex].goal.firstItem.typeElement == Type_Element.Neutral)
+                                            inventory_controll.TakeItem_amulet(second_Line_quest[m_currentSecondLineQuestindex].goal.firstItem.Rank, TypeElement.Neutral);
+                                        else if (second_Line_quest[m_currentSecondLineQuestindex].goal.firstItem.typeElement == Type_Element.Undead)
+                                            inventory_controll.TakeItem_amulet(second_Line_quest[m_currentSecondLineQuestindex].goal.firstItem.Rank, TypeElement.Undead);
+                                        else if (second_Line_quest[m_currentSecondLineQuestindex].goal.firstItem.typeElement == Type_Element.Order)
+                                            inventory_controll.TakeItem_amulet(second_Line_quest[m_currentSecondLineQuestindex].goal.firstItem.Rank, TypeElement.Order);
+                                        else if (second_Line_quest[m_currentSecondLineQuestindex].goal.firstItem.typeElement == Type_Element.Demon)
+                                            inventory_controll.TakeItem_amulet(second_Line_quest[m_currentSecondLineQuestindex].goal.firstItem.Rank, TypeElement.Demon);
+                                    }
+                                    break;
+                            }
+                        }
+                        if (second_Line_quest[m_currentSecondLineQuestindex].goal.secondItem != null)
+                        {
+                            switch (second_Line_quest[m_currentSecondLineQuestindex].goal.secondItem.typeItem)
+                            {
+                                case TypeItem.Sword:
+                                    for (int i = 0; i < second_Line_quest[m_currentSecondLineQuestindex].goal.secondItem_requiredAmount; i++)
+                                    {
+                                        if (second_Line_quest[m_currentSecondLineQuestindex].goal.secondItem.typeElement == Type_Element.Neutral)
+                                            inventory_controll.TakeItem_sword(second_Line_quest[m_currentSecondLineQuestindex].goal.secondItem.Rank, TypeElement.Neutral);
+                                        else if (second_Line_quest[m_currentSecondLineQuestindex].goal.secondItem.typeElement == Type_Element.Undead)
+                                            inventory_controll.TakeItem_sword(second_Line_quest[m_currentSecondLineQuestindex].goal.secondItem.Rank, TypeElement.Undead);
+                                        else if (second_Line_quest[m_currentSecondLineQuestindex].goal.secondItem.typeElement == Type_Element.Order)
+                                            inventory_controll.TakeItem_sword(second_Line_quest[m_currentSecondLineQuestindex].goal.secondItem.Rank, TypeElement.Order);
+                                        else if (second_Line_quest[m_currentSecondLineQuestindex].goal.secondItem.typeElement == Type_Element.Demon)
+                                            inventory_controll.TakeItem_sword(second_Line_quest[m_currentSecondLineQuestindex].goal.secondItem.Rank, TypeElement.Demon);
+                                    }
+                                    break;
+                                case TypeItem.Shield:
+                                    for (int i = 0; i < second_Line_quest[m_currentSecondLineQuestindex].goal.secondItem_requiredAmount; i++)
+                                    {
+                                        if (second_Line_quest[m_currentSecondLineQuestindex].goal.secondItem.typeElement == Type_Element.Neutral)
+                                            inventory_controll.TakeItem_shield(second_Line_quest[m_currentSecondLineQuestindex].goal.secondItem.Rank, TypeElement.Neutral);
+                                        else if (second_Line_quest[m_currentSecondLineQuestindex].goal.secondItem.typeElement == Type_Element.Undead)
+                                            inventory_controll.TakeItem_shield(second_Line_quest[m_currentSecondLineQuestindex].goal.secondItem.Rank, TypeElement.Undead);
+                                        else if (second_Line_quest[m_currentSecondLineQuestindex].goal.secondItem.typeElement == Type_Element.Order)
+                                            inventory_controll.TakeItem_shield(second_Line_quest[m_currentSecondLineQuestindex].goal.secondItem.Rank, TypeElement.Order);
+                                        else if (second_Line_quest[m_currentSecondLineQuestindex].goal.secondItem.typeElement == Type_Element.Demon)
+                                            inventory_controll.TakeItem_shield(second_Line_quest[m_currentSecondLineQuestindex].goal.secondItem.Rank, TypeElement.Demon);
+                                    }
+                                    break;
+                                case TypeItem.Amulet:
+                                    for (int i = 0; i < second_Line_quest[m_currentSecondLineQuestindex].goal.secondItem_requiredAmount; i++)
+                                    {
+                                        if (second_Line_quest[m_currentSecondLineQuestindex].goal.secondItem.typeElement == Type_Element.Neutral)
+                                            inventory_controll.TakeItem_amulet(second_Line_quest[m_currentSecondLineQuestindex].goal.secondItem.Rank, TypeElement.Neutral);
+                                        else if (second_Line_quest[m_currentSecondLineQuestindex].goal.secondItem.typeElement == Type_Element.Undead)
+                                            inventory_controll.TakeItem_amulet(second_Line_quest[m_currentSecondLineQuestindex].goal.secondItem.Rank, TypeElement.Undead);
+                                        else if (second_Line_quest[m_currentSecondLineQuestindex].goal.secondItem.typeElement == Type_Element.Order)
+                                            inventory_controll.TakeItem_amulet(second_Line_quest[m_currentSecondLineQuestindex].goal.secondItem.Rank, TypeElement.Order);
+                                        else if (second_Line_quest[m_currentSecondLineQuestindex].goal.secondItem.typeElement == Type_Element.Demon)
+                                            inventory_controll.TakeItem_amulet(second_Line_quest[m_currentSecondLineQuestindex].goal.secondItem.Rank, TypeElement.Demon);
+                                    }
+                                    break;
+                            }
+                        }
+                        if (second_Line_quest[m_currentSecondLineQuestindex].goal.thirdItem != null)
+                        {
+                            switch (second_Line_quest[m_currentSecondLineQuestindex].goal.thirdItem.typeItem)
+                            {
+                                case TypeItem.Sword:
+                                    for (int i = 0; i < second_Line_quest[m_currentSecondLineQuestindex].goal.thirdItem_requiredAmount; i++)
+                                    {
+                                        if (second_Line_quest[m_currentSecondLineQuestindex].goal.thirdItem.typeElement == Type_Element.Neutral)
+                                            inventory_controll.TakeItem_sword(second_Line_quest[m_currentSecondLineQuestindex].goal.thirdItem.Rank, TypeElement.Neutral);
+                                        else if (second_Line_quest[m_currentSecondLineQuestindex].goal.thirdItem.typeElement == Type_Element.Undead)
+                                            inventory_controll.TakeItem_sword(second_Line_quest[m_currentSecondLineQuestindex].goal.thirdItem.Rank, TypeElement.Undead);
+                                        else if (second_Line_quest[m_currentSecondLineQuestindex].goal.thirdItem.typeElement == Type_Element.Order)
+                                            inventory_controll.TakeItem_sword(second_Line_quest[m_currentSecondLineQuestindex].goal.thirdItem.Rank, TypeElement.Order);
+                                        else if (second_Line_quest[m_currentSecondLineQuestindex].goal.thirdItem.typeElement == Type_Element.Demon)
+                                            inventory_controll.TakeItem_sword(second_Line_quest[m_currentSecondLineQuestindex].goal.thirdItem.Rank, TypeElement.Demon);
+                                    }
+                                    break;
+                                case TypeItem.Shield:
+                                    for (int i = 0; i < second_Line_quest[m_currentSecondLineQuestindex].goal.thirdItem_requiredAmount; i++)
+                                    {
+                                        if (second_Line_quest[m_currentSecondLineQuestindex].goal.thirdItem.typeElement == Type_Element.Neutral)
+                                            inventory_controll.TakeItem_shield(second_Line_quest[m_currentSecondLineQuestindex].goal.thirdItem.Rank, TypeElement.Neutral);
+                                        else if (second_Line_quest[m_currentSecondLineQuestindex].goal.thirdItem.typeElement == Type_Element.Undead)
+                                            inventory_controll.TakeItem_shield(second_Line_quest[m_currentSecondLineQuestindex].goal.thirdItem.Rank, TypeElement.Undead);
+                                        else if (second_Line_quest[m_currentSecondLineQuestindex].goal.thirdItem.typeElement == Type_Element.Order)
+                                            inventory_controll.TakeItem_shield(second_Line_quest[m_currentSecondLineQuestindex].goal.thirdItem.Rank, TypeElement.Order);
+                                        else if (second_Line_quest[m_currentSecondLineQuestindex].goal.thirdItem.typeElement == Type_Element.Demon)
+                                            inventory_controll.TakeItem_shield(second_Line_quest[m_currentSecondLineQuestindex].goal.thirdItem.Rank, TypeElement.Demon);
+                                    }
+                                    break;
+                                case TypeItem.Amulet:
+                                    for (int i = 0; i < second_Line_quest[m_currentSecondLineQuestindex].goal.thirdItem_requiredAmount; i++)
+                                    {
+                                        if (second_Line_quest[m_currentSecondLineQuestindex].goal.thirdItem.typeElement == Type_Element.Neutral)
+                                            inventory_controll.TakeItem_amulet(second_Line_quest[m_currentSecondLineQuestindex].goal.thirdItem.Rank, TypeElement.Neutral);
+                                        else if (second_Line_quest[m_currentSecondLineQuestindex].goal.thirdItem.typeElement == Type_Element.Undead)
+                                            inventory_controll.TakeItem_amulet(second_Line_quest[m_currentSecondLineQuestindex].goal.thirdItem.Rank, TypeElement.Undead);
+                                        else if (second_Line_quest[m_currentSecondLineQuestindex].goal.thirdItem.typeElement == Type_Element.Order)
+                                            inventory_controll.TakeItem_amulet(second_Line_quest[m_currentSecondLineQuestindex].goal.thirdItem.Rank, TypeElement.Order);
+                                        else if (second_Line_quest[m_currentSecondLineQuestindex].goal.thirdItem.typeElement == Type_Element.Demon)
+                                            inventory_controll.TakeItem_amulet(second_Line_quest[m_currentSecondLineQuestindex].goal.thirdItem.Rank, TypeElement.Demon);
+                                    }
+                                    break;
+                            }
+                        }
                         switch (second_Line_quest[m_currentSecondLineQuestindex].rewardType)
                         {
                             case Quest.RewardType.Hero:
@@ -961,181 +1227,28 @@ public class Tower_quest : MonoBehaviour
                         }
                         m_currentSecondLineQuestindex++;
                         Second_Line_Quest_Initialise();
-                    }
-                    break;
-                case GoalType.Item_Gathering:
-                    if (second_Line_quest[m_currentSecondLineQuestindex].goal.firstItem != null)
-                    {
-                        switch (second_Line_quest[m_currentSecondLineQuestindex].goal.firstItem.typeItem)
-                        {
-                            case TypeItem.Sword:
-                                for (int i = 0; i < second_Line_quest[m_currentSecondLineQuestindex].goal.firstItem_requiredAmount; i++)
-                                {
-                                    if (second_Line_quest[m_currentSecondLineQuestindex].goal.firstItem.typeElement == Type_Element.Neutral)
-                                        inventory_controll.TakeItem_sword(second_Line_quest[m_currentSecondLineQuestindex].goal.firstItem.Rank, TypeElement.Neutral);
-                                    else if (second_Line_quest[m_currentSecondLineQuestindex].goal.firstItem.typeElement == Type_Element.Undead)
-                                        inventory_controll.TakeItem_sword(second_Line_quest[m_currentSecondLineQuestindex].goal.firstItem.Rank, TypeElement.Undead);
-                                    else if (second_Line_quest[m_currentSecondLineQuestindex].goal.firstItem.typeElement == Type_Element.Order)
-                                        inventory_controll.TakeItem_sword(second_Line_quest[m_currentSecondLineQuestindex].goal.firstItem.Rank, TypeElement.Order);
-                                    else if (second_Line_quest[m_currentSecondLineQuestindex].goal.firstItem.typeElement == Type_Element.Demon)
-                                        inventory_controll.TakeItem_sword(second_Line_quest[m_currentSecondLineQuestindex].goal.firstItem.Rank, TypeElement.Demon);
-                                }
-                                break;
-                            case TypeItem.Shield:
-                                for (int i = 0; i < second_Line_quest[m_currentSecondLineQuestindex].goal.firstItem_requiredAmount; i++)
-                                {
-                                    if (second_Line_quest[m_currentSecondLineQuestindex].goal.firstItem.typeElement == Type_Element.Neutral)
-                                        inventory_controll.TakeItem_shield(second_Line_quest[m_currentSecondLineQuestindex].goal.firstItem.Rank, TypeElement.Neutral);
-                                    else if (second_Line_quest[m_currentSecondLineQuestindex].goal.firstItem.typeElement == Type_Element.Undead)
-                                        inventory_controll.TakeItem_shield(second_Line_quest[m_currentSecondLineQuestindex].goal.firstItem.Rank, TypeElement.Undead);
-                                    else if (second_Line_quest[m_currentSecondLineQuestindex].goal.firstItem.typeElement == Type_Element.Order)
-                                        inventory_controll.TakeItem_shield(second_Line_quest[m_currentSecondLineQuestindex].goal.firstItem.Rank, TypeElement.Order);
-                                    else if (second_Line_quest[m_currentSecondLineQuestindex].goal.firstItem.typeElement == Type_Element.Demon)
-                                        inventory_controll.TakeItem_shield(second_Line_quest[m_currentSecondLineQuestindex].goal.firstItem.Rank, TypeElement.Demon);
-                                }
-                                break;
-                            case TypeItem.Amulet:
-                                for (int i = 0; i < second_Line_quest[m_currentSecondLineQuestindex].goal.firstItem_requiredAmount; i++)
-                                {
-                                    if (second_Line_quest[m_currentSecondLineQuestindex].goal.firstItem.typeElement == Type_Element.Neutral)
-                                        inventory_controll.TakeItem_amulet(second_Line_quest[m_currentSecondLineQuestindex].goal.firstItem.Rank, TypeElement.Neutral);
-                                    else if (second_Line_quest[m_currentSecondLineQuestindex].goal.firstItem.typeElement == Type_Element.Undead)
-                                        inventory_controll.TakeItem_amulet(second_Line_quest[m_currentSecondLineQuestindex].goal.firstItem.Rank, TypeElement.Undead);
-                                    else if (second_Line_quest[m_currentSecondLineQuestindex].goal.firstItem.typeElement == Type_Element.Order)
-                                        inventory_controll.TakeItem_amulet(second_Line_quest[m_currentSecondLineQuestindex].goal.firstItem.Rank, TypeElement.Order);
-                                    else if (second_Line_quest[m_currentSecondLineQuestindex].goal.firstItem.typeElement == Type_Element.Demon)
-                                        inventory_controll.TakeItem_amulet(second_Line_quest[m_currentSecondLineQuestindex].goal.firstItem.Rank, TypeElement.Demon);
-                                }
-                                break;
-                        }
-                    }
-                    if (second_Line_quest[m_currentSecondLineQuestindex].goal.secondItem != null)
-                    {
-                        switch (second_Line_quest[m_currentSecondLineQuestindex].goal.secondItem.typeItem)
-                        {
-                            case TypeItem.Sword:
-                                for (int i = 0; i < second_Line_quest[m_currentSecondLineQuestindex].goal.secondItem_requiredAmount; i++)
-                                {
-                                    if (second_Line_quest[m_currentSecondLineQuestindex].goal.secondItem.typeElement == Type_Element.Neutral)
-                                        inventory_controll.TakeItem_sword(second_Line_quest[m_currentSecondLineQuestindex].goal.secondItem.Rank, TypeElement.Neutral);
-                                    else if (second_Line_quest[m_currentSecondLineQuestindex].goal.secondItem.typeElement == Type_Element.Undead)
-                                        inventory_controll.TakeItem_sword(second_Line_quest[m_currentSecondLineQuestindex].goal.secondItem.Rank, TypeElement.Undead);
-                                    else if (second_Line_quest[m_currentSecondLineQuestindex].goal.secondItem.typeElement == Type_Element.Order)
-                                        inventory_controll.TakeItem_sword(second_Line_quest[m_currentSecondLineQuestindex].goal.secondItem.Rank, TypeElement.Order);
-                                    else if (second_Line_quest[m_currentSecondLineQuestindex].goal.secondItem.typeElement == Type_Element.Demon)
-                                        inventory_controll.TakeItem_sword(second_Line_quest[m_currentSecondLineQuestindex].goal.secondItem.Rank, TypeElement.Demon);
-                                }
-                                break;
-                            case TypeItem.Shield:
-                                for (int i = 0; i < second_Line_quest[m_currentSecondLineQuestindex].goal.secondItem_requiredAmount; i++)
-                                {
-                                    if (second_Line_quest[m_currentSecondLineQuestindex].goal.secondItem.typeElement == Type_Element.Neutral)
-                                        inventory_controll.TakeItem_shield(second_Line_quest[m_currentSecondLineQuestindex].goal.secondItem.Rank, TypeElement.Neutral);
-                                    else if (second_Line_quest[m_currentSecondLineQuestindex].goal.secondItem.typeElement == Type_Element.Undead)
-                                        inventory_controll.TakeItem_shield(second_Line_quest[m_currentSecondLineQuestindex].goal.secondItem.Rank, TypeElement.Undead);
-                                    else if (second_Line_quest[m_currentSecondLineQuestindex].goal.secondItem.typeElement == Type_Element.Order)
-                                        inventory_controll.TakeItem_shield(second_Line_quest[m_currentSecondLineQuestindex].goal.secondItem.Rank, TypeElement.Order);
-                                    else if (second_Line_quest[m_currentSecondLineQuestindex].goal.secondItem.typeElement == Type_Element.Demon)
-                                        inventory_controll.TakeItem_shield(second_Line_quest[m_currentSecondLineQuestindex].goal.secondItem.Rank, TypeElement.Demon);
-                                }
-                                break;
-                            case TypeItem.Amulet:
-                                for (int i = 0; i < second_Line_quest[m_currentSecondLineQuestindex].goal.secondItem_requiredAmount; i++)
-                                {
-                                    if (second_Line_quest[m_currentSecondLineQuestindex].goal.secondItem.typeElement == Type_Element.Neutral)
-                                        inventory_controll.TakeItem_amulet(second_Line_quest[m_currentSecondLineQuestindex].goal.secondItem.Rank, TypeElement.Neutral);
-                                    else if (second_Line_quest[m_currentSecondLineQuestindex].goal.secondItem.typeElement == Type_Element.Undead)
-                                        inventory_controll.TakeItem_amulet(second_Line_quest[m_currentSecondLineQuestindex].goal.secondItem.Rank, TypeElement.Undead);
-                                    else if (second_Line_quest[m_currentSecondLineQuestindex].goal.secondItem.typeElement == Type_Element.Order)
-                                        inventory_controll.TakeItem_amulet(second_Line_quest[m_currentSecondLineQuestindex].goal.secondItem.Rank, TypeElement.Order);
-                                    else if (second_Line_quest[m_currentSecondLineQuestindex].goal.secondItem.typeElement == Type_Element.Demon)
-                                        inventory_controll.TakeItem_amulet(second_Line_quest[m_currentSecondLineQuestindex].goal.secondItem.Rank, TypeElement.Demon);
-                                }
-                                break;
-                        }
-                    }
-                    if (second_Line_quest[m_currentSecondLineQuestindex].goal.thirdItem != null)
-                    {
-                        switch (second_Line_quest[m_currentSecondLineQuestindex].goal.thirdItem.typeItem)
-                        {
-                            case TypeItem.Sword:
-                                for (int i = 0; i < second_Line_quest[m_currentSecondLineQuestindex].goal.thirdItem_requiredAmount; i++)
-                                {
-                                    if (second_Line_quest[m_currentSecondLineQuestindex].goal.thirdItem.typeElement == Type_Element.Neutral)
-                                        inventory_controll.TakeItem_sword(second_Line_quest[m_currentSecondLineQuestindex].goal.thirdItem.Rank, TypeElement.Neutral);
-                                    else if (second_Line_quest[m_currentSecondLineQuestindex].goal.thirdItem.typeElement == Type_Element.Undead)
-                                        inventory_controll.TakeItem_sword(second_Line_quest[m_currentSecondLineQuestindex].goal.thirdItem.Rank, TypeElement.Undead);
-                                    else if (second_Line_quest[m_currentSecondLineQuestindex].goal.thirdItem.typeElement == Type_Element.Order)
-                                        inventory_controll.TakeItem_sword(second_Line_quest[m_currentSecondLineQuestindex].goal.thirdItem.Rank, TypeElement.Order);
-                                    else if (second_Line_quest[m_currentSecondLineQuestindex].goal.thirdItem.typeElement == Type_Element.Demon)
-                                        inventory_controll.TakeItem_sword(second_Line_quest[m_currentSecondLineQuestindex].goal.thirdItem.Rank, TypeElement.Demon);
-                                }
-                                break;
-                            case TypeItem.Shield:
-                                for (int i = 0; i < second_Line_quest[m_currentSecondLineQuestindex].goal.thirdItem_requiredAmount; i++)
-                                {
-                                    if (second_Line_quest[m_currentSecondLineQuestindex].goal.thirdItem.typeElement == Type_Element.Neutral)
-                                        inventory_controll.TakeItem_shield(second_Line_quest[m_currentSecondLineQuestindex].goal.thirdItem.Rank, TypeElement.Neutral);
-                                    else if (second_Line_quest[m_currentSecondLineQuestindex].goal.thirdItem.typeElement == Type_Element.Undead)
-                                        inventory_controll.TakeItem_shield(second_Line_quest[m_currentSecondLineQuestindex].goal.thirdItem.Rank, TypeElement.Undead);
-                                    else if (second_Line_quest[m_currentSecondLineQuestindex].goal.thirdItem.typeElement == Type_Element.Order)
-                                        inventory_controll.TakeItem_shield(second_Line_quest[m_currentSecondLineQuestindex].goal.thirdItem.Rank, TypeElement.Order);
-                                    else if (second_Line_quest[m_currentSecondLineQuestindex].goal.thirdItem.typeElement == Type_Element.Demon)
-                                        inventory_controll.TakeItem_shield(second_Line_quest[m_currentSecondLineQuestindex].goal.thirdItem.Rank, TypeElement.Demon);
-                                }
-                                break;
-                            case TypeItem.Amulet:
-                                for (int i = 0; i < second_Line_quest[m_currentSecondLineQuestindex].goal.thirdItem_requiredAmount; i++)
-                                {
-                                    if (second_Line_quest[m_currentSecondLineQuestindex].goal.thirdItem.typeElement == Type_Element.Neutral)
-                                        inventory_controll.TakeItem_amulet(second_Line_quest[m_currentSecondLineQuestindex].goal.thirdItem.Rank, TypeElement.Neutral);
-                                    else if (second_Line_quest[m_currentSecondLineQuestindex].goal.thirdItem.typeElement == Type_Element.Undead)
-                                        inventory_controll.TakeItem_amulet(second_Line_quest[m_currentSecondLineQuestindex].goal.thirdItem.Rank, TypeElement.Undead);
-                                    else if (second_Line_quest[m_currentSecondLineQuestindex].goal.thirdItem.typeElement == Type_Element.Order)
-                                        inventory_controll.TakeItem_amulet(second_Line_quest[m_currentSecondLineQuestindex].goal.thirdItem.Rank, TypeElement.Order);
-                                    else if (second_Line_quest[m_currentSecondLineQuestindex].goal.thirdItem.typeElement == Type_Element.Demon)
-                                        inventory_controll.TakeItem_amulet(second_Line_quest[m_currentSecondLineQuestindex].goal.thirdItem.Rank, TypeElement.Demon);
-                                }
-                                break;
-                        }
-                    }
-                    switch (second_Line_quest[m_currentSecondLineQuestindex].rewardType)
-                    {
-                        case Quest.RewardType.Hero:
-                            second_Line_quest[m_currentSecondLineQuestindex].HeroReward.isOpened = true;
-                            break;
-                        case Quest.RewardType.Gold:
-                            Gold.AddGold(second_Line_quest[m_currentSecondLineQuestindex].GoldReward);
-                            break;
-                        case Quest.RewardType.Boost:
-                            boost_Controll.OpenCard(second_Line_quest[m_currentSecondLineQuestindex].BoostCard);
-                            break;
-                        case Quest.RewardType.Location:
-                            second_Line_quest[m_currentSecondLineQuestindex].Location.isOpened = true;
-                            break;
-                    }
-                    m_currentSecondLineQuestindex++;
-                    Second_Line_Quest_Initialise();
 
-                    break;
+                        break;
+                }
             }
-        }
-        else
-        {
-            switch (second_Line_quest[m_currentSecondLineQuestindex].rewardType)
+            else
             {
-                case Quest.RewardType.Hero:
-                    second_Line_quest[m_currentSecondLineQuestindex].HeroReward.isOpened = true;
-                    break;
-                case Quest.RewardType.Boost:
-                    boost_Controll.OpenCard(second_Line_quest[m_currentSecondLineQuestindex].BoostCard);
-                    break;
-                case Quest.RewardType.Location:
-                    second_Line_quest[m_currentSecondLineQuestindex].Location.isOpened = true;
-                    break;
+                switch (second_Line_quest[m_currentSecondLineQuestindex].rewardType)
+                {
+                    case Quest.RewardType.Hero:
+                        second_Line_quest[m_currentSecondLineQuestindex].HeroReward.isOpened = true;
+                        break;
+                    case Quest.RewardType.Boost:
+                        boost_Controll.OpenCard(second_Line_quest[m_currentSecondLineQuestindex].BoostCard);
+                        break;
+                    case Quest.RewardType.Location:
+                        second_Line_quest[m_currentSecondLineQuestindex].Location.isOpened = true;
+                        break;
+                }
+                m_currentSecondLineQuestindex++;
+                Second_Line_Quest_Initialise();
             }
-            m_currentSecondLineQuestindex++;
-            Second_Line_Quest_Initialise();
+            GlovalEventSystem.TutorialSteps(4);
         }
     }
     private void Third_Line_Quest_Initialise()
@@ -1148,6 +1261,7 @@ public class Tower_quest : MonoBehaviour
         }
         else
             tower_Quest_UI[2].gameObject.SetActive(false);
+        AttentionIcon();
     }
     public void Third_Line_Quest_finish()  // �������� �������� �������� ������� �������� �����
     {
@@ -1357,7 +1471,8 @@ public class Tower_quest : MonoBehaviour
             boost_Controll.OpenCard(third_Line_quest[m_currentThitrdLineQuestindex].BoostCard);
             m_currentThitrdLineQuestindex++;
             Third_Line_Quest_Initialise();
-
+          
+            GlovalEventSystem.TutorialStepsThirdPart(14);
         }
     }
 }

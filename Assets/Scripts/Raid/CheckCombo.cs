@@ -11,6 +11,8 @@ public class CheckCombo : MonoBehaviour
     [SerializeField] private GameObject thirdLine_vertical;
     [SerializeField] private GameObject diagonallyLine_toDown;
     [SerializeField] private GameObject diagonallyLine_toUp;
+    [SerializeField] private AutoRaid autoraid;
+    [SerializeField] private ParticleSlotControll particleSlotControll;
     private int activeSlots = 0;
     private int m_combo= 0;
     private int m_unluck= 0;
@@ -99,11 +101,15 @@ public class CheckCombo : MonoBehaviour
                         {
                             winItems.Add(slots[i].GetDice().winItem);
                         }
+                            particleSlotControll.PlayParticleWitItem(i, slots[i].GetDice().winItem);
                         winGold += slots[i].m_currentHero.GetGoldProfit();
                        
                     }
                     else if (slots[i].GetDice().prize == DiceControll.Prize.Gold)
+                    {
                         winGold += slots[i].m_currentHero.GetGoldProfit();
+                        particleSlotControll.PlayParticleWitoutItem(i);
+                    }
                     else if (slots[i].GetDice().prize == DiceControll.Prize.Death)
                         m_unluck++;
                 }
@@ -220,6 +226,12 @@ public class CheckCombo : MonoBehaviour
             GlovalEventSystem.WinGold(winGold * m_boostGold);
             ItemsAwarding(winItems);
             GlovalEventSystem.CheckAchievement(winItems, winGold * m_boostGold, m_combo, m_unluck);
+
+            if(Gold.GetCurrentGold() != 0 && Tutorial.CheckTutorStep() == 9)
+            {
+                autoraid.PauseRaid();
+                GlovalEventSystem.TutorialStepsSecondPart(8);
+            }
         }
     }
 

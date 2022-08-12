@@ -6,6 +6,7 @@ using UnityEngine.UI;
 
 public class AutoRaid : MonoBehaviour
 {
+  
     [SerializeField] private Text timer;
     [SerializeField] private float Duration;
     [SerializeField] private Raid_button raid_button;
@@ -33,16 +34,23 @@ public class AutoRaid : MonoBehaviour
     }
     public void ActivateButton()
     {
-        raid_button.GoToAutoRaid();
-        raid_button.isAutoRaid_boost = true;
-        m_isActive = true;
-        m_timer = 0;
-        PlayeBut_anim.SetBool("IsActive", true);
-        PauseBut_anim.SetBool("IsActive", false);
-        PlayImg.SetActive(false);
-        PauseImg.SetActive(true);
-        timer.gameObject.SetActive(true);
-
+        if (Tutorial.CheckTutorStep() == 9 || Tutorial.CheckTutorStep() >= 11 )
+        {
+            raid_button.GoToAutoRaid();
+            raid_button.isAutoRaid_boost = true;
+            m_isActive = true;
+            m_timer = 0;
+            PlayeBut_anim.SetBool("IsActive", true);
+            PauseBut_anim.SetBool("IsActive", false);
+            PlayImg.SetActive(false);
+            PauseImg.SetActive(true);
+            timer.gameObject.SetActive(true);
+            if(Tutorial.CheckTutorStep() == 11)
+            {
+                GlovalEventSystem.TutorialStepsSecondPart(10);
+            }
+        }
+       
         // animatioan start
     }
     public void PauseRaid()

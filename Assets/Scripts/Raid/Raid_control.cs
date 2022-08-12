@@ -31,7 +31,7 @@ public class Raid_control : MonoBehaviour
         GlovalEventSystem.OnRotateComplete += RotateComplete;
     }
 
-    private void OnEnable()
+    private void Start()
     {
         CheckSlots();
         foreach (var item in winSwords)

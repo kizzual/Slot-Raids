@@ -30,6 +30,11 @@ public class Characteristics : MonoBehaviour
                 m_currentHero.LevelUp();
                 hero_Ui.InitialiseHero(m_currentHero);
                 GlovalEventSystem.HeroUpgrade(m_currentHero);
+                SoundControl._instance.ClickBTN();
+            }
+            else
+            {
+                SoundControl._instance.NoMoney();
             }
         }
     }

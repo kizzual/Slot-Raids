@@ -6,7 +6,8 @@ using UnityEngine;
 public class Switch_panels : MonoBehaviour
 {
     [SerializeField] private List<GameObject> _panels;
-    [SerializeField] private bool _openWithStartPage = false;  
+    [SerializeField] private bool _openWithStartPage = false;
+    public bool isHeroAdding = false;
     private void OnEnable()
     {
         if(_openWithStartPage)
@@ -16,13 +17,29 @@ public class Switch_panels : MonoBehaviour
     }
     public void SwitchPanel(int PageNumber)
     {
-        
-        for (int i = 0; i < _panels.Count; i++)
+        if (isHeroAdding)
         {
-            if (PageNumber - 1 == i)
-                _panels[i].SetActive(true);
-            else
-                _panels[i].SetActive(false);
+            if(Tutorial.CheckTutorStep() >= 7)
+            {
+                Debug.Log("stepo =  " + Tutorial.CheckTutorStep());
+                for (int i = 0; i < _panels.Count; i++)
+                {
+                    if (PageNumber - 1 == i)
+                        _panels[i].SetActive(true);
+                    else
+                        _panels[i].SetActive(false);
+                }
+            }
+        }
+        else
+        {
+            for (int i = 0; i < _panels.Count; i++)
+            {
+                if (PageNumber - 1 == i)
+                    _panels[i].SetActive(true);
+                else
+                    _panels[i].SetActive(false);
+            }
         }
     }
 }

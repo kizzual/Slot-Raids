@@ -9,13 +9,14 @@ public class CurrentZone : MonoBehaviour
     public static void SetZone(Zone zone)
     {
         Current_Zone = zone;
-        Debug.Log(zone.name);
+
     }
 
 
-    private void Awake()
+    private void Start()
     {
-        SetZone(zone);
-        Debug.Log(zone.name);
+        if(Current_Zone == null)
+            SetZone(zone);
+  
     }
 }

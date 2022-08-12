@@ -33,19 +33,7 @@ public class SwitchTabs : MonoBehaviour
         InventoryOnOff(true);
         boostPanel.SetActive(false);
 
-   /*     for (int i = 0; i < panel.Length; i++)
-        {
-            if (i != indexCurrentButton)
-            {
-                button[i].gameObject.transform.GetChild(1).gameObject.SetActive(false);
-                panel[i].SetActive(false);
-            }
-            else
-            {
-                button[i].gameObject.transform.GetChild(1).gameObject.SetActive(true);
-                panel[i].SetActive(true);
-            }
-        }*/
+
         for (int i = 0; i < panel.Length; i++)
         {
             if (i != 2)
@@ -56,6 +44,7 @@ public class SwitchTabs : MonoBehaviour
             else if(i == 2)
             {
                 button[i].gameObject.transform.GetChild(1).gameObject.SetActive(false);
+               
             }
         }
         button[0].gameObject.transform.GetChild(2).gameObject.SetActive(true);
@@ -74,10 +63,20 @@ public class SwitchTabs : MonoBehaviour
                 button[0].gameObject.transform.GetChild(2).gameObject.SetActive(false);
             }
         }
+
         if (button[2].gameObject.transform.GetChild(1).gameObject.activeSelf)
             SoundControl._instance.UnMuteSound();
         else
             SoundControl._instance.MuteSound();
+        if(indexCurrentButton == 2)
+        {
+            GlovalEventSystem.TutorialSteps(5);
+        }
+        if(indexCurrentButton == 0)
+        {
+            GlovalEventSystem.TutorialStepsThirdPart(12);
+            GlovalEventSystem.TutorialStepsThirdPart(15);
+        }
     }
     public void InventoryOnOff(bool onlyClose = false)
     {
