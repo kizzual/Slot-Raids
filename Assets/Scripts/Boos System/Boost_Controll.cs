@@ -19,7 +19,7 @@ public class Boost_Controll : MonoBehaviour
     [SerializeField] private List<GameObject> AttentionIcon;
     [SerializeField] private GameObject TowerButton;
     [SerializeField] private Image mana_Img;
-    private List<BoostCard> RandomCards = new List<BoostCard>();
+    public List<BoostCard> RandomCards = new List<BoostCard>();
 
     private void FixedUpdate()
     { 
@@ -47,9 +47,9 @@ public class Boost_Controll : MonoBehaviour
     }
     public void ActivateBoost()
     {
-        if(CurrentBoost != null)
+        if (CurrentBoost != null)
         {
-            if(m_currentRaid >= RaidToActivateBoost_required)
+            if (m_currentRaid >= RaidToActivateBoost_required)
             {
                 m_timer = 0;
                 m_currentRaid = 0;
@@ -67,7 +67,7 @@ public class Boost_Controll : MonoBehaviour
                 mana_Img.fillAmount = tmp;
                 CheckBoostType();
                 SoundControl._instance.ActivateBoost();
-                GlovalEventSystem.TutorialStepsThirdPart(17);
+                GlovalEventSystem.TutorialStepsThirdPart(20);
             }
         }
     }
@@ -283,7 +283,7 @@ public class Boost_Controll : MonoBehaviour
         boostUI.gameObject.SetActive(true);
         TowerButton.transform.GetChild(1).gameObject.SetActive(false);
         TowerButton.transform.GetChild(2).gameObject.SetActive(true);
-        GlovalEventSystem.TutorialStepsThirdPart(16);
+        GlovalEventSystem.TutorialStepsThirdPart(19);
         if (CurrentBoost != null)
         {
             if(CurrentBoost.isActive)

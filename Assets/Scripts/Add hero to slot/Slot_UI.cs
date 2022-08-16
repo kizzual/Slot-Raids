@@ -19,7 +19,7 @@ public class Slot_UI : MonoBehaviour
     public void Initialise()
     {
         m_CurrentHero.Initialise();
-        Debug.Log("slot=  " + m_CurrentHero.currentRaidSlot);
+   //     Debug.Log("slot=  " + m_CurrentHero.currentRaidSlot);
         _currentHeroImage.sprite = m_CurrentHero.Icon;
         _currentRank.text = m_CurrentHero.Rank.ToString();
         _currentLvl.text = m_CurrentHero.Level.ToString();

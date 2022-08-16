@@ -29,8 +29,10 @@ public static class GlovalEventSystem
     public static Action <int>  OnTutorialSteps;
     public static Action <int>  OnTutorialStepsSecondPart;
     public static Action <int>  OnTutorialStepsThirdPart;
+    public static Action <TimeSpan>  OnCheckOfflineTime;
 
     public static void RotateComplete() => OnRotateComplete?.Invoke();
+    public static void CheckOfflineTime(TimeSpan ts) => OnCheckOfflineTime?.Invoke(ts);
     public static void TutorialSteps(int stepNumber) => OnTutorialSteps?.Invoke(stepNumber);
     public static void TutorialStepsSecondPart(int stepNumber) => OnTutorialStepsSecondPart?.Invoke(stepNumber);
     public static void TutorialStepsThirdPart(int stepNumber) => OnTutorialStepsThirdPart?.Invoke(stepNumber);

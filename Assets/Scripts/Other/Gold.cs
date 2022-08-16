@@ -22,17 +22,20 @@ public class Gold : MonoBehaviour
     {
         currentGold += value;
         goldText.text = ConvertText.FormatNumb(currentGold);
+        SaveGold();
     }
     public static void AddGold(long value)
     {
         currentGold += value;
         goldText.text = ConvertText.FormatNumb(currentGold);
+        SaveGold();
     }
 
     public static void SpendGold(long value)
     {
         currentGold -= value;
         goldText.text = ConvertText.FormatNumb(currentGold);
+        SaveGold();
     }
     public static long GetCurrentGold() => currentGold;
     public static void SaveGold() => PlayerPrefs.SetInt("Gold", (int)currentGold);

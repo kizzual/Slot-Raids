@@ -32,12 +32,9 @@ public class QuestGoal
     public void UpgradeTower(int value) => currentAmount = value;
     public void LuckGathering(int value) => currentAmount += value;
     public void UnLuckGathering(int value) => currentAmount += value;
-    public void ItemGathering(int firstItemCount, int secondItemCount, int thirdItem)
-    {
-        firstItem_currentAmount += firstItemCount;
-        secondItem_currentAmount += secondItemCount;
-        thirdItem_currentAmount += thirdItem;
-    }
+    public void FirstItemGathering(int value) => firstItem_currentAmount = value;
+    public void SecondItemGathering(int value) => secondItem_currentAmount = value;
+    public void ThirdItemGathering(int value) => thirdItem_currentAmount = value;
     public void RaidGarhering_byElement(int value) => currentAmount = value;
     public void RaidGarhering_byZone(int value) => currentAmount = value;
     public void HeroRaid() => currentAmount = HeroToRaid.raidsCount;

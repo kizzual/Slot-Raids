@@ -30,14 +30,12 @@ public class AttentionIcon : MonoBehaviour
     {
         if ( isBoostReady)
         {
-            Debug.Log("enable");
             gameObject.SetActive(true);
             if (isBoostReady)
                 Boost_icon.SetActive(true);
         }
         else
         {
-            Debug.Log("DISABLE;");
             gameObject.SetActive(false);
             Boost_icon.SetActive(false);
         }

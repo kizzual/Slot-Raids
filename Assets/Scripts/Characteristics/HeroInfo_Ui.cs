@@ -180,7 +180,7 @@ public class HeroInfo_Ui : MonoBehaviour
         hero_unluck.text = "%" + hero.GetUnLuckProfit().ToString();
         foreach (var item in gold_to_grade)
         {
-            item.text = hero.GoldToGrade.ToString();
+            item.text = ConvertText.FormatNumb(hero.GoldToGrade);
         }
         if (hero.currentRaidSlot != 0)
             free_button.SetActive(true);

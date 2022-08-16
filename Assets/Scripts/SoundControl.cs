@@ -12,6 +12,9 @@ public class SoundControl : MonoBehaviour
     [SerializeField] private AudioClip clickBTN;
     [SerializeField] private AudioClip autoRaid;
     [SerializeField] private AudioClip cash;
+    [SerializeField] private AudioClip upgradeTower;
+    [SerializeField] private AudioClip upgradeHero;
+    [SerializeField] private AudioClip reward;
     [SerializeField] private AudioSource source;
     private bool m_raidIsMute = false;
     void Awake()
@@ -33,6 +36,9 @@ public class SoundControl : MonoBehaviour
             source.PlayOneShot(cash);
     }
     public void DeActivateBoost() => source.PlayOneShot(DeActiveBoost);
+    public void UpgradeTower() => source.PlayOneShot(upgradeTower);
+    public void UpgradeHero() => source.PlayOneShot(upgradeHero);
+    public void Reward() => source.PlayOneShot(reward);
     public void ClickBTN() => source.PlayOneShot(clickBTN);
     public void NoMoney() => source.PlayOneShot(noMoney);
     public void AutoRaid() => source.PlayOneShot(autoRaid);

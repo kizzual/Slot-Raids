@@ -25,6 +25,8 @@ public class Inventory_UI : MonoBehaviour
     [SerializeField] private Image _amulet_3_image;
     [SerializeField] private Text _amulet_3_text;
     [SerializeField] private Text _fullPrice;
+    [SerializeField] private GameObject _greyButton;
+    [SerializeField] private GameObject _greenButton;
 
     public long m_sellPrice_number { get; set; }
     public void DisplaySword_1(int count)
@@ -103,6 +105,16 @@ public class Inventory_UI : MonoBehaviour
     public void DisplaySellPrice(long fullPrice)
     {
         m_sellPrice_number = fullPrice;
-        _fullPrice.text = m_sellPrice_number.ToString();
+        _fullPrice.text = ConvertText.FormatNumb(m_sellPrice_number);
+        if(m_sellPrice_number > 0)
+        {
+            _greenButton.SetActive(true);
+            _greyButton.SetActive(false);
+        }
+        else
+        {
+            _greenButton.SetActive(false);
+            _greyButton.SetActive(true);
+        }
     }
 }

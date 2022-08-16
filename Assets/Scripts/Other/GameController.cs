@@ -16,6 +16,8 @@ public class GameController : MonoBehaviour
     [SerializeField] private Boost_Controll boost_Controll;
     [SerializeField] private AttentionIcon attentionIcon;
     [SerializeField] private Tutorial tutorial;
+    [SerializeField] private Pause pause;
+    [SerializeField] private WelcomeWindow welcomeWindow;
 
     void Awake()
     {
@@ -35,6 +37,9 @@ public class GameController : MonoBehaviour
         boost_Controll.ActivateEvent();
         attentionIcon.ActivateEvent();
         tutorial.ActivateEvent();
+        pause.CheckSave();
+        welcomeWindow.Initialise();
+
     }
 
 

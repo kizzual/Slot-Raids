@@ -7,6 +7,7 @@ public class Hero : MonoBehaviour
     public TypeBonus typeBonus;
     public Sprite Icon;
     public Cube cube;
+    public Sprite FirstRankSprite;
     [Space]
     [Header("Settings")]
     [SerializeField] private int StartGold;
@@ -27,7 +28,7 @@ public class Hero : MonoBehaviour
 
     public int Level { get; set; } = 1;
     public int Rank { get; set; }
-    public long GoldToGrade { get; set; }
+    public long GoldToGrade;
     public long GoldProfit { get; set; }
     public int Multiplier { get; set; }
     public int currentRaidSlot { get; set; }
@@ -276,6 +277,7 @@ public class Hero : MonoBehaviour
         if (hero.Amulet != null)
             AddItem(hero.Amulet);
         raidsCount = hero.raidsCount;
+        this.GoldToGrade = hero.goldToGrade;
         Initialise();
     }
 }

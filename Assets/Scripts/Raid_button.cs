@@ -25,12 +25,14 @@ public class Raid_button : MonoBehaviour
     private bool m_imageIsHide = false;
     public bool m_canRaid;
     private float m_hideTimer;
+    public bool isActive = false;   
     public bool isAutoRaid_boost { get; set; }
     void FixedUpdate()
     {
         if (buttonState == ButtonState.AutoRaid)
         {
-            m_timer += Time.fixedDeltaTime;
+            isActive = true;
+               m_timer += Time.fixedDeltaTime;
 
             scrolling.fillAmount = m_timer / autoRaidTimer;
             if (isAutoRaid_boost)
@@ -129,8 +131,9 @@ public class Raid_button : MonoBehaviour
     {
         if (raid_control.ChecnCanRaid())
         {
-            if (Tutorial.CheckTutorStep() != 10)
-            { 
+            if (Tutorial.CheckTutorStep() != 12)
+            {
+                isActive = true;
                 currentButton.sprite = ButtonsSprite[0];
                 m_hideTimer = 0;
                m_imageIsHide = true;
@@ -145,7 +148,16 @@ public class Raid_button : MonoBehaviour
                     m_animator.SetTrigger("Press");
                     autoraid.PlayImg.SetActive(false);
                     autoraid.PauseImg.SetActive(true);
-                    GlovalEventSystem.TutorialSteps(9);
+                    if(Tutorial.CheckTutorStep() == 10)
+                    {
+                        Debug.Log("Step 2 = " + Tutorial.CheckTutorStep());
+                        GlovalEventSystem.TutorialSteps(10);
+                    }
+                    if (Tutorial.CheckTutorStep() == 9)
+                    {
+                        Debug.Log("Step 1 = " + Tutorial.CheckTutorStep());
+                        GlovalEventSystem.TutorialSteps(9);
+                    }
                 }
             }
         }
@@ -154,6 +166,7 @@ public class Raid_button : MonoBehaviour
     public void PauseRaid()
     {
         m_isStopping = true;
+        isActive = false;
     }
     
 }

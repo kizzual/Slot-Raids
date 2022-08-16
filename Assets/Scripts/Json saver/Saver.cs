@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Saver : MonoBehaviour
 {
@@ -29,11 +30,21 @@ public class Saver : MonoBehaviour
     private InventorySaver m_inventorySavers;
     private ZoneSaver m_zoneSaver;
     private BoostSaver m_boostSaver;
+    private bool m_FastQuit = false;
     private void Awake()
     {
         FullLoad();
     }
-
+    private void OnApplicationPause(bool pause)
+    {
+        if (pause)
+            FullSave();
+    }
+    private void OnApplicationQuit()
+    {
+        if(!m_FastQuit)
+            FullSave();
+    }
     public void FullSave()
     {
         //  сохранения героев
@@ -192,6 +203,49 @@ public class Saver : MonoBehaviour
             boost_Controll.activeCard = m_boostSaver.activeCard;
         }
     }
+    public void DeleteAllSaves()
+    {
+        m_heroSaver = FileHandler.ReadListFromJSON<HeroSaver>(heroSaverPath);
+        m_inventorySavers = FileHandler.ReadFromJSON<InventorySaver>(inventorySaverPath);
+        m_zoneSaver = FileHandler.ReadFromJSON<ZoneSaver>(zoneSaverPath);
+        m_questSaver = FileHandler.ReadListFromJSON<QuestSaver>(QuestSaverPath);
+        allZonesSaver = FileHandler.ReadListFromJSON<AllZonesSaver>(allZoneSaverPath);
+        m_boostSaver = FileHandler.ReadFromJSON<BoostSaver>(BoostSaverPath);
+        m_heroSaver.Clear();
+        m_inventorySavers = null;
+        m_zoneSaver = null;
+        m_questSaver.Clear();
+        allZonesSaver.Clear();
+        m_boostSaver = null;
+        FileHandler.SaveToJSON<HeroSaver>(m_heroSaver, heroSaverPath);
+        FileHandler.SaveToJSON<InventorySaver>(m_inventorySavers, inventorySaverPath);
+        FileHandler.SaveToJSON<ZoneSaver>(m_zoneSaver, zoneSaverPath);
+        FileHandler.SaveToJSON<AllZonesSaver>(allZonesSaver, allZoneSaverPath);
+        FileHandler.SaveToJSON<QuestSaver>(m_questSaver, QuestSaverPath);
+        FileHandler.SaveToJSON<BoostSaver>(m_boostSaver, BoostSaverPath);
+
+        /*        foreach (var item in heroes)
+                {
+                    item.isOpened = false;
+                }
+                inventory_Controll.m_Sword_1.Clear();
+                inventory_Controll.m_Sword_2.Clear();
+                inventory_Controll.m_Sword_3.Clear();
+                inventory_Controll.m_Shield_1.Clear();
+                inventory_Controll.m_Shield_2.Clear();
+                inventory_Controll.m_Shield_3.Clear();
+                inventory_Controll.m_Amuulet_1.Clear();
+                inventory_Controll.m_Amuulet_2.Clear();
+                inventory_Controll.m_Amuulet_3.Clear();
+                foreach (var item in zones)
+                {
+                    item.isOpened = false;
+                }
+                zones[0].isOpened = true;
+        */
+        m_FastQuit = true;
+        Application.Quit();
+    }
 }
 [Serializable]
 public class HeroSaver
@@ -201,6 +255,7 @@ public class HeroSaver
     public int Id;
     public bool IsOpened;
     public int raidsCount;
+    public long goldToGrade;
     public Item Sword;
     public Item Shield;
     public Item Amulet;
@@ -214,6 +269,7 @@ public class HeroSaver
         this.Amulet = hero.GetItem_Amulet();
         this.Id = hero.Id;
         this.raidsCount = hero.raidsCount;
+        this.goldToGrade = hero.GoldToGrade;
     }
 }
 [Serializable]

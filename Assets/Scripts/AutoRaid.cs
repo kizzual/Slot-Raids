@@ -34,7 +34,7 @@ public class AutoRaid : MonoBehaviour
     }
     public void ActivateButton()
     {
-        if (Tutorial.CheckTutorStep() == 9 || Tutorial.CheckTutorStep() >= 11 )
+        if (Tutorial.CheckTutorStep() >= 9|| Tutorial.CheckTutorStep() <= 12 || Tutorial.CheckTutorStep() >= 15 )
         {
             raid_button.GoToAutoRaid();
             raid_button.isAutoRaid_boost = true;
@@ -45,9 +45,9 @@ public class AutoRaid : MonoBehaviour
             PlayImg.SetActive(false);
             PauseImg.SetActive(true);
             timer.gameObject.SetActive(true);
-            if(Tutorial.CheckTutorStep() == 11)
+            if(Tutorial.CheckTutorStep() == 13)
             {
-                GlovalEventSystem.TutorialStepsSecondPart(10);
+                GlovalEventSystem.TutorialStepsSecondPart(13);
             }
         }
        

@@ -19,6 +19,7 @@ public class Tower_quest : MonoBehaviour
     [SerializeField] private GameObject Boostimg;
     [SerializeField] private List<GameObject> Attention;
     [SerializeField] private GameObject TowerButton;
+    [SerializeField] private DisplayReward displayReward;
 
     public void ActivateEvent()
     {
@@ -57,9 +58,9 @@ public class Tower_quest : MonoBehaviour
         TowerButton.transform.GetChild(1).gameObject.SetActive(false);
         TowerButton.transform.GetChild(2).gameObject.SetActive(true);
         GlovalEventSystem.TutorialSteps(2);
-        if(Tutorial.CheckTutorStep() == 14)
+        if(Tutorial.CheckTutorStep() == 16)
         {
-            GlovalEventSystem.TutorialStepsThirdPart(13);
+            GlovalEventSystem.TutorialStepsThirdPart(16);
         }
     }
     public void RaidComplete(List<Item> items, long goldValue, int combo, int unLuck)
@@ -136,18 +137,31 @@ public class Tower_quest : MonoBehaviour
             }
 
         }
-        if (first_Line_quest[m_currentFirstLineQuestindex].goal.goalType == GoalType.heroRaid)
+/*        if (first_Line_quest[m_currentFirstLineQuestindex].goal.goalType == GoalType.heroRaid)
         {
             first_Line_quest[m_currentFirstLineQuestindex].goal.HeroRaid();
+            if (first_Line_quest[m_currentFirstLineQuestindex].goal.IsReached())
+            {
+                tower_Quest_UI[0].QuestComplete();
+            }
         }
         if (second_Line_quest[m_currentSecondLineQuestindex].goal.goalType == GoalType.heroRaid)
         {
             second_Line_quest[m_currentSecondLineQuestindex].goal.HeroRaid();
+            if (second_Line_quest[m_currentSecondLineQuestindex].goal.IsReached())
+            {
+                tower_Quest_UI[1].QuestComplete();
+            }
         }
         if (third_Line_quest[m_currentThitrdLineQuestindex].goal.goalType == GoalType.heroRaid)
         {
             third_Line_quest[m_currentThitrdLineQuestindex].goal.HeroRaid();
-        }
+            if (third_Line_quest[m_currentThitrdLineQuestindex].goal.IsReached())
+            {
+                tower_Quest_UI[2].QuestComplete();
+            }
+        }*/
+
         if(first_Line_quest[m_currentFirstLineQuestindex].goal.goalType == GoalType.Raid_ByZone)
         {
             if (CurrentZone.Current_Zone ==  first_Line_quest[m_currentFirstLineQuestindex].goal.ZoneToRaid)
@@ -201,7 +215,7 @@ public class Tower_quest : MonoBehaviour
                     first_Line_quest[m_currentFirstLineQuestindex].goal.GoldGathering(Gold.GetCurrentGold());
                     if (first_Line_quest[m_currentFirstLineQuestindex].goal.IsReached())
                     {
-                           tower_Quest_UI[0].QuestComplete();
+                        tower_Quest_UI[0].QuestComplete();
                     }
                 }
                 else
@@ -256,28 +270,592 @@ public class Tower_quest : MonoBehaviour
             }
             else if (first_Line_quest[m_currentFirstLineQuestindex].goal.goalType == GoalType.Item_Gathering)
             {
-                for (int i = 0; i < m_items.Count; i++)
+                if (first_Line_quest[m_currentFirstLineQuestindex].goal.firstItem != null)
                 {
-                    if (first_Line_quest[m_currentFirstLineQuestindex].goal.firstItem != null)
+                    switch (first_Line_quest[m_currentFirstLineQuestindex].goal.firstItem.typeItem)
                     {
-                        if (m_items[i] == first_Line_quest[m_currentFirstLineQuestindex].goal.firstItem)
-                        {
-                            first_Line_quest[m_currentFirstLineQuestindex].goal.ItemGathering(1, 0, 0);
-                        }
+                        case TypeItem.Sword:
+                            switch (first_Line_quest[m_currentFirstLineQuestindex].goal.firstItem.typeElement)
+                            {
+                                case Type_Element.Neutral:
+                                    switch (first_Line_quest[m_currentFirstLineQuestindex].goal.firstItem.Rank)
+                                    {
+                                        case 1:
+                                            first_Line_quest[m_currentFirstLineQuestindex].goal.FirstItemGathering(inventory_controll.GetSword_count(1, TypeElement.Neutral));
+                                            break;
+                                        case 2:
+                                            first_Line_quest[m_currentFirstLineQuestindex].goal.FirstItemGathering(inventory_controll.GetSword_count(2, TypeElement.Neutral));
+                                            break;
+                                        case 3:
+                                            first_Line_quest[m_currentFirstLineQuestindex].goal.FirstItemGathering(inventory_controll.GetSword_count(3, TypeElement.Neutral));
+                                            break;
+                                    }
+                                    break;
+                                case Type_Element.Undead:
+                                    switch (first_Line_quest[m_currentFirstLineQuestindex].goal.firstItem.Rank)
+                                    {
+                                        case 1:
+                                            first_Line_quest[m_currentFirstLineQuestindex].goal.FirstItemGathering(inventory_controll.GetSword_count(1, TypeElement.Undead));
+                                            break;
+                                        case 2:
+                                            first_Line_quest[m_currentFirstLineQuestindex].goal.FirstItemGathering(inventory_controll.GetSword_count(2, TypeElement.Undead));
+                                            break;
+                                        case 3:
+                                            first_Line_quest[m_currentFirstLineQuestindex].goal.FirstItemGathering(inventory_controll.GetSword_count(3, TypeElement.Undead));
+                                            break;
+                                    }
+                                    break;
+                                case Type_Element.Order:
+                                    switch (first_Line_quest[m_currentFirstLineQuestindex].goal.firstItem.Rank)
+                                    {
+                                        case 1:
+                                            first_Line_quest[m_currentFirstLineQuestindex].goal.FirstItemGathering(inventory_controll.GetSword_count(1, TypeElement.Order));
+                                            break;
+                                        case 2:
+                                            first_Line_quest[m_currentFirstLineQuestindex].goal.FirstItemGathering(inventory_controll.GetSword_count(2, TypeElement.Order));
+                                            break;
+                                        case 3:
+                                            first_Line_quest[m_currentFirstLineQuestindex].goal.FirstItemGathering(inventory_controll.GetSword_count(3, TypeElement.Order));
+                                            break;
+                                    }
+                                    break;
+                                case Type_Element.Demon:
+                                    switch (first_Line_quest[m_currentFirstLineQuestindex].goal.firstItem.Rank)
+                                    {
+                                        case 1:
+                                            first_Line_quest[m_currentFirstLineQuestindex].goal.FirstItemGathering(inventory_controll.GetSword_count(1, TypeElement.Demon));
+                                            break;
+                                        case 2:
+                                            first_Line_quest[m_currentFirstLineQuestindex].goal.FirstItemGathering(inventory_controll.GetSword_count(2, TypeElement.Demon));
+                                            break;
+                                        case 3:
+                                            first_Line_quest[m_currentFirstLineQuestindex].goal.FirstItemGathering(inventory_controll.GetSword_count(3, TypeElement.Demon));
+                                            break;
+                                    }
+                                    break;
+                                default:
+                                    break;
+                            }
+                            break;
+                        case TypeItem.Shield:
+                            switch (first_Line_quest[m_currentFirstLineQuestindex].goal.firstItem.typeElement)
+                            {
+                                case Type_Element.Neutral:
+                                    switch (first_Line_quest[m_currentFirstLineQuestindex].goal.firstItem.Rank)
+                                    {
+                                        case 1:
+                                            first_Line_quest[m_currentFirstLineQuestindex].goal.FirstItemGathering(inventory_controll.GetShield_count(1, TypeElement.Neutral));
+                                            break;
+                                        case 2:
+                                            first_Line_quest[m_currentFirstLineQuestindex].goal.FirstItemGathering(inventory_controll.GetShield_count(2, TypeElement.Neutral));
+                                            break;
+                                        case 3:
+                                            first_Line_quest[m_currentFirstLineQuestindex].goal.FirstItemGathering(inventory_controll.GetShield_count(3, TypeElement.Neutral));
+                                            break;
+                                    }
+                                    break;
+                                case Type_Element.Undead:
+                                    switch (first_Line_quest[m_currentFirstLineQuestindex].goal.firstItem.Rank)
+                                    {
+                                        case 1:
+                                            first_Line_quest[m_currentFirstLineQuestindex].goal.FirstItemGathering(inventory_controll.GetShield_count(1, TypeElement.Undead));
+                                            break;
+                                        case 2:
+                                            first_Line_quest[m_currentFirstLineQuestindex].goal.FirstItemGathering(inventory_controll.GetShield_count(2, TypeElement.Undead));
+                                            break;
+                                        case 3:
+                                            first_Line_quest[m_currentFirstLineQuestindex].goal.FirstItemGathering(inventory_controll.GetShield_count(3, TypeElement.Undead));
+                                            break;
+                                    }
+                                    break;
+                                case Type_Element.Order:
+                                    switch (first_Line_quest[m_currentFirstLineQuestindex].goal.firstItem.Rank)
+                                    {
+                                        case 1:
+                                            first_Line_quest[m_currentFirstLineQuestindex].goal.FirstItemGathering(inventory_controll.GetShield_count(1, TypeElement.Order));
+                                            break;
+                                        case 2:
+                                            first_Line_quest[m_currentFirstLineQuestindex].goal.FirstItemGathering(inventory_controll.GetShield_count(2, TypeElement.Order));
+                                            break;
+                                        case 3:
+                                            first_Line_quest[m_currentFirstLineQuestindex].goal.FirstItemGathering(inventory_controll.GetShield_count(3, TypeElement.Order));
+                                            break;
+                                    }
+                                    break;
+                                case Type_Element.Demon:
+                                    switch (first_Line_quest[m_currentFirstLineQuestindex].goal.firstItem.Rank)
+                                    {
+                                        case 1:
+                                            first_Line_quest[m_currentFirstLineQuestindex].goal.FirstItemGathering(inventory_controll.GetShield_count(1, TypeElement.Demon));
+                                            break;
+                                        case 2:
+                                            first_Line_quest[m_currentFirstLineQuestindex].goal.FirstItemGathering(inventory_controll.GetShield_count(2, TypeElement.Demon));
+                                            break;
+                                        case 3:
+                                            first_Line_quest[m_currentFirstLineQuestindex].goal.FirstItemGathering(inventory_controll.GetShield_count(3, TypeElement.Demon));
+                                            break;
+                                    }
+                                    break;
+                                default:
+                                    break;
+                            }
+                            break;
+                        case TypeItem.Amulet:
+                            switch (first_Line_quest[m_currentFirstLineQuestindex].goal.firstItem.typeElement)
+                            {
+                                case Type_Element.Neutral:
+                                    switch (first_Line_quest[m_currentFirstLineQuestindex].goal.firstItem.Rank)
+                                    {
+                                        case 1:
+                                            first_Line_quest[m_currentFirstLineQuestindex].goal.FirstItemGathering(inventory_controll.GetAmulet_count(1, TypeElement.Neutral));
+                                            break;
+                                        case 2:
+                                            first_Line_quest[m_currentFirstLineQuestindex].goal.FirstItemGathering(inventory_controll.GetAmulet_count(2, TypeElement.Neutral));
+                                            break;
+                                        case 3:
+                                            first_Line_quest[m_currentFirstLineQuestindex].goal.FirstItemGathering(inventory_controll.GetAmulet_count(3, TypeElement.Neutral));
+                                            break;
+                                    }
+                                    break;
+                                case Type_Element.Undead:
+                                    switch (first_Line_quest[m_currentFirstLineQuestindex].goal.firstItem.Rank)
+                                    {
+                                        case 1:
+                                            first_Line_quest[m_currentFirstLineQuestindex].goal.FirstItemGathering(inventory_controll.GetAmulet_count(1, TypeElement.Undead));
+                                            break;
+                                        case 2:
+                                            first_Line_quest[m_currentFirstLineQuestindex].goal.FirstItemGathering(inventory_controll.GetAmulet_count(2, TypeElement.Undead));
+                                            break;
+                                        case 3:
+                                            first_Line_quest[m_currentFirstLineQuestindex].goal.FirstItemGathering(inventory_controll.GetAmulet_count(3, TypeElement.Undead));
+                                            break;
+                                    }
+                                    break;
+                                case Type_Element.Order:
+                                    switch (first_Line_quest[m_currentFirstLineQuestindex].goal.firstItem.Rank)
+                                    {
+                                        case 1:
+                                            first_Line_quest[m_currentFirstLineQuestindex].goal.FirstItemGathering(inventory_controll.GetAmulet_count(1, TypeElement.Order));
+                                            break;
+                                        case 2:
+                                            first_Line_quest[m_currentFirstLineQuestindex].goal.FirstItemGathering(inventory_controll.GetAmulet_count(2, TypeElement.Order));
+                                            break;
+                                        case 3:
+                                            first_Line_quest[m_currentFirstLineQuestindex].goal.FirstItemGathering(inventory_controll.GetAmulet_count(3, TypeElement.Order));
+                                            break;
+                                    }
+                                    break;
+                                case Type_Element.Demon:
+                                    switch (first_Line_quest[m_currentFirstLineQuestindex].goal.firstItem.Rank)
+                                    {
+                                        case 1:
+                                            first_Line_quest[m_currentFirstLineQuestindex].goal.FirstItemGathering(inventory_controll.GetAmulet_count(1, TypeElement.Demon));
+                                            break;
+                                        case 2:
+                                            first_Line_quest[m_currentFirstLineQuestindex].goal.FirstItemGathering(inventory_controll.GetAmulet_count(2, TypeElement.Demon));
+                                            break;
+                                        case 3:
+                                            first_Line_quest[m_currentFirstLineQuestindex].goal.FirstItemGathering(inventory_controll.GetAmulet_count(3, TypeElement.Demon));
+                                            break;
+                                    }
+                                    break;
+                                default:
+                                    break;
+                            }
+                            break;
+
                     }
-                    if (first_Line_quest[m_currentFirstLineQuestindex].goal.secondItem != null)
+                }
+                if (first_Line_quest[m_currentFirstLineQuestindex].goal.secondItem != null)
+                {
+                    switch (first_Line_quest[m_currentFirstLineQuestindex].goal.secondItem.typeItem)
                     {
-                        if (m_items[i] == first_Line_quest[m_currentFirstLineQuestindex].goal.secondItem)
-                        {
-                            first_Line_quest[m_currentFirstLineQuestindex].goal.ItemGathering(0, 1, 0);
-                        }
+                        case TypeItem.Sword:
+                            switch (first_Line_quest[m_currentFirstLineQuestindex].goal.secondItem.typeElement)
+                            {
+                                case Type_Element.Neutral:
+                                    switch (first_Line_quest[m_currentFirstLineQuestindex].goal.secondItem.Rank)
+                                    {
+                                        case 1:
+                                            first_Line_quest[m_currentFirstLineQuestindex].goal.SecondItemGathering(inventory_controll.GetSword_count(1, TypeElement.Neutral));
+                                            break;
+                                        case 2:
+                                            first_Line_quest[m_currentFirstLineQuestindex].goal.SecondItemGathering(inventory_controll.GetSword_count(2, TypeElement.Neutral));
+                                            break;
+                                        case 3:
+                                            first_Line_quest[m_currentFirstLineQuestindex].goal.SecondItemGathering(inventory_controll.GetSword_count(3, TypeElement.Neutral));
+                                            break;
+                                    }
+                                    break;
+                                case Type_Element.Undead:
+                                    switch (first_Line_quest[m_currentFirstLineQuestindex].goal.secondItem.Rank)
+                                    {
+                                        case 1:
+                                            first_Line_quest[m_currentFirstLineQuestindex].goal.SecondItemGathering(inventory_controll.GetSword_count(1, TypeElement.Undead));
+                                            break;
+                                        case 2:
+                                            first_Line_quest[m_currentFirstLineQuestindex].goal.SecondItemGathering(inventory_controll.GetSword_count(2, TypeElement.Undead));
+                                            break;
+                                        case 3:
+                                            first_Line_quest[m_currentFirstLineQuestindex].goal.SecondItemGathering(inventory_controll.GetSword_count(3, TypeElement.Undead));
+                                            break;
+                                    }
+                                    break;
+                                case Type_Element.Order:
+                                    switch (first_Line_quest[m_currentFirstLineQuestindex].goal.secondItem.Rank)
+                                    {
+                                        case 1:
+                                            first_Line_quest[m_currentFirstLineQuestindex].goal.SecondItemGathering(inventory_controll.GetSword_count(1, TypeElement.Order));
+                                            break;
+                                        case 2:
+                                            first_Line_quest[m_currentFirstLineQuestindex].goal.SecondItemGathering(inventory_controll.GetSword_count(2, TypeElement.Order));
+                                            break;
+                                        case 3:
+                                            first_Line_quest[m_currentFirstLineQuestindex].goal.SecondItemGathering(inventory_controll.GetSword_count(3, TypeElement.Order));
+                                            break;
+                                    }
+                                    break;
+                                case Type_Element.Demon:
+                                    switch (first_Line_quest[m_currentFirstLineQuestindex].goal.secondItem.Rank)
+                                    {
+                                        case 1:
+                                            first_Line_quest[m_currentFirstLineQuestindex].goal.SecondItemGathering(inventory_controll.GetSword_count(1, TypeElement.Demon));
+                                            break;
+                                        case 2:
+                                            first_Line_quest[m_currentFirstLineQuestindex].goal.SecondItemGathering(inventory_controll.GetSword_count(2, TypeElement.Demon));
+                                            break;
+                                        case 3:
+                                            first_Line_quest[m_currentFirstLineQuestindex].goal.SecondItemGathering(inventory_controll.GetSword_count(3, TypeElement.Demon));
+                                            break;
+                                    }
+                                    break;
+                                default:
+                                    break;
+                            }
+                            break;
+                        case TypeItem.Shield:
+                            switch (first_Line_quest[m_currentFirstLineQuestindex].goal.secondItem.typeElement)
+                            {
+                                case Type_Element.Neutral:
+                                    switch (first_Line_quest[m_currentFirstLineQuestindex].goal.secondItem.Rank)
+                                    {
+                                        case 1:
+                                            first_Line_quest[m_currentFirstLineQuestindex].goal.SecondItemGathering(inventory_controll.GetShield_count(1, TypeElement.Neutral));
+                                            break;
+                                        case 2:
+                                            first_Line_quest[m_currentFirstLineQuestindex].goal.SecondItemGathering(inventory_controll.GetShield_count(2, TypeElement.Neutral));
+                                            break;
+                                        case 3:
+                                            first_Line_quest[m_currentFirstLineQuestindex].goal.SecondItemGathering(inventory_controll.GetShield_count(3, TypeElement.Neutral));
+                                            break;
+                                    }
+                                    break;
+                                case Type_Element.Undead:
+                                    switch (first_Line_quest[m_currentFirstLineQuestindex].goal.secondItem.Rank)
+                                    {
+                                        case 1:
+                                            first_Line_quest[m_currentFirstLineQuestindex].goal.SecondItemGathering(inventory_controll.GetShield_count(1, TypeElement.Undead));
+                                            break;
+                                        case 2:
+                                            first_Line_quest[m_currentFirstLineQuestindex].goal.SecondItemGathering(inventory_controll.GetShield_count(2, TypeElement.Undead));
+                                            break;
+                                        case 3:
+                                            first_Line_quest[m_currentFirstLineQuestindex].goal.SecondItemGathering(inventory_controll.GetShield_count(3, TypeElement.Undead));
+                                            break;
+                                    }
+                                    break;
+                                case Type_Element.Order:
+                                    switch (first_Line_quest[m_currentFirstLineQuestindex].goal.secondItem.Rank)
+                                    {
+                                        case 1:
+                                            first_Line_quest[m_currentFirstLineQuestindex].goal.SecondItemGathering(inventory_controll.GetShield_count(1, TypeElement.Order));
+                                            break;
+                                        case 2:
+                                            first_Line_quest[m_currentFirstLineQuestindex].goal.SecondItemGathering(inventory_controll.GetShield_count(2, TypeElement.Order));
+                                            break;
+                                        case 3:
+                                            first_Line_quest[m_currentFirstLineQuestindex].goal.SecondItemGathering(inventory_controll.GetShield_count(3, TypeElement.Order));
+                                            break;
+                                    }
+                                    break;
+                                case Type_Element.Demon:
+                                    switch (first_Line_quest[m_currentFirstLineQuestindex].goal.secondItem.Rank)
+                                    {
+                                        case 1:
+                                            first_Line_quest[m_currentFirstLineQuestindex].goal.SecondItemGathering(inventory_controll.GetShield_count(1, TypeElement.Demon));
+                                            break;
+                                        case 2:
+                                            first_Line_quest[m_currentFirstLineQuestindex].goal.SecondItemGathering(inventory_controll.GetShield_count(2, TypeElement.Demon));
+                                            break;
+                                        case 3:
+                                            first_Line_quest[m_currentFirstLineQuestindex].goal.SecondItemGathering(inventory_controll.GetShield_count(3, TypeElement.Demon));
+                                            break;
+                                    }
+                                    break;
+                                default:
+                                    break;
+                            }
+                            break;
+                        case TypeItem.Amulet:
+                            switch (first_Line_quest[m_currentFirstLineQuestindex].goal.secondItem.typeElement)
+                            {
+                                case Type_Element.Neutral:
+                                    switch (first_Line_quest[m_currentFirstLineQuestindex].goal.secondItem.Rank)
+                                    {
+                                        case 1:
+                                            first_Line_quest[m_currentFirstLineQuestindex].goal.SecondItemGathering(inventory_controll.GetAmulet_count(1, TypeElement.Neutral));
+                                            break;
+                                        case 2:
+                                            first_Line_quest[m_currentFirstLineQuestindex].goal.SecondItemGathering(inventory_controll.GetAmulet_count(2, TypeElement.Neutral));
+                                            break;
+                                        case 3:
+                                            first_Line_quest[m_currentFirstLineQuestindex].goal.SecondItemGathering(inventory_controll.GetAmulet_count(3, TypeElement.Neutral));
+                                            break;
+                                    }
+                                    break;
+                                case Type_Element.Undead:
+                                    switch (first_Line_quest[m_currentFirstLineQuestindex].goal.secondItem.Rank)
+                                    {
+                                        case 1:
+                                            first_Line_quest[m_currentFirstLineQuestindex].goal.SecondItemGathering(inventory_controll.GetAmulet_count(1, TypeElement.Undead));
+                                            break;
+                                        case 2:
+                                            first_Line_quest[m_currentFirstLineQuestindex].goal.SecondItemGathering(inventory_controll.GetAmulet_count(2, TypeElement.Undead));
+                                            break;
+                                        case 3:
+                                            first_Line_quest[m_currentFirstLineQuestindex].goal.SecondItemGathering(inventory_controll.GetAmulet_count(3, TypeElement.Undead));
+                                            break;
+                                    }
+                                    break;
+                                case Type_Element.Order:
+                                    switch (first_Line_quest[m_currentFirstLineQuestindex].goal.secondItem.Rank)
+                                    {
+                                        case 1:
+                                            first_Line_quest[m_currentFirstLineQuestindex].goal.SecondItemGathering(inventory_controll.GetAmulet_count(1, TypeElement.Order));
+                                            break;
+                                        case 2:
+                                            first_Line_quest[m_currentFirstLineQuestindex].goal.SecondItemGathering(inventory_controll.GetAmulet_count(2, TypeElement.Order));
+                                            break;
+                                        case 3:
+                                            first_Line_quest[m_currentFirstLineQuestindex].goal.SecondItemGathering(inventory_controll.GetAmulet_count(3, TypeElement.Order));
+                                            break;
+                                    }
+                                    break;
+                                case Type_Element.Demon:
+                                    switch (first_Line_quest[m_currentFirstLineQuestindex].goal.secondItem.Rank)
+                                    {
+                                        case 1:
+                                            first_Line_quest[m_currentFirstLineQuestindex].goal.SecondItemGathering(inventory_controll.GetAmulet_count(1, TypeElement.Demon));
+                                            break;
+                                        case 2:
+                                            first_Line_quest[m_currentFirstLineQuestindex].goal.SecondItemGathering(inventory_controll.GetAmulet_count(2, TypeElement.Demon));
+                                            break;
+                                        case 3:
+                                            first_Line_quest[m_currentFirstLineQuestindex].goal.SecondItemGathering(inventory_controll.GetAmulet_count(3, TypeElement.Demon));
+                                            break;
+                                    }
+                                    break;
+                                default:
+                                    break;
+                            }
+                            break;
+
                     }
-                    if (first_Line_quest[m_currentFirstLineQuestindex].goal.thirdItem != null)
+                }
+                if (first_Line_quest[m_currentFirstLineQuestindex].goal.thirdItem != null)
+                {
+                    switch (first_Line_quest[m_currentFirstLineQuestindex].goal.thirdItem.typeItem)
                     {
-                        if (m_items[i] == first_Line_quest[m_currentFirstLineQuestindex].goal.thirdItem)
-                        {
-                            first_Line_quest[m_currentFirstLineQuestindex].goal.ItemGathering(0, 0, 1);
-                        }
+                        case TypeItem.Sword:
+                            switch (first_Line_quest[m_currentFirstLineQuestindex].goal.thirdItem.typeElement)
+                            {
+                                case Type_Element.Neutral:
+                                    switch (first_Line_quest[m_currentFirstLineQuestindex].goal.thirdItem.Rank)
+                                    {
+                                        case 1:
+                                            first_Line_quest[m_currentFirstLineQuestindex].goal.ThirdItemGathering(inventory_controll.GetSword_count(1, TypeElement.Neutral));
+                                            break;
+                                        case 2:
+                                            first_Line_quest[m_currentFirstLineQuestindex].goal.ThirdItemGathering(inventory_controll.GetSword_count(2, TypeElement.Neutral));
+                                            break;
+                                        case 3:
+                                            first_Line_quest[m_currentFirstLineQuestindex].goal.ThirdItemGathering(inventory_controll.GetSword_count(3, TypeElement.Neutral));
+                                            break;
+                                    }
+                                    break;
+                                case Type_Element.Undead:
+                                    switch (first_Line_quest[m_currentFirstLineQuestindex].goal.thirdItem.Rank)
+                                    {
+                                        case 1:
+                                            first_Line_quest[m_currentFirstLineQuestindex].goal.ThirdItemGathering(inventory_controll.GetSword_count(1, TypeElement.Undead));
+                                            break;
+                                        case 2:
+                                            first_Line_quest[m_currentFirstLineQuestindex].goal.ThirdItemGathering(inventory_controll.GetSword_count(2, TypeElement.Undead));
+                                            break;
+                                        case 3:
+                                            first_Line_quest[m_currentFirstLineQuestindex].goal.ThirdItemGathering(inventory_controll.GetSword_count(3, TypeElement.Undead));
+                                            break;
+                                    }
+                                    break;
+                                case Type_Element.Order:
+                                    switch (first_Line_quest[m_currentFirstLineQuestindex].goal.thirdItem.Rank)
+                                    {
+                                        case 1:
+                                            first_Line_quest[m_currentFirstLineQuestindex].goal.ThirdItemGathering(inventory_controll.GetSword_count(1, TypeElement.Order));
+                                            break;
+                                        case 2:
+                                            first_Line_quest[m_currentFirstLineQuestindex].goal.ThirdItemGathering(inventory_controll.GetSword_count(2, TypeElement.Order));
+                                            break;
+                                        case 3:
+                                            first_Line_quest[m_currentFirstLineQuestindex].goal.ThirdItemGathering(inventory_controll.GetSword_count(3, TypeElement.Order));
+                                            break;
+                                    }
+                                    break;
+                                case Type_Element.Demon:
+                                    switch (first_Line_quest[m_currentFirstLineQuestindex].goal.thirdItem.Rank)
+                                    {
+                                        case 1:
+                                            first_Line_quest[m_currentFirstLineQuestindex].goal.ThirdItemGathering(inventory_controll.GetSword_count(1, TypeElement.Demon));
+                                            break;
+                                        case 2:
+                                            first_Line_quest[m_currentFirstLineQuestindex].goal.ThirdItemGathering(inventory_controll.GetSword_count(2, TypeElement.Demon));
+                                            break;
+                                        case 3:
+                                            first_Line_quest[m_currentFirstLineQuestindex].goal.ThirdItemGathering(inventory_controll.GetSword_count(3, TypeElement.Demon));
+                                            break;
+                                    }
+                                    break;
+                                default:
+                                    break;
+                            }
+                            break;
+                        case TypeItem.Shield:
+                            switch (first_Line_quest[m_currentFirstLineQuestindex].goal.thirdItem.typeElement)
+                            {
+                                case Type_Element.Neutral:
+                                    switch (first_Line_quest[m_currentFirstLineQuestindex].goal.thirdItem.Rank)
+                                    {
+                                        case 1:
+                                            first_Line_quest[m_currentFirstLineQuestindex].goal.ThirdItemGathering(inventory_controll.GetShield_count(1, TypeElement.Neutral));
+                                            break;
+                                        case 2:
+                                            first_Line_quest[m_currentFirstLineQuestindex].goal.ThirdItemGathering(inventory_controll.GetShield_count(2, TypeElement.Neutral));
+                                            break;
+                                        case 3:
+                                            first_Line_quest[m_currentFirstLineQuestindex].goal.ThirdItemGathering(inventory_controll.GetShield_count(3, TypeElement.Neutral));
+                                            break;
+                                    }
+                                    break;
+                                case Type_Element.Undead:
+                                    switch (first_Line_quest[m_currentFirstLineQuestindex].goal.thirdItem.Rank)
+                                    {
+                                        case 1:
+                                            first_Line_quest[m_currentFirstLineQuestindex].goal.ThirdItemGathering(inventory_controll.GetShield_count(1, TypeElement.Undead));
+                                            break;
+                                        case 2:
+                                            first_Line_quest[m_currentFirstLineQuestindex].goal.ThirdItemGathering(inventory_controll.GetShield_count(2, TypeElement.Undead));
+                                            break;
+                                        case 3:
+                                            first_Line_quest[m_currentFirstLineQuestindex].goal.ThirdItemGathering(inventory_controll.GetShield_count(3, TypeElement.Undead));
+                                            break;
+                                    }
+                                    break;
+                                case Type_Element.Order:
+                                    switch (first_Line_quest[m_currentFirstLineQuestindex].goal.thirdItem.Rank)
+                                    {
+                                        case 1:
+                                            first_Line_quest[m_currentFirstLineQuestindex].goal.ThirdItemGathering(inventory_controll.GetShield_count(1, TypeElement.Order));
+                                            break;
+                                        case 2:
+                                            first_Line_quest[m_currentFirstLineQuestindex].goal.ThirdItemGathering(inventory_controll.GetShield_count(2, TypeElement.Order));
+                                            break;
+                                        case 3:
+                                            first_Line_quest[m_currentFirstLineQuestindex].goal.ThirdItemGathering(inventory_controll.GetShield_count(3, TypeElement.Order));
+                                            break;
+                                    }
+                                    break;
+                                case Type_Element.Demon:
+                                    switch (first_Line_quest[m_currentFirstLineQuestindex].goal.thirdItem.Rank)
+                                    {
+                                        case 1:
+                                            first_Line_quest[m_currentFirstLineQuestindex].goal.ThirdItemGathering(inventory_controll.GetShield_count(1, TypeElement.Demon));
+                                            break;
+                                        case 2:
+                                            first_Line_quest[m_currentFirstLineQuestindex].goal.ThirdItemGathering(inventory_controll.GetShield_count(2, TypeElement.Demon));
+                                            break;
+                                        case 3:
+                                            first_Line_quest[m_currentFirstLineQuestindex].goal.ThirdItemGathering(inventory_controll.GetShield_count(3, TypeElement.Demon));
+                                            break;
+                                    }
+                                    break;
+                                default:
+                                    break;
+                            }
+                            break;
+                        case TypeItem.Amulet:
+                            switch (first_Line_quest[m_currentFirstLineQuestindex].goal.thirdItem.typeElement)
+                            {
+                                case Type_Element.Neutral:
+                                    switch (first_Line_quest[m_currentFirstLineQuestindex].goal.thirdItem.Rank)
+                                    {
+                                        case 1:
+                                            first_Line_quest[m_currentFirstLineQuestindex].goal.ThirdItemGathering(inventory_controll.GetAmulet_count(1, TypeElement.Neutral));
+                                            break;
+                                        case 2:
+                                            first_Line_quest[m_currentFirstLineQuestindex].goal.ThirdItemGathering(inventory_controll.GetAmulet_count(2, TypeElement.Neutral));
+                                            break;
+                                        case 3:
+                                            first_Line_quest[m_currentFirstLineQuestindex].goal.ThirdItemGathering(inventory_controll.GetAmulet_count(3, TypeElement.Neutral));
+                                            break;
+                                    }
+                                    break;
+                                case Type_Element.Undead:
+                                    switch (first_Line_quest[m_currentFirstLineQuestindex].goal.thirdItem.Rank)
+                                    {
+                                        case 1:
+                                            first_Line_quest[m_currentFirstLineQuestindex].goal.ThirdItemGathering(inventory_controll.GetAmulet_count(1, TypeElement.Undead));
+                                            break;
+                                        case 2:
+                                            first_Line_quest[m_currentFirstLineQuestindex].goal.ThirdItemGathering(inventory_controll.GetAmulet_count(2, TypeElement.Undead));
+                                            break;
+                                        case 3:
+                                            first_Line_quest[m_currentFirstLineQuestindex].goal.ThirdItemGathering(inventory_controll.GetAmulet_count(3, TypeElement.Undead));
+                                            break;
+                                    }
+                                    break;
+                                case Type_Element.Order:
+                                    switch (first_Line_quest[m_currentFirstLineQuestindex].goal.thirdItem.Rank)
+                                    {
+                                        case 1:
+                                            first_Line_quest[m_currentFirstLineQuestindex].goal.ThirdItemGathering(inventory_controll.GetAmulet_count(1, TypeElement.Order));
+                                            break;
+                                        case 2:
+                                            first_Line_quest[m_currentFirstLineQuestindex].goal.ThirdItemGathering(inventory_controll.GetAmulet_count(2, TypeElement.Order));
+                                            break;
+                                        case 3:
+                                            first_Line_quest[m_currentFirstLineQuestindex].goal.ThirdItemGathering(inventory_controll.GetAmulet_count(3, TypeElement.Order));
+                                            break;
+                                    }
+                                    break;
+                                case Type_Element.Demon:
+                                    switch (first_Line_quest[m_currentFirstLineQuestindex].goal.thirdItem.Rank)
+                                    {
+                                        case 1:
+                                            first_Line_quest[m_currentFirstLineQuestindex].goal.ThirdItemGathering(inventory_controll.GetAmulet_count(1, TypeElement.Demon));
+                                            break;
+                                        case 2:
+                                            first_Line_quest[m_currentFirstLineQuestindex].goal.ThirdItemGathering(inventory_controll.GetAmulet_count(2, TypeElement.Demon));
+                                            break;
+                                        case 3:
+                                            first_Line_quest[m_currentFirstLineQuestindex].goal.ThirdItemGathering(inventory_controll.GetAmulet_count(3, TypeElement.Demon));
+                                            break;
+                                    }
+                                    break;
+                                default:
+                                    break;
+                            }
+                            break;
+
                     }
                 }
                 if (first_Line_quest[m_currentFirstLineQuestindex].goal.IsItemColeted())
@@ -294,38 +872,38 @@ public class Tower_quest : MonoBehaviour
                 {
                     tower_Quest_UI[0].QuestComplete();
                 }
-            
-/*                else if (first_Line_quest[m_currentFirstLineQuestindex].goal.elementType == TypElement.Undead)
-                {
-                    first_Line_quest[m_currentFirstLineQuestindex].goal.RaidGarhering_byElement(m_raid_byElement_undead);
-                    if (first_Line_quest[m_currentFirstLineQuestindex].goal.IsReached())
-                    {
-                        tower_Quest_UI[0].QuestComplete();
-                       
-                    }
-                    m_raid_byElement_undead = 0;
-                }
-                else if (first_Line_quest[m_currentFirstLineQuestindex].goal.elementType == TypElement.Order)
-                {
-                    first_Line_quest[m_currentFirstLineQuestindex].goal.RaidGarhering_byElement(m_raid_byElement_order);
-                    if (first_Line_quest[m_currentFirstLineQuestindex].goal.IsReached())
-                    {
-                        tower_Quest_UI[0].QuestComplete();
-                       
-                    }
-                    m_raid_byElement_order = 0;
 
-                }
-                else if (first_Line_quest[m_currentFirstLineQuestindex].goal.elementType == TypElement.Demon)
-                {
-                    first_Line_quest[m_currentFirstLineQuestindex].goal.RaidGarhering_byElement(m_raid_byElement_demon);
-                    if (first_Line_quest[m_currentFirstLineQuestindex].goal.IsReached())
-                    {
-                        tower_Quest_UI[0].QuestComplete();
-                       
-                    }
-                    m_raid_byElement_demon = 0;
-                }*/
+                /*                else if (first_Line_quest[m_currentFirstLineQuestindex].goal.elementType == TypElement.Undead)
+                                {
+                                    first_Line_quest[m_currentFirstLineQuestindex].goal.RaidGarhering_byElement(m_raid_byElement_undead);
+                                    if (first_Line_quest[m_currentFirstLineQuestindex].goal.IsReached())
+                                    {
+                                        tower_Quest_UI[0].QuestComplete();
+
+                                    }
+                                    m_raid_byElement_undead = 0;
+                                }
+                                else if (first_Line_quest[m_currentFirstLineQuestindex].goal.elementType == TypElement.Order)
+                                {
+                                    first_Line_quest[m_currentFirstLineQuestindex].goal.RaidGarhering_byElement(m_raid_byElement_order);
+                                    if (first_Line_quest[m_currentFirstLineQuestindex].goal.IsReached())
+                                    {
+                                        tower_Quest_UI[0].QuestComplete();
+
+                                    }
+                                    m_raid_byElement_order = 0;
+
+                                }
+                                else if (first_Line_quest[m_currentFirstLineQuestindex].goal.elementType == TypElement.Demon)
+                                {
+                                    first_Line_quest[m_currentFirstLineQuestindex].goal.RaidGarhering_byElement(m_raid_byElement_demon);
+                                    if (first_Line_quest[m_currentFirstLineQuestindex].goal.IsReached())
+                                    {
+                                        tower_Quest_UI[0].QuestComplete();
+
+                                    }
+                                    m_raid_byElement_demon = 0;
+                                }*/
 
             }
             else if (first_Line_quest[m_currentFirstLineQuestindex].goal.goalType == GoalType.Raid_ByZone) //
@@ -340,7 +918,14 @@ public class Tower_quest : MonoBehaviour
                     }
                 }
             }
-
+            else if (first_Line_quest[m_currentFirstLineQuestindex].goal.goalType == GoalType.heroRaid)
+            {
+                first_Line_quest[m_currentFirstLineQuestindex].goal.HeroRaid();
+                if (first_Line_quest[m_currentFirstLineQuestindex].goal.IsReached())
+                {
+                    tower_Quest_UI[0].QuestComplete();
+                }
+            }
         }
         if (m_currentSecondLineQuestindex < second_Line_quest.Count)
         {
@@ -408,30 +993,596 @@ public class Tower_quest : MonoBehaviour
                 }
                 else if (second_Line_quest[m_currentSecondLineQuestindex].goal.goalType == GoalType.Item_Gathering)
                 {
-                    for (int i = 0; i < m_items.Count; i++)
+
+                    if (second_Line_quest[m_currentSecondLineQuestindex].goal.firstItem != null)
                     {
-                        if (second_Line_quest[m_currentSecondLineQuestindex].goal.firstItem != null)
+                        switch (second_Line_quest[m_currentSecondLineQuestindex].goal.firstItem.typeItem)
                         {
-                            if (m_items[i] == second_Line_quest[m_currentSecondLineQuestindex].goal.firstItem)
-                            {
-                                second_Line_quest[m_currentSecondLineQuestindex].goal.ItemGathering(1, 0, 0);
-                            }
-                        }
-                        if (second_Line_quest[m_currentSecondLineQuestindex].goal.secondItem != null)
-                        {
-                            if (m_items[i] == second_Line_quest[m_currentSecondLineQuestindex].goal.secondItem)
-                            {
-                                second_Line_quest[m_currentSecondLineQuestindex].goal.ItemGathering(0, 1, 0);
-                            }
-                        }
-                        if (second_Line_quest[m_currentSecondLineQuestindex].goal.thirdItem != null)
-                        {
-                            if (m_items[i] == second_Line_quest[m_currentSecondLineQuestindex].goal.thirdItem)
-                            {
-                                second_Line_quest[m_currentSecondLineQuestindex].goal.ItemGathering(0, 0, 1);
-                            }
+                            case TypeItem.Sword:
+                                switch (second_Line_quest[m_currentSecondLineQuestindex].goal.firstItem.typeElement)
+                                {
+                                    case Type_Element.Neutral:
+                                        switch (second_Line_quest[m_currentSecondLineQuestindex].goal.firstItem.Rank)
+                                        {
+                                            case 1:
+                                                second_Line_quest[m_currentSecondLineQuestindex].goal.FirstItemGathering(inventory_controll.GetSword_count(1, TypeElement.Neutral));
+                                                break;
+                                            case 2:
+                                                second_Line_quest[m_currentSecondLineQuestindex].goal.FirstItemGathering(inventory_controll.GetSword_count(2, TypeElement.Neutral));
+                                                break;
+                                            case 3:
+                                                second_Line_quest[m_currentSecondLineQuestindex].goal.FirstItemGathering(inventory_controll.GetSword_count(3, TypeElement.Neutral));
+                                                break;
+                                        }
+                                        break;
+                                    case Type_Element.Undead:
+                                        switch (second_Line_quest[m_currentSecondLineQuestindex].goal.firstItem.Rank)
+                                        {
+                                            case 1:
+                                                second_Line_quest[m_currentSecondLineQuestindex].goal.FirstItemGathering(inventory_controll.GetSword_count(1, TypeElement.Undead));
+                                                break;
+                                            case 2:
+                                                second_Line_quest[m_currentSecondLineQuestindex].goal.FirstItemGathering(inventory_controll.GetSword_count(2, TypeElement.Undead));
+                                                break;
+                                            case 3:
+                                                second_Line_quest[m_currentSecondLineQuestindex].goal.FirstItemGathering(inventory_controll.GetSword_count(3, TypeElement.Undead));
+                                                break;
+                                        }
+                                        break;
+                                    case Type_Element.Order:
+                                        switch (second_Line_quest[m_currentSecondLineQuestindex].goal.firstItem.Rank)
+                                        {
+                                            case 1:
+                                                second_Line_quest[m_currentSecondLineQuestindex].goal.FirstItemGathering(inventory_controll.GetSword_count(1, TypeElement.Order));
+                                                break;
+                                            case 2:
+                                                second_Line_quest[m_currentSecondLineQuestindex].goal.FirstItemGathering(inventory_controll.GetSword_count(2, TypeElement.Order));
+                                                break;
+                                            case 3:
+                                                second_Line_quest[m_currentSecondLineQuestindex].goal.FirstItemGathering(inventory_controll.GetSword_count(3, TypeElement.Order));
+                                                break;
+                                        }
+                                        break;
+                                    case Type_Element.Demon:
+                                        switch (second_Line_quest[m_currentSecondLineQuestindex].goal.firstItem.Rank)
+                                        {
+                                            case 1:
+                                                second_Line_quest[m_currentSecondLineQuestindex].goal.FirstItemGathering(inventory_controll.GetSword_count(1, TypeElement.Demon));
+                                                break;
+                                            case 2:
+                                                second_Line_quest[m_currentSecondLineQuestindex].goal.FirstItemGathering(inventory_controll.GetSword_count(2, TypeElement.Demon));
+                                                break;
+                                            case 3:
+                                                second_Line_quest[m_currentSecondLineQuestindex].goal.FirstItemGathering(inventory_controll.GetSword_count(3, TypeElement.Demon));
+                                                break;
+                                        }
+                                        break;
+                                    default:
+                                        break;
+                                }
+                                break;
+                            case TypeItem.Shield:
+                                switch (second_Line_quest[m_currentSecondLineQuestindex].goal.firstItem.typeElement)
+                                {
+                                    case Type_Element.Neutral:
+                                        switch (second_Line_quest[m_currentSecondLineQuestindex].goal.firstItem.Rank)
+                                        {
+                                            case 1:
+                                                second_Line_quest[m_currentSecondLineQuestindex].goal.FirstItemGathering(inventory_controll.GetShield_count(1, TypeElement.Neutral));
+                                                break;
+                                            case 2:
+                                                second_Line_quest[m_currentSecondLineQuestindex].goal.FirstItemGathering(inventory_controll.GetShield_count(2, TypeElement.Neutral));
+                                                break;
+                                            case 3:
+                                                second_Line_quest[m_currentSecondLineQuestindex].goal.FirstItemGathering(inventory_controll.GetShield_count(3, TypeElement.Neutral));
+                                                break;
+                                        }
+                                        break;
+                                    case Type_Element.Undead:
+                                        switch (second_Line_quest[m_currentSecondLineQuestindex].goal.firstItem.Rank)
+                                        {
+                                            case 1:
+                                                second_Line_quest[m_currentSecondLineQuestindex].goal.FirstItemGathering(inventory_controll.GetShield_count(1, TypeElement.Undead));
+                                                break;
+                                            case 2:
+                                                second_Line_quest[m_currentSecondLineQuestindex].goal.FirstItemGathering(inventory_controll.GetShield_count(2, TypeElement.Undead));
+                                                break;
+                                            case 3:
+                                                second_Line_quest[m_currentSecondLineQuestindex].goal.FirstItemGathering(inventory_controll.GetShield_count(3, TypeElement.Undead));
+                                                break;
+                                        }
+                                        break;
+                                    case Type_Element.Order:
+                                        switch (second_Line_quest[m_currentSecondLineQuestindex].goal.firstItem.Rank)
+                                        {
+                                            case 1:
+                                                second_Line_quest[m_currentSecondLineQuestindex].goal.FirstItemGathering(inventory_controll.GetShield_count(1, TypeElement.Order));
+                                                break;
+                                            case 2:
+                                                second_Line_quest[m_currentSecondLineQuestindex].goal.FirstItemGathering(inventory_controll.GetShield_count(2, TypeElement.Order));
+                                                break;
+                                            case 3:
+                                                second_Line_quest[m_currentSecondLineQuestindex].goal.FirstItemGathering(inventory_controll.GetShield_count(3, TypeElement.Order));
+                                                break;
+                                        }
+                                        break;
+                                    case Type_Element.Demon:
+                                        switch (second_Line_quest[m_currentSecondLineQuestindex].goal.firstItem.Rank)
+                                        {
+                                            case 1:
+                                                second_Line_quest[m_currentSecondLineQuestindex].goal.FirstItemGathering(inventory_controll.GetShield_count(1, TypeElement.Demon));
+                                                break;
+                                            case 2:
+                                                second_Line_quest[m_currentSecondLineQuestindex].goal.FirstItemGathering(inventory_controll.GetShield_count(2, TypeElement.Demon));
+                                                break;
+                                            case 3:
+                                                second_Line_quest[m_currentSecondLineQuestindex].goal.FirstItemGathering(inventory_controll.GetShield_count(3, TypeElement.Demon));
+                                                break;
+                                        }
+                                        break;
+                                    default:
+                                        break;
+                                }
+                                break;
+                            case TypeItem.Amulet:
+                                switch (second_Line_quest[m_currentSecondLineQuestindex].goal.firstItem.typeElement)
+                                {
+                                    case Type_Element.Neutral:
+                                        switch (second_Line_quest[m_currentSecondLineQuestindex].goal.firstItem.Rank)
+                                        {
+                                            case 1:
+                                                second_Line_quest[m_currentSecondLineQuestindex].goal.FirstItemGathering(inventory_controll.GetAmulet_count(1, TypeElement.Neutral));
+                                                break;
+                                            case 2:
+                                                second_Line_quest[m_currentSecondLineQuestindex].goal.FirstItemGathering(inventory_controll.GetAmulet_count(2, TypeElement.Neutral));
+                                                break;
+                                            case 3:
+                                                second_Line_quest[m_currentSecondLineQuestindex].goal.FirstItemGathering(inventory_controll.GetAmulet_count(3, TypeElement.Neutral));
+                                                break;
+                                        }
+                                        break;
+                                    case Type_Element.Undead:
+                                        switch (second_Line_quest[m_currentSecondLineQuestindex].goal.firstItem.Rank)
+                                        {
+                                            case 1:
+                                                second_Line_quest[m_currentSecondLineQuestindex].goal.FirstItemGathering(inventory_controll.GetAmulet_count(1, TypeElement.Undead));
+                                                break;
+                                            case 2:
+                                                second_Line_quest[m_currentSecondLineQuestindex].goal.FirstItemGathering(inventory_controll.GetAmulet_count(2, TypeElement.Undead));
+                                                break;
+                                            case 3:
+                                                second_Line_quest[m_currentSecondLineQuestindex].goal.FirstItemGathering(inventory_controll.GetAmulet_count(3, TypeElement.Undead));
+                                                break;
+                                        }
+                                        break;
+                                    case Type_Element.Order:
+                                        switch (second_Line_quest[m_currentSecondLineQuestindex].goal.firstItem.Rank)
+                                        {
+                                            case 1:
+                                                second_Line_quest[m_currentSecondLineQuestindex].goal.FirstItemGathering(inventory_controll.GetAmulet_count(1, TypeElement.Order));
+                                                break;
+                                            case 2:
+                                                second_Line_quest[m_currentSecondLineQuestindex].goal.FirstItemGathering(inventory_controll.GetAmulet_count(2, TypeElement.Order));
+                                                break;
+                                            case 3:
+                                                second_Line_quest[m_currentSecondLineQuestindex].goal.FirstItemGathering(inventory_controll.GetAmulet_count(3, TypeElement.Order));
+                                                break;
+                                        }
+                                        break;
+                                    case Type_Element.Demon:
+                                        switch (second_Line_quest[m_currentSecondLineQuestindex].goal.firstItem.Rank)
+                                        {
+                                            case 1:
+                                                second_Line_quest[m_currentSecondLineQuestindex].goal.FirstItemGathering(inventory_controll.GetAmulet_count(1, TypeElement.Demon));
+                                                break;
+                                            case 2:
+                                                second_Line_quest[m_currentSecondLineQuestindex].goal.FirstItemGathering(inventory_controll.GetAmulet_count(2, TypeElement.Demon));
+                                                break;
+                                            case 3:
+                                                second_Line_quest[m_currentSecondLineQuestindex].goal.FirstItemGathering(inventory_controll.GetAmulet_count(3, TypeElement.Demon));
+                                                break;
+                                        }
+                                        break;
+                                    default:
+                                        break;
+                                }
+                                break;
+
                         }
                     }
+                    if (second_Line_quest[m_currentSecondLineQuestindex].goal.secondItem != null)
+                    {
+                        switch (second_Line_quest[m_currentSecondLineQuestindex].goal.secondItem.typeItem)
+                        {
+                            case TypeItem.Sword:
+                                switch (second_Line_quest[m_currentSecondLineQuestindex].goal.secondItem.typeElement)
+                                {
+                                    case Type_Element.Neutral:
+                                        switch (second_Line_quest[m_currentSecondLineQuestindex].goal.secondItem.Rank)
+                                        {
+                                            case 1:
+                                                second_Line_quest[m_currentSecondLineQuestindex].goal.SecondItemGathering(inventory_controll.GetSword_count(1, TypeElement.Neutral));
+                                                break;
+                                            case 2:
+                                                second_Line_quest[m_currentSecondLineQuestindex].goal.SecondItemGathering(inventory_controll.GetSword_count(2, TypeElement.Neutral));
+                                                break;
+                                            case 3:
+                                                second_Line_quest[m_currentSecondLineQuestindex].goal.SecondItemGathering(inventory_controll.GetSword_count(3, TypeElement.Neutral));
+                                                break;
+                                        }
+                                        break;
+                                    case Type_Element.Undead:
+                                        switch (second_Line_quest[m_currentSecondLineQuestindex].goal.secondItem.Rank)
+                                        {
+                                            case 1:
+                                                second_Line_quest[m_currentSecondLineQuestindex].goal.SecondItemGathering(inventory_controll.GetSword_count(1, TypeElement.Undead));
+                                                break;
+                                            case 2:
+                                                second_Line_quest[m_currentSecondLineQuestindex].goal.SecondItemGathering(inventory_controll.GetSword_count(2, TypeElement.Undead));
+                                                break;
+                                            case 3:
+                                                second_Line_quest[m_currentSecondLineQuestindex].goal.SecondItemGathering(inventory_controll.GetSword_count(3, TypeElement.Undead));
+                                                break;
+                                        }
+                                        break;
+                                    case Type_Element.Order:
+                                        switch (second_Line_quest[m_currentSecondLineQuestindex].goal.secondItem.Rank)
+                                        {
+                                            case 1:
+                                                second_Line_quest[m_currentSecondLineQuestindex].goal.SecondItemGathering(inventory_controll.GetSword_count(1, TypeElement.Order));
+                                                break;
+                                            case 2:
+                                                second_Line_quest[m_currentSecondLineQuestindex].goal.SecondItemGathering(inventory_controll.GetSword_count(2, TypeElement.Order));
+                                                break;
+                                            case 3:
+                                                second_Line_quest[m_currentSecondLineQuestindex].goal.SecondItemGathering(inventory_controll.GetSword_count(3, TypeElement.Order));
+                                                break;
+                                        }
+                                        break;
+                                    case Type_Element.Demon:
+                                        switch (second_Line_quest[m_currentSecondLineQuestindex].goal.secondItem.Rank)
+                                        {
+                                            case 1:
+                                                second_Line_quest[m_currentSecondLineQuestindex].goal.SecondItemGathering(inventory_controll.GetSword_count(1, TypeElement.Demon));
+                                                break;
+                                            case 2:
+                                                second_Line_quest[m_currentSecondLineQuestindex].goal.SecondItemGathering(inventory_controll.GetSword_count(2, TypeElement.Demon));
+                                                break;
+                                            case 3:
+                                                second_Line_quest[m_currentSecondLineQuestindex].goal.SecondItemGathering(inventory_controll.GetSword_count(3, TypeElement.Demon));
+                                                break;
+                                        }
+                                        break;
+                                    default:
+                                        break;
+                                }
+                                break;
+                            case TypeItem.Shield:
+                                switch (second_Line_quest[m_currentSecondLineQuestindex].goal.secondItem.typeElement)
+                                {
+                                    case Type_Element.Neutral:
+                                        switch (second_Line_quest[m_currentSecondLineQuestindex].goal.secondItem.Rank)
+                                        {
+                                            case 1:
+                                                second_Line_quest[m_currentSecondLineQuestindex].goal.SecondItemGathering(inventory_controll.GetShield_count(1, TypeElement.Neutral));
+                                                break;
+                                            case 2:
+                                                second_Line_quest[m_currentSecondLineQuestindex].goal.SecondItemGathering(inventory_controll.GetShield_count(2, TypeElement.Neutral));
+                                                break;
+                                            case 3:
+                                                second_Line_quest[m_currentSecondLineQuestindex].goal.SecondItemGathering(inventory_controll.GetShield_count(3, TypeElement.Neutral));
+                                                break;
+                                        }
+                                        break;
+                                    case Type_Element.Undead:
+                                        switch (second_Line_quest[m_currentSecondLineQuestindex].goal.secondItem.Rank)
+                                        {
+                                            case 1:
+                                                second_Line_quest[m_currentSecondLineQuestindex].goal.SecondItemGathering(inventory_controll.GetShield_count(1, TypeElement.Undead));
+                                                break;
+                                            case 2:
+                                                second_Line_quest[m_currentSecondLineQuestindex].goal.SecondItemGathering(inventory_controll.GetShield_count(2, TypeElement.Undead));
+                                                break;
+                                            case 3:
+                                                second_Line_quest[m_currentSecondLineQuestindex].goal.SecondItemGathering(inventory_controll.GetShield_count(3, TypeElement.Undead));
+                                                break;
+                                        }
+                                        break;
+                                    case Type_Element.Order:
+                                        switch (second_Line_quest[m_currentSecondLineQuestindex].goal.secondItem.Rank)
+                                        {
+                                            case 1:
+                                                second_Line_quest[m_currentSecondLineQuestindex].goal.SecondItemGathering(inventory_controll.GetShield_count(1, TypeElement.Order));
+                                                break;
+                                            case 2:
+                                                second_Line_quest[m_currentSecondLineQuestindex].goal.SecondItemGathering(inventory_controll.GetShield_count(2, TypeElement.Order));
+                                                break;
+                                            case 3:
+                                                second_Line_quest[m_currentSecondLineQuestindex].goal.SecondItemGathering(inventory_controll.GetShield_count(3, TypeElement.Order));
+                                                break;
+                                        }
+                                        break;
+                                    case Type_Element.Demon:
+                                        switch (second_Line_quest[m_currentSecondLineQuestindex].goal.secondItem.Rank)
+                                        {
+                                            case 1:
+                                                second_Line_quest[m_currentSecondLineQuestindex].goal.SecondItemGathering(inventory_controll.GetShield_count(1, TypeElement.Demon));
+                                                break;
+                                            case 2:
+                                                second_Line_quest[m_currentSecondLineQuestindex].goal.SecondItemGathering(inventory_controll.GetShield_count(2, TypeElement.Demon));
+                                                break;
+                                            case 3:
+                                                second_Line_quest[m_currentSecondLineQuestindex].goal.SecondItemGathering(inventory_controll.GetShield_count(3, TypeElement.Demon));
+                                                break;
+                                        }
+                                        break;
+                                    default:
+                                        break;
+                                }
+                                break;
+                            case TypeItem.Amulet:
+                                switch (second_Line_quest[m_currentSecondLineQuestindex].goal.secondItem.typeElement)
+                                {
+                                    case Type_Element.Neutral:
+                                        switch (second_Line_quest[m_currentSecondLineQuestindex].goal.secondItem.Rank)
+                                        {
+                                            case 1:
+                                                second_Line_quest[m_currentSecondLineQuestindex].goal.SecondItemGathering(inventory_controll.GetAmulet_count(1, TypeElement.Neutral));
+                                                break;
+                                            case 2:
+                                                second_Line_quest[m_currentSecondLineQuestindex].goal.SecondItemGathering(inventory_controll.GetAmulet_count(2, TypeElement.Neutral));
+                                                break;
+                                            case 3:
+                                                second_Line_quest[m_currentSecondLineQuestindex].goal.SecondItemGathering(inventory_controll.GetAmulet_count(3, TypeElement.Neutral));
+                                                break;
+                                        }
+                                        break;
+                                    case Type_Element.Undead:
+                                        switch (second_Line_quest[m_currentSecondLineQuestindex].goal.secondItem.Rank)
+                                        {
+                                            case 1:
+                                                second_Line_quest[m_currentSecondLineQuestindex].goal.SecondItemGathering(inventory_controll.GetAmulet_count(1, TypeElement.Undead));
+                                                break;
+                                            case 2:
+                                                second_Line_quest[m_currentSecondLineQuestindex].goal.SecondItemGathering(inventory_controll.GetAmulet_count(2, TypeElement.Undead));
+                                                break;
+                                            case 3:
+                                                second_Line_quest[m_currentSecondLineQuestindex].goal.SecondItemGathering(inventory_controll.GetAmulet_count(3, TypeElement.Undead));
+                                                break;
+                                        }
+                                        break;
+                                    case Type_Element.Order:
+                                        switch (second_Line_quest[m_currentSecondLineQuestindex].goal.secondItem.Rank)
+                                        {
+                                            case 1:
+                                                second_Line_quest[m_currentSecondLineQuestindex].goal.SecondItemGathering(inventory_controll.GetAmulet_count(1, TypeElement.Order));
+                                                break;
+                                            case 2:
+                                                second_Line_quest[m_currentSecondLineQuestindex].goal.SecondItemGathering(inventory_controll.GetAmulet_count(2, TypeElement.Order));
+                                                break;
+                                            case 3:
+                                                second_Line_quest[m_currentSecondLineQuestindex].goal.SecondItemGathering(inventory_controll.GetAmulet_count(3, TypeElement.Order));
+                                                break;
+                                        }
+                                        break;
+                                    case Type_Element.Demon:
+                                        switch (second_Line_quest[m_currentSecondLineQuestindex].goal.secondItem.Rank)
+                                        {
+                                            case 1:
+                                                second_Line_quest[m_currentSecondLineQuestindex].goal.SecondItemGathering(inventory_controll.GetAmulet_count(1, TypeElement.Demon));
+                                                break;
+                                            case 2:
+                                                second_Line_quest[m_currentSecondLineQuestindex].goal.SecondItemGathering(inventory_controll.GetAmulet_count(2, TypeElement.Demon));
+                                                break;
+                                            case 3:
+                                                second_Line_quest[m_currentSecondLineQuestindex].goal.SecondItemGathering(inventory_controll.GetAmulet_count(3, TypeElement.Demon));
+                                                break;
+                                        }
+                                        break;
+                                    default:
+                                        break;
+                                }
+                                break;
+
+                        }
+                    }
+                    if (second_Line_quest[m_currentSecondLineQuestindex].goal.thirdItem != null)
+                    {
+                        switch (second_Line_quest[m_currentSecondLineQuestindex].goal.thirdItem.typeItem)
+                        {
+                            case TypeItem.Sword:
+                                switch (second_Line_quest[m_currentSecondLineQuestindex].goal.thirdItem.typeElement)
+                                {
+                                    case Type_Element.Neutral:
+                                        switch (second_Line_quest[m_currentSecondLineQuestindex].goal.thirdItem.Rank)
+                                        {
+                                            case 1:
+                                                second_Line_quest[m_currentSecondLineQuestindex].goal.ThirdItemGathering(inventory_controll.GetSword_count(1, TypeElement.Neutral));
+                                                break;
+                                            case 2:
+                                                second_Line_quest[m_currentSecondLineQuestindex].goal.ThirdItemGathering(inventory_controll.GetSword_count(2, TypeElement.Neutral));
+                                                break;
+                                            case 3:
+                                                second_Line_quest[m_currentSecondLineQuestindex].goal.ThirdItemGathering(inventory_controll.GetSword_count(3, TypeElement.Neutral));
+                                                break;
+                                        }
+                                        break;
+                                    case Type_Element.Undead:
+                                        switch (second_Line_quest[m_currentSecondLineQuestindex].goal.thirdItem.Rank)
+                                        {
+                                            case 1:
+                                                second_Line_quest[m_currentSecondLineQuestindex].goal.ThirdItemGathering(inventory_controll.GetSword_count(1, TypeElement.Undead));
+                                                break;
+                                            case 2:
+                                                second_Line_quest[m_currentSecondLineQuestindex].goal.ThirdItemGathering(inventory_controll.GetSword_count(2, TypeElement.Undead));
+                                                break;
+                                            case 3:
+                                                second_Line_quest[m_currentSecondLineQuestindex].goal.ThirdItemGathering(inventory_controll.GetSword_count(3, TypeElement.Undead));
+                                                break;
+                                        }
+                                        break;
+                                    case Type_Element.Order:
+                                        switch (second_Line_quest[m_currentSecondLineQuestindex].goal.thirdItem.Rank)
+                                        {
+                                            case 1:
+                                                second_Line_quest[m_currentSecondLineQuestindex].goal.ThirdItemGathering(inventory_controll.GetSword_count(1, TypeElement.Order));
+                                                break;
+                                            case 2:
+                                                second_Line_quest[m_currentSecondLineQuestindex].goal.ThirdItemGathering(inventory_controll.GetSword_count(2, TypeElement.Order));
+                                                break;
+                                            case 3:
+                                                second_Line_quest[m_currentSecondLineQuestindex].goal.ThirdItemGathering(inventory_controll.GetSword_count(3, TypeElement.Order));
+                                                break;
+                                        }
+                                        break;
+                                    case Type_Element.Demon:
+                                        switch (second_Line_quest[m_currentSecondLineQuestindex].goal.thirdItem.Rank)
+                                        {
+                                            case 1:
+                                                second_Line_quest[m_currentSecondLineQuestindex].goal.ThirdItemGathering(inventory_controll.GetSword_count(1, TypeElement.Demon));
+                                                break;
+                                            case 2:
+                                                second_Line_quest[m_currentSecondLineQuestindex].goal.ThirdItemGathering(inventory_controll.GetSword_count(2, TypeElement.Demon));
+                                                break;
+                                            case 3:
+                                                second_Line_quest[m_currentSecondLineQuestindex].goal.ThirdItemGathering(inventory_controll.GetSword_count(3, TypeElement.Demon));
+                                                break;
+                                        }
+                                        break;
+                                    default:
+                                        break;
+                                }
+                                break;
+                            case TypeItem.Shield:
+                                switch (second_Line_quest[m_currentSecondLineQuestindex].goal.thirdItem.typeElement)
+                                {
+                                    case Type_Element.Neutral:
+                                        switch (second_Line_quest[m_currentSecondLineQuestindex].goal.thirdItem.Rank)
+                                        {
+                                            case 1:
+                                                second_Line_quest[m_currentSecondLineQuestindex].goal.ThirdItemGathering(inventory_controll.GetShield_count(1, TypeElement.Neutral));
+                                                break;
+                                            case 2:
+                                                second_Line_quest[m_currentSecondLineQuestindex].goal.ThirdItemGathering(inventory_controll.GetShield_count(2, TypeElement.Neutral));
+                                                break;
+                                            case 3:
+                                                second_Line_quest[m_currentSecondLineQuestindex].goal.ThirdItemGathering(inventory_controll.GetShield_count(3, TypeElement.Neutral));
+                                                break;
+                                        }
+                                        break;
+                                    case Type_Element.Undead:
+                                        switch (second_Line_quest[m_currentSecondLineQuestindex].goal.thirdItem.Rank)
+                                        {
+                                            case 1:
+                                                second_Line_quest[m_currentSecondLineQuestindex].goal.ThirdItemGathering(inventory_controll.GetShield_count(1, TypeElement.Undead));
+                                                break;
+                                            case 2:
+                                                second_Line_quest[m_currentSecondLineQuestindex].goal.ThirdItemGathering(inventory_controll.GetShield_count(2, TypeElement.Undead));
+                                                break;
+                                            case 3:
+                                                second_Line_quest[m_currentSecondLineQuestindex].goal.ThirdItemGathering(inventory_controll.GetShield_count(3, TypeElement.Undead));
+                                                break;
+                                        }
+                                        break;
+                                    case Type_Element.Order:
+                                        switch (second_Line_quest[m_currentSecondLineQuestindex].goal.thirdItem.Rank)
+                                        {
+                                            case 1:
+                                                second_Line_quest[m_currentSecondLineQuestindex].goal.ThirdItemGathering(inventory_controll.GetShield_count(1, TypeElement.Order));
+                                                break;
+                                            case 2:
+                                                second_Line_quest[m_currentSecondLineQuestindex].goal.ThirdItemGathering(inventory_controll.GetShield_count(2, TypeElement.Order));
+                                                break;
+                                            case 3:
+                                                second_Line_quest[m_currentSecondLineQuestindex].goal.ThirdItemGathering(inventory_controll.GetShield_count(3, TypeElement.Order));
+                                                break;
+                                        }
+                                        break;
+                                    case Type_Element.Demon:
+                                        switch (second_Line_quest[m_currentSecondLineQuestindex].goal.thirdItem.Rank)
+                                        {
+                                            case 1:
+                                                second_Line_quest[m_currentSecondLineQuestindex].goal.ThirdItemGathering(inventory_controll.GetShield_count(1, TypeElement.Demon));
+                                                break;
+                                            case 2:
+                                                second_Line_quest[m_currentSecondLineQuestindex].goal.ThirdItemGathering(inventory_controll.GetShield_count(2, TypeElement.Demon));
+                                                break;
+                                            case 3:
+                                                second_Line_quest[m_currentSecondLineQuestindex].goal.ThirdItemGathering(inventory_controll.GetShield_count(3, TypeElement.Demon));
+                                                break;
+                                        }
+                                        break;
+                                    default:
+                                        break;
+                                }
+                                break;
+                            case TypeItem.Amulet:
+                                switch (second_Line_quest[m_currentSecondLineQuestindex].goal.thirdItem.typeElement)
+                                {
+                                    case Type_Element.Neutral:
+                                        switch (second_Line_quest[m_currentSecondLineQuestindex].goal.thirdItem.Rank)
+                                        {
+                                            case 1:
+                                                second_Line_quest[m_currentSecondLineQuestindex].goal.ThirdItemGathering(inventory_controll.GetAmulet_count(1, TypeElement.Neutral));
+                                                break;
+                                            case 2:
+                                                second_Line_quest[m_currentSecondLineQuestindex].goal.ThirdItemGathering(inventory_controll.GetAmulet_count(2, TypeElement.Neutral));
+                                                break;
+                                            case 3:
+                                                second_Line_quest[m_currentSecondLineQuestindex].goal.ThirdItemGathering(inventory_controll.GetAmulet_count(3, TypeElement.Neutral));
+                                                break;
+                                        }
+                                        break;
+                                    case Type_Element.Undead:
+                                        switch (second_Line_quest[m_currentSecondLineQuestindex].goal.thirdItem.Rank)
+                                        {
+                                            case 1:
+                                                second_Line_quest[m_currentSecondLineQuestindex].goal.ThirdItemGathering(inventory_controll.GetAmulet_count(1, TypeElement.Undead));
+                                                break;
+                                            case 2:
+                                                second_Line_quest[m_currentSecondLineQuestindex].goal.ThirdItemGathering(inventory_controll.GetAmulet_count(2, TypeElement.Undead));
+                                                break;
+                                            case 3:
+                                                second_Line_quest[m_currentSecondLineQuestindex].goal.ThirdItemGathering(inventory_controll.GetAmulet_count(3, TypeElement.Undead));
+                                                break;
+                                        }
+                                        break;
+                                    case Type_Element.Order:
+                                        switch (second_Line_quest[m_currentSecondLineQuestindex].goal.thirdItem.Rank)
+                                        {
+                                            case 1:
+                                                second_Line_quest[m_currentSecondLineQuestindex].goal.ThirdItemGathering(inventory_controll.GetAmulet_count(1, TypeElement.Order));
+                                                break;
+                                            case 2:
+                                                second_Line_quest[m_currentSecondLineQuestindex].goal.ThirdItemGathering(inventory_controll.GetAmulet_count(2, TypeElement.Order));
+                                                break;
+                                            case 3:
+                                                second_Line_quest[m_currentSecondLineQuestindex].goal.ThirdItemGathering(inventory_controll.GetAmulet_count(3, TypeElement.Order));
+                                                break;
+                                        }
+                                        break;
+                                    case Type_Element.Demon:
+                                        switch (second_Line_quest[m_currentSecondLineQuestindex].goal.thirdItem.Rank)
+                                        {
+                                            case 1:
+                                                second_Line_quest[m_currentSecondLineQuestindex].goal.ThirdItemGathering(inventory_controll.GetAmulet_count(1, TypeElement.Demon));
+                                                break;
+                                            case 2:
+                                                second_Line_quest[m_currentSecondLineQuestindex].goal.ThirdItemGathering(inventory_controll.GetAmulet_count(2, TypeElement.Demon));
+                                                break;
+                                            case 3:
+                                                second_Line_quest[m_currentSecondLineQuestindex].goal.ThirdItemGathering(inventory_controll.GetAmulet_count(3, TypeElement.Demon));
+                                                break;
+                                        }
+                                        break;
+                                    default:
+                                        break;
+                                }
+                                break;
+
+                        }
+                    }
+
                     if (second_Line_quest[m_currentSecondLineQuestindex].goal.IsItemColeted())
                     {
                         tower_Quest_UI[1].QuestComplete();
@@ -490,19 +1641,27 @@ public class Tower_quest : MonoBehaviour
                         }
                     }
                 }
+                else if (second_Line_quest[m_currentSecondLineQuestindex].goal.goalType == GoalType.heroRaid)
+                {
+                    second_Line_quest[m_currentSecondLineQuestindex].goal.HeroRaid();
+                    if (second_Line_quest[m_currentSecondLineQuestindex].goal.IsReached())
+                    {
+                        tower_Quest_UI[1].QuestComplete();
+                    }
+                }
             }
             else if(m_currentSecondLineQuestindex == 0)
             {
                 if (second_Line_quest[m_currentSecondLineQuestindex].goal.goalType == GoalType.Gold_Gathering)
                 {
-                    if(towerUpgrade.currentGrade == 1)
+                    if (towerUpgrade.currentGrade == 1)
                     {
                         second_Line_quest[m_currentSecondLineQuestindex].goal.GoldGathering(1000);
                     }
                     else
                     {
                         second_Line_quest[m_currentSecondLineQuestindex].goal.GoldGathering(0);
-                    }                    
+                    }
                     if (second_Line_quest[m_currentSecondLineQuestindex].goal.IsReached())
                     {
                         tower_Quest_UI[1].QuestComplete();
@@ -510,30 +1669,596 @@ public class Tower_quest : MonoBehaviour
                 }
                 else if (second_Line_quest[m_currentSecondLineQuestindex].goal.goalType == GoalType.Item_Gathering)
                 {
-                    for (int i = 0; i < m_items.Count; i++)
+
+                    if (second_Line_quest[m_currentSecondLineQuestindex].goal.firstItem != null)
                     {
-                        if (second_Line_quest[m_currentSecondLineQuestindex].goal.firstItem != null)
+                        switch (second_Line_quest[m_currentSecondLineQuestindex].goal.firstItem.typeItem)
                         {
-                            if (m_items[i] == second_Line_quest[m_currentSecondLineQuestindex].goal.firstItem)
-                            {
-                                second_Line_quest[m_currentSecondLineQuestindex].goal.ItemGathering(1, 0, 0);
-                            }
-                        }
-                        if (second_Line_quest[m_currentSecondLineQuestindex].goal.secondItem != null)
-                        {
-                            if (m_items[i] == second_Line_quest[m_currentSecondLineQuestindex].goal.secondItem)
-                            {
-                                second_Line_quest[m_currentSecondLineQuestindex].goal.ItemGathering(0, 1, 0);
-                            }
-                        }
-                        if (second_Line_quest[m_currentSecondLineQuestindex].goal.thirdItem != null)
-                        {
-                            if (m_items[i] == second_Line_quest[m_currentSecondLineQuestindex].goal.thirdItem)
-                            {
-                                second_Line_quest[m_currentSecondLineQuestindex].goal.ItemGathering(0, 0, 1);
-                            }
+                            case TypeItem.Sword:
+                                switch (second_Line_quest[m_currentSecondLineQuestindex].goal.firstItem.typeElement)
+                                {
+                                    case Type_Element.Neutral:
+                                        switch (second_Line_quest[m_currentSecondLineQuestindex].goal.firstItem.Rank)
+                                        {
+                                            case 1:
+                                                second_Line_quest[m_currentSecondLineQuestindex].goal.FirstItemGathering(inventory_controll.GetSword_count(1, TypeElement.Neutral));
+                                                break;
+                                            case 2:
+                                                second_Line_quest[m_currentSecondLineQuestindex].goal.FirstItemGathering(inventory_controll.GetSword_count(2, TypeElement.Neutral));
+                                                break;
+                                            case 3:
+                                                second_Line_quest[m_currentSecondLineQuestindex].goal.FirstItemGathering(inventory_controll.GetSword_count(3, TypeElement.Neutral));
+                                                break;
+                                        }
+                                        break;
+                                    case Type_Element.Undead:
+                                        switch (second_Line_quest[m_currentSecondLineQuestindex].goal.firstItem.Rank)
+                                        {
+                                            case 1:
+                                                second_Line_quest[m_currentSecondLineQuestindex].goal.FirstItemGathering(inventory_controll.GetSword_count(1, TypeElement.Undead));
+                                                break;
+                                            case 2:
+                                                second_Line_quest[m_currentSecondLineQuestindex].goal.FirstItemGathering(inventory_controll.GetSword_count(2, TypeElement.Undead));
+                                                break;
+                                            case 3:
+                                                second_Line_quest[m_currentSecondLineQuestindex].goal.FirstItemGathering(inventory_controll.GetSword_count(3, TypeElement.Undead));
+                                                break;
+                                        }
+                                        break;
+                                    case Type_Element.Order:
+                                        switch (second_Line_quest[m_currentSecondLineQuestindex].goal.firstItem.Rank)
+                                        {
+                                            case 1:
+                                                second_Line_quest[m_currentSecondLineQuestindex].goal.FirstItemGathering(inventory_controll.GetSword_count(1, TypeElement.Order));
+                                                break;
+                                            case 2:
+                                                second_Line_quest[m_currentSecondLineQuestindex].goal.FirstItemGathering(inventory_controll.GetSword_count(2, TypeElement.Order));
+                                                break;
+                                            case 3:
+                                                second_Line_quest[m_currentSecondLineQuestindex].goal.FirstItemGathering(inventory_controll.GetSword_count(3, TypeElement.Order));
+                                                break;
+                                        }
+                                        break;
+                                    case Type_Element.Demon:
+                                        switch (second_Line_quest[m_currentSecondLineQuestindex].goal.firstItem.Rank)
+                                        {
+                                            case 1:
+                                                second_Line_quest[m_currentSecondLineQuestindex].goal.FirstItemGathering(inventory_controll.GetSword_count(1, TypeElement.Demon));
+                                                break;
+                                            case 2:
+                                                second_Line_quest[m_currentSecondLineQuestindex].goal.FirstItemGathering(inventory_controll.GetSword_count(2, TypeElement.Demon));
+                                                break;
+                                            case 3:
+                                                second_Line_quest[m_currentSecondLineQuestindex].goal.FirstItemGathering(inventory_controll.GetSword_count(3, TypeElement.Demon));
+                                                break;
+                                        }
+                                        break;
+                                    default:
+                                        break;
+                                }
+                                break;
+                            case TypeItem.Shield:
+                                switch (second_Line_quest[m_currentSecondLineQuestindex].goal.firstItem.typeElement)
+                                {
+                                    case Type_Element.Neutral:
+                                        switch (second_Line_quest[m_currentSecondLineQuestindex].goal.firstItem.Rank)
+                                        {
+                                            case 1:
+                                                second_Line_quest[m_currentSecondLineQuestindex].goal.FirstItemGathering(inventory_controll.GetShield_count(1, TypeElement.Neutral));
+                                                break;
+                                            case 2:
+                                                second_Line_quest[m_currentSecondLineQuestindex].goal.FirstItemGathering(inventory_controll.GetShield_count(2, TypeElement.Neutral));
+                                                break;
+                                            case 3:
+                                                second_Line_quest[m_currentSecondLineQuestindex].goal.FirstItemGathering(inventory_controll.GetShield_count(3, TypeElement.Neutral));
+                                                break;
+                                        }
+                                        break;
+                                    case Type_Element.Undead:
+                                        switch (second_Line_quest[m_currentSecondLineQuestindex].goal.firstItem.Rank)
+                                        {
+                                            case 1:
+                                                second_Line_quest[m_currentSecondLineQuestindex].goal.FirstItemGathering(inventory_controll.GetShield_count(1, TypeElement.Undead));
+                                                break;
+                                            case 2:
+                                                second_Line_quest[m_currentSecondLineQuestindex].goal.FirstItemGathering(inventory_controll.GetShield_count(2, TypeElement.Undead));
+                                                break;
+                                            case 3:
+                                                second_Line_quest[m_currentSecondLineQuestindex].goal.FirstItemGathering(inventory_controll.GetShield_count(3, TypeElement.Undead));
+                                                break;
+                                        }
+                                        break;
+                                    case Type_Element.Order:
+                                        switch (second_Line_quest[m_currentSecondLineQuestindex].goal.firstItem.Rank)
+                                        {
+                                            case 1:
+                                                second_Line_quest[m_currentSecondLineQuestindex].goal.FirstItemGathering(inventory_controll.GetShield_count(1, TypeElement.Order));
+                                                break;
+                                            case 2:
+                                                second_Line_quest[m_currentSecondLineQuestindex].goal.FirstItemGathering(inventory_controll.GetShield_count(2, TypeElement.Order));
+                                                break;
+                                            case 3:
+                                                second_Line_quest[m_currentSecondLineQuestindex].goal.FirstItemGathering(inventory_controll.GetShield_count(3, TypeElement.Order));
+                                                break;
+                                        }
+                                        break;
+                                    case Type_Element.Demon:
+                                        switch (second_Line_quest[m_currentSecondLineQuestindex].goal.firstItem.Rank)
+                                        {
+                                            case 1:
+                                                second_Line_quest[m_currentSecondLineQuestindex].goal.FirstItemGathering(inventory_controll.GetShield_count(1, TypeElement.Demon));
+                                                break;
+                                            case 2:
+                                                second_Line_quest[m_currentSecondLineQuestindex].goal.FirstItemGathering(inventory_controll.GetShield_count(2, TypeElement.Demon));
+                                                break;
+                                            case 3:
+                                                second_Line_quest[m_currentSecondLineQuestindex].goal.FirstItemGathering(inventory_controll.GetShield_count(3, TypeElement.Demon));
+                                                break;
+                                        }
+                                        break;
+                                    default:
+                                        break;
+                                }
+                                break;
+                            case TypeItem.Amulet:
+                                switch (second_Line_quest[m_currentSecondLineQuestindex].goal.firstItem.typeElement)
+                                {
+                                    case Type_Element.Neutral:
+                                        switch (second_Line_quest[m_currentSecondLineQuestindex].goal.firstItem.Rank)
+                                        {
+                                            case 1:
+                                                second_Line_quest[m_currentSecondLineQuestindex].goal.FirstItemGathering(inventory_controll.GetAmulet_count(1, TypeElement.Neutral));
+                                                break;
+                                            case 2:
+                                                second_Line_quest[m_currentSecondLineQuestindex].goal.FirstItemGathering(inventory_controll.GetAmulet_count(2, TypeElement.Neutral));
+                                                break;
+                                            case 3:
+                                                second_Line_quest[m_currentSecondLineQuestindex].goal.FirstItemGathering(inventory_controll.GetAmulet_count(3, TypeElement.Neutral));
+                                                break;
+                                        }
+                                        break;
+                                    case Type_Element.Undead:
+                                        switch (second_Line_quest[m_currentSecondLineQuestindex].goal.firstItem.Rank)
+                                        {
+                                            case 1:
+                                                second_Line_quest[m_currentSecondLineQuestindex].goal.FirstItemGathering(inventory_controll.GetAmulet_count(1, TypeElement.Undead));
+                                                break;
+                                            case 2:
+                                                second_Line_quest[m_currentSecondLineQuestindex].goal.FirstItemGathering(inventory_controll.GetAmulet_count(2, TypeElement.Undead));
+                                                break;
+                                            case 3:
+                                                second_Line_quest[m_currentSecondLineQuestindex].goal.FirstItemGathering(inventory_controll.GetAmulet_count(3, TypeElement.Undead));
+                                                break;
+                                        }
+                                        break;
+                                    case Type_Element.Order:
+                                        switch (second_Line_quest[m_currentSecondLineQuestindex].goal.firstItem.Rank)
+                                        {
+                                            case 1:
+                                                second_Line_quest[m_currentSecondLineQuestindex].goal.FirstItemGathering(inventory_controll.GetAmulet_count(1, TypeElement.Order));
+                                                break;
+                                            case 2:
+                                                second_Line_quest[m_currentSecondLineQuestindex].goal.FirstItemGathering(inventory_controll.GetAmulet_count(2, TypeElement.Order));
+                                                break;
+                                            case 3:
+                                                second_Line_quest[m_currentSecondLineQuestindex].goal.FirstItemGathering(inventory_controll.GetAmulet_count(3, TypeElement.Order));
+                                                break;
+                                        }
+                                        break;
+                                    case Type_Element.Demon:
+                                        switch (second_Line_quest[m_currentSecondLineQuestindex].goal.firstItem.Rank)
+                                        {
+                                            case 1:
+                                                second_Line_quest[m_currentSecondLineQuestindex].goal.FirstItemGathering(inventory_controll.GetAmulet_count(1, TypeElement.Demon));
+                                                break;
+                                            case 2:
+                                                second_Line_quest[m_currentSecondLineQuestindex].goal.FirstItemGathering(inventory_controll.GetAmulet_count(2, TypeElement.Demon));
+                                                break;
+                                            case 3:
+                                                second_Line_quest[m_currentSecondLineQuestindex].goal.FirstItemGathering(inventory_controll.GetAmulet_count(3, TypeElement.Demon));
+                                                break;
+                                        }
+                                        break;
+                                    default:
+                                        break;
+                                }
+                                break;
+
                         }
                     }
+                    if (second_Line_quest[m_currentSecondLineQuestindex].goal.secondItem != null)
+                    {
+                        switch (second_Line_quest[m_currentSecondLineQuestindex].goal.secondItem.typeItem)
+                        {
+                            case TypeItem.Sword:
+                                switch (second_Line_quest[m_currentSecondLineQuestindex].goal.secondItem.typeElement)
+                                {
+                                    case Type_Element.Neutral:
+                                        switch (second_Line_quest[m_currentSecondLineQuestindex].goal.secondItem.Rank)
+                                        {
+                                            case 1:
+                                                second_Line_quest[m_currentSecondLineQuestindex].goal.SecondItemGathering(inventory_controll.GetSword_count(1, TypeElement.Neutral));
+                                                break;
+                                            case 2:
+                                                second_Line_quest[m_currentSecondLineQuestindex].goal.SecondItemGathering(inventory_controll.GetSword_count(2, TypeElement.Neutral));
+                                                break;
+                                            case 3:
+                                                second_Line_quest[m_currentSecondLineQuestindex].goal.SecondItemGathering(inventory_controll.GetSword_count(3, TypeElement.Neutral));
+                                                break;
+                                        }
+                                        break;
+                                    case Type_Element.Undead:
+                                        switch (second_Line_quest[m_currentSecondLineQuestindex].goal.secondItem.Rank)
+                                        {
+                                            case 1:
+                                                second_Line_quest[m_currentSecondLineQuestindex].goal.SecondItemGathering(inventory_controll.GetSword_count(1, TypeElement.Undead));
+                                                break;
+                                            case 2:
+                                                second_Line_quest[m_currentSecondLineQuestindex].goal.SecondItemGathering(inventory_controll.GetSword_count(2, TypeElement.Undead));
+                                                break;
+                                            case 3:
+                                                second_Line_quest[m_currentSecondLineQuestindex].goal.SecondItemGathering(inventory_controll.GetSword_count(3, TypeElement.Undead));
+                                                break;
+                                        }
+                                        break;
+                                    case Type_Element.Order:
+                                        switch (second_Line_quest[m_currentSecondLineQuestindex].goal.secondItem.Rank)
+                                        {
+                                            case 1:
+                                                second_Line_quest[m_currentSecondLineQuestindex].goal.SecondItemGathering(inventory_controll.GetSword_count(1, TypeElement.Order));
+                                                break;
+                                            case 2:
+                                                second_Line_quest[m_currentSecondLineQuestindex].goal.SecondItemGathering(inventory_controll.GetSword_count(2, TypeElement.Order));
+                                                break;
+                                            case 3:
+                                                second_Line_quest[m_currentSecondLineQuestindex].goal.SecondItemGathering(inventory_controll.GetSword_count(3, TypeElement.Order));
+                                                break;
+                                        }
+                                        break;
+                                    case Type_Element.Demon:
+                                        switch (second_Line_quest[m_currentSecondLineQuestindex].goal.secondItem.Rank)
+                                        {
+                                            case 1:
+                                                second_Line_quest[m_currentSecondLineQuestindex].goal.SecondItemGathering(inventory_controll.GetSword_count(1, TypeElement.Demon));
+                                                break;
+                                            case 2:
+                                                second_Line_quest[m_currentSecondLineQuestindex].goal.SecondItemGathering(inventory_controll.GetSword_count(2, TypeElement.Demon));
+                                                break;
+                                            case 3:
+                                                second_Line_quest[m_currentSecondLineQuestindex].goal.SecondItemGathering(inventory_controll.GetSword_count(3, TypeElement.Demon));
+                                                break;
+                                        }
+                                        break;
+                                    default:
+                                        break;
+                                }
+                                break;
+                            case TypeItem.Shield:
+                                switch (second_Line_quest[m_currentSecondLineQuestindex].goal.secondItem.typeElement)
+                                {
+                                    case Type_Element.Neutral:
+                                        switch (second_Line_quest[m_currentSecondLineQuestindex].goal.secondItem.Rank)
+                                        {
+                                            case 1:
+                                                second_Line_quest[m_currentSecondLineQuestindex].goal.SecondItemGathering(inventory_controll.GetShield_count(1, TypeElement.Neutral));
+                                                break;
+                                            case 2:
+                                                second_Line_quest[m_currentSecondLineQuestindex].goal.SecondItemGathering(inventory_controll.GetShield_count(2, TypeElement.Neutral));
+                                                break;
+                                            case 3:
+                                                second_Line_quest[m_currentSecondLineQuestindex].goal.SecondItemGathering(inventory_controll.GetShield_count(3, TypeElement.Neutral));
+                                                break;
+                                        }
+                                        break;
+                                    case Type_Element.Undead:
+                                        switch (second_Line_quest[m_currentSecondLineQuestindex].goal.secondItem.Rank)
+                                        {
+                                            case 1:
+                                                second_Line_quest[m_currentSecondLineQuestindex].goal.SecondItemGathering(inventory_controll.GetShield_count(1, TypeElement.Undead));
+                                                break;
+                                            case 2:
+                                                second_Line_quest[m_currentSecondLineQuestindex].goal.SecondItemGathering(inventory_controll.GetShield_count(2, TypeElement.Undead));
+                                                break;
+                                            case 3:
+                                                second_Line_quest[m_currentSecondLineQuestindex].goal.SecondItemGathering(inventory_controll.GetShield_count(3, TypeElement.Undead));
+                                                break;
+                                        }
+                                        break;
+                                    case Type_Element.Order:
+                                        switch (second_Line_quest[m_currentSecondLineQuestindex].goal.secondItem.Rank)
+                                        {
+                                            case 1:
+                                                second_Line_quest[m_currentSecondLineQuestindex].goal.SecondItemGathering(inventory_controll.GetShield_count(1, TypeElement.Order));
+                                                break;
+                                            case 2:
+                                                second_Line_quest[m_currentSecondLineQuestindex].goal.SecondItemGathering(inventory_controll.GetShield_count(2, TypeElement.Order));
+                                                break;
+                                            case 3:
+                                                second_Line_quest[m_currentSecondLineQuestindex].goal.SecondItemGathering(inventory_controll.GetShield_count(3, TypeElement.Order));
+                                                break;
+                                        }
+                                        break;
+                                    case Type_Element.Demon:
+                                        switch (second_Line_quest[m_currentSecondLineQuestindex].goal.secondItem.Rank)
+                                        {
+                                            case 1:
+                                                second_Line_quest[m_currentSecondLineQuestindex].goal.SecondItemGathering(inventory_controll.GetShield_count(1, TypeElement.Demon));
+                                                break;
+                                            case 2:
+                                                second_Line_quest[m_currentSecondLineQuestindex].goal.SecondItemGathering(inventory_controll.GetShield_count(2, TypeElement.Demon));
+                                                break;
+                                            case 3:
+                                                second_Line_quest[m_currentSecondLineQuestindex].goal.SecondItemGathering(inventory_controll.GetShield_count(3, TypeElement.Demon));
+                                                break;
+                                        }
+                                        break;
+                                    default:
+                                        break;
+                                }
+                                break;
+                            case TypeItem.Amulet:
+                                switch (second_Line_quest[m_currentSecondLineQuestindex].goal.secondItem.typeElement)
+                                {
+                                    case Type_Element.Neutral:
+                                        switch (second_Line_quest[m_currentSecondLineQuestindex].goal.secondItem.Rank)
+                                        {
+                                            case 1:
+                                                second_Line_quest[m_currentSecondLineQuestindex].goal.SecondItemGathering(inventory_controll.GetAmulet_count(1, TypeElement.Neutral));
+                                                break;
+                                            case 2:
+                                                second_Line_quest[m_currentSecondLineQuestindex].goal.SecondItemGathering(inventory_controll.GetAmulet_count(2, TypeElement.Neutral));
+                                                break;
+                                            case 3:
+                                                second_Line_quest[m_currentSecondLineQuestindex].goal.SecondItemGathering(inventory_controll.GetAmulet_count(3, TypeElement.Neutral));
+                                                break;
+                                        }
+                                        break;
+                                    case Type_Element.Undead:
+                                        switch (second_Line_quest[m_currentSecondLineQuestindex].goal.secondItem.Rank)
+                                        {
+                                            case 1:
+                                                second_Line_quest[m_currentSecondLineQuestindex].goal.SecondItemGathering(inventory_controll.GetAmulet_count(1, TypeElement.Undead));
+                                                break;
+                                            case 2:
+                                                second_Line_quest[m_currentSecondLineQuestindex].goal.SecondItemGathering(inventory_controll.GetAmulet_count(2, TypeElement.Undead));
+                                                break;
+                                            case 3:
+                                                second_Line_quest[m_currentSecondLineQuestindex].goal.SecondItemGathering(inventory_controll.GetAmulet_count(3, TypeElement.Undead));
+                                                break;
+                                        }
+                                        break;
+                                    case Type_Element.Order:
+                                        switch (second_Line_quest[m_currentSecondLineQuestindex].goal.secondItem.Rank)
+                                        {
+                                            case 1:
+                                                second_Line_quest[m_currentSecondLineQuestindex].goal.SecondItemGathering(inventory_controll.GetAmulet_count(1, TypeElement.Order));
+                                                break;
+                                            case 2:
+                                                second_Line_quest[m_currentSecondLineQuestindex].goal.SecondItemGathering(inventory_controll.GetAmulet_count(2, TypeElement.Order));
+                                                break;
+                                            case 3:
+                                                second_Line_quest[m_currentSecondLineQuestindex].goal.SecondItemGathering(inventory_controll.GetAmulet_count(3, TypeElement.Order));
+                                                break;
+                                        }
+                                        break;
+                                    case Type_Element.Demon:
+                                        switch (second_Line_quest[m_currentSecondLineQuestindex].goal.secondItem.Rank)
+                                        {
+                                            case 1:
+                                                second_Line_quest[m_currentSecondLineQuestindex].goal.SecondItemGathering(inventory_controll.GetAmulet_count(1, TypeElement.Demon));
+                                                break;
+                                            case 2:
+                                                second_Line_quest[m_currentSecondLineQuestindex].goal.SecondItemGathering(inventory_controll.GetAmulet_count(2, TypeElement.Demon));
+                                                break;
+                                            case 3:
+                                                second_Line_quest[m_currentSecondLineQuestindex].goal.SecondItemGathering(inventory_controll.GetAmulet_count(3, TypeElement.Demon));
+                                                break;
+                                        }
+                                        break;
+                                    default:
+                                        break;
+                                }
+                                break;
+
+                        }
+                    }
+                    if (second_Line_quest[m_currentSecondLineQuestindex].goal.thirdItem != null)
+                    {
+                        switch (second_Line_quest[m_currentSecondLineQuestindex].goal.thirdItem.typeItem)
+                        {
+                            case TypeItem.Sword:
+                                switch (second_Line_quest[m_currentSecondLineQuestindex].goal.thirdItem.typeElement)
+                                {
+                                    case Type_Element.Neutral:
+                                        switch (second_Line_quest[m_currentSecondLineQuestindex].goal.thirdItem.Rank)
+                                        {
+                                            case 1:
+                                                second_Line_quest[m_currentSecondLineQuestindex].goal.ThirdItemGathering(inventory_controll.GetSword_count(1, TypeElement.Neutral));
+                                                break;
+                                            case 2:
+                                                second_Line_quest[m_currentSecondLineQuestindex].goal.ThirdItemGathering(inventory_controll.GetSword_count(2, TypeElement.Neutral));
+                                                break;
+                                            case 3:
+                                                second_Line_quest[m_currentSecondLineQuestindex].goal.ThirdItemGathering(inventory_controll.GetSword_count(3, TypeElement.Neutral));
+                                                break;
+                                        }
+                                        break;
+                                    case Type_Element.Undead:
+                                        switch (second_Line_quest[m_currentSecondLineQuestindex].goal.thirdItem.Rank)
+                                        {
+                                            case 1:
+                                                second_Line_quest[m_currentSecondLineQuestindex].goal.ThirdItemGathering(inventory_controll.GetSword_count(1, TypeElement.Undead));
+                                                break;
+                                            case 2:
+                                                second_Line_quest[m_currentSecondLineQuestindex].goal.ThirdItemGathering(inventory_controll.GetSword_count(2, TypeElement.Undead));
+                                                break;
+                                            case 3:
+                                                second_Line_quest[m_currentSecondLineQuestindex].goal.ThirdItemGathering(inventory_controll.GetSword_count(3, TypeElement.Undead));
+                                                break;
+                                        }
+                                        break;
+                                    case Type_Element.Order:
+                                        switch (second_Line_quest[m_currentSecondLineQuestindex].goal.thirdItem.Rank)
+                                        {
+                                            case 1:
+                                                second_Line_quest[m_currentSecondLineQuestindex].goal.ThirdItemGathering(inventory_controll.GetSword_count(1, TypeElement.Order));
+                                                break;
+                                            case 2:
+                                                second_Line_quest[m_currentSecondLineQuestindex].goal.ThirdItemGathering(inventory_controll.GetSword_count(2, TypeElement.Order));
+                                                break;
+                                            case 3:
+                                                second_Line_quest[m_currentSecondLineQuestindex].goal.ThirdItemGathering(inventory_controll.GetSword_count(3, TypeElement.Order));
+                                                break;
+                                        }
+                                        break;
+                                    case Type_Element.Demon:
+                                        switch (second_Line_quest[m_currentSecondLineQuestindex].goal.thirdItem.Rank)
+                                        {
+                                            case 1:
+                                                second_Line_quest[m_currentSecondLineQuestindex].goal.ThirdItemGathering(inventory_controll.GetSword_count(1, TypeElement.Demon));
+                                                break;
+                                            case 2:
+                                                second_Line_quest[m_currentSecondLineQuestindex].goal.ThirdItemGathering(inventory_controll.GetSword_count(2, TypeElement.Demon));
+                                                break;
+                                            case 3:
+                                                second_Line_quest[m_currentSecondLineQuestindex].goal.ThirdItemGathering(inventory_controll.GetSword_count(3, TypeElement.Demon));
+                                                break;
+                                        }
+                                        break;
+                                    default:
+                                        break;
+                                }
+                                break;
+                            case TypeItem.Shield:
+                                switch (second_Line_quest[m_currentSecondLineQuestindex].goal.thirdItem.typeElement)
+                                {
+                                    case Type_Element.Neutral:
+                                        switch (second_Line_quest[m_currentSecondLineQuestindex].goal.thirdItem.Rank)
+                                        {
+                                            case 1:
+                                                second_Line_quest[m_currentSecondLineQuestindex].goal.ThirdItemGathering(inventory_controll.GetShield_count(1, TypeElement.Neutral));
+                                                break;
+                                            case 2:
+                                                second_Line_quest[m_currentSecondLineQuestindex].goal.ThirdItemGathering(inventory_controll.GetShield_count(2, TypeElement.Neutral));
+                                                break;
+                                            case 3:
+                                                second_Line_quest[m_currentSecondLineQuestindex].goal.ThirdItemGathering(inventory_controll.GetShield_count(3, TypeElement.Neutral));
+                                                break;
+                                        }
+                                        break;
+                                    case Type_Element.Undead:
+                                        switch (second_Line_quest[m_currentSecondLineQuestindex].goal.thirdItem.Rank)
+                                        {
+                                            case 1:
+                                                second_Line_quest[m_currentSecondLineQuestindex].goal.ThirdItemGathering(inventory_controll.GetShield_count(1, TypeElement.Undead));
+                                                break;
+                                            case 2:
+                                                second_Line_quest[m_currentSecondLineQuestindex].goal.ThirdItemGathering(inventory_controll.GetShield_count(2, TypeElement.Undead));
+                                                break;
+                                            case 3:
+                                                second_Line_quest[m_currentSecondLineQuestindex].goal.ThirdItemGathering(inventory_controll.GetShield_count(3, TypeElement.Undead));
+                                                break;
+                                        }
+                                        break;
+                                    case Type_Element.Order:
+                                        switch (second_Line_quest[m_currentSecondLineQuestindex].goal.thirdItem.Rank)
+                                        {
+                                            case 1:
+                                                second_Line_quest[m_currentSecondLineQuestindex].goal.ThirdItemGathering(inventory_controll.GetShield_count(1, TypeElement.Order));
+                                                break;
+                                            case 2:
+                                                second_Line_quest[m_currentSecondLineQuestindex].goal.ThirdItemGathering(inventory_controll.GetShield_count(2, TypeElement.Order));
+                                                break;
+                                            case 3:
+                                                second_Line_quest[m_currentSecondLineQuestindex].goal.ThirdItemGathering(inventory_controll.GetShield_count(3, TypeElement.Order));
+                                                break;
+                                        }
+                                        break;
+                                    case Type_Element.Demon:
+                                        switch (second_Line_quest[m_currentSecondLineQuestindex].goal.thirdItem.Rank)
+                                        {
+                                            case 1:
+                                                second_Line_quest[m_currentSecondLineQuestindex].goal.ThirdItemGathering(inventory_controll.GetShield_count(1, TypeElement.Demon));
+                                                break;
+                                            case 2:
+                                                second_Line_quest[m_currentSecondLineQuestindex].goal.ThirdItemGathering(inventory_controll.GetShield_count(2, TypeElement.Demon));
+                                                break;
+                                            case 3:
+                                                second_Line_quest[m_currentSecondLineQuestindex].goal.ThirdItemGathering(inventory_controll.GetShield_count(3, TypeElement.Demon));
+                                                break;
+                                        }
+                                        break;
+                                    default:
+                                        break;
+                                }
+                                break;
+                            case TypeItem.Amulet:
+                                switch (second_Line_quest[m_currentSecondLineQuestindex].goal.thirdItem.typeElement)
+                                {
+                                    case Type_Element.Neutral:
+                                        switch (second_Line_quest[m_currentSecondLineQuestindex].goal.thirdItem.Rank)
+                                        {
+                                            case 1:
+                                                second_Line_quest[m_currentSecondLineQuestindex].goal.ThirdItemGathering(inventory_controll.GetAmulet_count(1, TypeElement.Neutral));
+                                                break;
+                                            case 2:
+                                                second_Line_quest[m_currentSecondLineQuestindex].goal.ThirdItemGathering(inventory_controll.GetAmulet_count(2, TypeElement.Neutral));
+                                                break;
+                                            case 3:
+                                                second_Line_quest[m_currentSecondLineQuestindex].goal.ThirdItemGathering(inventory_controll.GetAmulet_count(3, TypeElement.Neutral));
+                                                break;
+                                        }
+                                        break;
+                                    case Type_Element.Undead:
+                                        switch (second_Line_quest[m_currentSecondLineQuestindex].goal.thirdItem.Rank)
+                                        {
+                                            case 1:
+                                                second_Line_quest[m_currentSecondLineQuestindex].goal.ThirdItemGathering(inventory_controll.GetAmulet_count(1, TypeElement.Undead));
+                                                break;
+                                            case 2:
+                                                second_Line_quest[m_currentSecondLineQuestindex].goal.ThirdItemGathering(inventory_controll.GetAmulet_count(2, TypeElement.Undead));
+                                                break;
+                                            case 3:
+                                                second_Line_quest[m_currentSecondLineQuestindex].goal.ThirdItemGathering(inventory_controll.GetAmulet_count(3, TypeElement.Undead));
+                                                break;
+                                        }
+                                        break;
+                                    case Type_Element.Order:
+                                        switch (second_Line_quest[m_currentSecondLineQuestindex].goal.thirdItem.Rank)
+                                        {
+                                            case 1:
+                                                second_Line_quest[m_currentSecondLineQuestindex].goal.ThirdItemGathering(inventory_controll.GetAmulet_count(1, TypeElement.Order));
+                                                break;
+                                            case 2:
+                                                second_Line_quest[m_currentSecondLineQuestindex].goal.ThirdItemGathering(inventory_controll.GetAmulet_count(2, TypeElement.Order));
+                                                break;
+                                            case 3:
+                                                second_Line_quest[m_currentSecondLineQuestindex].goal.ThirdItemGathering(inventory_controll.GetAmulet_count(3, TypeElement.Order));
+                                                break;
+                                        }
+                                        break;
+                                    case Type_Element.Demon:
+                                        switch (second_Line_quest[m_currentSecondLineQuestindex].goal.thirdItem.Rank)
+                                        {
+                                            case 1:
+                                                second_Line_quest[m_currentSecondLineQuestindex].goal.ThirdItemGathering(inventory_controll.GetAmulet_count(1, TypeElement.Demon));
+                                                break;
+                                            case 2:
+                                                second_Line_quest[m_currentSecondLineQuestindex].goal.ThirdItemGathering(inventory_controll.GetAmulet_count(2, TypeElement.Demon));
+                                                break;
+                                            case 3:
+                                                second_Line_quest[m_currentSecondLineQuestindex].goal.ThirdItemGathering(inventory_controll.GetAmulet_count(3, TypeElement.Demon));
+                                                break;
+                                        }
+                                        break;
+                                    default:
+                                        break;
+                                }
+                                break;
+
+                        }
+                    }
+
                     if (second_Line_quest[m_currentSecondLineQuestindex].goal.IsItemColeted())
                     {
                         tower_Quest_UI[1].QuestComplete();
@@ -578,8 +2303,8 @@ public class Tower_quest : MonoBehaviour
                 third_Line_quest[m_currentThitrdLineQuestindex].goal.RaidGathering(m_currentRaid);
                 if (third_Line_quest[m_currentThitrdLineQuestindex].goal.IsReached())
                 {
-                    tower_Quest_UI[2].QuestComplete(); 
-                    GlovalEventSystem.TutorialStepsThirdPart(11);
+                    tower_Quest_UI[2].QuestComplete();
+                    GlovalEventSystem.TutorialStepsThirdPart(14);
                 }
             }
             else if (third_Line_quest[m_currentThitrdLineQuestindex].goal.goalType == GoalType.Upgrade_Tower)
@@ -608,30 +2333,595 @@ public class Tower_quest : MonoBehaviour
             }
             else if (third_Line_quest[m_currentThitrdLineQuestindex].goal.goalType == GoalType.Item_Gathering)
             {
-                for (int i = 0; i < m_items.Count; i++)
+                if (third_Line_quest[m_currentThitrdLineQuestindex].goal.firstItem != null)
                 {
-                    if (third_Line_quest[m_currentThitrdLineQuestindex].goal.firstItem != null)
+                    switch (third_Line_quest[m_currentThitrdLineQuestindex].goal.firstItem.typeItem)
                     {
-                        if (m_items[i] == third_Line_quest[m_currentThitrdLineQuestindex].goal.firstItem)
-                        {
-                            third_Line_quest[m_currentThitrdLineQuestindex].goal.ItemGathering(1, 0, 0);
-                        }
-                    }
-                    if (third_Line_quest[m_currentThitrdLineQuestindex].goal.secondItem != null)
-                    {
-                        if (m_items[i] == third_Line_quest[m_currentThitrdLineQuestindex].goal.secondItem)
-                        {
-                            third_Line_quest[m_currentThitrdLineQuestindex].goal.ItemGathering(0, 1, 0);
-                        }
-                    }
-                    if (third_Line_quest[m_currentThitrdLineQuestindex].goal.thirdItem != null)
-                    {
-                        if (m_items[i] == third_Line_quest[m_currentThitrdLineQuestindex].goal.thirdItem)
-                        {
-                            third_Line_quest[m_currentThitrdLineQuestindex].goal.ItemGathering(0, 0, 1);
-                        }
+                        case TypeItem.Sword:
+                            switch (third_Line_quest[m_currentThitrdLineQuestindex].goal.firstItem.typeElement)
+                            {
+                                case Type_Element.Neutral:
+                                    switch (third_Line_quest[m_currentThitrdLineQuestindex].goal.firstItem.Rank)
+                                    {
+                                        case 1:
+                                            third_Line_quest[m_currentThitrdLineQuestindex].goal.FirstItemGathering(inventory_controll.GetSword_count(1, TypeElement.Neutral));
+                                            break;
+                                        case 2:
+                                            third_Line_quest[m_currentThitrdLineQuestindex].goal.FirstItemGathering(inventory_controll.GetSword_count(2, TypeElement.Neutral));
+                                            break;
+                                        case 3:
+                                            third_Line_quest[m_currentThitrdLineQuestindex].goal.FirstItemGathering(inventory_controll.GetSword_count(3, TypeElement.Neutral));
+                                            break;
+                                    }
+                                    break;
+                                case Type_Element.Undead:
+                                    switch (third_Line_quest[m_currentThitrdLineQuestindex].goal.firstItem.Rank)
+                                    {
+                                        case 1:
+                                            third_Line_quest[m_currentThitrdLineQuestindex].goal.FirstItemGathering(inventory_controll.GetSword_count(1, TypeElement.Undead));
+                                            break;
+                                        case 2:
+                                            third_Line_quest[m_currentThitrdLineQuestindex].goal.FirstItemGathering(inventory_controll.GetSword_count(2, TypeElement.Undead));
+                                            break;
+                                        case 3:
+                                            third_Line_quest[m_currentThitrdLineQuestindex].goal.FirstItemGathering(inventory_controll.GetSword_count(3, TypeElement.Undead));
+                                            break;
+                                    }
+                                    break;
+                                case Type_Element.Order:
+                                    switch (third_Line_quest[m_currentThitrdLineQuestindex].goal.firstItem.Rank)
+                                    {
+                                        case 1:
+                                            third_Line_quest[m_currentThitrdLineQuestindex].goal.FirstItemGathering(inventory_controll.GetSword_count(1, TypeElement.Order));
+                                            break;
+                                        case 2:
+                                            third_Line_quest[m_currentThitrdLineQuestindex].goal.FirstItemGathering(inventory_controll.GetSword_count(2, TypeElement.Order));
+                                            break;
+                                        case 3:
+                                            third_Line_quest[m_currentThitrdLineQuestindex].goal.FirstItemGathering(inventory_controll.GetSword_count(3, TypeElement.Order));
+                                            break;
+                                    }
+                                    break;
+                                case Type_Element.Demon:
+                                    switch (third_Line_quest[m_currentThitrdLineQuestindex].goal.firstItem.Rank)
+                                    {
+                                        case 1:
+                                            third_Line_quest[m_currentThitrdLineQuestindex].goal.FirstItemGathering(inventory_controll.GetSword_count(1, TypeElement.Demon));
+                                            break;
+                                        case 2:
+                                            third_Line_quest[m_currentThitrdLineQuestindex].goal.FirstItemGathering(inventory_controll.GetSword_count(2, TypeElement.Demon));
+                                            break;
+                                        case 3:
+                                            third_Line_quest[m_currentThitrdLineQuestindex].goal.FirstItemGathering(inventory_controll.GetSword_count(3, TypeElement.Demon));
+                                            break;
+                                    }
+                                    break;
+                                default:
+                                    break;
+                            }
+                            break;
+                        case TypeItem.Shield:
+                            switch (third_Line_quest[m_currentThitrdLineQuestindex].goal.firstItem.typeElement)
+                            {
+                                case Type_Element.Neutral:
+                                    switch (third_Line_quest[m_currentThitrdLineQuestindex].goal.firstItem.Rank)
+                                    {
+                                        case 1:
+                                            third_Line_quest[m_currentThitrdLineQuestindex].goal.FirstItemGathering(inventory_controll.GetShield_count(1, TypeElement.Neutral));
+                                            break;
+                                        case 2:
+                                            third_Line_quest[m_currentThitrdLineQuestindex].goal.FirstItemGathering(inventory_controll.GetShield_count(2, TypeElement.Neutral));
+                                            break;
+                                        case 3:
+                                            third_Line_quest[m_currentThitrdLineQuestindex].goal.FirstItemGathering(inventory_controll.GetShield_count(3, TypeElement.Neutral));
+                                            break;
+                                    }
+                                    break;
+                                case Type_Element.Undead:
+                                    switch (third_Line_quest[m_currentThitrdLineQuestindex].goal.firstItem.Rank)
+                                    {
+                                        case 1:
+                                            third_Line_quest[m_currentThitrdLineQuestindex].goal.FirstItemGathering(inventory_controll.GetShield_count(1, TypeElement.Undead));
+                                            break;
+                                        case 2:
+                                            third_Line_quest[m_currentThitrdLineQuestindex].goal.FirstItemGathering(inventory_controll.GetShield_count(2, TypeElement.Undead));
+                                            break;
+                                        case 3:
+                                            third_Line_quest[m_currentThitrdLineQuestindex].goal.FirstItemGathering(inventory_controll.GetShield_count(3, TypeElement.Undead));
+                                            break;
+                                    }
+                                    break;
+                                case Type_Element.Order:
+                                    switch (third_Line_quest[m_currentThitrdLineQuestindex].goal.firstItem.Rank)
+                                    {
+                                        case 1:
+                                            third_Line_quest[m_currentThitrdLineQuestindex].goal.FirstItemGathering(inventory_controll.GetShield_count(1, TypeElement.Order));
+                                            break;
+                                        case 2:
+                                            third_Line_quest[m_currentThitrdLineQuestindex].goal.FirstItemGathering(inventory_controll.GetShield_count(2, TypeElement.Order));
+                                            break;
+                                        case 3:
+                                            third_Line_quest[m_currentThitrdLineQuestindex].goal.FirstItemGathering(inventory_controll.GetShield_count(3, TypeElement.Order));
+                                            break;
+                                    }
+                                    break;
+                                case Type_Element.Demon:
+                                    switch (third_Line_quest[m_currentThitrdLineQuestindex].goal.firstItem.Rank)
+                                    {
+                                        case 1:
+                                            third_Line_quest[m_currentThitrdLineQuestindex].goal.FirstItemGathering(inventory_controll.GetShield_count(1, TypeElement.Demon));
+                                            break;
+                                        case 2:
+                                            third_Line_quest[m_currentThitrdLineQuestindex].goal.FirstItemGathering(inventory_controll.GetShield_count(2, TypeElement.Demon));
+                                            break;
+                                        case 3:
+                                            third_Line_quest[m_currentThitrdLineQuestindex].goal.FirstItemGathering(inventory_controll.GetShield_count(3, TypeElement.Demon));
+                                            break;
+                                    }
+                                    break;
+                                default:
+                                    break;
+                            }
+                            break;
+                        case TypeItem.Amulet:
+                            switch (third_Line_quest[m_currentThitrdLineQuestindex].goal.firstItem.typeElement)
+                            {
+                                case Type_Element.Neutral:
+                                    switch (third_Line_quest[m_currentThitrdLineQuestindex].goal.firstItem.Rank)
+                                    {
+                                        case 1:
+                                            third_Line_quest[m_currentThitrdLineQuestindex].goal.FirstItemGathering(inventory_controll.GetAmulet_count(1, TypeElement.Neutral));
+                                            break;
+                                        case 2:
+                                            third_Line_quest[m_currentThitrdLineQuestindex].goal.FirstItemGathering(inventory_controll.GetAmulet_count(2, TypeElement.Neutral));
+                                            break;
+                                        case 3:
+                                            third_Line_quest[m_currentThitrdLineQuestindex].goal.FirstItemGathering(inventory_controll.GetAmulet_count(3, TypeElement.Neutral));
+                                            break;
+                                    }
+                                    break;
+                                case Type_Element.Undead:
+                                    switch (third_Line_quest[m_currentThitrdLineQuestindex].goal.firstItem.Rank)
+                                    {
+                                        case 1:
+                                            third_Line_quest[m_currentThitrdLineQuestindex].goal.FirstItemGathering(inventory_controll.GetAmulet_count(1, TypeElement.Undead));
+                                            break;
+                                        case 2:
+                                            third_Line_quest[m_currentThitrdLineQuestindex].goal.FirstItemGathering(inventory_controll.GetAmulet_count(2, TypeElement.Undead));
+                                            break;
+                                        case 3:
+                                            third_Line_quest[m_currentThitrdLineQuestindex].goal.FirstItemGathering(inventory_controll.GetAmulet_count(3, TypeElement.Undead));
+                                            break;
+                                    }
+                                    break;
+                                case Type_Element.Order:
+                                    switch (third_Line_quest[m_currentThitrdLineQuestindex].goal.firstItem.Rank)
+                                    {
+                                        case 1:
+                                            third_Line_quest[m_currentThitrdLineQuestindex].goal.FirstItemGathering(inventory_controll.GetAmulet_count(1, TypeElement.Order));
+                                            break;
+                                        case 2:
+                                            third_Line_quest[m_currentThitrdLineQuestindex].goal.FirstItemGathering(inventory_controll.GetAmulet_count(2, TypeElement.Order));
+                                            break;
+                                        case 3:
+                                            third_Line_quest[m_currentThitrdLineQuestindex].goal.FirstItemGathering(inventory_controll.GetAmulet_count(3, TypeElement.Order));
+                                            break;
+                                    }
+                                    break;
+                                case Type_Element.Demon:
+                                    switch (third_Line_quest[m_currentThitrdLineQuestindex].goal.firstItem.Rank)
+                                    {
+                                        case 1:
+                                            third_Line_quest[m_currentThitrdLineQuestindex].goal.FirstItemGathering(inventory_controll.GetAmulet_count(1, TypeElement.Demon));
+                                            break;
+                                        case 2:
+                                            third_Line_quest[m_currentThitrdLineQuestindex].goal.FirstItemGathering(inventory_controll.GetAmulet_count(2, TypeElement.Demon));
+                                            break;
+                                        case 3:
+                                            third_Line_quest[m_currentThitrdLineQuestindex].goal.FirstItemGathering(inventory_controll.GetAmulet_count(3, TypeElement.Demon));
+                                            break;
+                                    }
+                                    break;
+                                default:
+                                    break;
+                            }
+                            break;
+
                     }
                 }
+                if (third_Line_quest[m_currentThitrdLineQuestindex].goal.secondItem != null)
+                {
+                    switch (third_Line_quest[m_currentThitrdLineQuestindex].goal.secondItem.typeItem)
+                    {
+                        case TypeItem.Sword:
+                            switch (third_Line_quest[m_currentThitrdLineQuestindex].goal.secondItem.typeElement)
+                            {
+                                case Type_Element.Neutral:
+                                    switch (third_Line_quest[m_currentThitrdLineQuestindex].goal.secondItem.Rank)
+                                    {
+                                        case 1:
+                                            third_Line_quest[m_currentThitrdLineQuestindex].goal.SecondItemGathering(inventory_controll.GetSword_count(1, TypeElement.Neutral));
+                                            break;
+                                        case 2:
+                                            third_Line_quest[m_currentThitrdLineQuestindex].goal.SecondItemGathering(inventory_controll.GetSword_count(2, TypeElement.Neutral));
+                                            break;
+                                        case 3:
+                                            third_Line_quest[m_currentThitrdLineQuestindex].goal.SecondItemGathering(inventory_controll.GetSword_count(3, TypeElement.Neutral));
+                                            break;
+                                    }
+                                    break;
+                                case Type_Element.Undead:
+                                    switch (third_Line_quest[m_currentThitrdLineQuestindex].goal.secondItem.Rank)
+                                    {
+                                        case 1:
+                                            third_Line_quest[m_currentThitrdLineQuestindex].goal.SecondItemGathering(inventory_controll.GetSword_count(1, TypeElement.Undead));
+                                            break;
+                                        case 2:
+                                            third_Line_quest[m_currentThitrdLineQuestindex].goal.SecondItemGathering(inventory_controll.GetSword_count(2, TypeElement.Undead));
+                                            break;
+                                        case 3:
+                                            third_Line_quest[m_currentThitrdLineQuestindex].goal.SecondItemGathering(inventory_controll.GetSword_count(3, TypeElement.Undead));
+                                            break;
+                                    }
+                                    break;
+                                case Type_Element.Order:
+                                    switch (third_Line_quest[m_currentThitrdLineQuestindex].goal.secondItem.Rank)
+                                    {
+                                        case 1:
+                                            third_Line_quest[m_currentThitrdLineQuestindex].goal.SecondItemGathering(inventory_controll.GetSword_count(1, TypeElement.Order));
+                                            break;
+                                        case 2:
+                                            third_Line_quest[m_currentThitrdLineQuestindex].goal.SecondItemGathering(inventory_controll.GetSword_count(2, TypeElement.Order));
+                                            break;
+                                        case 3:
+                                            third_Line_quest[m_currentThitrdLineQuestindex].goal.SecondItemGathering(inventory_controll.GetSword_count(3, TypeElement.Order));
+                                            break;
+                                    }
+                                    break;
+                                case Type_Element.Demon:
+                                    switch (third_Line_quest[m_currentThitrdLineQuestindex].goal.secondItem.Rank)
+                                    {
+                                        case 1:
+                                            third_Line_quest[m_currentThitrdLineQuestindex].goal.SecondItemGathering(inventory_controll.GetSword_count(1, TypeElement.Demon));
+                                            break;
+                                        case 2:
+                                            third_Line_quest[m_currentThitrdLineQuestindex].goal.SecondItemGathering(inventory_controll.GetSword_count(2, TypeElement.Demon));
+                                            break;
+                                        case 3:
+                                            third_Line_quest[m_currentThitrdLineQuestindex].goal.SecondItemGathering(inventory_controll.GetSword_count(3, TypeElement.Demon));
+                                            break;
+                                    }
+                                    break;
+                                default:
+                                    break;
+                            }
+                            break;
+                        case TypeItem.Shield:
+                            switch (third_Line_quest[m_currentThitrdLineQuestindex].goal.secondItem.typeElement)
+                            {
+                                case Type_Element.Neutral:
+                                    switch (third_Line_quest[m_currentThitrdLineQuestindex].goal.secondItem.Rank)
+                                    {
+                                        case 1:
+                                            third_Line_quest[m_currentThitrdLineQuestindex].goal.SecondItemGathering(inventory_controll.GetShield_count(1, TypeElement.Neutral));
+                                            break;
+                                        case 2:
+                                            third_Line_quest[m_currentThitrdLineQuestindex].goal.SecondItemGathering(inventory_controll.GetShield_count(2, TypeElement.Neutral));
+                                            break;
+                                        case 3:
+                                            third_Line_quest[m_currentThitrdLineQuestindex].goal.SecondItemGathering(inventory_controll.GetShield_count(3, TypeElement.Neutral));
+                                            break;
+                                    }
+                                    break;
+                                case Type_Element.Undead:
+                                    switch (third_Line_quest[m_currentThitrdLineQuestindex].goal.secondItem.Rank)
+                                    {
+                                        case 1:
+                                            third_Line_quest[m_currentThitrdLineQuestindex].goal.SecondItemGathering(inventory_controll.GetShield_count(1, TypeElement.Undead));
+                                            break;
+                                        case 2:
+                                            third_Line_quest[m_currentThitrdLineQuestindex].goal.SecondItemGathering(inventory_controll.GetShield_count(2, TypeElement.Undead));
+                                            break;
+                                        case 3:
+                                            third_Line_quest[m_currentThitrdLineQuestindex].goal.SecondItemGathering(inventory_controll.GetShield_count(3, TypeElement.Undead));
+                                            break;
+                                    }
+                                    break;
+                                case Type_Element.Order:
+                                    switch (third_Line_quest[m_currentThitrdLineQuestindex].goal.secondItem.Rank)
+                                    {
+                                        case 1:
+                                            third_Line_quest[m_currentThitrdLineQuestindex].goal.SecondItemGathering(inventory_controll.GetShield_count(1, TypeElement.Order));
+                                            break;
+                                        case 2:
+                                            third_Line_quest[m_currentThitrdLineQuestindex].goal.SecondItemGathering(inventory_controll.GetShield_count(2, TypeElement.Order));
+                                            break;
+                                        case 3:
+                                            third_Line_quest[m_currentThitrdLineQuestindex].goal.SecondItemGathering(inventory_controll.GetShield_count(3, TypeElement.Order));
+                                            break;
+                                    }
+                                    break;
+                                case Type_Element.Demon:
+                                    switch (third_Line_quest[m_currentThitrdLineQuestindex].goal.secondItem.Rank)
+                                    {
+                                        case 1:
+                                            third_Line_quest[m_currentThitrdLineQuestindex].goal.SecondItemGathering(inventory_controll.GetShield_count(1, TypeElement.Demon));
+                                            break;
+                                        case 2:
+                                            third_Line_quest[m_currentThitrdLineQuestindex].goal.SecondItemGathering(inventory_controll.GetShield_count(2, TypeElement.Demon));
+                                            break;
+                                        case 3:
+                                            third_Line_quest[m_currentThitrdLineQuestindex].goal.SecondItemGathering(inventory_controll.GetShield_count(3, TypeElement.Demon));
+                                            break;
+                                    }
+                                    break;
+                                default:
+                                    break;
+                            }
+                            break;
+                        case TypeItem.Amulet:
+                            switch (third_Line_quest[m_currentThitrdLineQuestindex].goal.secondItem.typeElement)
+                            {
+                                case Type_Element.Neutral:
+                                    switch (third_Line_quest[m_currentThitrdLineQuestindex].goal.secondItem.Rank)
+                                    {
+                                        case 1:
+                                            third_Line_quest[m_currentThitrdLineQuestindex].goal.SecondItemGathering(inventory_controll.GetAmulet_count(1, TypeElement.Neutral));
+                                            break;
+                                        case 2:
+                                            third_Line_quest[m_currentThitrdLineQuestindex].goal.SecondItemGathering(inventory_controll.GetAmulet_count(2, TypeElement.Neutral));
+                                            break;
+                                        case 3:
+                                            third_Line_quest[m_currentThitrdLineQuestindex].goal.SecondItemGathering(inventory_controll.GetAmulet_count(3, TypeElement.Neutral));
+                                            break;
+                                    }
+                                    break;
+                                case Type_Element.Undead:
+                                    switch (third_Line_quest[m_currentThitrdLineQuestindex].goal.secondItem.Rank)
+                                    {
+                                        case 1:
+                                            third_Line_quest[m_currentThitrdLineQuestindex].goal.SecondItemGathering(inventory_controll.GetAmulet_count(1, TypeElement.Undead));
+                                            break;
+                                        case 2:
+                                            third_Line_quest[m_currentThitrdLineQuestindex].goal.SecondItemGathering(inventory_controll.GetAmulet_count(2, TypeElement.Undead));
+                                            break;
+                                        case 3:
+                                            third_Line_quest[m_currentThitrdLineQuestindex].goal.SecondItemGathering(inventory_controll.GetAmulet_count(3, TypeElement.Undead));
+                                            break;
+                                    }
+                                    break;
+                                case Type_Element.Order:
+                                    switch (third_Line_quest[m_currentThitrdLineQuestindex].goal.secondItem.Rank)
+                                    {
+                                        case 1:
+                                            third_Line_quest[m_currentThitrdLineQuestindex].goal.SecondItemGathering(inventory_controll.GetAmulet_count(1, TypeElement.Order));
+                                            break;
+                                        case 2:
+                                            third_Line_quest[m_currentThitrdLineQuestindex].goal.SecondItemGathering(inventory_controll.GetAmulet_count(2, TypeElement.Order));
+                                            break;
+                                        case 3:
+                                            third_Line_quest[m_currentThitrdLineQuestindex].goal.SecondItemGathering(inventory_controll.GetAmulet_count(3, TypeElement.Order));
+                                            break;
+                                    }
+                                    break;
+                                case Type_Element.Demon:
+                                    switch (third_Line_quest[m_currentThitrdLineQuestindex].goal.secondItem.Rank)
+                                    {
+                                        case 1:
+                                            third_Line_quest[m_currentThitrdLineQuestindex].goal.SecondItemGathering(inventory_controll.GetAmulet_count(1, TypeElement.Demon));
+                                            break;
+                                        case 2:
+                                            third_Line_quest[m_currentThitrdLineQuestindex].goal.SecondItemGathering(inventory_controll.GetAmulet_count(2, TypeElement.Demon));
+                                            break;
+                                        case 3:
+                                            third_Line_quest[m_currentThitrdLineQuestindex].goal.SecondItemGathering(inventory_controll.GetAmulet_count(3, TypeElement.Demon));
+                                            break;
+                                    }
+                                    break;
+                                default:
+                                    break;
+                            }
+                            break;
+
+                    }
+                }
+                if (third_Line_quest[m_currentThitrdLineQuestindex].goal.thirdItem != null)
+                {
+                    switch (third_Line_quest[m_currentThitrdLineQuestindex].goal.thirdItem.typeItem)
+                    {
+                        case TypeItem.Sword:
+                            switch (third_Line_quest[m_currentThitrdLineQuestindex].goal.thirdItem.typeElement)
+                            {
+                                case Type_Element.Neutral:
+                                    switch (third_Line_quest[m_currentThitrdLineQuestindex].goal.thirdItem.Rank)
+                                    {
+                                        case 1:
+                                            third_Line_quest[m_currentThitrdLineQuestindex].goal.ThirdItemGathering(inventory_controll.GetSword_count(1, TypeElement.Neutral));
+                                            break;
+                                        case 2:
+                                            third_Line_quest[m_currentThitrdLineQuestindex].goal.ThirdItemGathering(inventory_controll.GetSword_count(2, TypeElement.Neutral));
+                                            break;
+                                        case 3:
+                                            third_Line_quest[m_currentThitrdLineQuestindex].goal.ThirdItemGathering(inventory_controll.GetSword_count(3, TypeElement.Neutral));
+                                            break;
+                                    }
+                                    break;
+                                case Type_Element.Undead:
+                                    switch (third_Line_quest[m_currentThitrdLineQuestindex].goal.thirdItem.Rank)
+                                    {
+                                        case 1:
+                                            third_Line_quest[m_currentThitrdLineQuestindex].goal.ThirdItemGathering(inventory_controll.GetSword_count(1, TypeElement.Undead));
+                                            break;
+                                        case 2:
+                                            third_Line_quest[m_currentThitrdLineQuestindex].goal.ThirdItemGathering(inventory_controll.GetSword_count(2, TypeElement.Undead));
+                                            break;
+                                        case 3:
+                                            third_Line_quest[m_currentThitrdLineQuestindex].goal.ThirdItemGathering(inventory_controll.GetSword_count(3, TypeElement.Undead));
+                                            break;
+                                    }
+                                    break;
+                                case Type_Element.Order:
+                                    switch (third_Line_quest[m_currentThitrdLineQuestindex].goal.thirdItem.Rank)
+                                    {
+                                        case 1:
+                                            third_Line_quest[m_currentThitrdLineQuestindex].goal.ThirdItemGathering(inventory_controll.GetSword_count(1, TypeElement.Order));
+                                            break;
+                                        case 2:
+                                            third_Line_quest[m_currentThitrdLineQuestindex].goal.ThirdItemGathering(inventory_controll.GetSword_count(2, TypeElement.Order));
+                                            break;
+                                        case 3:
+                                            third_Line_quest[m_currentThitrdLineQuestindex].goal.ThirdItemGathering(inventory_controll.GetSword_count(3, TypeElement.Order));
+                                            break;
+                                    }
+                                    break;
+                                case Type_Element.Demon:
+                                    switch (third_Line_quest[m_currentThitrdLineQuestindex].goal.thirdItem.Rank)
+                                    {
+                                        case 1:
+                                            third_Line_quest[m_currentThitrdLineQuestindex].goal.ThirdItemGathering(inventory_controll.GetSword_count(1, TypeElement.Demon));
+                                            break;
+                                        case 2:
+                                            third_Line_quest[m_currentThitrdLineQuestindex].goal.ThirdItemGathering(inventory_controll.GetSword_count(2, TypeElement.Demon));
+                                            break;
+                                        case 3:
+                                            third_Line_quest[m_currentThitrdLineQuestindex].goal.ThirdItemGathering(inventory_controll.GetSword_count(3, TypeElement.Demon));
+                                            break;
+                                    }
+                                    break;
+                                default:
+                                    break;
+                            }
+                            break;
+                        case TypeItem.Shield:
+                            switch (third_Line_quest[m_currentThitrdLineQuestindex].goal.thirdItem.typeElement)
+                            {
+                                case Type_Element.Neutral:
+                                    switch (third_Line_quest[m_currentThitrdLineQuestindex].goal.thirdItem.Rank)
+                                    {
+                                        case 1:
+                                            third_Line_quest[m_currentThitrdLineQuestindex].goal.ThirdItemGathering(inventory_controll.GetShield_count(1, TypeElement.Neutral));
+                                            break;
+                                        case 2:
+                                            third_Line_quest[m_currentThitrdLineQuestindex].goal.ThirdItemGathering(inventory_controll.GetShield_count(2, TypeElement.Neutral));
+                                            break;
+                                        case 3:
+                                            third_Line_quest[m_currentThitrdLineQuestindex].goal.ThirdItemGathering(inventory_controll.GetShield_count(3, TypeElement.Neutral));
+                                            break;
+                                    }
+                                    break;
+                                case Type_Element.Undead:
+                                    switch (third_Line_quest[m_currentThitrdLineQuestindex].goal.thirdItem.Rank)
+                                    {
+                                        case 1:
+                                            third_Line_quest[m_currentThitrdLineQuestindex].goal.ThirdItemGathering(inventory_controll.GetShield_count(1, TypeElement.Undead));
+                                            break;
+                                        case 2:
+                                            third_Line_quest[m_currentThitrdLineQuestindex].goal.ThirdItemGathering(inventory_controll.GetShield_count(2, TypeElement.Undead));
+                                            break;
+                                        case 3:
+                                            third_Line_quest[m_currentThitrdLineQuestindex].goal.ThirdItemGathering(inventory_controll.GetShield_count(3, TypeElement.Undead));
+                                            break;
+                                    }
+                                    break;
+                                case Type_Element.Order:
+                                    switch (third_Line_quest[m_currentThitrdLineQuestindex].goal.thirdItem.Rank)
+                                    {
+                                        case 1:
+                                            third_Line_quest[m_currentThitrdLineQuestindex].goal.ThirdItemGathering(inventory_controll.GetShield_count(1, TypeElement.Order));
+                                            break;
+                                        case 2:
+                                            third_Line_quest[m_currentThitrdLineQuestindex].goal.ThirdItemGathering(inventory_controll.GetShield_count(2, TypeElement.Order));
+                                            break;
+                                        case 3:
+                                            third_Line_quest[m_currentThitrdLineQuestindex].goal.ThirdItemGathering(inventory_controll.GetShield_count(3, TypeElement.Order));
+                                            break;
+                                    }
+                                    break;
+                                case Type_Element.Demon:
+                                    switch (third_Line_quest[m_currentThitrdLineQuestindex].goal.thirdItem.Rank)
+                                    {
+                                        case 1:
+                                            third_Line_quest[m_currentThitrdLineQuestindex].goal.ThirdItemGathering(inventory_controll.GetShield_count(1, TypeElement.Demon));
+                                            break;
+                                        case 2:
+                                            third_Line_quest[m_currentThitrdLineQuestindex].goal.ThirdItemGathering(inventory_controll.GetShield_count(2, TypeElement.Demon));
+                                            break;
+                                        case 3:
+                                            third_Line_quest[m_currentThitrdLineQuestindex].goal.ThirdItemGathering(inventory_controll.GetShield_count(3, TypeElement.Demon));
+                                            break;
+                                    }
+                                    break;
+                                default:
+                                    break;
+                            }
+                            break;
+                        case TypeItem.Amulet:
+                            switch (third_Line_quest[m_currentThitrdLineQuestindex].goal.thirdItem.typeElement)
+                            {
+                                case Type_Element.Neutral:
+                                    switch (third_Line_quest[m_currentThitrdLineQuestindex].goal.thirdItem.Rank)
+                                    {
+                                        case 1:
+                                            third_Line_quest[m_currentThitrdLineQuestindex].goal.ThirdItemGathering(inventory_controll.GetAmulet_count(1, TypeElement.Neutral));
+                                            break;
+                                        case 2:
+                                            third_Line_quest[m_currentThitrdLineQuestindex].goal.ThirdItemGathering(inventory_controll.GetAmulet_count(2, TypeElement.Neutral));
+                                            break;
+                                        case 3:
+                                            third_Line_quest[m_currentThitrdLineQuestindex].goal.ThirdItemGathering(inventory_controll.GetAmulet_count(3, TypeElement.Neutral));
+                                            break;
+                                    }
+                                    break;
+                                case Type_Element.Undead:
+                                    switch (third_Line_quest[m_currentThitrdLineQuestindex].goal.thirdItem.Rank)
+                                    {
+                                        case 1:
+                                            third_Line_quest[m_currentThitrdLineQuestindex].goal.ThirdItemGathering(inventory_controll.GetAmulet_count(1, TypeElement.Undead));
+                                            break;
+                                        case 2:
+                                            third_Line_quest[m_currentThitrdLineQuestindex].goal.ThirdItemGathering(inventory_controll.GetAmulet_count(2, TypeElement.Undead));
+                                            break;
+                                        case 3:
+                                            third_Line_quest[m_currentThitrdLineQuestindex].goal.ThirdItemGathering(inventory_controll.GetAmulet_count(3, TypeElement.Undead));
+                                            break;
+                                    }
+                                    break;
+                                case Type_Element.Order:
+                                    switch (third_Line_quest[m_currentThitrdLineQuestindex].goal.thirdItem.Rank)
+                                    {
+                                        case 1:
+                                            third_Line_quest[m_currentThitrdLineQuestindex].goal.ThirdItemGathering(inventory_controll.GetAmulet_count(1, TypeElement.Order));
+                                            break;
+                                        case 2:
+                                            third_Line_quest[m_currentThitrdLineQuestindex].goal.ThirdItemGathering(inventory_controll.GetAmulet_count(2, TypeElement.Order));
+                                            break;
+                                        case 3:
+                                            third_Line_quest[m_currentThitrdLineQuestindex].goal.ThirdItemGathering(inventory_controll.GetAmulet_count(3, TypeElement.Order));
+                                            break;
+                                    }
+                                    break;
+                                case Type_Element.Demon:
+                                    switch (third_Line_quest[m_currentThitrdLineQuestindex].goal.thirdItem.Rank)
+                                    {
+                                        case 1:
+                                            third_Line_quest[m_currentThitrdLineQuestindex].goal.ThirdItemGathering(inventory_controll.GetAmulet_count(1, TypeElement.Demon));
+                                            break;
+                                        case 2:
+                                            third_Line_quest[m_currentThitrdLineQuestindex].goal.ThirdItemGathering(inventory_controll.GetAmulet_count(2, TypeElement.Demon));
+                                            break;
+                                        case 3:
+                                            third_Line_quest[m_currentThitrdLineQuestindex].goal.ThirdItemGathering(inventory_controll.GetAmulet_count(3, TypeElement.Demon));
+                                            break;
+                                    }
+                                    break;
+                                default:
+                                    break;
+                            }
+                            break;
+
+                    }
+                }
+
                 if (third_Line_quest[m_currentThitrdLineQuestindex].goal.IsItemColeted())
                 {
                     tower_Quest_UI[2].QuestComplete();
@@ -690,8 +2980,14 @@ public class Tower_quest : MonoBehaviour
                     }
                 }
             }
-
-          
+            else if (third_Line_quest[m_currentThitrdLineQuestindex].goal.goalType == GoalType.heroRaid)
+            {
+                third_Line_quest[m_currentThitrdLineQuestindex].goal.HeroRaid();
+                if (third_Line_quest[m_currentThitrdLineQuestindex].goal.IsReached())
+                {
+                    tower_Quest_UI[2].QuestComplete();
+                }
+            }
         }
 
     }
@@ -836,15 +3132,21 @@ public class Tower_quest : MonoBehaviour
                         {
                             case Quest.RewardType.Hero:
                                 first_Line_quest[m_currentFirstLineQuestindex].HeroReward.isOpened = true;
+                                displayReward.Initialise(first_Line_quest[m_currentFirstLineQuestindex].HeroReward);
                                 break;
                             case Quest.RewardType.Gold:
                                 Gold.AddGold(first_Line_quest[m_currentFirstLineQuestindex].GoldReward);
                                 break;
                             case Quest.RewardType.Boost:
                                 boost_Controll.OpenCard(first_Line_quest[m_currentFirstLineQuestindex].BoostCard);
+                                displayReward.Initialise(first_Line_quest[m_currentFirstLineQuestindex].BoostCard);
                                 break;
                             case Quest.RewardType.Location:
                                 first_Line_quest[m_currentFirstLineQuestindex].Location.isOpened = true;
+                                displayReward.Initialise(first_Line_quest[m_currentFirstLineQuestindex].Location);
+                                break;
+                            case Quest.RewardType.Slot:
+                                displayReward.Initialise();
                                 break;
                         }
                         m_currentFirstLineQuestindex++;
@@ -991,20 +3293,27 @@ public class Tower_quest : MonoBehaviour
                     {
                         case Quest.RewardType.Hero:
                             first_Line_quest[m_currentFirstLineQuestindex].HeroReward.isOpened = true;
+                            displayReward.Initialise(first_Line_quest[m_currentFirstLineQuestindex].HeroReward);
                             break;
                         case Quest.RewardType.Gold:
                             Gold.AddGold(first_Line_quest[m_currentFirstLineQuestindex].GoldReward);
                             break;
                         case Quest.RewardType.Boost:
                             boost_Controll.OpenCard(first_Line_quest[m_currentFirstLineQuestindex].BoostCard);
+                            displayReward.Initialise(first_Line_quest[m_currentFirstLineQuestindex].BoostCard);
                             break;
                         case Quest.RewardType.Location:
                             first_Line_quest[m_currentFirstLineQuestindex].Location.isOpened = true;
+                            displayReward.Initialise(first_Line_quest[m_currentFirstLineQuestindex].Location);
+                            break;
+                        case Quest.RewardType.Slot:
+                            displayReward.Initialise();
                             break;
                     }
                     m_currentFirstLineQuestindex++;
                     First_Line_Quest_Initialise();
                     break;
+
             }
         }
         else
@@ -1013,15 +3322,21 @@ public class Tower_quest : MonoBehaviour
             {
                 case Quest.RewardType.Hero:
                     first_Line_quest[m_currentFirstLineQuestindex].HeroReward.isOpened = true;
+                    displayReward.Initialise(first_Line_quest[m_currentFirstLineQuestindex].HeroReward);
                     break;
                 case Quest.RewardType.Gold:
                     Gold.AddGold(first_Line_quest[m_currentFirstLineQuestindex].GoldReward);
                     break;
                 case Quest.RewardType.Boost:
                     boost_Controll.OpenCard(first_Line_quest[m_currentFirstLineQuestindex].BoostCard);
+                    displayReward.Initialise(first_Line_quest[m_currentFirstLineQuestindex].BoostCard);
                     break;
                 case Quest.RewardType.Location:
                     first_Line_quest[m_currentFirstLineQuestindex].Location.isOpened = true;
+                    displayReward.Initialise(first_Line_quest[m_currentFirstLineQuestindex].Location);
+                    break;
+                case Quest.RewardType.Slot:
+                    displayReward.Initialise();
                     break;
             }
      
@@ -1059,15 +3374,18 @@ public class Tower_quest : MonoBehaviour
                             {
                                 case Quest.RewardType.Hero:
                                     second_Line_quest[m_currentSecondLineQuestindex].HeroReward.isOpened = true;
+                                    displayReward.Initialise(second_Line_quest[m_currentSecondLineQuestindex].HeroReward);
                                     break;
                                 case Quest.RewardType.Gold:
                                     Gold.AddGold(second_Line_quest[m_currentSecondLineQuestindex].GoldReward);
                                     break;
                                 case Quest.RewardType.Boost:
                                     boost_Controll.OpenCard(second_Line_quest[m_currentSecondLineQuestindex].BoostCard);
+                                    displayReward.Initialise(second_Line_quest[m_currentSecondLineQuestindex].BoostCard);
                                     break;
                                 case Quest.RewardType.Location:
                                     second_Line_quest[m_currentSecondLineQuestindex].Location.isOpened = true;
+                                    displayReward.Initialise(second_Line_quest[m_currentSecondLineQuestindex].Location);
                                     break;
                             }
                             m_currentSecondLineQuestindex++;
@@ -1214,15 +3532,18 @@ public class Tower_quest : MonoBehaviour
                         {
                             case Quest.RewardType.Hero:
                                 second_Line_quest[m_currentSecondLineQuestindex].HeroReward.isOpened = true;
+                                displayReward.Initialise(second_Line_quest[m_currentSecondLineQuestindex].HeroReward);
                                 break;
                             case Quest.RewardType.Gold:
                                 Gold.AddGold(second_Line_quest[m_currentSecondLineQuestindex].GoldReward);
                                 break;
                             case Quest.RewardType.Boost:
                                 boost_Controll.OpenCard(second_Line_quest[m_currentSecondLineQuestindex].BoostCard);
+                                displayReward.Initialise(second_Line_quest[m_currentSecondLineQuestindex].BoostCard);
                                 break;
                             case Quest.RewardType.Location:
                                 second_Line_quest[m_currentSecondLineQuestindex].Location.isOpened = true;
+                                displayReward.Initialise(second_Line_quest[m_currentSecondLineQuestindex].Location);
                                 break;
                         }
                         m_currentSecondLineQuestindex++;
@@ -1237,12 +3558,15 @@ public class Tower_quest : MonoBehaviour
                 {
                     case Quest.RewardType.Hero:
                         second_Line_quest[m_currentSecondLineQuestindex].HeroReward.isOpened = true;
+                        displayReward.Initialise(second_Line_quest[m_currentSecondLineQuestindex].HeroReward);
                         break;
                     case Quest.RewardType.Boost:
                         boost_Controll.OpenCard(second_Line_quest[m_currentSecondLineQuestindex].BoostCard);
+                        displayReward.Initialise(second_Line_quest[m_currentSecondLineQuestindex].BoostCard);
                         break;
                     case Quest.RewardType.Location:
                         second_Line_quest[m_currentSecondLineQuestindex].Location.isOpened = true;
+                        displayReward.Initialise(second_Line_quest[m_currentSecondLineQuestindex].Location);
                         break;
                 }
                 m_currentSecondLineQuestindex++;
@@ -1279,12 +3603,15 @@ public class Tower_quest : MonoBehaviour
                             {
                                 case Quest.RewardType.Hero:
                                     third_Line_quest[m_currentThitrdLineQuestindex].HeroReward.isOpened = true;
+                                    displayReward.Initialise(third_Line_quest[m_currentThitrdLineQuestindex].HeroReward);
                                     break;
                                 case Quest.RewardType.Boost:
                                     boost_Controll.OpenCard(third_Line_quest[m_currentThitrdLineQuestindex].BoostCard);
+                                    displayReward.Initialise(third_Line_quest[m_currentThitrdLineQuestindex].BoostCard);
                                     break;
                                 case Quest.RewardType.Location:
                                     third_Line_quest[m_currentThitrdLineQuestindex].Location.isOpened = true;
+                                    displayReward.Initialise(third_Line_quest[m_currentThitrdLineQuestindex].Location);
                                     break;
                             }
                             m_currentThitrdLineQuestindex++;
@@ -1431,12 +3758,15 @@ public class Tower_quest : MonoBehaviour
                         {
                             case Quest.RewardType.Hero:
                                 third_Line_quest[m_currentThitrdLineQuestindex].HeroReward.isOpened = true;
+                                displayReward.Initialise(third_Line_quest[m_currentThitrdLineQuestindex].HeroReward);
                                 break;
                             case Quest.RewardType.Boost:
                                 boost_Controll.OpenCard(third_Line_quest[m_currentThitrdLineQuestindex].BoostCard);
+                                displayReward.Initialise(third_Line_quest[m_currentThitrdLineQuestindex].BoostCard);
                                 break;
                             case Quest.RewardType.Location:
                                 third_Line_quest[m_currentThitrdLineQuestindex].Location.isOpened = true;
+                                displayReward.Initialise(third_Line_quest[m_currentThitrdLineQuestindex].Location);
                                 break;
                         }
                         m_currentThitrdLineQuestindex++;
@@ -1451,12 +3781,15 @@ public class Tower_quest : MonoBehaviour
                 {
                     case Quest.RewardType.Hero:
                         third_Line_quest[m_currentThitrdLineQuestindex].HeroReward.isOpened = true;
+                        displayReward.Initialise(third_Line_quest[m_currentThitrdLineQuestindex].HeroReward);
                         break;
                     case Quest.RewardType.Boost:
                         boost_Controll.OpenCard(third_Line_quest[m_currentThitrdLineQuestindex].BoostCard);
+                        displayReward.Initialise(third_Line_quest[m_currentThitrdLineQuestindex].BoostCard);
                         break;
                     case Quest.RewardType.Location:
                         third_Line_quest[m_currentThitrdLineQuestindex].Location.isOpened = true;
+                        displayReward.Initialise(third_Line_quest[m_currentThitrdLineQuestindex].Location);
                         break;
                 }
                 m_currentThitrdLineQuestindex++;
@@ -1469,10 +3802,18 @@ public class Tower_quest : MonoBehaviour
             Boost.SetActive(true);
             Boostimg.SetActive(true);
             boost_Controll.OpenCard(third_Line_quest[m_currentThitrdLineQuestindex].BoostCard);
+            switch (third_Line_quest[m_currentThitrdLineQuestindex].rewardType)
+            {
+                case Quest.RewardType.Hero:
+                    third_Line_quest[m_currentThitrdLineQuestindex].HeroReward.isOpened = true;
+                    displayReward.Initialise(third_Line_quest[m_currentThitrdLineQuestindex].HeroReward);
+                    break;
+            }
+
             m_currentThitrdLineQuestindex++;
             Third_Line_Quest_Initialise();
           
-            GlovalEventSystem.TutorialStepsThirdPart(14);
+            GlovalEventSystem.TutorialStepsThirdPart(17);
         }
     }
 }

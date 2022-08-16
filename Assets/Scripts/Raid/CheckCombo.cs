@@ -13,6 +13,8 @@ public class CheckCombo : MonoBehaviour
     [SerializeField] private GameObject diagonallyLine_toUp;
     [SerializeField] private AutoRaid autoraid;
     [SerializeField] private ParticleSlotControll particleSlotControll;
+    [SerializeField] private Raid_control raidControl;
+    [SerializeField] private List<Tower_quest> tower_quest;
     private int activeSlots = 0;
     private int m_combo= 0;
     private int m_unluck= 0;
@@ -30,6 +32,73 @@ public class CheckCombo : MonoBehaviour
         GlovalEventSystem.OnRaidStart += CloseCombo;
     }
 
+    private void Start()
+    {
+        CheckOfflinePrize();
+    }
+    private void CheckOfflinePrize()
+    {
+        if (PlayerPrefs.HasKey("LastSession"))
+        {
+            var offlineTime = OffLineTimer.OfflineTime;
+            long tmp = (long)offlineTime.TotalSeconds;
+            int totalOfflineRaids = (int)tmp / 3;
+
+            var slots = raidControl.CheckWinPrize();
+
+            List<Item> winItems = new List<Item>();
+            long winGold = 0;
+            bool isEmptyRaid = true;
+            for (int k = 0; k < totalOfflineRaids; k++)
+            {
+                raidControl.CheckOffLinePrize();
+
+                for (int i = 0; i < slots.Count; i++)
+                {
+                    if (slots[i].isOpened && slots[i].m_currentHero != null)
+                    {
+                        isEmptyRaid = false;
+                        slots[i].m_currentHero.GoToRaid();
+                        if (slots[i].GetDice().prize == DiceControll.Prize.Item)
+                        {
+                            for (int j = 0; j < m_boostItem; j++)
+                            {
+                                winItems.Add(slots[i].GetDice().winItem);
+                            }
+                            particleSlotControll.PlayParticleWitItem(i, slots[i].GetDice().winItem);
+                            winGold += slots[i].m_currentHero.GetGoldProfit();
+
+                        }
+                        else if (slots[i].GetDice().prize == DiceControll.Prize.Gold)
+                        {
+                            winGold += slots[i].m_currentHero.GetGoldProfit();
+                            particleSlotControll.PlayParticleWitoutItem(i);
+                        }
+                        else if (slots[i].GetDice().prize == DiceControll.Prize.Death)
+                            m_unluck++;
+                    }
+                }
+            }
+            if (!isEmptyRaid)
+            {
+                for (int i = 0; i < totalOfflineRaids; i++)
+                {
+                    CurrentZone.Current_Zone.GoToRaid();
+                }
+            }
+            if (totalOfflineRaids > 0)
+            {
+                Debug.Log(winGold * m_boostGold + "  win + boost");
+                Gold.AddGold(winGold * m_boostGold);
+                foreach (var item in tower_quest)
+                {
+                    item.m_currentRaid += totalOfflineRaids;
+                    item.m_currentGold += winGold * m_boostGold;
+                }
+                ItemsAwarding(winItems);
+            }
+        }
+    }
     private void FixedUpdate()
     {
         if(m_isCombo)
@@ -227,10 +296,10 @@ public class CheckCombo : MonoBehaviour
             ItemsAwarding(winItems);
             GlovalEventSystem.CheckAchievement(winItems, winGold * m_boostGold, m_combo, m_unluck);
 
-            if(Gold.GetCurrentGold() != 0 && Tutorial.CheckTutorStep() == 9)
+            if(Gold.GetCurrentGold() != 0 && Tutorial.CheckTutorStep() == 11)
             {
                 autoraid.PauseRaid();
-                GlovalEventSystem.TutorialStepsSecondPart(8);
+                GlovalEventSystem.TutorialStepsSecondPart(11);
             }
         }
     }

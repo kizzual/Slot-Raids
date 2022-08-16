@@ -221,9 +221,17 @@ public class Raid_control : MonoBehaviour
             }
             GlovalEventSystem.RaidStart();
             SoundControl._instance.StartRaidSound();
-
-
         }  
+    }
+    public void CheckOffLinePrize()
+    {
+        for (int i = 0; i < raid_slot.Count; i++)
+        {
+            if (raid_slot[i].isOpened && raid_slot[i].m_currentHero != null)
+            {
+                raid_slot[i].GetDice().CheckRandomIndex();
+            }
+        }
     }
     public bool ChecnCanRaid()
     {

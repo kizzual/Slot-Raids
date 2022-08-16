@@ -48,9 +48,13 @@ public class Raid_UI : MonoBehaviour
     [SerializeField] private List<Image> elementArrow;
     [SerializeField] private DiceControll diceControll;
 
-    public Hero m_currentHero { get; set; }
+    public Hero m_currentHero;
     public bool isOpened { get; set; }
     public int SlotNumber;
+    public void Tester()
+    {
+        Debug.Log(m_currentHero.GoldToGrade);
+    }
     public void Initialise(Hero hero)
     {
         ActivePanel_Hero();
@@ -231,9 +235,9 @@ public class Raid_UI : MonoBehaviour
 
             //    DisplayHeroInfirmation();
             GlovalEventSystem.HeroUpgrade(m_currentHero);
-            SoundControl._instance.ClickBTN();
-            if (Tutorial.CheckTutorStep() == 10)
-                GlovalEventSystem.TutorialStepsSecondPart(9);
+            SoundControl._instance.UpgradeHero();
+            if (Tutorial.CheckTutorStep() == 12)
+                GlovalEventSystem.TutorialStepsSecondPart(12);
         }
         else
         {

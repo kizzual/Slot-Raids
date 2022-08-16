@@ -10,16 +10,16 @@ public class TowerUpgrade : MonoBehaviour
     private void Start()
     {
         m_tower_ui = GetComponent<Tower_UI>();
-    /*    if (PlayerPrefs.HasKey("TowerLvl"))
+        if (PlayerPrefs.HasKey("TowerLvl"))
             currentGrade = PlayerPrefs.GetInt("TowerLvl");
         else
         {
             currentGrade = 0;
-            GlovalEventSystem.TutorialSteps(0);
+        //    GlovalEventSystem.TutorialSteps(0);
         }
-*/
- currentGrade = 0;
-            GlovalEventSystem.TutorialSteps(0);
+
+/* currentGrade = 0;
+            GlovalEventSystem.TutorialSteps(0);*/
         CheckGoldToGrade();
         GlovalEventSystem.UpgradeTower(currentGrade);
         m_tower_ui.ChangeTowerSprite(currentGrade, m_goldToGrade);
@@ -35,7 +35,7 @@ public class TowerUpgrade : MonoBehaviour
             m_tower_ui.ChangeTowerSprite(currentGrade, m_goldToGrade);
             GlovalEventSystem.UpgradeTower(currentGrade);
             GlovalEventSystem.TutorialSteps(1);
-            SoundControl._instance.ClickBTN();
+            SoundControl._instance.UpgradeTower();
         }
         else
         {

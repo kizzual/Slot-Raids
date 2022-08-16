@@ -52,7 +52,7 @@ public class Char_slot : MonoBehaviour
 
             //    DisplayHeroInfirmation();
             GlovalEventSystem.HeroUpgrade(m_CurrentHero);
-            SoundControl._instance.ClickBTN();
+            SoundControl._instance.UpgradeHero();
         }
         else
         {
