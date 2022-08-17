@@ -6,16 +6,17 @@ using UnityEngine.UI;
 public class Zone : MonoBehaviour
 {
     public Type__Element typeElement;
+    public int ID;
     public int Rank;
     public int Luck;
     public int UnLuck;
     public int goldProfit { get; set; } = 1;
     public int itemProfit { get; set; } = 1;
     public List<Item> ItemsOnZone;
+    public List<Sprite> ItemSprites;
     public bool isOpened;
-
     public string nameLocation;
-
+    
     public Button button;
     public GameObject IsOpenedPanel;
     public GameObject IscloseddPanel;
@@ -27,6 +28,7 @@ public class Zone : MonoBehaviour
     private int m_itemBoost = 0;
     public void SwitchLocation(Zone zone)
     {
+      
         CurrentZone.SetZone(zone);
         GlovalEventSystem.SwitchLocation(zone);
     }

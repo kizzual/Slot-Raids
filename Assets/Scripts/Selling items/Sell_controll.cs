@@ -20,6 +20,7 @@ public class Sell_controll : MonoBehaviour
 
     public void OpenSellPanel(Item item, int count, Inventory_controll inventory_Controll)
     {
+        Debug.Log("ChechTutor");
         frontPanel.SetActive(true);
         gameObject.SetActive(true);
         if (count > 0)

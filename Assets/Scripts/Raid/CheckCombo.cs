@@ -40,9 +40,12 @@ public class CheckCombo : MonoBehaviour
     {
         if (PlayerPrefs.HasKey("LastSession"))
         {
+            Debug.Log("CHECK Offline");
             var offlineTime = OffLineTimer.OfflineTime;
             long tmp = (long)offlineTime.TotalSeconds;
             int totalOfflineRaids = (int)tmp / 3;
+            Debug.Log(" Offline second  =  " + tmp);
+            Debug.Log(" Offline totalOfflineRaids  =  " + totalOfflineRaids);
 
             var slots = raidControl.CheckWinPrize();
 
@@ -55,8 +58,10 @@ public class CheckCombo : MonoBehaviour
 
                 for (int i = 0; i < slots.Count; i++)
                 {
+                    Debug.Log("CheckSlot  id =   " + i + "   isOpened  " + slots[i].isOpened + "   and current hero   =   " + slots[i].m_currentHero);
                     if (slots[i].isOpened && slots[i].m_currentHero != null)
                     {
+                        Debug.Log("CheckSlot  id =   " + i);
                         isEmptyRaid = false;
                         slots[i].m_currentHero.GoToRaid();
                         if (slots[i].GetDice().prize == DiceControll.Prize.Item)
@@ -67,12 +72,13 @@ public class CheckCombo : MonoBehaviour
                             }
                             particleSlotControll.PlayParticleWitItem(i, slots[i].GetDice().winItem);
                             winGold += slots[i].m_currentHero.GetGoldProfit();
-
+                            Debug.Log("item  id =   " + i);
                         }
                         else if (slots[i].GetDice().prize == DiceControll.Prize.Gold)
                         {
                             winGold += slots[i].m_currentHero.GetGoldProfit();
                             particleSlotControll.PlayParticleWitoutItem(i);
+                            Debug.Log("gold  id =   " + i);
                         }
                         else if (slots[i].GetDice().prize == DiceControll.Prize.Death)
                             m_unluck++;
@@ -88,6 +94,7 @@ public class CheckCombo : MonoBehaviour
             }
             if (totalOfflineRaids > 0)
             {
+                Debug.Log("CHECK Offline  _  1" );
                 Debug.Log(winGold * m_boostGold + "  win + boost");
                 Gold.AddGold(winGold * m_boostGold);
                 foreach (var item in tower_quest)

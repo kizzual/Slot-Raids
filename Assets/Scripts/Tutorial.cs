@@ -7,6 +7,7 @@ public class Tutorial : MonoBehaviour
 {
     [SerializeField] private List<GameObject> toturialsObj;
     [SerializeField] private Image RaidButton;
+    [SerializeField] private NewTutorialSystem newTutorialSystem;
     private static int currentStep = 0;
     public static bool IsActiveFirstSteps;
 
@@ -152,6 +153,7 @@ public class Tutorial : MonoBehaviour
                    // IsActiveSecondSteps = false;
                     RaidButton.raycastTarget = true;
                     toturialsObj[currentStep - 1].SetActive(false);
+                    newTutorialSystem.StepByStep(0);
                 }
                if(currentStep == 19)
                 {

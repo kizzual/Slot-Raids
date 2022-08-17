@@ -1,32 +1,37 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class TowerUpgrade : MonoBehaviour
 {
     private long m_goldToGrade;
     public int currentGrade { get; set; }
     private Tower_UI m_tower_ui;
+    public Raid_control raidControl;
+    public Text test_4;
+    public Text test_5;
     private void Start()
     {
         m_tower_ui = GetComponent<Tower_UI>();
         if (PlayerPrefs.HasKey("TowerLvl"))
+        {
             currentGrade = PlayerPrefs.GetInt("TowerLvl");
+        }
         else
         {
             currentGrade = 0;
-        //    GlovalEventSystem.TutorialSteps(0);
         }
-
-/* currentGrade = 0;
-            GlovalEventSystem.TutorialSteps(0);*/
         CheckGoldToGrade();
-        GlovalEventSystem.UpgradeTower(currentGrade);
         m_tower_ui.ChangeTowerSprite(currentGrade, m_goldToGrade);
+        raidControl.CheckGrade(currentGrade);
+        test_4.text = "Cure Grade  Start = " + currentGrade.ToString(); ;
     }
+
     public void UpgradeTower()
     {
-        if(Gold.GetCurrentGold() >= m_goldToGrade && currentGrade < 9)
+        test_4.text = "Cure Grade  before = " + currentGrade.ToString(); ;
+        if (Gold.GetCurrentGold() >= m_goldToGrade && currentGrade < 9)
         {
             Gold.SpendGold(m_goldToGrade);
             currentGrade++;
@@ -41,6 +46,7 @@ public class TowerUpgrade : MonoBehaviour
         {
             SoundControl._instance.NoMoney();
         }
+        test_5.text = " Cure Grade after  = " + currentGrade.ToString();
     }
 
     public int GetTowerGrade() => currentGrade;

@@ -17,7 +17,28 @@ public class SwitchTabs : MonoBehaviour
     public GameObject boostPanel;
     private void Start()
     {
-        image = InventoryBtn.GetComponent<Image>();
+        image = InventoryBtn.GetComponent<Image>(); 
+        for (int i = 0; i < panel.Length; i++)
+        {
+            if (i != 2)
+            {
+                button[i].gameObject.transform.GetChild(1).gameObject.SetActive(false);
+                panel[i].SetActive(false);
+            }
+            else if (i == 2)
+            {
+                button[i].gameObject.transform.GetChild(1).gameObject.SetActive(false);
+            }
+        }
+        for (int i = 0; i < panel.Length; i++)
+        {
+            if (i == 0)
+            {
+                Debug.Log("ASD");
+                button[i].gameObject.transform.GetChild(1).gameObject.SetActive(true);
+                panel[i].SetActive(true);
+            }
+        }
     }
 
     public void ActivateEvent()
@@ -118,25 +139,6 @@ public class SwitchTabs : MonoBehaviour
                  panel[i].SetActive(true);
              }
          }*/
-        for (int i = 0; i < panel.Length; i++)
-        {
-            if (i != 2)
-            {
-                button[i].gameObject.transform.GetChild(1).gameObject.SetActive(false);
-                panel[i].SetActive(false);
-            }
-            else if (i == 2)
-            {
-                button[i].gameObject.transform.GetChild(1).gameObject.SetActive(false);
-            }
-        }
-        for (int i = 0; i < panel.Length; i++)
-        {
-            if (i == 0)
-            {
-                button[i].gameObject.transform.GetChild(1).gameObject.SetActive(true);
-                panel[i].SetActive(true);
-            }
-        }
+        
     }
 }

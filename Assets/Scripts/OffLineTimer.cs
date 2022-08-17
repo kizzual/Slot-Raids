@@ -25,11 +25,24 @@ public class OffLineTimer : MonoBehaviour
             Debug.Log("Offline = " + OfflineTime.Minutes + " минут  " + OfflineTime.Seconds + " секунд");
         }
     }
+    private void OnApplicationPause(bool pause)
+    {
+        if (pause)
+        {
+            Debug.Log("GoToOffline");
+            if (raid_button[0].isActive || raid_button[1].isActive || raid_button[2].isActive || raid_button[3].isActive)
+                PlayerPrefs.SetString("LastSession", DateTime.Now.ToString());
+            else
+                PlayerPrefs.DeleteKey("LastSession");
+        }
+     
+    }
     private void OnApplicationQuit()
     {
+        Debug.Log("GoToOffline");
         if (raid_button[0].isActive || raid_button[1].isActive || raid_button[2].isActive || raid_button[3].isActive)
             PlayerPrefs.SetString("LastSession", DateTime.Now.ToString());
-        else 
+        else
             PlayerPrefs.DeleteKey("LastSession");
     }
 

@@ -30,7 +30,7 @@ public class DisplayReward : MonoBehaviour
         gameObject.SetActive(true);
         reward_image.sprite = card.GetComponent<Image>().sprite;
         reward_image.SetNativeSize();
-        reward_name.text = "Boost card";
+        reward_name.text = "BOOST CARD";
     }
     public void Initialise()
     {
@@ -38,7 +38,7 @@ public class DisplayReward : MonoBehaviour
         gameObject.SetActive(true);
         reward_image.sprite = slotIcon;
         reward_image.SetNativeSize();
-        reward_name.text = "Raid slot";
+        reward_name.text = "+1 RAID SLOT";
     }
     public void ClosePanel()
     {

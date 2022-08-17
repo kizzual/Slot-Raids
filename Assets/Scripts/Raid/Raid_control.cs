@@ -16,7 +16,7 @@ public class Raid_control : MonoBehaviour
     [SerializeField] private List<Image> item_1_icon;
     [SerializeField] private List<Image> item_2_icon;
     [SerializeField] private List<Sprite> elementLogo;
-
+    
     private int m_currentSlotCount = 0;
 
 
@@ -33,7 +33,7 @@ public class Raid_control : MonoBehaviour
 
     private void Start()
     {
-        CheckSlots();
+      /*  CheckSlots();
         foreach (var item in winSwords)
         {
             item.text = 0.ToString();
@@ -92,7 +92,7 @@ public class Raid_control : MonoBehaviour
                     item.sprite = elementLogo[3];
                 }
                 break;
-        }
+        }*/
 
     }
     public void CheckSlots()
@@ -177,7 +177,9 @@ public class Raid_control : MonoBehaviour
         {
             item.sprite = CurrentZone.Current_Zone.ItemsOnZone[1].GetComponent<Image>().sprite;
         }
+        CheckSlots();
     }
+
     private void OnGradeTower(int gradeNumber)
     {
         for (int i = 0; i < gradeNumber; i++)
@@ -185,6 +187,13 @@ public class Raid_control : MonoBehaviour
             raid_slot[i].isOpened = true;
             raid_slot[i].CheckSlot();
 
+        }
+    }
+    public void CheckGrade(int grade)
+    {
+        for (int i = 0; i < grade; i++)
+        {
+            raid_slot[i].isOpened = true;
         }
     }
     public void StartRaid()
