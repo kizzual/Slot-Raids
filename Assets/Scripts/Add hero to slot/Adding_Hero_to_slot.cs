@@ -10,6 +10,7 @@ public class Adding_Hero_to_slot : MonoBehaviour
     [SerializeField] private List<Slot_UI> _order_Slots;
     [SerializeField] private List<Slot_UI> _demon_Slots;
     [SerializeField] private GameObject frontPanel;
+    [SerializeField] private List<Raid_button> raid_buttons;
     private Raid_UI currentSlot;
     public void ActivateEvent()
     {
@@ -22,6 +23,10 @@ public class Adding_Hero_to_slot : MonoBehaviour
         currentSlot = slot;
         frontPanel.SetActive(true);
         gameObject.SetActive(true);
+        foreach (var item in raid_buttons)
+        {
+            item.PauseRaid();
+        }
     }
     public void AddHeroToSlot(Slot_UI slot_ui)
     {
