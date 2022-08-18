@@ -16,6 +16,7 @@ public class CheckCombo : MonoBehaviour
     [SerializeField] private ParticleSlotControll particleSlotControll;
     [SerializeField] private Raid_control raidControl;
     [SerializeField] private List<Tower_quest> tower_quest;
+    [SerializeField] private OfflineGreating offline_greatings;
     private int activeSlots = 0;
     private int m_combo= 0;
     private int m_unluck= 0;
@@ -103,6 +104,11 @@ public class CheckCombo : MonoBehaviour
                     item.m_currentGold += winGold * m_boostGold;
                 }
                 ItemsAwarding(winItems);
+
+                if(winGold > 0)
+                {
+                    offline_greatings.OfflineReward(winGold, winItems);
+                }
                 test_1.text = "WinPrize Complete";
                 return;
             }
@@ -300,7 +306,10 @@ public class CheckCombo : MonoBehaviour
             }
 
             // выдача призов
-            
+            if(m_isCombo)
+            {
+                SoundControl._instance.Combo();
+            }
             Gold.AddGold(winGold * m_boostGold);
             GlovalEventSystem.WinGold(winGold * m_boostGold);
             ItemsAwarding(winItems);

@@ -25,10 +25,10 @@ public class NewTutorialSystem : MonoBehaviour
             {
                 gameObject.SetActive(true);
                 steps[index].gameObject.SetActive(true);
-                foreach (var item in raid_buttons)
+            /*    foreach (var item in raid_buttons)
                 {
                     item.PauseRaid();
-                }
+                }*/
             }
             else if (index == 1)
             {

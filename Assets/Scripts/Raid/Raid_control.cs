@@ -16,7 +16,7 @@ public class Raid_control : MonoBehaviour
     [SerializeField] private List<Image> item_1_icon;
     [SerializeField] private List<Image> item_2_icon;
     [SerializeField] private List<Sprite> elementLogo;
-    
+    [SerializeField] private List<GameObject> Buttons;
     private int m_currentSlotCount = 0;
 
 
@@ -145,27 +145,56 @@ public class Raid_control : MonoBehaviour
         switch (CurrentZone.Current_Zone.typeElement)
         {
             case Type__Element.Neutral:
-                foreach (var item in elementLocation)
                 {
-                    item.sprite = elementLogo[0];
+                    foreach (var item in Buttons)
+                    {
+                        item.SetActive(false);
+                    }
+                    Buttons[0].SetActive(true);
+
+                    foreach (var item in elementLocation)
+                    {
+                        item.sprite = elementLogo[0];
+                    }
                 }
                 break;
             case Type__Element.Undead:
-                foreach (var item in elementLocation)
                 {
-                    item.sprite = elementLogo[1];
+                    foreach (var item in Buttons)
+                    {
+                        item.SetActive(false);
+                    }
+                    Buttons[1].SetActive(true);
+                    foreach (var item in elementLocation)
+                    {
+                        item.sprite = elementLogo[1];
+                    }
                 }
                 break;
             case Type__Element.Order:
-                foreach (var item in elementLocation)
                 {
-                    item.sprite = elementLogo[2];
+                    foreach (var item in Buttons)
+                    {
+                        item.SetActive(false);
+                    }
+                    Buttons[2].SetActive(true);
+                    foreach (var item in elementLocation)
+                    {
+                        item.sprite = elementLogo[2];
+                    }
                 }
                 break;
             case Type__Element.Demon:
-                foreach (var item in elementLocation)
                 {
-                    item.sprite = elementLogo[3];
+                    foreach (var item in Buttons)
+                    {
+                        item.SetActive(false);
+                    }
+                    Buttons[3].SetActive(true);
+                    foreach (var item in elementLocation)
+                    {
+                        item.sprite = elementLogo[3];
+                    }
                 }
                 break;
         }

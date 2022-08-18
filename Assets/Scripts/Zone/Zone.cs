@@ -26,6 +26,7 @@ public class Zone : MonoBehaviour
     private int m_unLuckBoost = 0;
     private int m_goldBoost = 0;
     private int m_itemBoost = 0;
+    public Sprite logo;
     public void SwitchLocation(Zone zone)
     {
       
