@@ -2305,6 +2305,7 @@ public class Tower_quest : MonoBehaviour
                 {
                     tower_Quest_UI[2].QuestComplete();
                     GlovalEventSystem.TutorialStepsThirdPart(14);
+                    PlayerPrefs.SetInt("Boost", 1 );
                 }
             }
             else if (third_Line_quest[m_currentThitrdLineQuestindex].goal.goalType == GoalType.Upgrade_Tower)

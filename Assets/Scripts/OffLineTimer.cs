@@ -14,8 +14,8 @@ public class OffLineTimer : MonoBehaviour
     public List<Raid_button> raid_button;
     public void Awake()
     {
-        InitSingleton();
-        ChecckOffline();
+     //   InitSingleton();
+     //   ChecckOffline();
     }
     public void ChecckOffline()
     {
@@ -32,25 +32,21 @@ public class OffLineTimer : MonoBehaviour
             if (pause)
             {
                 Debug.Log("GoToOffline");
-                if (raid_button[0].isActive || raid_button[1].isActive || raid_button[2].isActive || raid_button[3].isActive)
-                    PlayerPrefs.SetString("LastSession", DateTime.Now.ToString());
-                else
-                    PlayerPrefs.DeleteKey("LastSession");
+                PlayerPrefs.SetString("LastSession", DateTime.Now.ToString());
             }
         }
      
     }
     private void OnApplicationQuit()
     {
-        Debug.Log("GoToOffline");
-        if(Tutorial.CheckTutorStep() >= 20)
+        if (Tutorial.CheckTutorStep() >= 20)
         {
-            if (raid_button[0].isActive || raid_button[1].isActive || raid_button[2].isActive || raid_button[3].isActive)
+            Debug.Log("GoToOffline");
+            if (Tutorial.CheckTutorStep() >= 20)
+            {
                 PlayerPrefs.SetString("LastSession", DateTime.Now.ToString());
-            else
-                PlayerPrefs.DeleteKey("LastSession");
+            }
         }
-      
     }
 
 }

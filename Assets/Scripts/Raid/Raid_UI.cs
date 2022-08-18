@@ -64,7 +64,7 @@ public class Raid_UI : MonoBehaviour
         m_currentHero.currentRaidSlot = SlotNumber;
         Rank.text = "D " + hero.cube.edgesNumber.ToString();
         lvl.text = hero.Level.ToString();
-        combo.text = "x" + hero.GetCombo().ToString();
+        combo.text = hero.GetGoldProfit().ToString();
         goldToGrade.text = ConvertText.FormatNumb(hero.GoldToGrade);
         heroIcon.sprite = hero.Icon;
         foreach (var item in elementArrow)

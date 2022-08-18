@@ -74,7 +74,8 @@ public class AutoRaid : MonoBehaviour
             PlayImg.SetActive(true);
             PauseImg.SetActive(false);
         }
-        
+
+
         // animatioan pause
     }
 }

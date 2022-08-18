@@ -9,11 +9,17 @@ public class TowerUpgrade : MonoBehaviour
     public int currentGrade { get; set; }
     private Tower_UI m_tower_ui;
     public Raid_control raidControl;
+    public GameObject BoostTower;
+    public GameObject Boost;
     [SerializeField] private ParticleSystem _upgradeParticle;
     public Text test_4;
     private void Awake()
     {
-        test_4.text = "Grade tower startet = " ;
+       
+    }
+    public void Initialise()
+    {
+        test_4.text = "Grade tower startet = ";
 
         m_tower_ui = GetComponent<Tower_UI>();
         if (PlayerPrefs.HasKey("TowerLvl"))
@@ -27,9 +33,13 @@ public class TowerUpgrade : MonoBehaviour
         CheckGoldToGrade();
         m_tower_ui.ChangeTowerSprite(currentGrade, m_goldToGrade);
         raidControl.CheckGrade(currentGrade);
+        if(PlayerPrefs.HasKey("Boost"))
+        {
+            Boost.SetActive(true);
+            BoostTower.SetActive(true);
+        }
         test_4.text = "Grade tower Finished = ";
     }
-
     public void UpgradeTower()
     {
         if (Gold.GetCurrentGold() >= m_goldToGrade && currentGrade < 9)

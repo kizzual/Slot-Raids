@@ -162,7 +162,31 @@ public class Raid_button : MonoBehaviour
             }
         }
     }
-
+    public void GoRaidAfterOffline()
+    {
+        Debug.Log("ChecnCanRaid =  " + raid_control.ChecnCanRaid());
+        if (raid_control.ChecnCanRaid())
+        {
+            isActive = true;
+            currentButton.sprite = ButtonsSprite[0];
+            m_hideTimer = 0;
+            m_imageIsHide = true;
+            m_isStopping = false;
+            if (buttonState == ButtonState.Stopped || m_canRaid == false)
+            {
+                m_canRaid = true;
+                m_timer = 0;
+                autoraid.PauseBut_anim.SetBool("IsActive", false);
+                buttonState = ButtonState.AutoRaid;
+                raid_control.StartRaid();
+                m_animator.SetTrigger("Press");
+                autoraid.PlayImg.SetActive(false);
+                autoraid.PauseImg.SetActive(true);
+                Debug.Log("CAN _1");
+            }
+                Debug.Log("CAN _2");
+        }
+    }
     public void PauseRaid()
     {
         m_isStopping = true;

@@ -14,8 +14,8 @@ public class Boost_Controll : MonoBehaviour
     public int RaidToActivateBoost_required;
     public BoostCard CurrentBoost;
     public List<Image> manaImg;
-    private float m_timer;
-    private int m_currentRaid;
+    public float m_timer;
+    public int m_currentRaid;
     [SerializeField] private List<GameObject> AttentionIcon;
     [SerializeField] private GameObject TowerButton;
     [SerializeField] private Image mana_Img;
@@ -78,6 +78,42 @@ public class Boost_Controll : MonoBehaviour
                 {
                     item.SetActive(true);
                 }
+            }
+        }
+    }
+    public void LoadBoost(BoostSaver card)
+    {
+        FullCardList = card.FullCardList;
+        activeCard = card.activeCard;
+        m_currentRaid = card.CurrentRaids;
+        if(card.currentCard != null)
+        {
+            CurrentBoost = card.currentCard;
+            if(card.isActive)
+            {
+                CurrentBoost.isActive = true;
+                m_timer = card.timer;
+                boostUI.SwitchCurrentCardImage(CurrentBoost);
+                if (m_currentRaid >= RaidToActivateBoost_required)
+                    GlovalEventSystem.BoostIsReady();
+                else
+                    GlovalEventSystem.BoostIsNotReady();
+                float tmp = ((float)m_currentRaid / (float)RaidToActivateBoost_required);
+                foreach (var item in manaImg)
+                {
+                    item.fillAmount = tmp;
+                }
+                mana_Img.fillAmount = tmp;
+                CheckBoostType();
+                foreach (var item in ActivePanel)
+                {
+                    item.SetActive(true);
+                }
+
+            }
+            else
+            {
+                CurrentBoost.isActive = false;
             }
         }
     }

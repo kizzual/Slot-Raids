@@ -33,7 +33,66 @@ public class Raid_control : MonoBehaviour
 
     private void Start()
     {
-      /*  CheckSlots();
+        /*  CheckSlots();
+          foreach (var item in winSwords)
+          {
+              item.text = 0.ToString();
+          }
+          foreach (var item in winShields)
+          {
+              item.text = 0.ToString();
+          }
+          foreach (var item in winAmulets)
+          {
+              item.text = 0.ToString();
+          }
+          foreach (var item in nameOfLocation)
+          {
+              item.text = CurrentZone.Current_Zone.nameLocation;
+          }
+          foreach (var item in luckLocation)
+          {
+              item.text = CurrentZone.Current_Zone.Luck.ToString();
+          }
+          foreach (var item in unLuckLocation)
+          {
+              item.text = CurrentZone.Current_Zone.UnLuck.ToString();
+          }
+          foreach (var item in item_1_icon)
+          {
+              item.sprite = CurrentZone.Current_Zone.ItemsOnZone[0].GetComponent<Image>().sprite;
+          }
+          foreach (var item in item_2_icon)
+          {
+              item.sprite = CurrentZone.Current_Zone.ItemsOnZone[1].GetComponent<Image>().sprite;
+          }
+          switch (CurrentZone.Current_Zone.typeElement)
+          {
+              case Type__Element.Neutral:
+                  foreach (var item in elementLocation)
+                  {
+                      item.sprite = elementLogo[0];
+                  }
+                  break;
+              case Type__Element.Undead:
+                  foreach (var item in elementLocation)
+                  {
+                      item.sprite = elementLogo[1];
+                  }
+                  break;
+              case Type__Element.Order:
+                  foreach (var item in elementLocation)
+                  {
+                      item.sprite = elementLogo[2];
+                  }
+                  break;
+              case Type__Element.Demon:
+                  foreach (var item in elementLocation)
+                  {
+                      item.sprite = elementLogo[3];
+                  }
+                  break;
+          }*/
         foreach (var item in winSwords)
         {
             item.text = 0.ToString();
@@ -46,54 +105,6 @@ public class Raid_control : MonoBehaviour
         {
             item.text = 0.ToString();
         }
-        foreach (var item in nameOfLocation)
-        {
-            item.text = CurrentZone.Current_Zone.nameLocation;
-        }
-        foreach (var item in luckLocation)
-        {
-            item.text = CurrentZone.Current_Zone.Luck.ToString();
-        }
-        foreach (var item in unLuckLocation)
-        {
-            item.text = CurrentZone.Current_Zone.UnLuck.ToString();
-        }
-        foreach (var item in item_1_icon)
-        {
-            item.sprite = CurrentZone.Current_Zone.ItemsOnZone[0].GetComponent<Image>().sprite;
-        }
-        foreach (var item in item_2_icon)
-        {
-            item.sprite = CurrentZone.Current_Zone.ItemsOnZone[1].GetComponent<Image>().sprite;
-        }
-        switch (CurrentZone.Current_Zone.typeElement)
-        {
-            case Type__Element.Neutral:
-                foreach (var item in elementLocation)
-                {
-                    item.sprite = elementLogo[0];
-                }
-                break;
-            case Type__Element.Undead:
-                foreach (var item in elementLocation)
-                {
-                    item.sprite = elementLogo[1];
-                }
-                break;
-            case Type__Element.Order:
-                foreach (var item in elementLocation)
-                {
-                    item.sprite = elementLogo[2];
-                }
-                break;
-            case Type__Element.Demon:
-                foreach (var item in elementLocation)
-                {
-                    item.sprite = elementLogo[3];
-                }
-                break;
-        }*/
-
     }
     public void CheckSlots()
     {

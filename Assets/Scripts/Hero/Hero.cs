@@ -30,6 +30,7 @@ public class Hero : MonoBehaviour
     public int Rank { get; set; }
     public long GoldToGrade;
     public long GoldProfit { get; set; }
+
     public int Multiplier { get; set; }
     public int currentRaidSlot { get; set; }
     public bool isOpened;
@@ -220,8 +221,15 @@ public class Hero : MonoBehaviour
         {
             if (Level != 1)
             {
-                GoldToGrade += Mathf.RoundToInt((GoldToGrade / 100f * Grade_percent));
-                GoldToGrade -= Mathf.RoundToInt((GoldToGrade / 100f) * m_discounteToGrade);
+                var tmp = Base_Grade;
+                for (int i = 0; i < Level; i++)
+                {
+                    tmp += Mathf.RoundToInt((tmp / 100f * Grade_percent));
+                }
+                tmp -= Mathf.RoundToInt((tmp / 100f) * m_discounteToGrade);
+                GoldToGrade = tmp;
+                //         GoldToGrade += Mathf.RoundToInt((GoldToGrade / 100f * Grade_percent));
+           //     GoldToGrade -= Mathf.RoundToInt((GoldToGrade / 100f) * m_discounteToGrade);
             }
             else
             {
@@ -233,7 +241,13 @@ public class Hero : MonoBehaviour
         {
             if (Level != 1)
             {
-                GoldToGrade += Mathf.RoundToInt((GoldToGrade / 100f * Grade_percent));
+                var tmp = Base_Grade;
+                for (int i = 0; i < Level; i++)
+                {
+                    tmp += Mathf.RoundToInt((tmp / 100f * Grade_percent));
+                }
+                GoldToGrade = tmp;
+          //      GoldToGrade += Mathf.RoundToInt((GoldToGrade / 100f * Grade_percent));
             }
             else
                 GoldToGrade = Base_Grade;
@@ -241,9 +255,15 @@ public class Hero : MonoBehaviour
     }
     private void ChangeMultiplier()
     {
+        var tmp = StartetMultiplier;
         if (Level != 1)
         {
-            Multiplier += StartetMultiplier / 2;
+            for (int i = 0; i < Level; i++)
+            {
+                tmp += StartetMultiplier / 2;
+            }
+            Multiplier = tmp;
+       //     Multiplier += StartetMultiplier / 2;
         }
         else
             Multiplier = StartetMultiplier;
@@ -278,7 +298,18 @@ public class Hero : MonoBehaviour
             AddItem(hero.Amulet);
         raidsCount = hero.raidsCount;
         this.GoldToGrade = hero.goldToGrade;
-        Initialise();
+        if (Level < 50)
+            Rank = 1;
+        else if (Level >= 50 && Level < 99)
+            Rank = 2;
+        else
+            Rank = 3;
+        for (int i = 0; i < Level; i++)
+        {
+            ChangeGoldToGrade();
+            ChangeMultiplier();
+        }
+
     }
 }
 [System.Serializable]

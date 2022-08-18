@@ -23,6 +23,9 @@ public class Saver : MonoBehaviour
     [SerializeField] private Raid_control raid_control;
     [SerializeField] private SwitchLocation switchLocation;
     [SerializeField] private Boost_Controll boost_Controll;
+    [SerializeField] private TowerUpgrade upgradeTower;
+    [SerializeField] private CheckCombo checkCombo;
+    [SerializeField] private OffLineTimer offlineTimer;
 
 
     public Text test_1;
@@ -98,7 +101,11 @@ public class Saver : MonoBehaviour
         m_questSaver = FileHandler.ReadListFromJSON<QuestSaver>(QuestSaverPath);
         allZonesSaver = FileHandler.ReadListFromJSON<AllZonesSaver>(allZoneSaverPath);
         m_boostSaver = FileHandler.ReadFromJSON<BoostSaver>(BoostSaverPath);
+
         test_1.text = "start loading";
+        offlineTimer.ChecckOffline();
+        //////////  загрузка башни    ////////
+        upgradeTower.Initialise();
         ////////// загрузка характеристик карт ////////
         if (allZonesSaver != null)
         {
@@ -114,23 +121,7 @@ public class Saver : MonoBehaviour
         if (m_inventorySavers != null)
             inventory_Controll.LoadInventory(m_inventorySavers);
         test_1.text = "Load 2 done";
-        /////////////// загрузка квестов //////////////
-        if (m_questSaver.Count > 0 )
-        {
-            for (int i = 0; i < m_questSaver.Count; i++)
-            {
-                quests[i].m_currentFirstLineQuestindex = m_questSaver[i].firstIndex;
-                quests[i].m_currentSecondLineQuestindex = m_questSaver[i].secondIndex;
-                quests[i].m_currentThitrdLineQuestindex = m_questSaver[i].thirdIndex;
-                quests[i].first_Line_quest[quests[i].m_currentFirstLineQuestindex].goal = m_questSaver[i].first_Line;
-                quests[i].second_Line_quest[quests[i].m_currentSecondLineQuestindex].goal = m_questSaver[i].second_Line;
-                quests[i].third_Line_quest[quests[i].m_currentThitrdLineQuestindex].goal = m_questSaver[i].third_Line;
-                quests[i].m_currentRaid = m_questSaver[i].currentRaid;
-                quests[i].m_currentGold = m_questSaver[i].currentGold;
 
-            }
-        }
-        test_1.text = "Load 3 done";
         //////////// загрузка текущей карты ///////////
         if (PlayerPrefs.HasKey("CurrentZone"))
         {
@@ -161,7 +152,7 @@ public class Saver : MonoBehaviour
             }
             raid_control.Switchlocation(CurrentZone.Current_Zone);
         }
-        else if(!PlayerPrefs.HasKey("CurrentZone"))
+        else if (!PlayerPrefs.HasKey("CurrentZone"))
         {
             CurrentZone.SetZone(zones[0]);
             switch (CurrentZone.Current_Zone.typeElement)
@@ -181,35 +172,7 @@ public class Saver : MonoBehaviour
             }
             raid_control.Switchlocation(CurrentZone.Current_Zone);
         }
-        test_1.text = "Load 4 done";
-        /*  if (m_zoneSaver.Count > 0)
-          {
-              CurrentZone.SetZone(m_zoneSaver[m_zoneSaver.Count - 1].currentZone);
-              *//* for (int i = 0; i < zones.Count; i++)
-               {
-                   if(m_zoneSaver.zoneIndex == zones[i].ID)
-                   {
-                       CurrentZone.SetZone(zones[i]);
-                       break;
-                   }
-               }*//*
-              switch (CurrentZone.Current_Zone.typeElement)
-              {
-                  case Type__Element.Neutral:
-                      switchLocation.SwitchRaidLocation(0);
-                      break;
-                  case Type__Element.Undead:
-                      switchLocation.SwitchRaidLocation(1);
-                      break;
-                  case Type__Element.Order:
-                      switchLocation.SwitchRaidLocation(2);
-                      break;
-                  case Type__Element.Demon:
-                      switchLocation.SwitchRaidLocation(3);
-                      break;
-              }
-              raid_control.Switchlocation(CurrentZone.Current_Zone);
-          }*/
+        test_1.text = "Load 3 done";
 
         //////////// загрузка героев ///////////////
         if (m_heroSaver.Count > 0)
@@ -238,14 +201,38 @@ public class Saver : MonoBehaviour
             }
             Debug.Log("Heroes loaded");
         }
+        test_1.text = "Load 4 done";
+
+        /////////////// загрузка квестов //////////////
+        if (m_questSaver.Count > 0 )
+        {
+            for (int i = 0; i < m_questSaver.Count; i++)
+            {
+                quests[i].m_currentFirstLineQuestindex = m_questSaver[i].firstIndex;
+                quests[i].m_currentSecondLineQuestindex = m_questSaver[i].secondIndex;
+                quests[i].m_currentThitrdLineQuestindex = m_questSaver[i].thirdIndex;
+                quests[i].first_Line_quest[quests[i].m_currentFirstLineQuestindex].goal = m_questSaver[i].first_Line;
+                quests[i].second_Line_quest[quests[i].m_currentSecondLineQuestindex].goal = m_questSaver[i].second_Line;
+                quests[i].third_Line_quest[quests[i].m_currentThitrdLineQuestindex].goal = m_questSaver[i].third_Line;
+                quests[i].m_currentRaid = m_questSaver[i].currentRaid;
+                quests[i].m_currentGold = m_questSaver[i].currentGold;
+
+            }
+        }
         test_1.text = "Load 5 done";
 
         /////////////// загрузка бустов ////////////////
         if (m_boostSaver != null)
         {
-            boost_Controll.FullCardList = m_boostSaver.FullCardList;
-            boost_Controll.activeCard = m_boostSaver.activeCard;
+            boost_Controll.LoadBoost(m_boostSaver);
         }
+        test_1.text = "Load 6 done";
+
+        /////////////// загрузка призов ////////////////
+        checkCombo.CheckOfflinePrize();
+        Debug.Log("Rewards coplete");
+        test_1.text = "Load 7 done";
+
         test_1.text = "Load complete";
 
     }
@@ -253,7 +240,6 @@ public class Saver : MonoBehaviour
     {
         m_heroSaver = FileHandler.ReadListFromJSON<HeroSaver>(heroSaverPath);
         m_inventorySavers = FileHandler.ReadFromJSON<InventorySaver>(inventorySaverPath);
-        m_zoneSaver = FileHandler.ReadListFromJSON<ZoneSaver>(zoneSaverPath);
         m_questSaver = FileHandler.ReadListFromJSON<QuestSaver>(QuestSaverPath);
         allZonesSaver = FileHandler.ReadListFromJSON<AllZonesSaver>(allZoneSaverPath);
         m_boostSaver = FileHandler.ReadFromJSON<BoostSaver>(BoostSaverPath);
@@ -397,10 +383,23 @@ public class BoostSaver
 {
     public List<BoostCard> FullCardList;
     public List<BoostCard> activeCard;
-
+    public bool isActive;
+    public int CurrentRaids;
+    public BoostCard currentCard;
+    public float timer;
     public BoostSaver(Boost_Controll boost_Controll)
     {
         FullCardList = boost_Controll.FullCardList;
         activeCard = boost_Controll.activeCard;
+        if(boost_Controll.CurrentBoost != null)
+        {
+            currentCard = boost_Controll.CurrentBoost;
+            if (boost_Controll.CurrentBoost.isActive)
+                this.isActive = true;
+            else
+                this.isActive = false;
+        }
+        this.CurrentRaids = boost_Controll.m_currentRaid;
+        this.timer = boost_Controll.m_timer;
     }
 }

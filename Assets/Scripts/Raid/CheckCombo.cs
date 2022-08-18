@@ -17,6 +17,7 @@ public class CheckCombo : MonoBehaviour
     [SerializeField] private Raid_control raidControl;
     [SerializeField] private List<Tower_quest> tower_quest;
     [SerializeField] private OfflineGreating offline_greatings;
+    [SerializeField] private List<Raid_button> raid_buttons;
     private int activeSlots = 0;
     private int m_combo= 0;
     private int m_unluck= 0;
@@ -38,16 +39,16 @@ public class CheckCombo : MonoBehaviour
 
     private void Start()
     {
-        CheckOfflinePrize();
+
     }
-    private void CheckOfflinePrize()
+    public void CheckOfflinePrize()
     {
         test_1.text = "WinPrize Startet";
         if (PlayerPrefs.HasKey("LastSession"))
-        {
+        { 
             var offlineTime = OffLineTimer.OfflineTime;
             long tmp = (long)offlineTime.TotalSeconds;
-            int totalOfflineRaids = (int)tmp / 3;
+            int totalOfflineRaids = (int)tmp / 20;
 
             var slots = raidControl.CheckWinPrize();
 
@@ -105,14 +106,18 @@ public class CheckCombo : MonoBehaviour
                 }
                 ItemsAwarding(winItems);
 
-                if(winGold > 0)
-                {
-                    offline_greatings.OfflineReward(winGold, winItems);
-                }
+                offline_greatings.OfflineReward(winGold, winItems);
                 test_1.text = "WinPrize Complete";
-                return;
             }
             test_1.text = "WinPrize Aborted";
+        }
+        foreach (var item in raid_buttons)
+        {
+            if (item.gameObject.activeSelf)
+            {
+                item.GoRaidAfterOffline();
+                return;
+            }
         }
     }
     private void FixedUpdate()
