@@ -265,7 +265,6 @@ public class Saver : MonoBehaviour
         m_boostSaver = null;
         FileHandler.SaveToJSON<HeroSaver>(m_heroSaver, heroSaverPath);
         FileHandler.SaveToJSON<InventorySaver>(m_inventorySavers, inventorySaverPath);
-        FileHandler.SaveToJSON<ZoneSaver>(m_zoneSaver, zoneSaverPath);
         FileHandler.SaveToJSON<AllZonesSaver>(allZonesSaver, allZoneSaverPath);
         FileHandler.SaveToJSON<QuestSaver>(m_questSaver, QuestSaverPath);
         FileHandler.SaveToJSON<BoostSaver>(m_boostSaver, BoostSaverPath);
@@ -289,6 +288,7 @@ public class Saver : MonoBehaviour
                 }
                 zones[0].isOpened = true;
         */
+        Debug.Log("QUIT");
         m_FastQuit = true;
         Application.Quit();
     }
