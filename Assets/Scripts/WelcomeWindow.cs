@@ -4,16 +4,23 @@ using UnityEngine;
 
 public class WelcomeWindow : MonoBehaviour
 {
+    public GameObject Button;
     public void Initialise()
     {
-        if(!PlayerPrefs.HasKey("FirstStart"))
+        if (!PlayerPrefs.HasKey("FirstStart"))
         {
             gameObject.SetActive(true);
+            StartCoroutine(hello());
         }
     }
     public void ClosePanel()
     {
         gameObject.SetActive(false);
         PlayerPrefs.SetInt("FirstStart", 1);
+    }
+    IEnumerator hello()
+    {
+        yield return new WaitForSeconds(2f);
+        Button.SetActive(true);
     }
 }
