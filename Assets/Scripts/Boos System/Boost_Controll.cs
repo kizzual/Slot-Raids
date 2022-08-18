@@ -20,6 +20,8 @@ public class Boost_Controll : MonoBehaviour
     [SerializeField] private GameObject TowerButton;
     [SerializeField] private Image mana_Img;
     public List<BoostCard> RandomCards = new List<BoostCard>();
+    public List<ParticleSystem> actiateBoost;
+    public List<GameObject> ActivePanel;
 
     private void FixedUpdate()
     { 
@@ -67,7 +69,15 @@ public class Boost_Controll : MonoBehaviour
                 mana_Img.fillAmount = tmp;
                 CheckBoostType();
                 SoundControl._instance.ActivateBoost();
+                foreach (var item in actiateBoost)
+                {
+                    item.Play();
+                }
                 GlovalEventSystem.TutorialStepsThirdPart(20);
+                foreach (var item in ActivePanel)
+                {
+                    item.SetActive(true);
+                }
             }
         }
     }
@@ -258,6 +268,10 @@ public class Boost_Controll : MonoBehaviour
         SoundControl._instance.DeActivateBoost();
         CurrentBoost = null;
         RandomizeCard();
+        foreach (var item in ActivePanel)
+        {
+            item.SetActive(false);
+        }
     }
     private void RaidComplete(List<Item> items)
     {

@@ -14,13 +14,14 @@ public class DisplayReward : MonoBehaviour
         gameObject.SetActive(true);
         reward_image.sprite = hero.FirstRankSprite;
         reward_image.SetNativeSize();
+        
         reward_name.text = hero.HeroName;
     }
     public void Initialise(Zone zone)
     {
         SoundControl._instance.Reward();
         gameObject.SetActive(true);
-        reward_image.sprite = zone.GetComponent<Image>().sprite;
+        reward_image.sprite = zone.ZoneSprite;
         reward_image.SetNativeSize();
         reward_name.text = zone.nameLocation;
     }

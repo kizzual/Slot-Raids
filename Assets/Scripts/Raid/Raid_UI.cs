@@ -29,6 +29,8 @@ public class Raid_UI : MonoBehaviour
     [SerializeField] private GameObject closed_panel;
     [SerializeField] private GameObject unraid_panel;
     [SerializeField] private List<GameObject> backGrounds;
+    [SerializeField] private ParticleSystem _upgradeParticle;
+
 
     [SerializeField] private GameObject canGrade;
     [SerializeField] private GameObject cannotGrade;
@@ -236,6 +238,7 @@ public class Raid_UI : MonoBehaviour
             //    DisplayHeroInfirmation();
             GlovalEventSystem.HeroUpgrade(m_currentHero);
             SoundControl._instance.UpgradeHero();
+            _upgradeParticle.Play();
             if (Tutorial.CheckTutorStep() == 12)
                 GlovalEventSystem.TutorialStepsSecondPart(12);
         }

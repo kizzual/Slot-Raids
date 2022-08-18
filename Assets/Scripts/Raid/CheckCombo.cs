@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class CheckCombo : MonoBehaviour
 {
@@ -22,6 +23,8 @@ public class CheckCombo : MonoBehaviour
     private bool m_isCombo;
     private int m_boostGold = 1;
     private int m_boostItem = 1;
+    public Text test_1;
+    public Text test_2;
     public void ActivateEvent()
     {
         GlovalEventSystem.OnRaidComplete += Combo;
@@ -38,14 +41,12 @@ public class CheckCombo : MonoBehaviour
     }
     private void CheckOfflinePrize()
     {
+        test_1.text = "WinPrize Startet";
         if (PlayerPrefs.HasKey("LastSession"))
         {
-            Debug.Log("CHECK Offline");
             var offlineTime = OffLineTimer.OfflineTime;
             long tmp = (long)offlineTime.TotalSeconds;
             int totalOfflineRaids = (int)tmp / 3;
-            Debug.Log(" Offline second  =  " + tmp);
-            Debug.Log(" Offline totalOfflineRaids  =  " + totalOfflineRaids);
 
             var slots = raidControl.CheckWinPrize();
 
@@ -61,7 +62,6 @@ public class CheckCombo : MonoBehaviour
                     Debug.Log("CheckSlot  id =   " + i + "   isOpened  " + slots[i].isOpened + "   and current hero   =   " + slots[i].m_currentHero);
                     if (slots[i].isOpened && slots[i].m_currentHero != null)
                     {
-                        Debug.Log("CheckSlot  id =   " + i);
                         isEmptyRaid = false;
                         slots[i].m_currentHero.GoToRaid();
                         if (slots[i].GetDice().prize == DiceControll.Prize.Item)
@@ -103,7 +103,10 @@ public class CheckCombo : MonoBehaviour
                     item.m_currentGold += winGold * m_boostGold;
                 }
                 ItemsAwarding(winItems);
+                test_1.text = "WinPrize Complete";
+                return;
             }
+            test_1.text = "WinPrize Aborted";
         }
     }
     private void FixedUpdate()

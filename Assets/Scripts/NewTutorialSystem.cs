@@ -16,13 +16,11 @@ public class NewTutorialSystem : MonoBehaviour
     [SerializeField] private AddingItem addingItem;
     [SerializeField] private List<Raid_button> raid_buttons;
     private bool m_isFirstTime = true;
-    public Text test_1;
-    public Text test_2;
+
     public void StepByStep(int index)
     {
         if (m_isFirstTime)
         {
-             test_2.text = "CHECK ";
             if (index == 0)
             {
                 gameObject.SetActive(true);
@@ -39,6 +37,7 @@ public class NewTutorialSystem : MonoBehaviour
                 InventoryPanel.ReturnItem(item);
                 InventoryPanel.ReturnItem(item);
                 InventoryPanel.gameObject.SetActive(true);
+                SoundControl._instance.ClickBTN();
             }
             else if (index == 2)
             {
@@ -46,60 +45,70 @@ public class NewTutorialSystem : MonoBehaviour
                 steps[index].gameObject.SetActive(true);
 
                 InventoryPanel.SellItemNeutral(1);
+                SoundControl._instance.ClickBTN();
             }
             else if (index == 3)
             {
                 steps[index - 1].gameObject.SetActive(false);
                 steps[index].gameObject.SetActive(true);
                 sell_controll.SellItems();
+                SoundControl._instance.ClickBTN();
             }
             else if (index == 4)
             {
                 steps[index - 1].gameObject.SetActive(false);
                 steps[index].gameObject.SetActive(true);
                 sell_controll.ClosePanel();
+                SoundControl._instance.ClickBTN();
             }
             else if (index == 5)
             {
                 steps[index - 1].gameObject.SetActive(false);
                 steps[index].gameObject.SetActive(true);
                 switchtabs.ActivateCurrentButton(1);
+                SoundControl._instance.ClickBTN();
             }
             else if (index == 6)
             {
                 steps[index - 1].gameObject.SetActive(false);
                 steps[index].gameObject.SetActive(true);
                 char_slot.OpenStats();
+                SoundControl._instance.ClickBTN();
             }
             else if (index == 7)
             {
                 steps[index - 1].gameObject.SetActive(false);
                 steps[index].gameObject.SetActive(true);
                 characteristics.AddItem(1);
+                SoundControl._instance.ClickBTN();
             }
             else if (index == 8)
             {
                 steps[index - 1].gameObject.SetActive(false);
                 steps[index].gameObject.SetActive(true);
                 panel_UI.SetMark(1);
+                SoundControl._instance.ClickBTN();
             }
             else if (index == 9)
             {
                 steps[index - 1].gameObject.SetActive(false);
                 steps[index].gameObject.SetActive(true);
                 addingItem.ClosePanel();
+                SoundControl._instance.ClickBTN();
             }
             else if (index == 10)
             {
                 steps[index - 1].gameObject.SetActive(false);
                 steps[index].gameObject.SetActive(true);
                 characteristics.ClosePanel();
+                SoundControl._instance.ClickBTN();
             }
             else if (index == 11)
             {
                 steps[index - 1].gameObject.SetActive(false);
                 switchtabs.ActivateCurrentButton(2);
                 gameObject.SetActive(false);
+                SoundControl._instance.ClickBTN();
                 PlayerPrefs.SetInt("NewTutorial", 1);
             }
         }
@@ -114,11 +123,9 @@ public class NewTutorialSystem : MonoBehaviour
             {
                 item.SetActive(false);
             }
-            test_1.text = "bool =  false";
         }
         else
         {
-            test_1.text = "bool =  true ";
 
             m_isFirstTime = true;
         }

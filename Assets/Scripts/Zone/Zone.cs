@@ -13,7 +13,7 @@ public class Zone : MonoBehaviour
     public int goldProfit { get; set; } = 1;
     public int itemProfit { get; set; } = 1;
     public List<Item> ItemsOnZone;
-    public List<Sprite> ItemSprites;
+    public Sprite ZoneSprite;
     public bool isOpened;
     public string nameLocation;
     

@@ -27,23 +27,30 @@ public class OffLineTimer : MonoBehaviour
     }
     private void OnApplicationPause(bool pause)
     {
-        if (pause)
+        if (Tutorial.CheckTutorStep() >= 20)
         {
-            Debug.Log("GoToOffline");
-            if (raid_button[0].isActive || raid_button[1].isActive || raid_button[2].isActive || raid_button[3].isActive)
-                PlayerPrefs.SetString("LastSession", DateTime.Now.ToString());
-            else
-                PlayerPrefs.DeleteKey("LastSession");
+            if (pause)
+            {
+                Debug.Log("GoToOffline");
+                if (raid_button[0].isActive || raid_button[1].isActive || raid_button[2].isActive || raid_button[3].isActive)
+                    PlayerPrefs.SetString("LastSession", DateTime.Now.ToString());
+                else
+                    PlayerPrefs.DeleteKey("LastSession");
+            }
         }
      
     }
     private void OnApplicationQuit()
     {
         Debug.Log("GoToOffline");
-        if (raid_button[0].isActive || raid_button[1].isActive || raid_button[2].isActive || raid_button[3].isActive)
-            PlayerPrefs.SetString("LastSession", DateTime.Now.ToString());
-        else
-            PlayerPrefs.DeleteKey("LastSession");
+        if(Tutorial.CheckTutorStep() >= 20)
+        {
+            if (raid_button[0].isActive || raid_button[1].isActive || raid_button[2].isActive || raid_button[3].isActive)
+                PlayerPrefs.SetString("LastSession", DateTime.Now.ToString());
+            else
+                PlayerPrefs.DeleteKey("LastSession");
+        }
+      
     }
 
 }

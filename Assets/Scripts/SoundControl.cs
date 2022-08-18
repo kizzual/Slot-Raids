@@ -23,7 +23,6 @@ public class SoundControl : MonoBehaviour
     }
 
 
-
     public void StartRaidSound()
     {
         if(!m_raidIsMute)

@@ -9,10 +9,12 @@ public class TowerUpgrade : MonoBehaviour
     public int currentGrade { get; set; }
     private Tower_UI m_tower_ui;
     public Raid_control raidControl;
+    [SerializeField] private ParticleSystem _upgradeParticle;
     public Text test_4;
-    public Text test_5;
-    private void Start()
+    private void Awake()
     {
+        test_4.text = "Grade tower startet = " ;
+
         m_tower_ui = GetComponent<Tower_UI>();
         if (PlayerPrefs.HasKey("TowerLvl"))
         {
@@ -25,12 +27,11 @@ public class TowerUpgrade : MonoBehaviour
         CheckGoldToGrade();
         m_tower_ui.ChangeTowerSprite(currentGrade, m_goldToGrade);
         raidControl.CheckGrade(currentGrade);
-        test_4.text = "Cure Grade  Start = " + currentGrade.ToString(); ;
+        test_4.text = "Grade tower Finished = ";
     }
 
     public void UpgradeTower()
     {
-        test_4.text = "Cure Grade  before = " + currentGrade.ToString(); ;
         if (Gold.GetCurrentGold() >= m_goldToGrade && currentGrade < 9)
         {
             Gold.SpendGold(m_goldToGrade);
@@ -41,12 +42,12 @@ public class TowerUpgrade : MonoBehaviour
             GlovalEventSystem.UpgradeTower(currentGrade);
             GlovalEventSystem.TutorialSteps(1);
             SoundControl._instance.UpgradeTower();
+            _upgradeParticle.Play();
         }
         else
         {
             SoundControl._instance.NoMoney();
         }
-        test_5.text = " Cure Grade after  = " + currentGrade.ToString();
     }
 
     public int GetTowerGrade() => currentGrade;

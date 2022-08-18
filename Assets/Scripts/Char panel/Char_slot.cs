@@ -6,6 +6,7 @@ public class Char_slot : MonoBehaviour
     [Header("Panels")]
     [SerializeField] private GameObject _closedPanel;
     [SerializeField] private GameObject _NotEnoughGoldPanel;
+    [SerializeField] private ParticleSystem _upgradeParticle;
 
     [Space]
     [Header("UI elements")]
@@ -53,6 +54,7 @@ public class Char_slot : MonoBehaviour
             //    DisplayHeroInfirmation();
             GlovalEventSystem.HeroUpgrade(m_CurrentHero);
             SoundControl._instance.UpgradeHero();
+            _upgradeParticle.Play();
         }
         else
         {

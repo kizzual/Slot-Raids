@@ -4,7 +4,7 @@ public class Characteristics : MonoBehaviour
 {
     [SerializeField] private HeroInfo_Ui hero_Ui;
     [SerializeField] private GameObject front_panel;
-
+    [SerializeField] private ParticleSystem _upgradeParticle;
     private Hero m_currentHero;
 
     public void ActivateEvent()
@@ -31,6 +31,7 @@ public class Characteristics : MonoBehaviour
                 hero_Ui.InitialiseHero(m_currentHero);
                 GlovalEventSystem.HeroUpgrade(m_currentHero);
                 SoundControl._instance.UpgradeHero();
+                _upgradeParticle.Play();
             }
             else
             {

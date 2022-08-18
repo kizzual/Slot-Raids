@@ -25,6 +25,7 @@ public class Saver : MonoBehaviour
     [SerializeField] private Boost_Controll boost_Controll;
 
 
+    public Text test_1;
 
     
     private List<HeroSaver> m_heroSaver = new List<HeroSaver>();
@@ -97,7 +98,7 @@ public class Saver : MonoBehaviour
         m_questSaver = FileHandler.ReadListFromJSON<QuestSaver>(QuestSaverPath);
         allZonesSaver = FileHandler.ReadListFromJSON<AllZonesSaver>(allZoneSaverPath);
         m_boostSaver = FileHandler.ReadFromJSON<BoostSaver>(BoostSaverPath);
-       
+        test_1.text = "start loading";
         ////////// загрузка характеристик карт ////////
         if (allZonesSaver != null)
         {
@@ -107,12 +108,12 @@ public class Saver : MonoBehaviour
                 zones[i].isOpened = allZonesSaver[i].isOpened;
             }
         }
-
+        test_1.text = "Load 1 done";
 
         //////////// загрузка инвентаря ///////////////
         if (m_inventorySavers != null)
             inventory_Controll.LoadInventory(m_inventorySavers);
-
+        test_1.text = "Load 2 done";
         /////////////// загрузка квестов //////////////
         if (m_questSaver.Count > 0 )
         {
@@ -129,7 +130,7 @@ public class Saver : MonoBehaviour
 
             }
         }
-
+        test_1.text = "Load 3 done";
         //////////// загрузка текущей карты ///////////
         if (PlayerPrefs.HasKey("CurrentZone"))
         {
@@ -180,7 +181,7 @@ public class Saver : MonoBehaviour
             }
             raid_control.Switchlocation(CurrentZone.Current_Zone);
         }
-
+        test_1.text = "Load 4 done";
         /*  if (m_zoneSaver.Count > 0)
           {
               CurrentZone.SetZone(m_zoneSaver[m_zoneSaver.Count - 1].currentZone);
@@ -237,7 +238,7 @@ public class Saver : MonoBehaviour
             }
             Debug.Log("Heroes loaded");
         }
-
+        test_1.text = "Load 5 done";
 
         /////////////// загрузка бустов ////////////////
         if (m_boostSaver != null)
@@ -245,7 +246,7 @@ public class Saver : MonoBehaviour
             boost_Controll.FullCardList = m_boostSaver.FullCardList;
             boost_Controll.activeCard = m_boostSaver.activeCard;
         }
-
+        test_1.text = "Load complete";
 
     }
     public void DeleteAllSaves()
