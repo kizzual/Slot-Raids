@@ -15,7 +15,8 @@ public class Char_panel : MonoBehaviour
     [Header("Element type")]
     public ElementType elementType;
 
-    [SerializeField] private List<Char_slot> _charSlots;
+    public List<Char_slot> _charSlots;
+    public GameObject AttentionIcon;
 
     public void ChangeHeroStats(Hero hero)
     {

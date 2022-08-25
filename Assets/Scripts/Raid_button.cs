@@ -11,8 +11,11 @@ public class Raid_button : MonoBehaviour
     [SerializeField] private float playerRaidTimer;
     [SerializeField] private List<Sprite> ButtonsSprite;
     [SerializeField] private Image currentButton;
-    [SerializeField] private AutoRaid autoraid;
-    private Animator m_animator;
+    [SerializeField] public Animator PauseBut_anim;
+    [SerializeField] public Characteristics characteristics;
+    public GameObject PauseImg;
+    public GameObject PlayImg;
+    public Animator m_animator;
     public enum ButtonState
     {
         Stopped,
@@ -27,13 +30,15 @@ public class Raid_button : MonoBehaviour
     private float m_hideTimer;
     public bool isActive = false;   
     public bool isAutoRaid_boost { get; set; }
+    private float checkTimer;
     void FixedUpdate()
     {
         if (buttonState == ButtonState.AutoRaid)
         {
+            checkTimer = 3f - m_timer;
+            characteristics.CheckRaidTimer(checkTimer);
             isActive = true;
                m_timer += Time.fixedDeltaTime;
-
             scrolling.fillAmount = m_timer / autoRaidTimer;
             if (isAutoRaid_boost)
             {
@@ -47,6 +52,9 @@ public class Raid_button : MonoBehaviour
                     else
                     {
                         buttonState = ButtonState.Stopped;
+                        PauseBut_anim.SetBool("IsActive", true);
+                        PlayImg.SetActive(true);
+                        PauseImg.SetActive(false);
                         m_timer = 0;
                     }
                 }
@@ -63,6 +71,9 @@ public class Raid_button : MonoBehaviour
                     else
                     {
                         buttonState = ButtonState.Stopped;
+                        PauseBut_anim.SetBool("IsActive", true);
+                        PlayImg.SetActive(true);
+                        PauseImg.SetActive(false);
                         m_timer = 0;
                     }
 
@@ -83,33 +94,19 @@ public class Raid_button : MonoBehaviour
             {
                 if (m_canRaid)
                 {
+                    characteristics.CheckActiveRaid(false);
                     currentButton.sprite = ButtonsSprite[1];
                     m_canRaid = false;
                 }
             }
 
         }
-/*        else if (buttonState == ButtonState.PlayerRaid)
-        {
-            m_timer += Time.fixedDeltaTime;
 
-            scrolling.fillAmount = m_timer / playerRaidTimer;
-
-            if (m_timer > playerRaidTimer)
-            {
-                buttonState = ButtonState.Stopped;
-                m_timer = 0;
-            }
-        }*/
         else if (buttonState == ButtonState.Stopped)
         {
            
 
         }
-    }
-    private void OnEnable()
-    {
-        m_animator = GetComponent<Animator>();
     }
     public void GoToPlayerRaid()
     {
@@ -133,6 +130,7 @@ public class Raid_button : MonoBehaviour
         {
             if (Tutorial.CheckTutorStep() != 12)
             {
+                characteristics.CheckActiveRaid(true);
                 isActive = true;
                 currentButton.sprite = ButtonsSprite[0];
                 m_hideTimer = 0;
@@ -142,22 +140,22 @@ public class Raid_button : MonoBehaviour
                 {
                     m_canRaid = true;
                     m_timer = 0;
-                    autoraid.PauseBut_anim.SetBool("IsActive", false);
+                    PauseBut_anim.SetBool("IsActive", false);
                     buttonState = ButtonState.AutoRaid;
                     raid_control.StartRaid();
                     m_animator.SetTrigger("Press");
-                    autoraid.PlayImg.SetActive(false);
-                    autoraid.PauseImg.SetActive(true);
-                    if(Tutorial.CheckTutorStep() == 10)
-                    {
-                        Debug.Log("Step 2 = " + Tutorial.CheckTutorStep());
-                        GlovalEventSystem.TutorialSteps(10);
-                    }
-                    if (Tutorial.CheckTutorStep() == 9)
-                    {
-                        Debug.Log("Step 1 = " + Tutorial.CheckTutorStep());
-                        GlovalEventSystem.TutorialSteps(9);
-                    }
+                    PlayImg.SetActive(false);
+                    PauseImg.SetActive(true);
+          //          if(Tutorial.CheckTutorStep() == 10)
+       //             {
+      //                  Debug.Log("Step 2 = " + Tutorial.CheckTutorStep());
+      //                  GlovalEventSystem.TutorialSteps(10);
+      //              }
+      //              if (Tutorial.CheckTutorStep() == 9)
+       //             {
+     //                   Debug.Log("Step 1 = " + Tutorial.CheckTutorStep());
+         //              GlovalEventSystem.TutorialSteps(9);
+       //             }
                 }
             }
         }
@@ -176,12 +174,12 @@ public class Raid_button : MonoBehaviour
             {
                 m_canRaid = true;
                 m_timer = 0;
-                autoraid.PauseBut_anim.SetBool("IsActive", false);
+                PauseBut_anim.SetBool("IsActive", false);
                 buttonState = ButtonState.AutoRaid;
                 raid_control.StartRaid();
                 m_animator.SetTrigger("Press");
-                autoraid.PlayImg.SetActive(false);
-                autoraid.PauseImg.SetActive(true);
+                PlayImg.SetActive(false);
+                PauseImg.SetActive(true);
                 Debug.Log("CAN _1");
             }
                 Debug.Log("CAN _2");
@@ -191,6 +189,26 @@ public class Raid_button : MonoBehaviour
     {
         m_isStopping = true;
         isActive = false;
+        Debug.Log("1");
+        if (PauseBut_anim.GetBool("IsActive"))
+        {
+            Debug.Log("2");
+            if (raid_control.ChecnCanRaid())
+            {
+                Debug.Log("3");
+                PauseBut_anim.SetBool("IsActive", false);
+                GoToAutoRaid();
+                PlayImg.SetActive(false);
+                PauseImg.SetActive(true);
+            }
+        }
+        else
+        {
+            Debug.Log("5");
+            PauseBut_anim.SetBool("IsActive", true);
+            PlayImg.SetActive(true);
+            PauseImg.SetActive(false);
+        }
     }
     
 }

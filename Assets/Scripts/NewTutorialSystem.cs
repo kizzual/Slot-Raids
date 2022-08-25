@@ -6,6 +6,7 @@ using UnityEngine.UI;
 public class NewTutorialSystem : MonoBehaviour
 {
     [SerializeField] private List<GameObject> steps;
+    [SerializeField] private List<GameObject> steps_second;
     [SerializeField] private Inventory_controll InventoryPanel;
     [SerializeField] private Item item;
     [SerializeField] private SwitchTabs switchtabs;
@@ -14,9 +15,12 @@ public class NewTutorialSystem : MonoBehaviour
     [SerializeField] private Characteristics characteristics;
     [SerializeField] private Panel_UI panel_UI;
     [SerializeField] private AddingItem addingItem;
+    [SerializeField] private Adding_Hero_to_slot adding_Hero_to_slot;
+    [SerializeField] private Switch_panels switchPanels;
+    [SerializeField] private Raid_control raid_control;
     [SerializeField] private List<Raid_button> raid_buttons;
     private bool m_isFirstTime = true;
-
+    private bool m_second_tutor = false;  
     public void StepByStep(int index)
     {
         if (m_isFirstTime)
@@ -25,10 +29,10 @@ public class NewTutorialSystem : MonoBehaviour
             {
                 gameObject.SetActive(true);
                 steps[index].gameObject.SetActive(true);
-            /*    foreach (var item in raid_buttons)
-                {
-                    item.PauseRaid();
-                }*/
+                /*    foreach (var item in raid_buttons)
+                    {
+                        item.PauseRaid();
+                    }*/
             }
             else if (index == 1)
             {
@@ -112,7 +116,48 @@ public class NewTutorialSystem : MonoBehaviour
                 PlayerPrefs.SetInt("NewTutorial", 1);
             }
         }
-        
+
+    }
+    public void StepByStep_second(int index)
+    {
+        foreach (var item in steps_second)
+        {
+            item.SetActive(false);
+        }
+        if(!m_second_tutor)
+        {
+            if(index == 0)
+            {
+                steps_second[index].SetActive(true);
+            }
+            else if(index == 1)
+            {
+                steps_second[index - 1].SetActive(false);
+                steps_second[index].SetActive(true);
+
+                foreach (var item in raid_control.CheckWinPrize())
+                {
+                    if(item.isOpened && item.m_currentHero == null)
+                    {
+                        GlovalEventSystem.AddingHeroToSlot(item);
+                        break;
+                    }    
+
+                }
+            }
+            else if(index == 2)
+            {
+                steps_second[index - 1].SetActive(false);
+                steps_second[index].SetActive(true);
+                switchPanels.SwitchPanel(2);
+            }
+            else if(index == 3)
+            {
+                steps_second[index - 1].SetActive(false);
+                steps_second[index].SetActive(true);
+           //     adding_Hero_to_slot
+            }
+        }
     }
     public void Firstinitialise()
     {
@@ -128,6 +173,14 @@ public class NewTutorialSystem : MonoBehaviour
         {
 
             m_isFirstTime = true;
+        }
+        if(PlayerPrefs.HasKey("NewTutorialSecond"))
+        {
+            m_second_tutor = true;
+        }
+        else
+        {
+            m_second_tutor = false;
         }
     }
 }

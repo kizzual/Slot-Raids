@@ -47,6 +47,7 @@ public class Hero : MonoBehaviour
     public int profitBoost { get; set; } = 1;
     public int itemProfitBoost { get; set; } = 1;
     public int raidsCount { get; set; } = 0;
+    public bool isNewHero { get; set; } = false;
     public void AddBust(int luck, int unLuck, int combo, int goldProfit, int itemProfit)
     {
         m_luckBoost = luck;

@@ -27,19 +27,21 @@ public class OffLineTimer : MonoBehaviour
     }
     private void OnApplicationPause(bool pause)
     {
-        if (Tutorial.CheckTutorStep() >= 20)
+
+        if (pause)
         {
-            if (pause)
+            if (PlayerPrefs.HasKey("TutorSave") && PlayerPrefs.GetInt("TutorSave") == 4)
             {
                 Debug.Log("GoToOffline");
                 PlayerPrefs.SetString("LastSession", DateTime.Now.ToString());
             }
         }
+
      
     }
     private void OnApplicationQuit()
     {
-        if (Tutorial.CheckTutorStep() >= 20)
+        if (PlayerPrefs.HasKey("TutorSave") && PlayerPrefs.GetInt("TutorSave") == 4)
         {
             Debug.Log("GoToOffline");
             if (Tutorial.CheckTutorStep() >= 20)

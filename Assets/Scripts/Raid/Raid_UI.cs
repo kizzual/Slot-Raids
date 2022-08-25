@@ -239,8 +239,18 @@ public class Raid_UI : MonoBehaviour
             GlovalEventSystem.HeroUpgrade(m_currentHero);
             SoundControl._instance.UpgradeHero();
             _upgradeParticle.Play();
-            if (Tutorial.CheckTutorStep() == 12)
-                GlovalEventSystem.TutorialStepsSecondPart(12);
+            if (Gold.GetCurrentGold() >= m_currentHero.GoldToGrade)
+            {
+                canGrade.SetActive(true);
+                cannotGrade.SetActive(false);
+            }
+            else
+            {
+                canGrade.SetActive(false);
+                cannotGrade.SetActive(true);
+            }
+            //       if (Tutorial.CheckTutorStep() == 12)
+            //          GlovalEventSystem.TutorialStepsSecondPart(12);
         }
         else
         {
@@ -257,7 +267,7 @@ public class Raid_UI : MonoBehaviour
     public void AddHero()
     {
         GlovalEventSystem.AddingHeroToSlot(this);
-        GlovalEventSystem.TutorialSteps(6);
+     //   GlovalEventSystem.TutorialSteps(6);
     }
     public void OpenStats() => GlovalEventSystem.OpenHeroStats(m_currentHero);
     public void CloseUnraidPanel() => unraid_panel.SetActive(false);

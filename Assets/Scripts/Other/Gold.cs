@@ -11,9 +11,11 @@ public class Gold : MonoBehaviour
     private void Awake()
     {
         currentGold = gold;
-        if (PlayerPrefs.HasKey("Gold"))
-            LoadGold();
-
+        if (PlayerPrefs.HasKey("TutorSave") && PlayerPrefs.GetInt("TutorSave") == 4)
+        {
+            if (PlayerPrefs.HasKey("Gold"))
+                LoadGold();
+        }
         goldText = GetComponentInChildren<Text>();
         goldText.text = ConvertText.FormatNumb(currentGold);
     }

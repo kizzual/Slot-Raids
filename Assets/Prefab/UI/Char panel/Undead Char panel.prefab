@@ -507,6 +507,7 @@ MonoBehaviour:
   - {fileID: 2115998544129102075}
   - {fileID: 3809654478142489274}
   - {fileID: 2271347863097043396}
+  AttentionIcon: {fileID: 0}
 --- !u!1 &8731202958608400413
 GameObject:
   m_ObjectHideFlags: 0

@@ -12,7 +12,7 @@ public class CheckCombo : MonoBehaviour
     [SerializeField] private GameObject thirdLine_vertical;
     [SerializeField] private GameObject diagonallyLine_toDown;
     [SerializeField] private GameObject diagonallyLine_toUp;
-    [SerializeField] private AutoRaid autoraid;
+    [SerializeField] private Raid_button autoraid;
     [SerializeField] private ParticleSlotControll particleSlotControll;
     [SerializeField] private Raid_control raidControl;
     [SerializeField] private List<Tower_quest> tower_quest;
@@ -50,6 +50,7 @@ public class CheckCombo : MonoBehaviour
             long tmp = (long)offlineTime.TotalSeconds;
             int totalOfflineRaids = (int)tmp / 20;
 
+          Debug.Log("OfflineRaids =  " + totalOfflineRaids);
             var slots = raidControl.CheckWinPrize();
 
             List<Item> winItems = new List<Item>();
@@ -116,7 +117,7 @@ public class CheckCombo : MonoBehaviour
             if (item.gameObject.activeSelf)
             {
                 item.GoRaidAfterOffline();
-                return;
+
             }
         }
     }
@@ -320,11 +321,11 @@ public class CheckCombo : MonoBehaviour
             ItemsAwarding(winItems);
             GlovalEventSystem.CheckAchievement(winItems, winGold * m_boostGold, m_combo, m_unluck);
 
-            if(Gold.GetCurrentGold() != 0 && Tutorial.CheckTutorStep() == 11)
-            {
-                autoraid.PauseRaid();
-                GlovalEventSystem.TutorialStepsSecondPart(11);
-            }
+       //     if(Gold.GetCurrentGold() != 0 && Tutorial.CheckTutorStep() == 11)
+      //      {
+      ////        autoraid.PauseRaid();
+      //          GlovalEventSystem.TutorialStepsSecondPart(11);
+      //      }
         }
     }
 

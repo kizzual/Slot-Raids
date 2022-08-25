@@ -11,34 +11,104 @@ public class TowerUpgrade : MonoBehaviour
     public Raid_control raidControl;
     public GameObject BoostTower;
     public GameObject Boost;
+    public GameObject InactiveButton;
+    public Boost_Controll boostControl;
     [SerializeField] private ParticleSystem _upgradeParticle;
+    [SerializeField] private List<ParticleSystem> boostParticle;
+    [SerializeField] private GameObject ManaBottle;
+    [SerializeField] private GameObject ManaBottle_deactive;
     public Text test_4;
     private void Awake()
     {
        
     }
+    private void OnEnable()
+    {
+        if (Gold.GetCurrentGold() >= m_goldToGrade)
+        {
+            InactiveButton.SetActive(false);
+        }
+        else
+            InactiveButton.SetActive(true);
+        if(BoostTower.activeSelf)
+        {
+            if (boostControl.CurrentBoost != null)
+            {
+                if (boostControl.CurrentBoost.isActive)
+                {
+                    foreach (var item in boostParticle)
+                    {
+                        item.Play();
+                    }
+                }
+                else
+                {
+                    foreach (var item in boostParticle)
+                    {
+                        item.Stop();
+                    }
+                }
+            }
+        }
+        
+    }
+    public void CheckBoostParticle()
+    {
+        if (BoostTower.activeSelf)
+        {
+            if (boostControl.CurrentBoost != null)
+            {
+                if (boostControl.CurrentBoost.isActive)
+                {
+                    foreach (var item in boostParticle)
+                    {
+                        item.Play();
+                    }
+                }
+                else
+                {
+                    foreach (var item in boostParticle)
+                    {
+                        item.Stop();
+                    }
+                }
+            }
+        }
+    }
     public void Initialise()
     {
-        test_4.text = "Grade tower startet = ";
-
-        m_tower_ui = GetComponent<Tower_UI>();
-        if (PlayerPrefs.HasKey("TowerLvl"))
+        if (PlayerPrefs.HasKey("TutorSave") && PlayerPrefs.GetInt("TutorSave") == 4)
         {
-            currentGrade = PlayerPrefs.GetInt("TowerLvl");
+            ManaBottle.SetActive(true);
+            ManaBottle_deactive.SetActive(false);
+            test_4.text = "Grade tower startet = ";
+            Boost.SetActive(true);
+            BoostTower.SetActive(true);
+            m_tower_ui = GetComponent<Tower_UI>();
+            if (PlayerPrefs.HasKey("TowerLvl"))
+            {
+                currentGrade = PlayerPrefs.GetInt("TowerLvl");
+            }
+            else
+            {
+                currentGrade = 0;
+            }
+            CheckGoldToGrade();
+            m_tower_ui.ChangeTowerSprite(currentGrade, m_goldToGrade);
+            raidControl.CheckGrade(currentGrade);
+           
+         
+            test_4.text = "Grade tower Finished = ";
         }
         else
         {
+            m_tower_ui = GetComponent<Tower_UI>();
             currentGrade = 0;
+            CheckGoldToGrade();
+            m_tower_ui.ChangeTowerSprite(currentGrade, m_goldToGrade);
+            raidControl.CheckGrade(currentGrade);
+
         }
-        CheckGoldToGrade();
-        m_tower_ui.ChangeTowerSprite(currentGrade, m_goldToGrade);
-        raidControl.CheckGrade(currentGrade);
-        if(PlayerPrefs.HasKey("Boost"))
-        {
-            Boost.SetActive(true);
-            BoostTower.SetActive(true);
-        }
-        test_4.text = "Grade tower Finished = ";
     }
     public void UpgradeTower()
     {
@@ -50,7 +120,7 @@ public class TowerUpgrade : MonoBehaviour
             CheckGoldToGrade();
             m_tower_ui.ChangeTowerSprite(currentGrade, m_goldToGrade);
             GlovalEventSystem.UpgradeTower(currentGrade);
-            GlovalEventSystem.TutorialSteps(1);
+       //     GlovalEventSystem.TutorialSteps(1);
             SoundControl._instance.UpgradeTower();
             _upgradeParticle.Play();
         }

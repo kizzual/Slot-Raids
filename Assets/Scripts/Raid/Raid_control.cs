@@ -17,6 +17,7 @@ public class Raid_control : MonoBehaviour
     [SerializeField] private List<Image> item_2_icon;
     [SerializeField] private List<Sprite> elementLogo;
     [SerializeField] private List<GameObject> Buttons;
+    [SerializeField] private List<GameObject> ManaButton;
     private int m_currentSlotCount = 0;
 
 
@@ -264,10 +265,11 @@ public class Raid_control : MonoBehaviour
                     raid_slot[i].GetDice().CheckRandomIndex();
                     raid_slot[i].GetDice().StartRotate();
                     raid_slot[i].m_currentHero.GoToRaid();
-                    CurrentZone.Current_Zone.GoToRaid();
+                    
                     m_currentSlotCount++;
                 }
             }
+            CurrentZone.Current_Zone.GoToRaid();
             GlovalEventSystem.RaidStart();
             SoundControl._instance.StartRaidSound();
         }  
@@ -339,9 +341,11 @@ public class Raid_control : MonoBehaviour
     private void RotateComplete()
     {
         m_currentSlotCount--;
-        if(m_currentSlotCount == 0)
+        if (m_currentSlotCount == 0)
         {
+            Debug.Log("RAIDS COMPLETE");
             GlovalEventSystem.RaidComplete(raid_slot);
+           
         }
     }
 

@@ -114,6 +114,7 @@ MonoBehaviour:
   - {fileID: 4411757842758257947}
   - {fileID: 1197724434979814836}
   - {fileID: 6528527023109050955}
+  AttentionIcon: {fileID: 0}
 --- !u!1 &2371976591038502516
 GameObject:
   m_ObjectHideFlags: 0

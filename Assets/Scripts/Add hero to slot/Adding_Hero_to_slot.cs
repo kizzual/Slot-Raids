@@ -11,6 +11,7 @@ public class Adding_Hero_to_slot : MonoBehaviour
     [SerializeField] private List<Slot_UI> _demon_Slots;
     [SerializeField] private GameObject frontPanel;
     [SerializeField] private List<Raid_button> raid_buttons;
+    [SerializeField] private Char_Controller char_Controller;
     private Raid_UI currentSlot;
     public void ActivateEvent()
     {
@@ -33,6 +34,7 @@ public class Adding_Hero_to_slot : MonoBehaviour
         if(currentSlot.m_currentHero != null)
         {
             currentSlot.m_currentHero.currentRaidSlot = 0;
+       
             switch (currentSlot.m_currentHero.typeElement)
             {
                 case TypeElement.Neutral:
@@ -64,8 +66,11 @@ public class Adding_Hero_to_slot : MonoBehaviour
             GlovalEventSystem.RemoveFromSlot(currentSlot.m_currentHero.currentRaidSlot);
         }
         currentSlot.Initialise(slot_ui.m_CurrentHero);
-        GlovalEventSystem.TutorialSteps(7);
+        
+   //     GlovalEventSystem.TutorialSteps(7);
         slot_ui.Initialise();
+        currentSlot.m_currentHero.isNewHero = false;
+        char_Controller.CheckForNewHeroes();
     }
     public void RemoveHeroToSlot(Slot_UI slot_UI)
     {
@@ -76,9 +81,10 @@ public class Adding_Hero_to_slot : MonoBehaviour
     }
     public void ClosePanel()
     {
+        Debug.Log("CLOSE PANEL");
         frontPanel.SetActive(false);
         gameObject.SetActive(false);
-        GlovalEventSystem.TutorialSteps(8);
+    //    GlovalEventSystem.TutorialSteps(8);
     }
 
 }

@@ -89,16 +89,16 @@ public class SwitchTabs : MonoBehaviour
             SoundControl._instance.UnMuteSound();
         else
             SoundControl._instance.MuteSound();
-        if(indexCurrentButton == 2)
-        {
-            if(Tutorial.CheckTutorStep() == 5) GlovalEventSystem.TutorialSteps(5);
-            if(Tutorial.CheckTutorStep() == 21) GlovalEventSystem.TutorialSteps(21);
-        }
-        if(indexCurrentButton == 0)
-        {
-            if (Tutorial.CheckTutorStep() == 15) GlovalEventSystem.TutorialSteps(15);
-            if (Tutorial.CheckTutorStep() == 18) GlovalEventSystem.TutorialSteps(18);
-        }
+    //    if(indexCurrentButton == 2)
+   //     {
+    //        if(Tutorial.CheckTutorStep() == 5) GlovalEventSystem.TutorialSteps(5);
+     //       if(Tutorial.CheckTutorStep() == 21) GlovalEventSystem.TutorialSteps(21);
+     //   }
+    //    if(indexCurrentButton == 0)
+    //    {
+   //         if (Tutorial.CheckTutorStep() == 15) GlovalEventSystem.TutorialSteps(15);
+   //         if (Tutorial.CheckTutorStep() == 18) GlovalEventSystem.TutorialSteps(18);
+    //    }
     }
     public void InventoryOnOff(bool onlyClose = false)
     {

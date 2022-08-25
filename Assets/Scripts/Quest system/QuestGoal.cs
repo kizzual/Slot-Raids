@@ -35,7 +35,7 @@ public class QuestGoal
     public void FirstItemGathering(int value) => firstItem_currentAmount = value;
     public void SecondItemGathering(int value) => secondItem_currentAmount = value;
     public void ThirdItemGathering(int value) => thirdItem_currentAmount = value;
-    public void RaidGarhering_byElement(int value) => currentAmount = value;
+    public void RaidGarhering_byElement(int value) => currentAmount += value;
     public void RaidGarhering_byZone(int value) => currentAmount = value;
     public void HeroRaid() => currentAmount = HeroToRaid.raidsCount;
 

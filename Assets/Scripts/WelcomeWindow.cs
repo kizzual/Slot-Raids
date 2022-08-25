@@ -5,9 +5,18 @@ using UnityEngine;
 public class WelcomeWindow : MonoBehaviour
 {
     public GameObject Button;
+    public TutorialSystem tutorialSystem;
     public void Initialise()
     {
-        if (!PlayerPrefs.HasKey("FirstStart"))
+        if (PlayerPrefs.HasKey("TutorSave") && PlayerPrefs.GetInt("TutorSave") == 4)
+        {
+            if (!PlayerPrefs.HasKey("FirstStart"))
+            {
+                gameObject.SetActive(true);
+                StartCoroutine(hello());
+            }
+        }
+        else
         {
             gameObject.SetActive(true);
             StartCoroutine(hello());
@@ -17,10 +26,12 @@ public class WelcomeWindow : MonoBehaviour
     {
         gameObject.SetActive(false);
         PlayerPrefs.SetInt("FirstStart", 1);
+        tutorialSystem.MainTutorial();
+
     }
     IEnumerator hello()
     {
-        yield return new WaitForSeconds(2f);
+        yield return new WaitForSeconds(1.5f);
         Button.SetActive(true);
     }
 }

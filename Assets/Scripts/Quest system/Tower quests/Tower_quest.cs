@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Tower_quest : MonoBehaviour
 {
@@ -20,7 +21,10 @@ public class Tower_quest : MonoBehaviour
     [SerializeField] private List<GameObject> Attention;
     [SerializeField] private GameObject TowerButton;
     [SerializeField] private DisplayReward displayReward;
-
+    [SerializeField] private Hero B_1_Hero;
+    [SerializeField] private Char_Controller char_Controller;
+    [SerializeField] private CheckAttentionIcon checkAttentionIcon;
+    [SerializeField] private List<Button> raidbuttons;
     public void ActivateEvent()
     {
         GlovalEventSystem.OnUpgradeTower += AttentionIcon;
@@ -41,7 +45,10 @@ public class Tower_quest : MonoBehaviour
     private int m_raid_byElement_undead = 0;
     private int m_raid_byElement_order = 0;
     private int m_raid_byElement_demon = 0;
-    
+    private bool tutori_1 = false;
+    private bool tutori_2 = false;
+    private bool tutori_3 = false;
+    private bool tutorHero = false;
     public List<Item> m_items;// = new List<Item>();
     private void OnEnable()
     {
@@ -51,17 +58,16 @@ public class Tower_quest : MonoBehaviour
         questUI.Initialise(m_currentGold, m_currentRaid);
         AttentionIcon();
     }
-
     public void OpenQuestPanel()
     {
         QuestPanel.SetActive(true);
         TowerButton.transform.GetChild(1).gameObject.SetActive(false);
         TowerButton.transform.GetChild(2).gameObject.SetActive(true);
-        GlovalEventSystem.TutorialSteps(2);
-        if(Tutorial.CheckTutorStep() == 16)
-        {
-            GlovalEventSystem.TutorialStepsThirdPart(16);
-        }
+      //  GlovalEventSystem.TutorialSteps(2);
+     //   if(Tutorial.CheckTutorStep() == 16)
+    //    {
+    //        GlovalEventSystem.TutorialStepsThirdPart(16);
+     //   }
     }
     public void RaidComplete(List<Item> items, long goldValue, int combo, int unLuck)
     {
@@ -76,44 +82,48 @@ public class Tower_quest : MonoBehaviour
         m_currentCombo = combo;
         m_currentLuck = items.Count;
         m_currentUnLuck = unLuck;
+        m_raid_byElement_neutral = 0;
+        m_raid_byElement_undead = 0;
+        m_raid_byElement_order = 0;
+        m_raid_byElement_demon = 0;
         if (first_Line_quest[m_currentFirstLineQuestindex].goal.goalType == GoalType.raid_Gathering_byElement)
         {
             if (CurrentZone.Current_Zone.typeElement == Type__Element.Neutral && first_Line_quest[m_currentFirstLineQuestindex].goal.elementType == TypElement.Neutral)
             {
-                m_raid_byElement_neutral++;
+                m_raid_byElement_neutral = 1;
             }
             else if (CurrentZone.Current_Zone.typeElement == Type__Element.Undead && first_Line_quest[m_currentFirstLineQuestindex].goal.elementType == TypElement.Undead)
             {
-                m_raid_byElement_undead++;
+                m_raid_byElement_undead = 1;
             }
             else if (CurrentZone.Current_Zone.typeElement == Type__Element.Order && first_Line_quest[m_currentFirstLineQuestindex].goal.elementType == TypElement.Order)
             {
-                m_raid_byElement_order++;
+                m_raid_byElement_order = 1;
             }
-            else if(CurrentZone.Current_Zone.typeElement == Type__Element.Demon && first_Line_quest[m_currentFirstLineQuestindex].goal.elementType == TypElement.Demon)
+            else if (CurrentZone.Current_Zone.typeElement == Type__Element.Demon && first_Line_quest[m_currentFirstLineQuestindex].goal.elementType == TypElement.Demon)
             {
-                m_raid_byElement_demon++;
+                m_raid_byElement_demon = 1;
             }
-       
+
 
         }
         if (second_Line_quest[m_currentSecondLineQuestindex].goal.goalType == GoalType.raid_Gathering_byElement)
         {
             if (CurrentZone.Current_Zone.typeElement == Type__Element.Neutral && second_Line_quest[m_currentSecondLineQuestindex].goal.elementType == TypElement.Neutral)
             {
-                m_raid_byElement_neutral++;
+                m_raid_byElement_neutral = 1;
             }
             else if (CurrentZone.Current_Zone.typeElement == Type__Element.Undead && second_Line_quest[m_currentSecondLineQuestindex].goal.elementType == TypElement.Undead)
             {
-                m_raid_byElement_undead++;
+                m_raid_byElement_undead = 1;
             }
             else if (CurrentZone.Current_Zone.typeElement == Type__Element.Order && second_Line_quest[m_currentSecondLineQuestindex].goal.elementType == TypElement.Order)
             {
-                m_raid_byElement_order++;
+                m_raid_byElement_order = 1;
             }
             else if (CurrentZone.Current_Zone.typeElement == Type__Element.Demon && second_Line_quest[m_currentSecondLineQuestindex].goal.elementType == TypElement.Demon)
             {
-                m_raid_byElement_demon++;
+                m_raid_byElement_demon = 1;
             }
 
         }
@@ -121,50 +131,26 @@ public class Tower_quest : MonoBehaviour
         {
             if (CurrentZone.Current_Zone.typeElement == Type__Element.Neutral && third_Line_quest[m_currentThitrdLineQuestindex].goal.elementType == TypElement.Neutral)
             {
-                m_raid_byElement_neutral++;
+                m_raid_byElement_neutral = 1;
             }
             else if (CurrentZone.Current_Zone.typeElement == Type__Element.Undead && third_Line_quest[m_currentThitrdLineQuestindex].goal.elementType == TypElement.Undead)
             {
-                m_raid_byElement_undead++;
+                m_raid_byElement_undead = 1;
             }
             else if (CurrentZone.Current_Zone.typeElement == Type__Element.Order && third_Line_quest[m_currentThitrdLineQuestindex].goal.elementType == TypElement.Order)
             {
-                m_raid_byElement_order++;
+                m_raid_byElement_order = 1;
             }
             else if (CurrentZone.Current_Zone.typeElement == Type__Element.Demon && third_Line_quest[m_currentThitrdLineQuestindex].goal.elementType == TypElement.Demon)
             {
-                m_raid_byElement_demon++;
+                m_raid_byElement_demon = 1;
             }
 
         }
-/*        if (first_Line_quest[m_currentFirstLineQuestindex].goal.goalType == GoalType.heroRaid)
-        {
-            first_Line_quest[m_currentFirstLineQuestindex].goal.HeroRaid();
-            if (first_Line_quest[m_currentFirstLineQuestindex].goal.IsReached())
-            {
-                tower_Quest_UI[0].QuestComplete();
-            }
-        }
-        if (second_Line_quest[m_currentSecondLineQuestindex].goal.goalType == GoalType.heroRaid)
-        {
-            second_Line_quest[m_currentSecondLineQuestindex].goal.HeroRaid();
-            if (second_Line_quest[m_currentSecondLineQuestindex].goal.IsReached())
-            {
-                tower_Quest_UI[1].QuestComplete();
-            }
-        }
-        if (third_Line_quest[m_currentThitrdLineQuestindex].goal.goalType == GoalType.heroRaid)
-        {
-            third_Line_quest[m_currentThitrdLineQuestindex].goal.HeroRaid();
-            if (third_Line_quest[m_currentThitrdLineQuestindex].goal.IsReached())
-            {
-                tower_Quest_UI[2].QuestComplete();
-            }
-        }*/
 
-        if(first_Line_quest[m_currentFirstLineQuestindex].goal.goalType == GoalType.Raid_ByZone)
+        if (first_Line_quest[m_currentFirstLineQuestindex].goal.goalType == GoalType.Raid_ByZone)
         {
-            if (CurrentZone.Current_Zone ==  first_Line_quest[m_currentFirstLineQuestindex].goal.ZoneToRaid)
+            if (CurrentZone.Current_Zone == first_Line_quest[m_currentFirstLineQuestindex].goal.ZoneToRaid)
             {
                 m_raid = 1;
             }
@@ -196,13 +182,42 @@ public class Tower_quest : MonoBehaviour
             }
         }
 
-
+        if (m_currentRaid > 100)
+        {
+            foreach (var item in raidbuttons)
+            {
+                item.gameObject.SetActive(true);
+            }
+        }
         questUI.Initialise(m_currentGold, m_currentRaid);
         RaidConplete();
         First_Line_Quest_Initialise();
         Second_Line_Quest_Initialise();
         Third_Line_Quest_Initialise();
         AttentionIcon();
+        if (TutorialSystem.tutorSystem.m_currentIncdex_mainTutorial == 13)
+        {
+            if (Gold.GetCurrentGold() > 0)
+            {
+                TutorialSystem.tutorSystem.MainTutorial();
+            }
+        }
+        if(TutorialSystem.tutorSystem.m_currentIncdex_mainTutorial == 27)
+        {
+            if(m_currentGold >= 1000)
+            {
+                TutorialSystem.tutorSystem.MainTutorial();
+            }
+        }
+        if (TutorialSystem.tutorSystem.m_currentIncdex_mainTutorial == 33)
+        {
+            if (Gold.GetCurrentGold() >= 10000)
+            {
+         
+                TutorialSystem.tutorSystem.MainTutorial();
+            }
+        }
+
     }
     public void RaidConplete()
     {
@@ -215,6 +230,7 @@ public class Tower_quest : MonoBehaviour
                     first_Line_quest[m_currentFirstLineQuestindex].goal.GoldGathering(Gold.GetCurrentGold());
                     if (first_Line_quest[m_currentFirstLineQuestindex].goal.IsReached())
                     {
+                        
                         tower_Quest_UI[0].QuestComplete();
                     }
                 }
@@ -915,6 +931,25 @@ public class Tower_quest : MonoBehaviour
                     {
                         tower_Quest_UI[0].QuestComplete();
                         m_raid = 0;
+                        if(!tutori_2 || !tutori_3)
+                        {
+                            if(m_currentFirstLineQuestindex == 0)
+                            {
+                                if (TutorialSystem.tutorSystem.m_currentIndex_openBoostTutorial == 0)
+                                {
+                                    tutori_3 = true;
+                                    TutorialSystem.tutorSystem.BoostTutorial();
+                                }
+                            }
+                            if (m_currentFirstLineQuestindex == 1)
+                            {
+                                if (TutorialSystem.tutorSystem.m_currentIndex_locationTutorial == 0)
+                                {
+                                    tutori_2 = true;
+                                    TutorialSystem.tutorSystem.LocationTutorial();
+                                }
+                            }
+                        }
                     }
                 }
             }
@@ -938,6 +973,17 @@ public class Tower_quest : MonoBehaviour
                         second_Line_quest[m_currentSecondLineQuestindex].goal.GoldGathering(Gold.GetCurrentGold());
                         if (second_Line_quest[m_currentSecondLineQuestindex].goal.IsReached())
                         {
+                        /*    if (m_currentSecondLineQuestindex == 2 && B_1_Hero != null && towerUpgrade.currentGrade > 1)
+                            {
+                                if (!tutori_3)
+                                {
+                                    if (TutorialSystem.tutorSystem.m_currentIndex_openHeroTutorial == 0)
+                                    {
+                                        tutori_3 = true;
+                                        TutorialSystem.tutorSystem.OpenHeroTutorial();
+                                    }
+                                }
+                            }*/
                             tower_Quest_UI[1].QuestComplete();
                         }
                     }
@@ -946,7 +992,18 @@ public class Tower_quest : MonoBehaviour
                         second_Line_quest[m_currentSecondLineQuestindex].goal.GoldGathering(m_currentGold);
                         if (second_Line_quest[m_currentSecondLineQuestindex].goal.IsReached())
                         {
-                            tower_Quest_UI[1].QuestComplete();
+
+                            if (B_1_Hero != null && m_currentSecondLineQuestindex == 2)
+                            {
+                                if (TutorialSystem.tutorSystem.m_currentIncdex_mainTutorial >= 34)
+                                {
+                                    tower_Quest_UI[1].QuestComplete();
+                                }
+                            }
+                            else
+                            {
+                                tower_Quest_UI[1].QuestComplete();
+                            }
                         }
                     }
 
@@ -2304,8 +2361,19 @@ public class Tower_quest : MonoBehaviour
                 if (third_Line_quest[m_currentThitrdLineQuestindex].goal.IsReached())
                 {
                     tower_Quest_UI[2].QuestComplete();
-                    GlovalEventSystem.TutorialStepsThirdPart(14);
-                    PlayerPrefs.SetInt("Boost", 1 );
+                 
+                    if(!tutori_1)
+                    {
+                        if (TutorialSystem.tutorSystem.m_currentIndex_openBoostTutorial == 6)
+                        {
+                            tutori_1 = true;
+                            TutorialSystem.tutorSystem.BoostTutorial();
+                        }
+                    }
+                   
+
+      //              GlovalEventSystem.TutorialStepsThirdPart(14);
+      //              PlayerPrefs.SetInt("Boost", 1 );
                 }
             }
             else if (third_Line_quest[m_currentThitrdLineQuestindex].goal.goalType == GoalType.Upgrade_Tower)
@@ -2990,7 +3058,6 @@ public class Tower_quest : MonoBehaviour
                 }
             }
         }
-
     }
 
     private void AttentionIcon(int tmp = 0)
@@ -3133,6 +3200,8 @@ public class Tower_quest : MonoBehaviour
                         {
                             case Quest.RewardType.Hero:
                                 first_Line_quest[m_currentFirstLineQuestindex].HeroReward.isOpened = true;
+                                first_Line_quest[m_currentFirstLineQuestindex].HeroReward.isNewHero = true;
+                                char_Controller.CheckForNewHeroes();
                                 displayReward.Initialise(first_Line_quest[m_currentFirstLineQuestindex].HeroReward);
                                 break;
                             case Quest.RewardType.Gold:
@@ -3144,6 +3213,8 @@ public class Tower_quest : MonoBehaviour
                                 break;
                             case Quest.RewardType.Location:
                                 first_Line_quest[m_currentFirstLineQuestindex].Location.isOpened = true;
+                                first_Line_quest[m_currentFirstLineQuestindex].Location.isNewZone = true;
+                                checkAttentionIcon.CheckAttention();
                                 displayReward.Initialise(first_Line_quest[m_currentFirstLineQuestindex].Location);
                                 break;
                             case Quest.RewardType.Slot:
@@ -3294,6 +3365,8 @@ public class Tower_quest : MonoBehaviour
                     {
                         case Quest.RewardType.Hero:
                             first_Line_quest[m_currentFirstLineQuestindex].HeroReward.isOpened = true;
+                            first_Line_quest[m_currentFirstLineQuestindex].HeroReward.isNewHero = true;
+                            char_Controller.CheckForNewHeroes();
                             displayReward.Initialise(first_Line_quest[m_currentFirstLineQuestindex].HeroReward);
                             break;
                         case Quest.RewardType.Gold:
@@ -3305,6 +3378,8 @@ public class Tower_quest : MonoBehaviour
                             break;
                         case Quest.RewardType.Location:
                             first_Line_quest[m_currentFirstLineQuestindex].Location.isOpened = true;
+                            first_Line_quest[m_currentFirstLineQuestindex].Location.isNewZone = true;
+                            checkAttentionIcon.CheckAttention();
                             displayReward.Initialise(first_Line_quest[m_currentFirstLineQuestindex].Location);
                             break;
                         case Quest.RewardType.Slot:
@@ -3323,6 +3398,8 @@ public class Tower_quest : MonoBehaviour
             {
                 case Quest.RewardType.Hero:
                     first_Line_quest[m_currentFirstLineQuestindex].HeroReward.isOpened = true;
+                    first_Line_quest[m_currentFirstLineQuestindex].HeroReward.isNewHero = true;
+                    char_Controller.CheckForNewHeroes();
                     displayReward.Initialise(first_Line_quest[m_currentFirstLineQuestindex].HeroReward);
                     break;
                 case Quest.RewardType.Gold:
@@ -3334,6 +3411,8 @@ public class Tower_quest : MonoBehaviour
                     break;
                 case Quest.RewardType.Location:
                     first_Line_quest[m_currentFirstLineQuestindex].Location.isOpened = true;
+                    first_Line_quest[m_currentFirstLineQuestindex].Location.isNewZone = true;
+                    checkAttentionIcon.CheckAttention();
                     displayReward.Initialise(first_Line_quest[m_currentFirstLineQuestindex].Location);
                     break;
                 case Quest.RewardType.Slot:
@@ -3344,7 +3423,7 @@ public class Tower_quest : MonoBehaviour
            m_currentFirstLineQuestindex++;
             First_Line_Quest_Initialise();
         }
-        GlovalEventSystem.TutorialSteps(3);
+    //    GlovalEventSystem.TutorialSteps(3);
 
     }
     private void Second_Line_Quest_Initialise()
@@ -3361,8 +3440,8 @@ public class Tower_quest : MonoBehaviour
     }
     public void Second_Line_Quest_finish()  // �������� �������� �������� ������� �������� �����
     {
-        if (Tutorial.CheckTutorStep() >= 3)
-        {
+    //    if (Tutorial.CheckTutorStep() >= 3)
+    //    {
             if (second_Line_quest[m_currentSecondLineQuestindex].PassItems)
             {
                 switch (second_Line_quest[m_currentSecondLineQuestindex].goal.goalType)
@@ -3374,7 +3453,10 @@ public class Tower_quest : MonoBehaviour
                             switch (second_Line_quest[m_currentSecondLineQuestindex].rewardType)
                             {
                                 case Quest.RewardType.Hero:
+                                
                                     second_Line_quest[m_currentSecondLineQuestindex].HeroReward.isOpened = true;
+                                    second_Line_quest[m_currentSecondLineQuestindex].HeroReward.isNewHero = true;
+                                    char_Controller.CheckForNewHeroes();
                                     displayReward.Initialise(second_Line_quest[m_currentSecondLineQuestindex].HeroReward);
                                     break;
                                 case Quest.RewardType.Gold:
@@ -3386,6 +3468,8 @@ public class Tower_quest : MonoBehaviour
                                     break;
                                 case Quest.RewardType.Location:
                                     second_Line_quest[m_currentSecondLineQuestindex].Location.isOpened = true;
+                                    second_Line_quest[m_currentSecondLineQuestindex].Location.isNewZone = true;
+                                    checkAttentionIcon.CheckAttention();
                                     displayReward.Initialise(second_Line_quest[m_currentSecondLineQuestindex].Location);
                                     break;
                             }
@@ -3533,6 +3617,8 @@ public class Tower_quest : MonoBehaviour
                         {
                             case Quest.RewardType.Hero:
                                 second_Line_quest[m_currentSecondLineQuestindex].HeroReward.isOpened = true;
+                                second_Line_quest[m_currentSecondLineQuestindex].HeroReward.isNewHero = true;
+                                char_Controller.CheckForNewHeroes();
                                 displayReward.Initialise(second_Line_quest[m_currentSecondLineQuestindex].HeroReward);
                                 break;
                             case Quest.RewardType.Gold:
@@ -3544,6 +3630,8 @@ public class Tower_quest : MonoBehaviour
                                 break;
                             case Quest.RewardType.Location:
                                 second_Line_quest[m_currentSecondLineQuestindex].Location.isOpened = true;
+                                second_Line_quest[m_currentSecondLineQuestindex].Location.isNewZone = true;
+                                checkAttentionIcon.CheckAttention();
                                 displayReward.Initialise(second_Line_quest[m_currentSecondLineQuestindex].Location);
                                 break;
                         }
@@ -3559,6 +3647,8 @@ public class Tower_quest : MonoBehaviour
                 {
                     case Quest.RewardType.Hero:
                         second_Line_quest[m_currentSecondLineQuestindex].HeroReward.isOpened = true;
+                        second_Line_quest[m_currentSecondLineQuestindex].HeroReward.isNewHero = true;
+                        char_Controller.CheckForNewHeroes();
                         displayReward.Initialise(second_Line_quest[m_currentSecondLineQuestindex].HeroReward);
                         break;
                     case Quest.RewardType.Boost:
@@ -3567,14 +3657,16 @@ public class Tower_quest : MonoBehaviour
                         break;
                     case Quest.RewardType.Location:
                         second_Line_quest[m_currentSecondLineQuestindex].Location.isOpened = true;
+                        second_Line_quest[m_currentSecondLineQuestindex].Location.isNewZone = true;
+                        checkAttentionIcon.CheckAttention();
                         displayReward.Initialise(second_Line_quest[m_currentSecondLineQuestindex].Location);
                         break;
                 }
                 m_currentSecondLineQuestindex++;
                 Second_Line_Quest_Initialise();
             }
-            GlovalEventSystem.TutorialSteps(4);
-        }
+      //      GlovalEventSystem.TutorialSteps(4);
+      //  }
     }
     private void Third_Line_Quest_Initialise()
     {
@@ -3604,6 +3696,8 @@ public class Tower_quest : MonoBehaviour
                             {
                                 case Quest.RewardType.Hero:
                                     third_Line_quest[m_currentThitrdLineQuestindex].HeroReward.isOpened = true;
+                                    third_Line_quest[m_currentThitrdLineQuestindex].HeroReward.isNewHero = true;
+                                    char_Controller.CheckForNewHeroes();
                                     displayReward.Initialise(third_Line_quest[m_currentThitrdLineQuestindex].HeroReward);
                                     break;
                                 case Quest.RewardType.Boost:
@@ -3612,6 +3706,8 @@ public class Tower_quest : MonoBehaviour
                                     break;
                                 case Quest.RewardType.Location:
                                     third_Line_quest[m_currentThitrdLineQuestindex].Location.isOpened = true;
+                                    third_Line_quest[m_currentThitrdLineQuestindex].Location.isNewZone = true;
+                                    checkAttentionIcon.CheckAttention();
                                     displayReward.Initialise(third_Line_quest[m_currentThitrdLineQuestindex].Location);
                                     break;
                             }
@@ -3759,6 +3855,8 @@ public class Tower_quest : MonoBehaviour
                         {
                             case Quest.RewardType.Hero:
                                 third_Line_quest[m_currentThitrdLineQuestindex].HeroReward.isOpened = true;
+                                third_Line_quest[m_currentThitrdLineQuestindex].HeroReward.isNewHero = true;
+                                char_Controller.CheckForNewHeroes();
                                 displayReward.Initialise(third_Line_quest[m_currentThitrdLineQuestindex].HeroReward);
                                 break;
                             case Quest.RewardType.Boost:
@@ -3767,6 +3865,8 @@ public class Tower_quest : MonoBehaviour
                                 break;
                             case Quest.RewardType.Location:
                                 third_Line_quest[m_currentThitrdLineQuestindex].Location.isOpened = true;
+                                third_Line_quest[m_currentThitrdLineQuestindex].Location.isNewZone = true;
+                                checkAttentionIcon.CheckAttention();
                                 displayReward.Initialise(third_Line_quest[m_currentThitrdLineQuestindex].Location);
                                 break;
                         }
@@ -3782,6 +3882,8 @@ public class Tower_quest : MonoBehaviour
                 {
                     case Quest.RewardType.Hero:
                         third_Line_quest[m_currentThitrdLineQuestindex].HeroReward.isOpened = true;
+                        third_Line_quest[m_currentThitrdLineQuestindex].HeroReward.isNewHero = true;
+                        char_Controller.CheckForNewHeroes();
                         displayReward.Initialise(third_Line_quest[m_currentThitrdLineQuestindex].HeroReward);
                         break;
                     case Quest.RewardType.Boost:
@@ -3790,6 +3892,8 @@ public class Tower_quest : MonoBehaviour
                         break;
                     case Quest.RewardType.Location:
                         third_Line_quest[m_currentThitrdLineQuestindex].Location.isOpened = true;
+                        third_Line_quest[m_currentThitrdLineQuestindex].Location.isNewZone = true;
+                        checkAttentionIcon.CheckAttention();
                         displayReward.Initialise(third_Line_quest[m_currentThitrdLineQuestindex].Location);
                         break;
                 }
@@ -3807,6 +3911,8 @@ public class Tower_quest : MonoBehaviour
             {
                 case Quest.RewardType.Hero:
                     third_Line_quest[m_currentThitrdLineQuestindex].HeroReward.isOpened = true;
+                    third_Line_quest[m_currentThitrdLineQuestindex].HeroReward.isNewHero = true;
+                    char_Controller.CheckForNewHeroes();
                     displayReward.Initialise(third_Line_quest[m_currentThitrdLineQuestindex].HeroReward);
                     break;
             }
@@ -3814,7 +3920,7 @@ public class Tower_quest : MonoBehaviour
             m_currentThitrdLineQuestindex++;
             Third_Line_Quest_Initialise();
           
-            GlovalEventSystem.TutorialStepsThirdPart(17);
+         //   GlovalEventSystem.TutorialStepsThirdPart(17);
         }
     }
 }

@@ -19,9 +19,6 @@ public class Switch_panels : MonoBehaviour
     {
         if (isHeroAdding)
         {
-            if(Tutorial.CheckTutorStep() >= 7)
-            {
-                Debug.Log("stepo =  " + Tutorial.CheckTutorStep());
                 for (int i = 0; i < _panels.Count; i++)
                 {
                     if (PageNumber - 1 == i)
@@ -29,7 +26,7 @@ public class Switch_panels : MonoBehaviour
                     else
                         _panels[i].SetActive(false);
                 }
-            }
+
         }
         else
         {

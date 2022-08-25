@@ -7,6 +7,8 @@ public class Tower_UI : MonoBehaviour
     [SerializeField] private Text GradeCount;
     [SerializeField] private Text GoldToGrade;
 
+    [SerializeField] private GameObject InActiveButton;
+
     [SerializeField] private List<Image> GradeTower_image;
     
     public void ChangeTowerSprite(int gradeNumber, long goldToGrade)
@@ -18,6 +20,14 @@ public class Tower_UI : MonoBehaviour
         }
         GradeCount.text = gradeNumber.ToString() + "/" + 9.ToString() + " SLOTS";
         GoldToGrade.text = ConvertText.FormatNumb(goldToGrade);
+        if(Gold.GetCurrentGold() >= goldToGrade)
+        {
+            InActiveButton.SetActive(false);
+        }
+        else
+        {
+            InActiveButton.SetActive(true);
+        }
     }
 
 }

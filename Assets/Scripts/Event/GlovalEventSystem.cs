@@ -33,9 +33,9 @@ public static class GlovalEventSystem
 
     public static void RotateComplete() => OnRotateComplete?.Invoke();
     public static void CheckOfflineTime(TimeSpan ts) => OnCheckOfflineTime?.Invoke(ts);
-    public static void TutorialSteps(int stepNumber) => OnTutorialSteps?.Invoke(stepNumber);
-    public static void TutorialStepsSecondPart(int stepNumber) => OnTutorialStepsSecondPart?.Invoke(stepNumber);
-    public static void TutorialStepsThirdPart(int stepNumber) => OnTutorialStepsThirdPart?.Invoke(stepNumber);
+//    public static void TutorialSteps(int stepNumber) => OnTutorialSteps?.Invoke(stepNumber);
+//    public static void TutorialStepsSecondPart(int stepNumber) => OnTutorialStepsSecondPart?.Invoke(stepNumber);
+ //   public static void TutorialStepsThirdPart(int stepNumber) => OnTutorialStepsThirdPart?.Invoke(stepNumber);
     public static void BoostIsReady() => OnBoostIsReady?.Invoke();
     public static void BoostIsNotReady() => OnBoostIsNotReady?.Invoke();
     public static void HeroUpgrade(Hero hero) => OnHeroUpgrade?.Invoke(hero);

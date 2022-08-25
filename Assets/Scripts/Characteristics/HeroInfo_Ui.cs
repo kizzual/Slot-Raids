@@ -42,6 +42,8 @@ public class HeroInfo_Ui : MonoBehaviour
     [SerializeField] private GameObject hero_bonus_combo;
 
     [SerializeField] private GameObject free_button;
+    [SerializeField] private GameObject busy_button;
+    [SerializeField] private Text timeToEndRaid;
     [SerializeField] private List<Cube_ui> dices;
     [SerializeField] private List<GameObject> NeutralSpriteList;
     [SerializeField] private List<GameObject> UndeadSpriteList;
@@ -50,11 +52,16 @@ public class HeroInfo_Ui : MonoBehaviour
     [SerializeField] private Text DicesCount;
     [SerializeField] private GameObject canGrade;
     [SerializeField] private GameObject cannotGrade;
+    private Hero m_currentHero;
+    public bool raid_is_active = false;
+
     public void InitialiseHero(Hero hero)
     {
 
         CloseZoneBonus();
         ShowHeroSprite(hero);
+
+        m_currentHero = hero;
         switch (hero.typeElement)
         {
             case TypeElement.Neutral:
@@ -173,7 +180,7 @@ public class HeroInfo_Ui : MonoBehaviour
         hero_name.text = hero.HeroName;
         hero_lvl.text = hero.Level.ToString();
         hero_rank.text = hero.Rank.ToString();
-        average_Profit.text = hero.GetGoldProfit().ToString();
+        average_Profit.text = ConvertText.FormatNumb(hero.GetGoldProfit());
         multiplier.text = "x" + hero.Multiplier.ToString();
         comfo_factor.text = hero.GetCombo().ToString();
         hero_luck.text = "%" + hero.GetLuckProfit().ToString();
@@ -183,9 +190,24 @@ public class HeroInfo_Ui : MonoBehaviour
             item.text = ConvertText.FormatNumb(hero.GoldToGrade);
         }
         if (hero.currentRaidSlot != 0)
-            free_button.SetActive(true);
+        {
+            if(raid_is_active)
+            {
+                free_button.SetActive(false);
+                busy_button.SetActive(true);
+            }
+            else
+            {
+                free_button.SetActive(true);
+                busy_button.SetActive(false);
+            }
+        }
+           
         else
+        {
+            busy_button.SetActive(false);
             free_button.SetActive(false);
+        }
         foreach (var item in dices)
         {
             item.gameObject.SetActive(false);
@@ -581,5 +603,30 @@ public class HeroInfo_Ui : MonoBehaviour
         }
     }
 
+    public void CheckActiveRaid(bool raidIsActive)
+    {
+        if (m_currentHero != null)
+        {
+            if (m_currentHero.currentRaidSlot != 0)
+            {
+                if(raidIsActive)
+                {
+                    busy_button.SetActive(true);
+                    free_button.SetActive(false);
+                }
+                else
+                {
+                    busy_button.SetActive(false);
+                    free_button.SetActive(true);
+                }
+            }
+            else
+            {
+                busy_button.SetActive(false);
+                free_button.SetActive(false);
+            }
+        }
+    }
+    public void CheckRaidTime(float time) => timeToEndRaid.text = ((int)time).ToString();
 
 }

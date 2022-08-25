@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 public class Characteristics : MonoBehaviour
@@ -5,8 +6,8 @@ public class Characteristics : MonoBehaviour
     [SerializeField] private HeroInfo_Ui hero_Ui;
     [SerializeField] private GameObject front_panel;
     [SerializeField] private ParticleSystem _upgradeParticle;
+    [SerializeField] private Char_Controller char_Controller;
     private Hero m_currentHero;
-
     public void ActivateEvent()
     {
         GlovalEventSystem.OnHOpenHeroStats += OpenHeroStats;
@@ -17,6 +18,8 @@ public class Characteristics : MonoBehaviour
         front_panel.SetActive(true);
         gameObject.SetActive(true);
         m_currentHero = hero;
+        hero.isNewHero = false;
+        char_Controller.CheckForNewHeroes();
         hero_Ui.InitialiseHero(hero);
     }
     private void UpgradeHeroStats(Hero hero) => hero_Ui.InitialiseHero(hero);
@@ -39,6 +42,9 @@ public class Characteristics : MonoBehaviour
             }
         }
     }
+    public void CheckActiveRaid(bool RaidIsActive) => hero_Ui.CheckActiveRaid(RaidIsActive);
+ 
+    public void CheckRaidTimer(float time) => hero_Ui.CheckRaidTime(time);
     public void ClosePanel()
     {
         front_panel.SetActive(false);

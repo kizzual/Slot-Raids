@@ -21,20 +21,24 @@ public class Zone : MonoBehaviour
     public GameObject IsOpenedPanel;
     public GameObject IscloseddPanel;
     public GameObject currentZoneCheck;
-    public int RaidsCount { get; set; } = 0;
+    public int RaidsCount  = 0;
     private int m_luckBoost = 0;
     private int m_unLuckBoost = 0;
     private int m_goldBoost = 0;
     private int m_itemBoost = 0;
+    public GameObject AttentionIcon;
+    public bool isNewZone  = false;
     public Sprite logo;
     public void SwitchLocation(Zone zone)
     {
-      
+        isNewZone = false;
+        AttentionIcon.SetActive(false);
         CurrentZone.SetZone(zone);
         GlovalEventSystem.SwitchLocation(zone);
     }
     public void GoToRaid()
     {
+        Debug.Log("Go Zone RAid");
         RaidsCount++;
     }
     public void AddBust(int luck, int unluck, int goldProfit, int itemProfit)

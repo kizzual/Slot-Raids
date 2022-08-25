@@ -65,11 +65,11 @@ public class Sell_UI : MonoBehaviour
             current_count.text = 0.ToString();
         item_count.text = count.ToString();
         item_icon.sprite = item.GetComponent<Image>().sprite;
-        gold_for_selling.text = price.ToString();
+        gold_for_selling.text = ConvertText.FormatNumb(price);
     }
     public void ChangeCurrentCount(int count, int price)
     {
         current_count.text = count.ToString();
-        gold_for_selling.text = price.ToString();
+        gold_for_selling.text = ConvertText.FormatNumb(price);
     }
 }

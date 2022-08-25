@@ -13,6 +13,7 @@ public class Boost_Controll : MonoBehaviour
     public List<Zone> Zones;
     public int RaidToActivateBoost_required;
     public BoostCard CurrentBoost;
+    public TowerUpgrade towerUpgrade;
     public List<Image> manaImg;
     public float m_timer;
     public int m_currentRaid;
@@ -73,7 +74,7 @@ public class Boost_Controll : MonoBehaviour
                 {
                     item.Play();
                 }
-                GlovalEventSystem.TutorialStepsThirdPart(20);
+           //     GlovalEventSystem.TutorialStepsThirdPart(20);
                 foreach (var item in ActivePanel)
                 {
                     item.SetActive(true);
@@ -116,6 +117,9 @@ public class Boost_Controll : MonoBehaviour
                 CurrentBoost.isActive = false;
             }
         }
+        towerUpgrade.CheckBoostParticle();
+
+
     }
     private void CheckBoostType()
     {
@@ -328,17 +332,38 @@ public class Boost_Controll : MonoBehaviour
             GlovalEventSystem.BoostIsNotReady();
        
     }
+    public void FillMana(Animator animObject )
+    {
+        m_currentRaid = RaidToActivateBoost_required;
+
+        float tmp = ((float)m_currentRaid / (float)RaidToActivateBoost_required);
+        foreach (var item in manaImg)
+        {
+            item.fillAmount = tmp;
+        }
+        mana_Img.fillAmount = tmp;
+    
+
+        if (m_currentRaid >= RaidToActivateBoost_required)
+            GlovalEventSystem.BoostIsReady();
+        else
+            GlovalEventSystem.BoostIsNotReady();
+    }
     public void OpenBoostPanel()
     {
         boostUI.gameObject.SetActive(true);
         TowerButton.transform.GetChild(1).gameObject.SetActive(false);
         TowerButton.transform.GetChild(2).gameObject.SetActive(true);
-        GlovalEventSystem.TutorialStepsThirdPart(19);
+     //   GlovalEventSystem.TutorialStepsThirdPart(19);
         if (CurrentBoost != null)
         {
             if(CurrentBoost.isActive)
             {
                 boostUI.ShowActiveBoost(m_timer, CurrentBoost);
+                foreach (var item in actiateBoost)
+                {
+                    item.Play();
+                }
             }
             else
             {
