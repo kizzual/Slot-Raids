@@ -18,107 +18,113 @@ public class Tutorial : MonoBehaviour
         GlovalEventSystem.OnTutorialStepsSecondPart += TutorialStep;
         GlovalEventSystem.OnTutorialStepsThirdPart += TutorialStep;
     }
-   /* private void TutorialSteps(int stepNumber)
+    public void DeActivateEvent()
     {
-        if(stepNumber == currentStep + 1)
-        {
-            toturialsObj[currentStep].SetActive(false);
-            currentStep++;
-            PlayerPrefs.SetInt("Tutorial", currentStep);
-            if (currentStep == 10)
-            {
-                GlovalEventSystem.OnTutorialSteps -= TutorialSteps;
-                foreach (var item in toturialsObj)
-                {
-                    item.SetActive(false);
-                }
-            }
-            else if(currentStep == 9 )
-            {
-                StartCoroutine(SecondTabToPlay());
-            }
-            else
-            {
-                toturialsObj[currentStep].SetActive(true);
-            }
-        }
-    }*/
-  /*  private void TutorialsSecondSteps(int stepNumber)
-    {
-        if(stepNumber + 1 == currentStep  )
-        { 
-            IsActiveSecondSteps = true;
-            currentStep++;
-            if (currentStep == 11)
-            {
-                toturialsObj[10].SetActive(true);
-                RaidButton.raycastTarget = false;   
-            }
-            else if (currentStep == 12)
-            {
-                toturialsObj[10].SetActive(false);
-                toturialsObj[11].SetActive(true);
-            }
-            else if (currentStep == 13)
-            {
-                toturialsObj[10].SetActive(false);
-                toturialsObj[11].SetActive(false);
-                RaidButton.raycastTarget = true;
-                IsActiveSecondSteps = false;
-            }
-        }
-
+        GlovalEventSystem.OnTutorialSteps -= TutorialStep;
+        GlovalEventSystem.OnTutorialStepsSecondPart -= TutorialStep;
+        GlovalEventSystem.OnTutorialStepsThirdPart -= TutorialStep;
     }
-    private void TutorialsThirdSteps(int stepNumber)
-    {
-        if (stepNumber + 1 == currentStep )
-        {
-            currentStep++;
-            if (currentStep == 14)
-            {
-                toturialsObj[12].SetActive(true);
-            }
-            else if (currentStep == 15)
-            {
-                toturialsObj[12].SetActive(false);
-                toturialsObj[13].SetActive(true);
-            }
-            else if (currentStep == 16)
-            {
-                toturialsObj[13].SetActive(false);
-                toturialsObj[14].SetActive(true);
-            }
-            else if (currentStep == 17)
-            {
-                toturialsObj[14].SetActive(false);
-                toturialsObj[15].SetActive(true);
-            }
-            else if (currentStep == 18)
-            {
-                toturialsObj[15].SetActive(false);
-                toturialsObj[16].SetActive(true);
-            }
-            else if (currentStep == 19)
-            {
-                toturialsObj[16].SetActive(false);
-                toturialsObj[17].SetActive(true);
-                toturialsObj[18].SetActive(true);
-            }
-            else if (currentStep == 20)
-            {
-                toturialsObj[17].SetActive(false);
-                toturialsObj[18].SetActive(false);
-                toturialsObj[19].SetActive(true);
-            }
-            else if(currentStep == 21)
-            {
-                toturialsObj[19].SetActive(false);
-            }
+    /* private void TutorialSteps(int stepNumber)
+     {
+         if(stepNumber == currentStep + 1)
+         {
+             toturialsObj[currentStep].SetActive(false);
+             currentStep++;
+             PlayerPrefs.SetInt("Tutorial", currentStep);
+             if (currentStep == 10)
+             {
+                 GlovalEventSystem.OnTutorialSteps -= TutorialSteps;
+                 foreach (var item in toturialsObj)
+                 {
+                     item.SetActive(false);
+                 }
+             }
+             else if(currentStep == 9 )
+             {
+                 StartCoroutine(SecondTabToPlay());
+             }
+             else
+             {
+                 toturialsObj[currentStep].SetActive(true);
+             }
+         }
+     }*/
+    /*  private void TutorialsSecondSteps(int stepNumber)
+      {
+          if(stepNumber + 1 == currentStep  )
+          { 
+              IsActiveSecondSteps = true;
+              currentStep++;
+              if (currentStep == 11)
+              {
+                  toturialsObj[10].SetActive(true);
+                  RaidButton.raycastTarget = false;   
+              }
+              else if (currentStep == 12)
+              {
+                  toturialsObj[10].SetActive(false);
+                  toturialsObj[11].SetActive(true);
+              }
+              else if (currentStep == 13)
+              {
+                  toturialsObj[10].SetActive(false);
+                  toturialsObj[11].SetActive(false);
+                  RaidButton.raycastTarget = true;
+                  IsActiveSecondSteps = false;
+              }
+          }
 
-        }
+      }
+      private void TutorialsThirdSteps(int stepNumber)
+      {
+          if (stepNumber + 1 == currentStep )
+          {
+              currentStep++;
+              if (currentStep == 14)
+              {
+                  toturialsObj[12].SetActive(true);
+              }
+              else if (currentStep == 15)
+              {
+                  toturialsObj[12].SetActive(false);
+                  toturialsObj[13].SetActive(true);
+              }
+              else if (currentStep == 16)
+              {
+                  toturialsObj[13].SetActive(false);
+                  toturialsObj[14].SetActive(true);
+              }
+              else if (currentStep == 17)
+              {
+                  toturialsObj[14].SetActive(false);
+                  toturialsObj[15].SetActive(true);
+              }
+              else if (currentStep == 18)
+              {
+                  toturialsObj[15].SetActive(false);
+                  toturialsObj[16].SetActive(true);
+              }
+              else if (currentStep == 19)
+              {
+                  toturialsObj[16].SetActive(false);
+                  toturialsObj[17].SetActive(true);
+                  toturialsObj[18].SetActive(true);
+              }
+              else if (currentStep == 20)
+              {
+                  toturialsObj[17].SetActive(false);
+                  toturialsObj[18].SetActive(false);
+                  toturialsObj[19].SetActive(true);
+              }
+              else if(currentStep == 21)
+              {
+                  toturialsObj[19].SetActive(false);
+              }
+
+          }
 
 
-    }*/
+      }*/
 
     public void TutorialStep(int step)
     {

@@ -36,6 +36,15 @@ public class CheckCombo : MonoBehaviour
         GlovalEventSystem.OnItemBoostDeActivate += ItemBoostDeActivate;
         GlovalEventSystem.OnRaidStart += CloseCombo;
     }
+    public void DeActivateEvent()
+    {
+        GlovalEventSystem.OnRaidComplete -= Combo;
+        GlovalEventSystem.OnGoldBoostActivate -= GoldBoostActivate;
+        GlovalEventSystem.OnGoldBoostDeActivate -= GoldBoostDeActivate;
+        GlovalEventSystem.OnItemBoostActivate -= ItemBoostActivate;
+        GlovalEventSystem.OnItemBoostDeActivate -= ItemBoostDeActivate;
+        GlovalEventSystem.OnRaidStart -= CloseCombo;
+    }
 
     private void Start()
     {

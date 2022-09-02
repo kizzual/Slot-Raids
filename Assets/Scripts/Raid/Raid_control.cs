@@ -31,6 +31,16 @@ public class Raid_control : MonoBehaviour
         GlovalEventSystem.OnWinItems += DisplayWinItems;
         GlovalEventSystem.OnRotateComplete += RotateComplete;
     }
+    public void DeActivateEvent()
+    {
+        GlovalEventSystem.OnUpgradeTower -= OnGradeTower;
+        GlovalEventSystem.OnHeroUpgrade -= UpdateHeroStats;
+        GlovalEventSystem.OnRemoveFromSlot -= RemoveHero;
+        GlovalEventSystem.OnSwitchLocation -= Switchlocation;
+        GlovalEventSystem.OnWinGold -= DisplayWinGold;
+        GlovalEventSystem.OnWinItems -= DisplayWinItems;
+        GlovalEventSystem.OnRotateComplete -= RotateComplete;
+    }
 
     private void Start()
     {

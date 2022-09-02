@@ -45,6 +45,25 @@ public class GameController : MonoBehaviour
         newTutorialSystem.Firstinitialise();
 
     }
-
+    public void DeactiveEvents()
+    {
+        raid_control.DeActivateEvent();
+        char_Controller.DeActivateEvent();
+        characteristics.DeActivateEvent();
+        addingItem.DeActivateEvent();
+        adding_Hero_to_slot.DeActivateEvent();
+        switchTabs.DeActivateEvent();
+        sell_controll.DeActivateEvent();
+        inventory_controll.DeActivateEvent();
+        checkCombo.DeActivateEvent();
+        foreach (var item in tower_quest)
+        {
+            item.DeActivateEvent();
+        }
+        boost_Controll.DeActivateEvent();
+        attentionIcon.DeActivateEvent();
+        tutorial.DeActivateEvent();
+        checkAttentionIcon.DeActivateEvent();
+    }
 
 }

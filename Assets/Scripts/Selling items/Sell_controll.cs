@@ -17,6 +17,10 @@ public class Sell_controll : MonoBehaviour
     {
         GlovalEventSystem.OnSellingItem += OpenSellPanel;
     }
+    public void DeActivateEvent()
+    {
+        GlovalEventSystem.OnSellingItem -= OpenSellPanel;
+    }
 
     public void OpenSellPanel(Item item, int count, Inventory_controll inventory_Controll)
     {

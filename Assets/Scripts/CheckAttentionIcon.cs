@@ -11,7 +11,10 @@ public class CheckAttentionIcon : MonoBehaviour
     {
         GlovalEventSystem.OnSwitchLocation += test;
     }
-
+    public void DeActivateEvent()
+    {
+        GlovalEventSystem.OnSwitchLocation -= test;
+    }
     public void CheckAttention()
     {
         bool check = false;

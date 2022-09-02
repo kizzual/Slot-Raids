@@ -30,7 +30,11 @@ public class Tower_quest : MonoBehaviour
         GlovalEventSystem.OnUpgradeTower += AttentionIcon;
         GlovalEventSystem.OnCheckAchievement += RaidComplete;
     }
-
+    public void DeActivateEvent()
+    {
+        GlovalEventSystem.OnUpgradeTower -= AttentionIcon;
+        GlovalEventSystem.OnCheckAchievement -= RaidComplete;
+    }
     public int m_currentFirstLineQuestindex { get; set; } = 0;
     public int m_currentSecondLineQuestindex { get; set; } = 0;
     public int m_currentThitrdLineQuestindex { get; set; } = 0;

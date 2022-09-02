@@ -11,6 +11,10 @@ public class Char_Controller : MonoBehaviour
     {
         GlovalEventSystem.OnHeroUpgrade += ChangeHeroStats;
     }
+    public void DeActivateEvent()
+    {
+        GlovalEventSystem.OnHeroUpgrade -= ChangeHeroStats;
+    }
     public void ChangeHeroStats(Hero hero)
     {
         switch (hero.typeElement)

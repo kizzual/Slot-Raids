@@ -26,7 +26,7 @@ public class Saver : MonoBehaviour
     [SerializeField] private TowerUpgrade upgradeTower;
     [SerializeField] private CheckCombo checkCombo;
     [SerializeField] private OffLineTimer offlineTimer;
-
+    [SerializeField] private GameController gamneController;
 
     public Text test_1;
 
@@ -46,7 +46,14 @@ public class Saver : MonoBehaviour
     private void OnApplicationPause(bool pause)
     {
         if (pause && !m_FastQuit)
+        {
             FullSave();
+            gamneController.DeactiveEvents();
+        }
+        else
+        {
+            gamneController.DeactiveEvents();
+        }
     }
 /*    private void OnApplicationQuit()
     {

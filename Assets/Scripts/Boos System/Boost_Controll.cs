@@ -48,6 +48,10 @@ public class Boost_Controll : MonoBehaviour
     {
         GlovalEventSystem.OnWinItems += RaidComplete;
     }
+    public void DeActivateEvent()
+    {
+        GlovalEventSystem.OnWinItems -= RaidComplete;
+    }
     public void ActivateBoost()
     {
         if (CurrentBoost != null)

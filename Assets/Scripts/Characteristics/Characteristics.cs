@@ -13,6 +13,11 @@ public class Characteristics : MonoBehaviour
         GlovalEventSystem.OnHOpenHeroStats += OpenHeroStats;
         GlovalEventSystem.OnHeroUpgrade += UpgradeHeroStats;
     }
+    public void DeActivateEvent()
+    {
+        GlovalEventSystem.OnHOpenHeroStats -= OpenHeroStats;
+        GlovalEventSystem.OnHeroUpgrade -= UpgradeHeroStats;
+    }
     public void OpenHeroStats(Hero hero)
     {
         front_panel.SetActive(true);

@@ -28,6 +28,10 @@ public class Inventory_controll : MonoBehaviour
     {
         GlovalEventSystem.OnItemAddingToInventory += ReturnItem;
     }
+    public void DeActivateEvent()
+    {
+        GlovalEventSystem.OnItemAddingToInventory -= ReturnItem;
+    }
     private void OnEnable()
     {
         DisplayInventoryItems();

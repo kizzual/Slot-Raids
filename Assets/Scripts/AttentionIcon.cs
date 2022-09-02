@@ -13,7 +13,13 @@ public class AttentionIcon : MonoBehaviour
         GlovalEventSystem.OnBoostIsReady += BoostReady;
         GlovalEventSystem.OnBoostIsNotReady += BosstIsNotReady;
     }
-    
+    public void DeActivateEvent()
+    {
+
+        GlovalEventSystem.OnBoostIsReady -= BoostReady;
+        GlovalEventSystem.OnBoostIsNotReady -= BosstIsNotReady;
+    }
+
     private void BoostReady()
     {
         isBoostReady = true;
