@@ -47,7 +47,7 @@ public class GameController : MonoBehaviour
     }
     public void DeactiveEvents()
     {
-        raid_control.DeActivateEvent();
+       /* raid_control.DeActivateEvent();
         char_Controller.DeActivateEvent();
         characteristics.DeActivateEvent();
         addingItem.DeActivateEvent();
@@ -63,7 +63,7 @@ public class GameController : MonoBehaviour
         boost_Controll.DeActivateEvent();
         attentionIcon.DeActivateEvent();
         tutorial.DeActivateEvent();
-        checkAttentionIcon.DeActivateEvent();
+        checkAttentionIcon.DeActivateEvent();*/
     }
 
 }

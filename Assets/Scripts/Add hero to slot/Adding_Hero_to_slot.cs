@@ -25,6 +25,7 @@ public class Adding_Hero_to_slot : MonoBehaviour
 
     public void OpenHeroPanel(Raid_UI slot)
     {
+        Debug.Log(slot.name);
         currentSlot = slot;
         frontPanel.SetActive(true);
         gameObject.SetActive(true);
