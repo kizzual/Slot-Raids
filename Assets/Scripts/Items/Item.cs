@@ -1,6 +1,5 @@
 using UnityEngine;
 
-
 public class Item : MonoBehaviour
 {
     public Type_Element typeElement;
@@ -11,7 +10,7 @@ public class Item : MonoBehaviour
     public int Protect_profit;
     public int Luck_profit;
     public int Rank;
-
+    public Sprite Icon;
 
 }
 [System.Serializable]

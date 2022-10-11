@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -15,7 +16,7 @@ public class CheckCombo : MonoBehaviour
     [SerializeField] private Raid_button autoraid;
     [SerializeField] private ParticleSlotControll particleSlotControll;
     [SerializeField] private Raid_control raidControl;
-    [SerializeField] private List<Tower_quest> tower_quest;
+    [SerializeField] private QuestControll QuestControll;
     [SerializeField] private OfflineGreating offline_greatings;
     [SerializeField] private List<Raid_button> raid_buttons;
     private int activeSlots = 0;
@@ -25,8 +26,6 @@ public class CheckCombo : MonoBehaviour
     private bool m_isCombo;
     private int m_boostGold = 1;
     private int m_boostItem = 1;
-    public Text test_1;
-    public Text test_2;
     public void ActivateEvent()
     {
         GlovalEventSystem.OnRaidComplete += Combo;
@@ -46,18 +45,14 @@ public class CheckCombo : MonoBehaviour
         GlovalEventSystem.OnRaidStart -= CloseCombo;
     }
 
-    private void Start()
-    {
-
-    }
     public void CheckOfflinePrize()
     {
-        test_1.text = "WinPrize Startet";
         if (PlayerPrefs.HasKey("LastSession"))
         { 
-            var offlineTime = OffLineTimer.OfflineTime;
-            long tmp = (long)offlineTime.TotalSeconds;
-            int totalOfflineRaids = (int)tmp / 20;
+
+            long tmp = Utils.GetSeconds("LastSession");
+            Debug.Log("tmp =  " + tmp);
+            int totalOfflineRaids = (int)(tmp / 20);
 
           Debug.Log("OfflineRaids =  " + totalOfflineRaids);
             var slots = raidControl.CheckWinPrize();
@@ -109,24 +104,19 @@ public class CheckCombo : MonoBehaviour
                 Debug.Log("CHECK Offline  _  1" );
                 Debug.Log(winGold * m_boostGold + "  win + boost");
                 Gold.AddGold(winGold * m_boostGold);
-                foreach (var item in tower_quest)
-                {
-                    item.m_currentRaid += totalOfflineRaids;
-                    item.m_currentGold += winGold * m_boostGold;
-                }
+
+                QuestControll.RaidConplete( winGold * m_boostGold);
+                
                 ItemsAwarding(winItems);
 
                 offline_greatings.OfflineReward(winGold, winItems);
-                test_1.text = "WinPrize Complete";
             }
-            test_1.text = "WinPrize Aborted";
         }
         foreach (var item in raid_buttons)
-        {
+        {  
             if (item.gameObject.activeSelf)
             {
                 item.GoRaidAfterOffline();
-
             }
         }
     }

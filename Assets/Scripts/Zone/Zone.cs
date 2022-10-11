@@ -5,7 +5,9 @@ using UnityEngine.UI;
 
 public class Zone : MonoBehaviour
 {
+    [Header("Settings")]
     public Type__Element typeElement;
+    public string nameLocation;
     public int ID;
     public int Rank;
     public int Luck;
@@ -14,27 +16,58 @@ public class Zone : MonoBehaviour
     public int itemProfit { get; set; } = 1;
     public List<Item> ItemsOnZone;
     public Sprite ZoneSprite;
-    public bool isOpened;
-    public string nameLocation;
-    
-    public Button button;
-    public GameObject IsOpenedPanel;
-    public GameObject IscloseddPanel;
-    public GameObject currentZoneCheck;
-    public int RaidsCount  = 0;
-    private int m_luckBoost = 0;
-    private int m_unLuckBoost = 0;
-    private int m_goldBoost = 0;
-    private int m_itemBoost = 0;
-    public GameObject AttentionIcon;
-    public bool isNewZone  = false;
+    public Sprite ZoneSprite_closed;
+    public Sprite elementLogo;
     public Sprite logo;
+    public bool isOpened;
+    [Space]
+    [Header("UI")]
+    [SerializeField] private GameObject IsOpenedPanel;
+    [SerializeField] private GameObject IscloseddPanel;
+    [SerializeField] private GameObject currentZoneCheck;
+    [SerializeField] private Text name_Location;
+    [SerializeField] private Text Luck_value;
+    [SerializeField] private Text UnLuck_value;
+    [SerializeField] private List<Image> itemIcons;
+    [SerializeField] private Image element;
+    [SerializeField] private Image OpenBG;
+    [SerializeField] private Image CloseBG;
+    public int RaidsCount { get; set; } = 0;
+    private int m_luckBoost { get; set; } = 0;
+    private int m_unLuckBoost { get; set; } = 0;
+    private int m_goldBoost { get; set; } = 0;
+    private int m_itemBoost { get; set; } = 0;
+    [SerializeField] private GameObject AttentionIcon;
+    public bool isNewZone { get; set; }  = false;
     public void SwitchLocation(Zone zone)
     {
         isNewZone = false;
         AttentionIcon.SetActive(false);
         CurrentZone.SetZone(zone);
         GlovalEventSystem.SwitchLocation(zone);
+    }
+    public void Initialise()
+    {
+        Luck_value.text = Luck.ToString() + "%";
+        UnLuck_value.text = UnLuck.ToString() + "%";
+        OpenBG.sprite = ZoneSprite;
+        CloseBG.sprite = ZoneSprite_closed;
+        name_Location.text = nameLocation;
+        if (ItemsOnZone[0] != null)
+            itemIcons[0].sprite = ItemsOnZone[0].Icon;
+        if (ItemsOnZone[1] != null)
+            itemIcons[1].sprite = ItemsOnZone[1].Icon;
+        element.sprite = elementLogo;
+        if (isOpened)
+        {
+            IsOpenedPanel.SetActive(true);
+            IscloseddPanel.SetActive(false);
+        }
+        else
+        {
+            IsOpenedPanel.SetActive(false);
+            IscloseddPanel.SetActive(true);
+        }
     }
     public void GoToRaid()
     {
@@ -77,16 +110,15 @@ public class Zone : MonoBehaviour
             }
             IsOpenedPanel.SetActive(true);
             IscloseddPanel.SetActive(false);
-            button.enabled = true;
         }
         else
         {
             currentZoneCheck.SetActive(false);
             IsOpenedPanel.SetActive(false);
             IscloseddPanel.SetActive(true);
-            button.enabled = false;
         }
     }
+ 
 }
 [System.Serializable]
 public enum Type__Element

@@ -77,38 +77,21 @@ public class TowerUpgrade : MonoBehaviour
     }
     public void Initialise()
     {
-        if (PlayerPrefs.HasKey("TutorSave") && PlayerPrefs.GetInt("TutorSave") == 4)
+
+        m_tower_ui = GetComponent<Tower_UI>();
+        if (PlayerPrefs.HasKey("TowerLvl"))
         {
-            ManaBottle.SetActive(true);
-            ManaBottle_deactive.SetActive(false);
-            test_4.text = "Grade tower startet = ";
-            Boost.SetActive(true);
-            BoostTower.SetActive(true);
-            m_tower_ui = GetComponent<Tower_UI>();
-            if (PlayerPrefs.HasKey("TowerLvl"))
-            {
-                currentGrade = PlayerPrefs.GetInt("TowerLvl");
-            }
-            else
-            {
-                currentGrade = 0;
-            }
-            CheckGoldToGrade();
-            m_tower_ui.ChangeTowerSprite(currentGrade, m_goldToGrade);
-            raidControl.CheckGrade(currentGrade);
-           
-         
-            test_4.text = "Grade tower Finished = ";
+            currentGrade = PlayerPrefs.GetInt("TowerLvl");
         }
         else
         {
-            m_tower_ui = GetComponent<Tower_UI>();
             currentGrade = 0;
-            CheckGoldToGrade();
-            m_tower_ui.ChangeTowerSprite(currentGrade, m_goldToGrade);
-            raidControl.CheckGrade(currentGrade);
-
         }
+        CheckGoldToGrade();
+        m_tower_ui.ChangeTowerSprite(currentGrade, m_goldToGrade);
+        raidControl.CheckGrade(currentGrade);
+
+
     }
     public void UpgradeTower()
     {

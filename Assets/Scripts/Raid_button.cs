@@ -128,8 +128,6 @@ public class Raid_button : MonoBehaviour
     {
         if (raid_control.ChecnCanRaid())
         {
-            if (Tutorial.CheckTutorStep() != 12)
-            {
                 characteristics.CheckActiveRaid(true);
                 isActive = true;
                 currentButton.sprite = ButtonsSprite[0];
@@ -157,7 +155,6 @@ public class Raid_button : MonoBehaviour
          //              GlovalEventSystem.TutorialSteps(9);
        //             }
                 }
-            }
         }
     }
     public void GoRaidAfterOffline()
@@ -210,5 +207,11 @@ public class Raid_button : MonoBehaviour
             PauseImg.SetActive(false);
         }
     }
-    
+    public void ForceStopRaid()
+    {
+        m_isStopping = true;
+        isActive = false;
+        buttonState = ButtonState.Stopped;
+
+    }
 }

@@ -1,0 +1,53 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class QuestControll : MonoBehaviour
+{
+    [SerializeField] private QuestUI questUI;
+    [SerializeField] private Inventory_controll inventory_controll;
+    [SerializeField] private DisplayReward displayReward;
+    [SerializeField] private TowerUpgrade towergrade;
+    [SerializeField] private Boost_Controll boostControll;
+    [SerializeField] private List<QuestPanel> questPanel;
+    [SerializeField] private List<GameObject> Attention;
+    public int m_currentRaid { get; set; } = 0;
+    public long m_currentGold { get; set; } = 0;
+
+    private void Awake()
+    {
+        foreach (var item in questPanel)
+        {
+            item.SetInventoryControll(inventory_controll);
+            item.SetDisplayReward(displayReward);
+            item.SetBoost_Controll(boostControll);
+            item.GetRaidInfo(towergrade.currentGrade, m_currentRaid, m_currentGold);
+        }
+
+    }
+    public void OpenQuestPanel()
+    {
+        questUI.Initialise(m_currentGold, m_currentRaid);
+        foreach (var item in questPanel)
+        {
+            item.GetRaidInfo(towergrade.currentGrade, m_currentRaid, m_currentGold);
+        }
+        transform.GetChild(0).gameObject.SetActive(true);
+    }
+
+    private void InitialiseQuest()
+    {
+        foreach (var item in questPanel)
+        {
+            item.GetRaidInfo(towergrade.currentGrade, m_currentRaid, m_currentGold);
+        }
+    }
+    public void RaidConplete(long goldValue, int combo = 0, int unLuck = 0)
+    {
+        m_currentRaid++;
+        m_currentGold += goldValue;
+
+        InitialiseQuest();
+    }
+    public List<QuestPanel> GetQuestPanels() => questPanel;
+}

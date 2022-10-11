@@ -123,3 +123,4 @@ MonoBehaviour:
   Protect_profit: 0
   Luck_profit: 7
   Rank: 2
+  Icon: {fileID: 21300000, guid: 923618c0ac032434486823720da9f6a3, type: 3}

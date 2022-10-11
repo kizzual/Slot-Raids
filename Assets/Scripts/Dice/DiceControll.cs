@@ -46,6 +46,7 @@ public class DiceControll : MonoBehaviour
         CurrentWinPrize();
     }
     public void StartRotate() => currentCube.StartRotate(currentWinIndex);
+    public void StopRotate() => currentCube.StopRaid();
     private void CurrentWinPrize()
     {
         if (currentCube.edges[currentWinIndex ].edgeType == EdgeScript.EdgeType.Neutral)

@@ -15,25 +15,26 @@ public class CheckAttentionIcon : MonoBehaviour
     {
         GlovalEventSystem.OnSwitchLocation -= test;
     }
+
     public void CheckAttention()
     {
-        bool check = false;
+       /* bool check = false;
         foreach (var item in zones)
         {
             if (item.isOpened && item.isNewZone)
             {
                 check = true;
-                item.AttentionIcon.SetActive(true);
+             //   item.AttentionIcon.SetActive(true);
             }
             else
             {
-                item.AttentionIcon.SetActive(false);
+             //   item.AttentionIcon.SetActive(false);
             }
         }
         if (check)
             ZoneAttention.SetActive(true);
         else
-            ZoneAttention.SetActive(false);
+            ZoneAttention.SetActive(false);*/
     }
     private void test(Zone zone)
     {

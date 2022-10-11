@@ -12,16 +12,15 @@ public class GameController : MonoBehaviour
     [SerializeField] private Sell_controll sell_controll;
     [SerializeField] private Inventory_controll inventory_controll;
     [SerializeField] private CheckCombo checkCombo;
-    [SerializeField] private List<Tower_quest> tower_quest;
+//    [SerializeField] private List<Tower_quest> tower_quest;
     [SerializeField] private Boost_Controll boost_Controll;
     [SerializeField] private AttentionIcon attentionIcon;
-    [SerializeField] private Tutorial tutorial;
     [SerializeField] private Pause pause;
     [SerializeField] private WelcomeWindow welcomeWindow;
-    [SerializeField] private NewTutorialSystem newTutorialSystem;
     [SerializeField] private CheckAttentionIcon checkAttentionIcon;
+    [SerializeField] private SwitchLocation switchLocation;
 
-    void Awake()
+    public void ActivateEvents()
     {
         raid_control.ActivateEvent();
         char_Controller.ActivateEvent();
@@ -32,22 +31,17 @@ public class GameController : MonoBehaviour
         sell_controll.ActivateEvent();
         inventory_controll.ActivateEvent();
         checkCombo.ActivateEvent();
-        foreach (var item in tower_quest)
-        {
-            item.ActivateEvent();
-        }
+      
         boost_Controll.ActivateEvent();
         attentionIcon.ActivateEvent();
-        tutorial.ActivateEvent();
         checkAttentionIcon.ActivateEvent();
+        switchLocation.ActivateEvent();
         pause.CheckSave();
-        welcomeWindow.Initialise();
-        newTutorialSystem.Firstinitialise();
-
     }
-    public void DeactiveEvents()
+
+    public void DeactivateEvents()
     {
-       /* raid_control.DeActivateEvent();
+        raid_control.DeActivateEvent();
         char_Controller.DeActivateEvent();
         characteristics.DeActivateEvent();
         addingItem.DeActivateEvent();
@@ -56,14 +50,11 @@ public class GameController : MonoBehaviour
         sell_controll.DeActivateEvent();
         inventory_controll.DeActivateEvent();
         checkCombo.DeActivateEvent();
-        foreach (var item in tower_quest)
-        {
-            item.DeActivateEvent();
-        }
+
         boost_Controll.DeActivateEvent();
         attentionIcon.DeActivateEvent();
-        tutorial.DeActivateEvent();
-        checkAttentionIcon.DeActivateEvent();*/
+        checkAttentionIcon.DeActivateEvent();
+        switchLocation.DeActivateEvent();
     }
 
 }

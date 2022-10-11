@@ -34,11 +34,10 @@ public class SwitchTabs : MonoBehaviour
         {
             if (i == 0)
             {
-                Debug.Log("ASD");
                 button[i].gameObject.transform.GetChild(1).gameObject.SetActive(true);
                 panel[i].SetActive(true);
             }
-        }
+        } 
     }
 
     public void ActivateEvent()

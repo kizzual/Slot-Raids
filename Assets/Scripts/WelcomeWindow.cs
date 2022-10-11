@@ -5,7 +5,6 @@ using UnityEngine;
 public class WelcomeWindow : MonoBehaviour
 {
     public GameObject Button;
-    public TutorialSystem tutorialSystem;
     public void Initialise()
     {
         if (PlayerPrefs.HasKey("TutorSave") && PlayerPrefs.GetInt("TutorSave") == 4)
@@ -26,7 +25,6 @@ public class WelcomeWindow : MonoBehaviour
     {
         gameObject.SetActive(false);
         PlayerPrefs.SetInt("FirstStart", 1);
-        tutorialSystem.MainTutorial();
 
     }
     IEnumerator hello()

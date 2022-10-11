@@ -22,10 +22,8 @@ public class Adding_Hero_to_slot : MonoBehaviour
         GlovalEventSystem.OnAddingHeoToSlot -= OpenHeroPanel;
     }
 
-
     public void OpenHeroPanel(Raid_UI slot)
     {
-        Debug.Log(slot.name);
         currentSlot = slot;
         frontPanel.SetActive(true);
         gameObject.SetActive(true);

@@ -17,7 +17,7 @@ public class Saver : MonoBehaviour
     ///////////////////////////////////////////////////////////////////
    
     [SerializeField] private List<Hero> heroes; 
-    [SerializeField] private List<Tower_quest> quests;
+    [SerializeField] private QuestControll quests;
     [SerializeField] private List<Zone> zones;
     [SerializeField] private Inventory_controll inventory_Controll;
     [SerializeField] private Raid_control raid_control;
@@ -25,10 +25,9 @@ public class Saver : MonoBehaviour
     [SerializeField] private Boost_Controll boost_Controll;
     [SerializeField] private TowerUpgrade upgradeTower;
     [SerializeField] private CheckCombo checkCombo;
-    [SerializeField] private OffLineTimer offlineTimer;
-    [SerializeField] private GameController gamneController;
+    [SerializeField] private GameController EventController;
 
-    public Text test_1;
+
 
     
     private List<HeroSaver> m_heroSaver = new List<HeroSaver>();
@@ -40,68 +39,74 @@ public class Saver : MonoBehaviour
     private bool m_FastQuit = false;
     private void Awake()
     {
-    //    StartCoroutine(LoadAll());
+        EventController.ActivateEvents();
+
+    }
+    private void Start()
+    {
+      
         FullLoad();
+        checkCombo.CheckOfflinePrize();
     }
     private void OnApplicationPause(bool pause)
     {
-        if (pause && !m_FastQuit)
+        if (pause)
         {
+            Utils.SetLastTime("LastSession");
+            raid_control.StopRaid();
+            EventController.DeactivateEvents();
             FullSave();
-            gamneController.DeactiveEvents();
         }
         else
         {
-            gamneController.DeactiveEvents();
+            EventController.ActivateEvents();
+            checkCombo.CheckOfflinePrize();
         }
     }
-/*    private void OnApplicationQuit()
-    {
-        if(!m_FastQuit)
-            FullSave();
-    }*/
+
     public void FullSave()
     {
-        if (PlayerPrefs.HasKey("TutorSave") && PlayerPrefs.GetInt("TutorSave") == 4)
+
+        //  сохранения героев
+        m_heroSaver.Clear();
+        for (int i = 0; i < heroes.Count; i++)
         {
-            //  сохранения героев
-            m_heroSaver.Clear();
-            for (int i = 0; i < heroes.Count; i++)
-            {
-                m_heroSaver.Add(new HeroSaver(heroes[i]));
-            }
-            FileHandler.SaveToJSON<HeroSaver>(m_heroSaver, heroSaverPath);
-
-            //   сохранения инвенторя
-            m_inventorySavers = null;
-            m_inventorySavers = new InventorySaver(inventory_Controll);
-            FileHandler.SaveToJSON<InventorySaver>(m_inventorySavers, inventorySaverPath);
-
-            //  сохранения текущей карты
-            //   m_zoneSaver.Add( new ZoneSaver(CurrentZone.Current_Zone));
-            //   FileHandler.SaveToJSON<ZoneSaver>(m_zoneSaver, zoneSaverPath);
-
-            //  сохранения всех карт 
-            allZonesSaver.Clear();
-            for (int i = 0; i < zones.Count; i++)
-            {
-                allZonesSaver.Add(new AllZonesSaver(zones[i]));
-            }
-            FileHandler.SaveToJSON<AllZonesSaver>(allZonesSaver, allZoneSaverPath);
-
-            //  сохранения квестов
-            m_questSaver.Clear();
-            for (int i = 0; i < quests.Count; i++)
-            {
-                m_questSaver.Add(new QuestSaver(quests[i]));
-            }
-            FileHandler.SaveToJSON<QuestSaver>(m_questSaver, QuestSaverPath);
-
-            //  сохранения бустов
-            m_boostSaver = null;
-            m_boostSaver = new BoostSaver(boost_Controll);
-            FileHandler.SaveToJSON<BoostSaver>(m_boostSaver, BoostSaverPath);
+            m_heroSaver.Add(new HeroSaver(heroes[i]));
         }
+        FileHandler.SaveToJSON<HeroSaver>(m_heroSaver, heroSaverPath);
+
+        //   сохранения инвенторя
+        m_inventorySavers = null;
+        m_inventorySavers = new InventorySaver(inventory_Controll);
+        FileHandler.SaveToJSON<InventorySaver>(m_inventorySavers, inventorySaverPath);
+
+        //  сохранения текущей карты
+        //   m_zoneSaver.Add( new ZoneSaver(CurrentZone.Current_Zone));
+        //   FileHandler.SaveToJSON<ZoneSaver>(m_zoneSaver, zoneSaverPath);
+
+        //  сохранения всех карт 
+        allZonesSaver.Clear();
+        for (int i = 0; i < zones.Count; i++)
+        {
+            allZonesSaver.Add(new AllZonesSaver(zones[i]));
+        }
+        FileHandler.SaveToJSON<AllZonesSaver>(allZonesSaver, allZoneSaverPath);
+
+        //  сохранения квестов
+        m_questSaver.Clear();
+        List<QuestPanel> panels = new List<QuestPanel>();
+        panels = quests.GetQuestPanels();
+        for (int i = 0; i < panels.Count; i++)
+        {
+            m_questSaver.Add(new QuestSaver(panels[i]));
+        }
+        FileHandler.SaveToJSON<QuestSaver>(m_questSaver, QuestSaverPath);
+
+        //  сохранения бустов
+        m_boostSaver = null;
+        m_boostSaver = new BoostSaver(boost_Controll);
+        FileHandler.SaveToJSON<BoostSaver>(m_boostSaver, BoostSaverPath);
+
     }
     public void FullLoad()
     { 
@@ -112,8 +117,6 @@ public class Saver : MonoBehaviour
         allZonesSaver = FileHandler.ReadListFromJSON<AllZonesSaver>(allZoneSaverPath);
         m_boostSaver = FileHandler.ReadFromJSON<BoostSaver>(BoostSaverPath);
 
-        test_1.text = "start loading";
-        offlineTimer.ChecckOffline();
         //////////  загрузка башни    ////////
         upgradeTower.Initialise();
         ////////// загрузка характеристик карт ////////
@@ -125,87 +128,35 @@ public class Saver : MonoBehaviour
                 zones[i].isOpened = allZonesSaver[i].isOpened;
             }
         }
-        test_1.text = "Load 1 done";
 
         //////////// загрузка инвентаря ///////////////
         if (m_inventorySavers != null)
             inventory_Controll.LoadInventory(m_inventorySavers);
-        test_1.text = "Load 2 done";
 
         //////////// загрузка текущей карты ///////////
-        if (PlayerPrefs.HasKey("TutorSave") && PlayerPrefs.GetInt("TutorSave") == 4)
+
+        if (PlayerPrefs.HasKey("CurrentZone"))
         {
-            if (PlayerPrefs.HasKey("CurrentZone"))
+            Debug.Log("Current zone ID =  " + PlayerPrefs.HasKey("CurrentZone"));
+            foreach (var item in zones)
             {
-                Debug.Log("Current zone ID =  " + PlayerPrefs.HasKey("CurrentZone"));
-                foreach (var item in zones)
+                if (item.ID == PlayerPrefs.GetInt("CurrentZone"))
                 {
-                    if (item.ID == PlayerPrefs.GetInt("CurrentZone"))
-                    {
-                        CurrentZone.SetZone(item);
-                        Debug.Log("Current zone name  =  " + item.nameLocation);
-                        break;
-                    }
+                    CurrentZone.SetZone(item);
+                    Debug.Log("Current zone name  =  " + item.nameLocation);
+                    break;
                 }
-                switch (CurrentZone.Current_Zone.typeElement)
-                {
-                    case Type__Element.Neutral:
-                        switchLocation.SwitchRaidLocation(0);
-                        break;
-                    case Type__Element.Undead:
-                        switchLocation.SwitchRaidLocation(1);
-                        break;
-                    case Type__Element.Order:
-                        switchLocation.SwitchRaidLocation(2);
-                        break;
-                    case Type__Element.Demon:
-                        switchLocation.SwitchRaidLocation(3);
-                        break;
-                }
-                raid_control.Switchlocation(CurrentZone.Current_Zone);
             }
-            else if (!PlayerPrefs.HasKey("CurrentZone"))
-            {
-                CurrentZone.SetZone(zones[0]);
-                switch (CurrentZone.Current_Zone.typeElement)
-                {
-                    case Type__Element.Neutral:
-                        switchLocation.SwitchRaidLocation(0);
-                        break;
-                    case Type__Element.Undead:
-                        switchLocation.SwitchRaidLocation(1);
-                        break;
-                    case Type__Element.Order:
-                        switchLocation.SwitchRaidLocation(2);
-                        break;
-                    case Type__Element.Demon:
-                        switchLocation.SwitchRaidLocation(3);
-                        break;
-                }
-                raid_control.Switchlocation(CurrentZone.Current_Zone);
-            }
+            switchLocation.SwitchRaidLocation(CurrentZone.Current_Zone);
+
         }
-        else
+        else if (!PlayerPrefs.HasKey("CurrentZone"))
         {
             CurrentZone.SetZone(zones[0]);
-            switch (CurrentZone.Current_Zone.typeElement)
-            {
-                case Type__Element.Neutral:
-                    switchLocation.SwitchRaidLocation(0);
-                    break;
-                case Type__Element.Undead:
-                    switchLocation.SwitchRaidLocation(1);
-                    break;
-                case Type__Element.Order:
-                    switchLocation.SwitchRaidLocation(2);
-                    break;
-                case Type__Element.Demon:
-                    switchLocation.SwitchRaidLocation(3);
-                    break;
-            }
-            raid_control.Switchlocation(CurrentZone.Current_Zone);
+            switchLocation.SwitchRaidLocation(CurrentZone.Current_Zone);
         }
-        test_1.text = "Load 3 done";
+
+
 
         //////////// загрузка героев ///////////////
         if (m_heroSaver.Count > 0)
@@ -234,42 +185,39 @@ public class Saver : MonoBehaviour
             }
             Debug.Log("Heroes loaded");
         }
-        test_1.text = "Load 4 done";
 
         /////////////// загрузка квестов ////////////// *******
+        List<QuestPanel> panels = new List<QuestPanel>();
+        panels = quests.GetQuestPanels();
         if (m_questSaver.Count > 0 )
         {
             for (int i = 0; i < m_questSaver.Count; i++)
             {
-                quests[i].m_currentFirstLineQuestindex = m_questSaver[i].firstIndex;
-                quests[i].m_currentSecondLineQuestindex = m_questSaver[i].secondIndex;
-                quests[i].m_currentThitrdLineQuestindex = m_questSaver[i].thirdIndex;
-                quests[i].first_Line_quest[quests[i].m_currentFirstLineQuestindex].goal = m_questSaver[i].first_Line;
-                quests[i].second_Line_quest[quests[i].m_currentSecondLineQuestindex].goal = m_questSaver[i].second_Line;
-                quests[i].third_Line_quest[quests[i].m_currentThitrdLineQuestindex].goal = m_questSaver[i].third_Line;
-                quests[i].m_currentRaid = m_questSaver[i].currentRaid;
-                quests[i].m_currentGold = m_questSaver[i].currentGold;
+                panels[i].m_currentFirstLineQuestindex = m_questSaver[i].firstIndex;
+                panels[i].m_currentSecondLineQuestindex = m_questSaver[i].secondIndex;
+                panels[i].m_currentThitrdLineQuestindex = m_questSaver[i].thirdIndex;
+                panels[i].GetFirstLineQuest()[panels[i].m_currentFirstLineQuestindex].goal = m_questSaver[i].first_Line;
+                panels[i].GetSecondLineQuest()[panels[i].m_currentSecondLineQuestindex].goal = m_questSaver[i].second_Line;
+                panels[i].GetThirdLineQuest()[panels[i].m_currentThitrdLineQuestindex].goal = m_questSaver[i].third_Line;
 
             }
+            quests.m_currentRaid = m_questSaver[0].currentRaid;
+            quests.m_currentGold = m_questSaver[0].currentGold;
         }
-        test_1.text = "Load 5 done";
 
         /////////////// загрузка бустов ////////////////
         if (m_boostSaver != null)
         {
             boost_Controll.LoadBoost(m_boostSaver);
         }
-        test_1.text = "Load 6 done";
 
         /////////////// загрузка призов ////////////////
-        if (PlayerPrefs.HasKey("TutorSave") && PlayerPrefs.GetInt("TutorSave") == 4)
-        {
-            checkCombo.CheckOfflinePrize();
-        }
-        Debug.Log("Rewards coplete");
-        test_1.text = "Load 7 done";
 
-        test_1.text = "Load complete";
+        Debug.Log("Rewards coplete");
+
+    }
+    public void ActivateAllEvents()
+    {
 
     }
     public void DeleteAllSaves()
@@ -396,22 +344,22 @@ public class QuestSaver
     public int firstIndex;
     public int secondIndex;
     public int thirdIndex;
-    public QuestGoal first_Line;
-    public QuestGoal second_Line;
-    public QuestGoal third_Line;
+    public Goal first_Line;
+    public Goal second_Line;
+    public Goal third_Line;
     public int currentRaid;
     public long currentGold;
 
-    public QuestSaver(Tower_quest quesLine)
+    public QuestSaver(QuestPanel quesLine)
     {
         firstIndex = quesLine.m_currentFirstLineQuestindex;
         secondIndex = quesLine.m_currentSecondLineQuestindex;
         thirdIndex = quesLine.m_currentThitrdLineQuestindex;
-        first_Line = quesLine.first_Line_quest[quesLine.m_currentFirstLineQuestindex].goal;
-        second_Line = quesLine.second_Line_quest[quesLine.m_currentSecondLineQuestindex].goal;
-        third_Line = quesLine.third_Line_quest[quesLine.m_currentThitrdLineQuestindex].goal;
-        currentRaid = quesLine.m_currentRaid;
-        currentGold = quesLine.m_currentGold;
+        first_Line = quesLine.GetFirstLineQuest()[quesLine.m_currentFirstLineQuestindex].goal;
+        second_Line = quesLine.GetSecondLineQuest()[quesLine.m_currentSecondLineQuestindex].goal;
+        third_Line = quesLine.GetThirdLineQuest()[quesLine.m_currentThitrdLineQuestindex].goal;
+        currentRaid = quesLine.raidsCount;
+        currentGold = quesLine.goldsCount;
     }
 }
 [Serializable]

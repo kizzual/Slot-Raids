@@ -5,18 +5,36 @@ using UnityEngine;
 public class SwitchLocation : MonoBehaviour
 {
     [SerializeField] private GameObject[] _raidLocation;
-    public void SwitchRaidLocation(int indexLocation)
+    public void SwitchRaidLocation(Zone zone)
     {
         for (int i = 0; i < _raidLocation.Length; i++)
         {
-            if (i != indexLocation)
-            {
-                _raidLocation[i].SetActive(false);
-            }
-            else
-            {
-                _raidLocation[i].SetActive(true);
-            }
+            _raidLocation[i].SetActive(false);
+        }
+        switch (zone.typeElement)
+        {
+            case Type__Element.Neutral:
+                _raidLocation[0].SetActive(true);
+                break;
+            case Type__Element.Undead:
+                _raidLocation[1].SetActive(true);
+                break;
+            case Type__Element.Order:
+                _raidLocation[2].SetActive(true);
+                break;
+            case Type__Element.Demon:
+                _raidLocation[3].SetActive(true);
+                break;
+
         }
     }
+    public void ActivateEvent()
+    {
+        GlovalEventSystem.OnSwitchLocation += SwitchRaidLocation;
+    }
+    public void DeActivateEvent()
+    {
+        GlovalEventSystem.OnSwitchLocation -= SwitchRaidLocation;
+    }
+
 }
