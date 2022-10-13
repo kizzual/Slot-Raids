@@ -319,6 +319,7 @@ public class Raid_control : MonoBehaviour
         m_currentSlotCount--;
         if (m_currentSlotCount == 0)
         {
+            // проверка кубов и вызов партикла если зеленый
             Debug.Log("RAIDS COMPLETE");
             GlovalEventSystem.RaidComplete(raid_slot);
            

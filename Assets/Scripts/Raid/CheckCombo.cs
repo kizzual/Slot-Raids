@@ -51,10 +51,10 @@ public class CheckCombo : MonoBehaviour
         { 
 
             long tmp = Utils.GetSeconds("LastSession");
-            Debug.Log("tmp =  " + tmp);
+   //         Debug.Log("tmp =  " + tmp);
             int totalOfflineRaids = (int)(tmp / 20);
 
-          Debug.Log("OfflineRaids =  " + totalOfflineRaids);
+     //     Debug.Log("OfflineRaids =  " + totalOfflineRaids);
             var slots = raidControl.CheckWinPrize();
 
             List<Item> winItems = new List<Item>();
@@ -66,7 +66,7 @@ public class CheckCombo : MonoBehaviour
 
                 for (int i = 0; i < slots.Count; i++)
                 {
-                    Debug.Log("CheckSlot  id =   " + i + "   isOpened  " + slots[i].isOpened + "   and current hero   =   " + slots[i].m_currentHero);
+       //             Debug.Log("CheckSlot  id =   " + i + "   isOpened  " + slots[i].isOpened + "   and current hero   =   " + slots[i].m_currentHero);
                     if (slots[i].isOpened && slots[i].m_currentHero != null)
                     {
                         isEmptyRaid = false;
@@ -101,8 +101,8 @@ public class CheckCombo : MonoBehaviour
             }
             if (totalOfflineRaids > 0)
             {
-                Debug.Log("CHECK Offline  _  1" );
-                Debug.Log(winGold * m_boostGold + "  win + boost");
+        //        Debug.Log("CHECK Offline  _  1" );
+       //         Debug.Log(winGold * m_boostGold + "  win + boost");
                 Gold.AddGold(winGold * m_boostGold);
 
                 QuestControll.RaidConplete( winGold * m_boostGold);

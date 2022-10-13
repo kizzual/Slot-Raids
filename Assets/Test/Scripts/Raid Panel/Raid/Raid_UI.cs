@@ -4,29 +4,15 @@ using UnityEngine.UI;
 
 public class Raid_UI : MonoBehaviour
 {
-    [Header("Arrow Sprites")]
-    [SerializeField] private Sprite neutralArrow;
-    [SerializeField] private Sprite undeadArrow;
-    [SerializeField] private Sprite orderArrow;
-    [SerializeField] private Sprite demonArrow;
-
-    [Space]
-    [Header("Element Sprites")]
-    [SerializeField] private Sprite neutralIcon;
-    [SerializeField] private Sprite undeadIcon;
-    [SerializeField] private Sprite orderIcon;
-    [SerializeField] private Sprite demonIcon;
-    [Space]
-    [Header("Border Sprites")]
-    [SerializeField] private List<Sprite> borderSPrites;
-    [Header("Background Sprites")]
-    [SerializeField] private List<Sprite> backgroundSPrites;
+    [Header("Border type")]
+    [SerializeField] private List<GameObject> borders_type;
+    [SerializeField] private List<GameObject> active_borders;
+    [SerializeField] private List<GameObject> inActive_borders;
 
     [Space]
     [Header("Panels")]
     [SerializeField] private GameObject hero_panel;
     [SerializeField] private GameObject empty_panel;
-    [SerializeField] private GameObject closed_panel;
     [SerializeField] private GameObject unraid_panel;
     [SerializeField] private List<GameObject> backGrounds;
     [SerializeField] private ParticleSystem _upgradeParticle;
@@ -41,13 +27,8 @@ public class Raid_UI : MonoBehaviour
     [SerializeField] private Text combo;
     [SerializeField] private Text goldToGrade;
     [SerializeField] private Image heroIcon;
-    [SerializeField] private Image elementIcon;
-    [SerializeField] private Image border;
-    [SerializeField] private Image backGround;
-    [SerializeField] private List<Sprite> BG;
+    [SerializeField] private List<Image> diceBackGround;
 
-    [SerializeField] private List<Image> arrows;
-    [SerializeField] private List<Image> elementArrow;
     [SerializeField] private DiceControll diceControll;
 
     public Hero m_currentHero;
@@ -67,10 +48,6 @@ public class Raid_UI : MonoBehaviour
         combo.text = ConvertText.FormatNumb(hero.GetGoldProfit());
         goldToGrade.text = ConvertText.FormatNumb(hero.GoldToGrade);
         heroIcon.sprite = hero.Icon;
-        foreach (var item in elementArrow)
-        {
-            item.gameObject.SetActive(false);
-        }
      
         SwitchBorder_andArrows();
         diceControll.OpenCurrentDice(hero);
@@ -92,120 +69,97 @@ public class Raid_UI : MonoBehaviour
         {
             item.SetActive(false);
         }
-        foreach (var item in elementArrow)
+        foreach (var item in borders_type)
+        {
+            item.SetActive(false);
+        }
+        foreach (var item in inActive_borders)
+        {
+            item.SetActive(false);
+        }
+        foreach (var item in active_borders)
+        {
+            item.SetActive(false);
+        }
+        foreach (var item in diceBackGround)
         {
             item.gameObject.SetActive(false);
         }
-
         switch (CurrentZone.Current_Zone.typeElement)
         {
             case Type__Element.Neutral:
                 backGrounds[0].SetActive(true);
-                backGrounds[1].SetActive(true);
-                border.sprite = borderSPrites[0];
+                borders_type[0].SetActive(true);
+                diceBackGround[0].gameObject.SetActive(true);
                 if (m_currentHero != null)
                 {
-                    backGround.sprite = BG[0];
                     if (m_currentHero.typeElement == TypeElement.Neutral)
                     {
-                        
-                        border.sprite = borderSPrites[1];
-                        foreach (var item in elementArrow)
-                        {
-                            item.gameObject.SetActive(true);
-                            item.sprite = neutralArrow;
-                        }
+                        active_borders[0].SetActive(true);
                     }
                     else
-                        border.sprite = borderSPrites[0];
+                        inActive_borders[0].SetActive(true);
                 }
                 break;
             case Type__Element.Undead:
-                backGrounds[2].SetActive(true);
-                backGrounds[3].SetActive(true);
-                border.sprite = borderSPrites[2];
+                backGrounds[1].SetActive(true);
+                borders_type[1].SetActive(true);
+                diceBackGround[2].gameObject.SetActive(true);
                 if (m_currentHero != null)
                 {
-                    backGround.sprite = BG[1];
                     if (m_currentHero.typeElement == TypeElement.Undead)
                     {
-                        border.sprite = borderSPrites[3];
-                        foreach (var item in elementArrow)
-                        {
-                            item.gameObject.SetActive(true);
-                            item.sprite = undeadArrow;
-                        }
+                        active_borders[1].SetActive(true);
                     }
                     else
-                        border.sprite = borderSPrites[2];
+                        inActive_borders[1].SetActive(true);
+
                 }
                 break;
             case Type__Element.Order:
-                backGrounds[4].SetActive(true);
-                backGrounds[5].SetActive(true);
-                border.sprite = borderSPrites[4];
+                backGrounds[2].SetActive(true);
+                borders_type[2].SetActive(true);
+                diceBackGround[2].gameObject.SetActive(true);
                 if (m_currentHero != null)
                 {
-                    backGround.sprite = BG[2];
                     if (m_currentHero.typeElement == TypeElement.Order)
                     {
-                        border.sprite = borderSPrites[5];
-                        foreach (var item in elementArrow)
-                        {
-                            item.gameObject.SetActive(true);
-                            item.sprite = orderArrow;
-                        }
+                            active_borders[2].SetActive(true);
                     }
                     else
-                        border.sprite = borderSPrites[4];
+                        inActive_borders[2].SetActive(true);
                 }
                 break;
             case Type__Element.Demon:
-                backGrounds[6].SetActive(true);
-                backGrounds[7].SetActive(true);
-                border.sprite = borderSPrites[6];
+                backGrounds[3].SetActive(true);
+                borders_type[3].SetActive(true);
+                diceBackGround[3].gameObject.SetActive(true);
                 if (m_currentHero != null)
                 {
-                    backGround.sprite = BG[3];
                     if (m_currentHero.typeElement == TypeElement.Demon)
                     {
-                        border.sprite = borderSPrites[7];
-                        foreach (var item in elementArrow)
-                        {
-                            item.gameObject.SetActive(true);
-                            item.sprite = demonArrow;
-                        }
+                            active_borders[3].SetActive(true);
                     }
                     else
-                        border.sprite = borderSPrites[6];
+                        inActive_borders[3].SetActive(true);
                 }
                 break;
         }
-    }
-    private void ActivePanel_Close()
-    {
-        hero_panel.SetActive(false);
-        empty_panel.SetActive(false);
-        closed_panel.SetActive(true);
     }
     private void ActivePanel_Empty()
     {
         hero_panel.SetActive(false);
         empty_panel.SetActive(true);
-        closed_panel.SetActive(false);
     }
     private void ActivePanel_Hero()
     {
         hero_panel.SetActive(true);
         empty_panel.SetActive(false);
-        closed_panel.SetActive(false);
     }
     public void CheckSlot()
     {
         if (SlotNumber != 10)
         {
-            if (isOpened)
-            {
                 if (m_currentHero != null)
                 {
                     ActivePanel_Hero();
@@ -213,9 +167,6 @@ public class Raid_UI : MonoBehaviour
                 }
                 else
                     ActivePanel_Empty();
-            }
-            else
-                ActivePanel_Close();
         }
         else
         {

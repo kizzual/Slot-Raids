@@ -13,11 +13,11 @@ public class QuestPanel : MonoBehaviour
     public int m_currentThitrdLineQuestindex { get; set; } = 0;
     private DisplayReward m_displayReward;
     private Boost_Controll m_boostControll;
+    private Inventory_controll inventory_controll;
     private int m_rewardLine;
     public int raidsCount { get; set; }
     public long goldsCount { get; set; }
     private int currentTowerGrade;
-    private Inventory_controll inventory_controll;
     public void GetRaidInfo(int towerGrade, int raidsCount, long goldsCount)
     {
         this.raidsCount = raidsCount;
@@ -678,6 +678,9 @@ public class QuestPanel : MonoBehaviour
                     }
                 case GoalType.Raid_ByZone:
                     {
+                        Debug.Log(first_Line_quest[m_currentFirstLineQuestindex].goal.ZoneToRaid.nameLocation);
+                        Debug.Log(CurrentZone.Current_Zone.nameLocation);
+
                         first_Line_quest[m_currentFirstLineQuestindex].goal.RaidGarhering_byZone(first_Line_quest[m_currentFirstLineQuestindex].goal.ZoneToRaid.RaidsCount);
                         tower_Quest_UI[0].Initialise_quest(first_Line_quest[m_currentFirstLineQuestindex]);
                         if (first_Line_quest[m_currentFirstLineQuestindex].goal.IsReached())

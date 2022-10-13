@@ -32,19 +32,38 @@ public class Saver : MonoBehaviour
     
     private List<HeroSaver> m_heroSaver = new List<HeroSaver>();
     private List<QuestSaver> m_questSaver = new List<QuestSaver>();
-    private List<AllZonesSaver> allZonesSaver;
+    public List<AllZonesSaver> allZonesSaver;
     private InventorySaver m_inventorySavers;
-    public List<ZoneSaver> m_zoneSaver;
     private BoostSaver m_boostSaver;
     private bool m_FastQuit = false;
     private void Awake()
     {
         EventController.ActivateEvents();
+        //////////// загрузка текущей карты ///////////
+
+        if (PlayerPrefs.HasKey("CurrentZone"))
+        {
+            Debug.Log("Current zone ID =  " + PlayerPrefs.HasKey("CurrentZone"));
+            foreach (var item in zones)
+            {
+                if (item.ID == PlayerPrefs.GetInt("CurrentZone"))
+                {
+                    CurrentZone.SetZone(item);
+                    Debug.Log("Current zone name  =  " + item.nameLocation);
+                    break;
+                }
+            }
+            switchLocation.SwitchRaidLocation(CurrentZone.Current_Zone);
+        }
+        else if (!PlayerPrefs.HasKey("CurrentZone"))
+        {
+            CurrentZone.SetZone(zones[0]);
+            switchLocation.SwitchRaidLocation(CurrentZone.Current_Zone);
+        }
 
     }
     private void Start()
     {
-      
         FullLoad();
         checkCombo.CheckOfflinePrize();
     }
@@ -111,10 +130,10 @@ public class Saver : MonoBehaviour
     public void FullLoad()
     { 
      //   m_zoneSaver = FileHandler.ReadListFromJSON<ZoneSaver>(zoneSaverPath);
+        allZonesSaver = FileHandler.ReadListFromJSON<AllZonesSaver>(allZoneSaverPath);
         m_heroSaver = FileHandler.ReadListFromJSON<HeroSaver>(heroSaverPath); 
         m_inventorySavers = FileHandler.ReadFromJSON<InventorySaver>(inventorySaverPath);
         m_questSaver = FileHandler.ReadListFromJSON<QuestSaver>(QuestSaverPath);
-        allZonesSaver = FileHandler.ReadListFromJSON<AllZonesSaver>(allZoneSaverPath);
         m_boostSaver = FileHandler.ReadFromJSON<BoostSaver>(BoostSaverPath);
 
         //////////  загрузка башни    ////////
@@ -133,28 +152,7 @@ public class Saver : MonoBehaviour
         if (m_inventorySavers != null)
             inventory_Controll.LoadInventory(m_inventorySavers);
 
-        //////////// загрузка текущей карты ///////////
-
-        if (PlayerPrefs.HasKey("CurrentZone"))
-        {
-            Debug.Log("Current zone ID =  " + PlayerPrefs.HasKey("CurrentZone"));
-            foreach (var item in zones)
-            {
-                if (item.ID == PlayerPrefs.GetInt("CurrentZone"))
-                {
-                    CurrentZone.SetZone(item);
-                    Debug.Log("Current zone name  =  " + item.nameLocation);
-                    break;
-                }
-            }
-            switchLocation.SwitchRaidLocation(CurrentZone.Current_Zone);
-
-        }
-        else if (!PlayerPrefs.HasKey("CurrentZone"))
-        {
-            CurrentZone.SetZone(zones[0]);
-            switchLocation.SwitchRaidLocation(CurrentZone.Current_Zone);
-        }
+   
 
 
 
@@ -229,7 +227,6 @@ public class Saver : MonoBehaviour
         m_boostSaver = FileHandler.ReadFromJSON<BoostSaver>(BoostSaverPath);
         m_heroSaver.Clear();
         m_inventorySavers = null;
-        m_zoneSaver = null;
         m_questSaver.Clear();
         allZonesSaver.Clear();
         m_boostSaver = null;
