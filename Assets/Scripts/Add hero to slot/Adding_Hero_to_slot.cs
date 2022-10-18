@@ -14,14 +14,7 @@ public class Adding_Hero_to_slot : MonoBehaviour
     [SerializeField] private Char_Controller char_Controller;
     [SerializeField] private Raid_control raid_Control;
     private Raid_UI currentSlot;
-    public void ActivateEvent()
-    {
-        GlovalEventSystem.OnAddingHeoToSlot += OpenHeroPanel;
-    }
-    public void DeActivateEvent()
-    {
-        GlovalEventSystem.OnAddingHeoToSlot -= OpenHeroPanel;
-    }
+ 
 
     public void OpenHeroPanel(Raid_UI slot)
     {

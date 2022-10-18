@@ -22,10 +22,11 @@ public class CheckCombo : MonoBehaviour
         { 
 
             long tmp = Utils.GetSeconds("LastSession");
-   //         Debug.Log("tmp =  " + tmp);
+            
             int totalOfflineRaids = (int)(tmp / 20);
+            if (totalOfflineRaids > 1000)
+                totalOfflineRaids = 1000;
 
-            //     Debug.Log("OfflineRaids =  " + totalOfflineRaids);
             List<Raid_UI> slots = raidControl.CheckWinPrize();
 
             List<Item> winItems = new List<Item>();
@@ -50,13 +51,13 @@ public class CheckCombo : MonoBehaviour
                             }
                             raidControl.GetParticles().PlayParticleWitItem(i, slots[i].GetDice().winItem);
                             winGold += slots[i].m_currentHero.GetGoldProfit();
-                            Debug.Log("item  id =   " + i);
+                       //     Debug.Log("item  id =   " + i);
                         }
                         else if (slots[i].GetDice().prize == DiceControll.Prize.Gold)
                         {
                             winGold += slots[i].m_currentHero.GetGoldProfit();
                             raidControl.GetParticles().PlayParticleWitoutItem(i);
-                            Debug.Log("gold  id =   " + i);
+                         //   Debug.Log("gold  id =   " + i);
                         }
 
                     }

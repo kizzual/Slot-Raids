@@ -48,28 +48,19 @@ public static class Utils
         if (PlayerPrefs.HasKey(namePlayerPrefs))
         {
             string stored = PlayerPrefs.GetString(namePlayerPrefs);
-            DateTime result = DateTime.ParseExact(stored, "u", CultureInfo.InvariantCulture);    
+            DateTime result =   DateTime.ParseExact(stored, "u", CultureInfo.InvariantCulture);
 
-            return (((result.Hour * 60) + result.Minute) * 60) + result.Second;
+            TimeSpan subt = DateTime.UtcNow - result;
+            int h = subt.Hours * 60;
+            int m = (subt.Minutes * 60) + h;
+           
+            return m + subt.Seconds;
         }
         else
         {
             return 0;
         }
     }
-    public static long GetMinutes(string namePlayerPrefs)
-    {
-        if (PlayerPrefs.HasKey(namePlayerPrefs))
-        {
-            string stored = PlayerPrefs.GetString(namePlayerPrefs);
-            DateTime result = DateTime.ParseExact(stored, "u", CultureInfo.InvariantCulture);
 
-            return ((result.Hour * 60) + result.Minute);
-        }
-        else
-        {
-            return 0;
-        }
-    }
 
 }

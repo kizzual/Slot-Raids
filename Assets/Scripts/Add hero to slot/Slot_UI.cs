@@ -13,7 +13,7 @@ public class Slot_UI : MonoBehaviour
     [SerializeField] private GameObject _freePanel;
     [SerializeField] private GameObject _choosePanel;
     [SerializeField] private GameObject _closedHero;
-
+    [SerializeField] private Characteristics characteristics;
 
     public Hero m_CurrentHero;
     public void Initialise()
@@ -44,6 +44,6 @@ public class Slot_UI : MonoBehaviour
     {
         Initialise();
     }
-    public void OpenStats() => GlovalEventSystem.OpenHeroStats(m_CurrentHero);
+    public void OpenStats() => characteristics.OpenHeroStats(m_CurrentHero);  
 
 }

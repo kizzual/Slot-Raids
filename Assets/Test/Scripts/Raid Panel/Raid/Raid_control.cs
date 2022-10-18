@@ -25,18 +25,7 @@ public class Raid_control : MonoBehaviour
     private int m_currentSlotCount = 0;
     public ParticleSlotControll m_particleSlotControll;
 
-    public void ActivateEvent()
-    {
-        GlovalEventSystem.OnHeroUpgrade += UpdateHeroStats;
-        GlovalEventSystem.OnSwitchLocation += Switchlocation;
-        GlovalEventSystem.OnRotateComplete += RotateComplete;
-    }
-    public void DeActivateEvent()
-    {
-        GlovalEventSystem.OnHeroUpgrade -= UpdateHeroStats;
-        GlovalEventSystem.OnSwitchLocation -= Switchlocation;
-        GlovalEventSystem.OnRotateComplete -= RotateComplete;
-    }
+
 
 
     private void Start()
@@ -179,12 +168,24 @@ public class Raid_control : MonoBehaviour
         }
         if(grade != 0)
         {
+            List<Hero> heroes = new List<Hero>();
+            for (int i = 0; i < raid_slot.Count; i++)
+            {
+                if (raid_slot[i].m_currentHero != null)
+                    heroes.Add(raid_slot[i].m_currentHero);
+            }
             m_particleSlotControll = particleControll[grade - 1];
             raid_slot = allSlots[grade - 1].GetSlots();
             combo = allSlots[grade - 1].GetCombo();
             allSlots[grade - 1].ActivateSlots();
-            for (int i = 0; i < raid_slot.Count; i++)
+
+            for (int i = 0; i < heroes.Count; i++)
             {
+                raid_slot[i].m_currentHero = heroes[i];
+            }
+
+            for (int i = 0; i < raid_slot.Count; i++)
+            {  
                 raid_slot[i].isOpened = true;
                 raid_slot[i].CheckSlot();
             }
@@ -208,7 +209,7 @@ public class Raid_control : MonoBehaviour
     }
     public void StartRaid()
     {
-        Debug.Log("START RAID CHECK");
+    //    Debug.Log("START RAID CHECK");
         m_currentSlotCount = 0;
         DisplayWinGold(0);
         foreach (var item in winSwords)
@@ -312,14 +313,14 @@ public class Raid_control : MonoBehaviour
             item.text = amulets.ToString();
         }
     }
-    private void RotateComplete()
+    public void RotateComplete()
     {
         m_currentSlotCount--;
         if (m_currentSlotCount == 0)
         {
             combo.CheckCombo(raid_slot, this);
             // проверка кубов и вызов партикла если зеленый
-            Debug.Log("RAIDS COMPLETE");
+       //     Debug.Log("RAIDS COMPLETE");
            
         }
     }

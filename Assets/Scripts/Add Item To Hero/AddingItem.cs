@@ -7,6 +7,9 @@ public class AddingItem : MonoBehaviour
     [SerializeField] private Panel_UI panel_ui;
     [SerializeField] private Inventory_controll inventoryControl;
     [SerializeField] private GameObject frontPanel;
+    [SerializeField] private Raid_control raid_control;
+    [SerializeField] private Char_Controller char_Controller;
+    [SerializeField] private Characteristics characteristics;
 
     private enum ItemType
     {
@@ -188,7 +191,10 @@ public class AddingItem : MonoBehaviour
                 }
                 break;
         }
-        GlovalEventSystem.HeroUpgrade(m_currentHero);
+        raid_control.UpdateHeroStats(m_currentHero);
+        char_Controller.ChangeHeroStats(m_currentHero);
+        characteristics.UpgradeHeroStats(m_currentHero);
+
         gameObject.SetActive(false);
         frontPanel.SetActive(false);
     }

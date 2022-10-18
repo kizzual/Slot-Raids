@@ -38,13 +38,16 @@ public class Zone : MonoBehaviour
     private int m_goldBoost { get; set; } = 0;
     private int m_itemBoost { get; set; } = 0;
     [SerializeField] private GameObject AttentionIcon;
+    [SerializeField] private SwitchTabs switchTabs;
+    [SerializeField] private SwitchLocation switchLocation;
     public bool isNewZone { get; set; }  = false;
     public void SwitchLocation(Zone zone)
     {
         isNewZone = false;
         AttentionIcon.SetActive(false);
         CurrentZone.SetZone(zone);
-        GlovalEventSystem.SwitchLocation(zone);
+        switchLocation.SwitchRaidLocation(zone);
+        switchTabs.GoToRaid(zone);
     }
     public void Initialise()
     {
@@ -71,7 +74,7 @@ public class Zone : MonoBehaviour
     }
     public void GoToRaid()
     {
-        Debug.Log("Go Zone RAid");
+     //   Debug.Log("Go Zone RAid");
         RaidsCount++;
     }
     public void AddBust(int luck, int unluck, int goldProfit, int itemProfit)

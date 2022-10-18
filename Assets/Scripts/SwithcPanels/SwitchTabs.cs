@@ -40,15 +40,8 @@ public class SwitchTabs : MonoBehaviour
         } 
     }
 
-    public void ActivateEvent()
-    {
-        GlovalEventSystem.OnSwitchLocation += GoToRaid;
-    }
-    public void DeActivateEvent()
-    {
-        GlovalEventSystem.OnSwitchLocation -= GoToRaid;
-    }
-    private void GoToRaid(Zone zone)
+
+    public void GoToRaid(Zone zone)
     {
         ActivateCurrentButton(2);
     }
