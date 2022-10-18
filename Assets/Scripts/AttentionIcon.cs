@@ -7,7 +7,18 @@ public class AttentionIcon : MonoBehaviour
 
     [SerializeField] private GameObject Boost_icon;
     public bool isBoostReady;
+    public void ActivateEvent()
+    {
 
+        GlovalEventSystem.OnBoostIsReady += BoostReady;
+        GlovalEventSystem.OnBoostIsNotReady += BosstIsNotReady;
+    }
+    public void DeActivateEvent()
+    {
+
+        GlovalEventSystem.OnBoostIsReady -= BoostReady;
+        GlovalEventSystem.OnBoostIsNotReady -= BosstIsNotReady;
+    }
 
     private void BoostReady()
     {

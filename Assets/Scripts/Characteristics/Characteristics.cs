@@ -11,7 +11,16 @@ public class Characteristics : MonoBehaviour
     [SerializeField] private AddingItem addingItem;
 
     private Hero m_currentHero;
-
+    public void ActivateEvent()
+    {
+        GlovalEventSystem.OnHOpenHeroStats += OpenHeroStats;
+        GlovalEventSystem.OnHeroUpgrade += UpgradeHeroStats;
+    }
+    public void DeActivateEvent()
+    {
+        GlovalEventSystem.OnHOpenHeroStats -= OpenHeroStats;
+        GlovalEventSystem.OnHeroUpgrade -= UpgradeHeroStats;
+    }
     public void OpenHeroStats(Hero hero)
     {
         front_panel.SetActive(true);
@@ -21,20 +30,17 @@ public class Characteristics : MonoBehaviour
         char_Controller.CheckForNewHeroes();
         hero_Ui.InitialiseHero(hero);
     }
-    public void UpgradeHeroStats(Hero hero) => hero_Ui.InitialiseHero(hero);
+    private void UpgradeHeroStats(Hero hero) => hero_Ui.InitialiseHero(hero);
     public void UpgradeHero()
     {
         if (m_currentHero != null)
-
         {
             if (Gold.GetCurrentGold() >= m_currentHero.GoldToGrade)
             {
                 Gold.SpendGold(m_currentHero.GoldToGrade);
                 m_currentHero.LevelUp();
                 hero_Ui.InitialiseHero(m_currentHero);
-                raid_control.UpdateHeroStats(m_currentHero);
-                char_Controller.ChangeHeroStats(m_currentHero);
-                UpgradeHeroStats(m_currentHero);
+                GlovalEventSystem.HeroUpgrade(m_currentHero);
                 SoundControl._instance.UpgradeHero();
                 _upgradeParticle.Play();
             }

@@ -7,8 +7,7 @@ public class ParticleAdaptive : MonoBehaviour
     private ParticleSystem particleSystem;
     private Transform target;
     public float stepByDistance;
-
-    public void Initialise()
+    private void Start()
     {
         particleSystem = GetComponent<ParticleSystem>();
 

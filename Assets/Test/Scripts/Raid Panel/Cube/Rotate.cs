@@ -14,9 +14,6 @@ public class Rotate : MonoBehaviour
     private int randomEdge;
     public AnimationCurve curve;
     private float qwe;
-    [SerializeField] private Raid_control raid_Control;
-
-
     private void FixedUpdate()
     {
         Rotation();
@@ -43,7 +40,7 @@ public class Rotate : MonoBehaviour
                 if (transform.rotation == Quaternion.Euler(cubeNumber[_edge]))
                 {
                     _isActive = false;
-                    raid_Control.RotateComplete();
+                    GlovalEventSystem.RotateComplete();
                 }
             }
         }

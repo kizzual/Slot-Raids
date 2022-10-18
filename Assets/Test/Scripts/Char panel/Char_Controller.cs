@@ -7,7 +7,14 @@ public class Char_Controller : MonoBehaviour
     [SerializeField] private List<Char_panel> char_Panels; 
     [SerializeField] private GameObject attentioinIcon; 
 
-  
+    public void ActivateEvent()
+    {
+        GlovalEventSystem.OnHeroUpgrade += ChangeHeroStats;
+    }
+    public void DeActivateEvent()
+    {
+        GlovalEventSystem.OnHeroUpgrade -= ChangeHeroStats;
+    }
     public void ChangeHeroStats(Hero hero)
     {
         switch (hero.typeElement)

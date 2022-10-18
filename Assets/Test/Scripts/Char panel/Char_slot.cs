@@ -7,9 +7,6 @@ public class Char_slot : MonoBehaviour
     [SerializeField] private GameObject _closedPanel;
     [SerializeField] private GameObject _NotEnoughGoldPanel;
     [SerializeField] private ParticleSystem _upgradeParticle;
-    [SerializeField] private Raid_control raid_control;
-    [SerializeField] private Char_Controller char_Controller;
-    [SerializeField] private Characteristics characteristics;
 
     [Space]
     [Header("UI elements")]
@@ -55,10 +52,7 @@ public class Char_slot : MonoBehaviour
             m_CurrentHero.LevelUp();
 
             //    DisplayHeroInfirmation();
-
-            raid_control.UpdateHeroStats(m_CurrentHero);
-            char_Controller.ChangeHeroStats(m_CurrentHero);
-            characteristics.UpgradeHeroStats(m_CurrentHero);
+            GlovalEventSystem.HeroUpgrade(m_CurrentHero);
             SoundControl._instance.UpgradeHero();
             _upgradeParticle.Play();
         }
@@ -67,8 +61,8 @@ public class Char_slot : MonoBehaviour
             SoundControl._instance.NoMoney();
         }
     }
-    public void OpenStats() => characteristics.OpenHeroStats(m_CurrentHero);
-
+    public void OpenStats() => GlovalEventSystem.OpenHeroStats(m_CurrentHero);
+   
     public void OpenHero()
     {
         _closedPanel.SetActive(false);

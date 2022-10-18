@@ -56,11 +56,11 @@ public class Boost_Controll : MonoBehaviour
                 m_currentRaid = 0;
                 CurrentBoost.isActive = true;
                 boostUI.SwitchCurrentCardImage(CurrentBoost);
-        /*        if (m_currentRaid >= RaidToActivateBoost_required)
-                   // буст готов (аттеншин)
+                if (m_currentRaid >= RaidToActivateBoost_required)
+                    GlovalEventSystem.BoostIsReady();
                 else
-                            // буст не готов (аттеншин)*/
-                            float tmp = ((float)m_currentRaid / (float)RaidToActivateBoost_required);
+                    GlovalEventSystem.BoostIsNotReady();
+                float tmp = ((float)m_currentRaid / (float)RaidToActivateBoost_required);
                 foreach (var item in manaImg)
                 {
                     item.fillAmount = tmp;
@@ -93,10 +93,10 @@ public class Boost_Controll : MonoBehaviour
                 CurrentBoost.isActive = true;
                 m_timer = card.timer;
                 boostUI.SwitchCurrentCardImage(CurrentBoost);
-                /*        if (m_currentRaid >= RaidToActivateBoost_required)
-                    // буст готов (аттеншин)
-                 else
-                             // буст не готов (аттеншин)*/
+                if (m_currentRaid >= RaidToActivateBoost_required)
+                    GlovalEventSystem.BoostIsReady();
+                else
+                    GlovalEventSystem.BoostIsNotReady();
                 float tmp = ((float)m_currentRaid / (float)RaidToActivateBoost_required);
                 foreach (var item in manaImg)
                 {
@@ -324,11 +324,11 @@ public class Boost_Controll : MonoBehaviour
             mana_Img.fillAmount = tmp;
         }
 
-        /*        if (m_currentRaid >= RaidToActivateBoost_required)
-                      // буст готов (аттеншин)
-                   else
-                               // буст не готов (аттеншин)*/
-
+        if (m_currentRaid >= RaidToActivateBoost_required)
+            GlovalEventSystem.BoostIsReady();
+        else
+            GlovalEventSystem.BoostIsNotReady();
+       
     }
     public void FillMana(Animator animObject )
     {
@@ -340,12 +340,12 @@ public class Boost_Controll : MonoBehaviour
             item.fillAmount = tmp;
         }
         mana_Img.fillAmount = tmp;
+    
 
-
-        /*        if (m_currentRaid >= RaidToActivateBoost_required)
-                    // буст готов (аттеншин)
-                 else
-                             // буст не готов (аттеншин)*/
+        if (m_currentRaid >= RaidToActivateBoost_required)
+            GlovalEventSystem.BoostIsReady();
+        else
+            GlovalEventSystem.BoostIsNotReady();
     }
     public void OpenBoostPanel()
     {

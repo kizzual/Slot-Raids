@@ -24,38 +24,31 @@ public class Saver : MonoBehaviour
     [SerializeField] private SwitchLocation switchLocation;
     [SerializeField] private Boost_Controll boost_Controll;
     [SerializeField] private TowerUpgrade upgradeTower;
+    [SerializeField] private CheckCombo checkCombo;
+    [SerializeField] private GameController EventController;
+
+
+
     
-
-
-
-
     private List<HeroSaver> m_heroSaver = new List<HeroSaver>();
     private List<QuestSaver> m_questSaver = new List<QuestSaver>();
     public List<AllZonesSaver> allZonesSaver;
     private InventorySaver m_inventorySavers;
     private BoostSaver m_boostSaver;
-
-    private void Start()
+    private void Awake()
     {
-    
-     
-    }
-   
-
-
-    public void MapLoad()
-    {
+        EventController.ActivateEvents();
         //////////// загрузка текущей карты ///////////
 
         if (PlayerPrefs.HasKey("CurrentZone"))
         {
-    //        Debug.Log("Current zone ID =  " + PlayerPrefs.HasKey("CurrentZone"));
+            Debug.Log("Current zone ID =  " + PlayerPrefs.HasKey("CurrentZone"));
             foreach (var item in zones)
             {
                 if (item.ID == PlayerPrefs.GetInt("CurrentZone"))
                 {
                     CurrentZone.SetZone(item);
-          //          Debug.Log("Current zone name  =  " + item.nameLocation);
+                    Debug.Log("Current zone name  =  " + item.nameLocation);
                     break;
                 }
             }
@@ -68,90 +61,24 @@ public class Saver : MonoBehaviour
         }
         //////////  загрузка башни    ////////
         upgradeTower.Initialise();
-    }
-    public void MapStatsLoad()
-    {
-        allZonesSaver = FileHandler.ReadListFromJSON<AllZonesSaver>(allZoneSaverPath);
-        ////////// загрузка характеристик карт ////////
-        if (allZonesSaver != null)
-        {
-            for (int i = 0; i < allZonesSaver.Count; i++)
-            {
-                zones[i].RaidsCount = allZonesSaver[i].raidCount;
-                zones[i].isOpened = allZonesSaver[i].isOpened;
-            }
-        }
 
     }
-    public void InventoryLoad()
+    private void Start()
     {
-        m_inventorySavers = FileHandler.ReadFromJSON<InventorySaver>(inventorySaverPath);
-        //////////// загрузка инвентаря ///////////////
-        if (m_inventorySavers != null)
-            inventory_Controll.LoadInventory(m_inventorySavers);
+        FullLoad();
+        checkCombo.CheckOfflinePrize();
     }
-    public void HeroLoad()
+    private void OnApplicationPause(bool pause)
     {
-        m_heroSaver = FileHandler.ReadListFromJSON<HeroSaver>(heroSaverPath);
-
-        //////////// загрузка героев ///////////////
-        if (m_heroSaver.Count > 0)
+        if (pause)
         {
-            for (int i = 0; i < heroes.Count; i++)
-            {
-                for (int j = 0; j < m_heroSaver.Count; j++)
-                {
-                    if (heroes[i].Id == m_heroSaver[j].Id)
-                    {
-                        heroes[i].LoadHero(m_heroSaver[j]);
-
-                        if (heroes[i].currentRaidSlot != 0)
-                        {
-                            for (int k = 0; k < raid_control.CheckWinPrize().Count; k++)
-                            {
-                                if (heroes[i].currentRaidSlot - 1 == k)
-                                {
-                                    raid_control.CheckWinPrize()[k].Initialise(heroes[i]);
-                                    break;
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-         //   Debug.Log("Heroes loaded");
+            Utils.SetLastTime("LastSession");
+            raid_control.StopRaid();
+            EventController.DeactivateEvents();
+            FullSave();
         }
     }
-    public void BoostLoadBoostLoad()
-    {
-        m_boostSaver = FileHandler.ReadFromJSON<BoostSaver>(BoostSaverPath);
-        /////////////// загрузка бустов ////////////////
-        if (m_boostSaver != null)
-        {
-            boost_Controll.LoadBoost(m_boostSaver);
-        }
-    }
-    public void QuestSystemLoad()
-    {
-        m_questSaver = FileHandler.ReadListFromJSON<QuestSaver>(QuestSaverPath);
-        List<QuestPanel> panels = new List<QuestPanel>();
-        panels = quests.GetQuestPanels();
-        if (m_questSaver.Count > 0)
-        {
-            for (int i = 0; i < m_questSaver.Count; i++)
-            {
-                panels[i].m_currentFirstLineQuestindex = m_questSaver[i].firstIndex;
-                panels[i].m_currentSecondLineQuestindex = m_questSaver[i].secondIndex;
-                panels[i].m_currentThitrdLineQuestindex = m_questSaver[i].thirdIndex;
-                panels[i].GetFirstLineQuest()[panels[i].m_currentFirstLineQuestindex].goal = m_questSaver[i].first_Line;
-                panels[i].GetSecondLineQuest()[panels[i].m_currentSecondLineQuestindex].goal = m_questSaver[i].second_Line;
-                panels[i].GetThirdLineQuest()[panels[i].m_currentThitrdLineQuestindex].goal = m_questSaver[i].third_Line;
 
-            }
-            quests.m_currentRaid = m_questSaver[0].currentRaid;
-            quests.m_currentGold = m_questSaver[0].currentGold;
-        }
-    }
     public void FullSave()
     {
 
@@ -196,8 +123,96 @@ public class Saver : MonoBehaviour
         FileHandler.SaveToJSON<BoostSaver>(m_boostSaver, BoostSaverPath);
 
     }
- 
-  
+    public void FullLoad()
+    { 
+     //   m_zoneSaver = FileHandler.ReadListFromJSON<ZoneSaver>(zoneSaverPath);
+        allZonesSaver = FileHandler.ReadListFromJSON<AllZonesSaver>(allZoneSaverPath);
+        m_heroSaver = FileHandler.ReadListFromJSON<HeroSaver>(heroSaverPath); 
+        m_inventorySavers = FileHandler.ReadFromJSON<InventorySaver>(inventorySaverPath);
+        m_questSaver = FileHandler.ReadListFromJSON<QuestSaver>(QuestSaverPath);
+        m_boostSaver = FileHandler.ReadFromJSON<BoostSaver>(BoostSaverPath);
+
+        
+        ////////// загрузка характеристик карт ////////
+        if (allZonesSaver != null)
+        {
+            for (int i = 0; i < allZonesSaver.Count; i++)
+            {
+                zones[i].RaidsCount = allZonesSaver[i].raidCount;
+                zones[i].isOpened = allZonesSaver[i].isOpened;
+            }
+        }
+
+        //////////// загрузка инвентаря ///////////////
+        if (m_inventorySavers != null)
+            inventory_Controll.LoadInventory(m_inventorySavers);
+
+   
+
+
+
+        //////////// загрузка героев ///////////////
+        if (m_heroSaver.Count > 0)
+        {
+            for (int i = 0; i < heroes.Count; i++)
+            {
+                for (int j = 0; j < m_heroSaver.Count; j++)
+                {
+                    if (heroes[i].Id == m_heroSaver[j].Id)
+                    {
+                        heroes[i].LoadHero(m_heroSaver[j]);
+
+                        if (heroes[i].currentRaidSlot != 0)
+                        {
+                            for (int k = 0; k < raid_control.CheckWinPrize().Count; k++)
+                            {
+                                if (heroes[i].currentRaidSlot - 1 == k)
+                                {
+                                    raid_control.CheckWinPrize()[k].Initialise(heroes[i]);
+                                    break;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            Debug.Log("Heroes loaded");
+        }
+
+        /////////////// загрузка квестов ////////////// *******
+        List<QuestPanel> panels = new List<QuestPanel>();
+        panels = quests.GetQuestPanels();
+        if (m_questSaver.Count > 0 )
+        {
+            for (int i = 0; i < m_questSaver.Count; i++)
+            {
+                panels[i].m_currentFirstLineQuestindex = m_questSaver[i].firstIndex;
+                panels[i].m_currentSecondLineQuestindex = m_questSaver[i].secondIndex;
+                panels[i].m_currentThitrdLineQuestindex = m_questSaver[i].thirdIndex;
+                panels[i].GetFirstLineQuest()[panels[i].m_currentFirstLineQuestindex].goal = m_questSaver[i].first_Line;
+                panels[i].GetSecondLineQuest()[panels[i].m_currentSecondLineQuestindex].goal = m_questSaver[i].second_Line;
+                panels[i].GetThirdLineQuest()[panels[i].m_currentThitrdLineQuestindex].goal = m_questSaver[i].third_Line;
+
+            }
+            quests.m_currentRaid = m_questSaver[0].currentRaid;
+            quests.m_currentGold = m_questSaver[0].currentGold;
+        }
+
+        /////////////// загрузка бустов ////////////////
+        if (m_boostSaver != null)
+        {
+            boost_Controll.LoadBoost(m_boostSaver);
+        }
+
+        /////////////// загрузка призов ////////////////
+
+        Debug.Log("Rewards coplete");
+
+    }
+    public void ActivateAllEvents()
+    {
+
+    }
     public void DeleteAllSaves()
     {
         m_heroSaver = FileHandler.ReadListFromJSON<HeroSaver>(heroSaverPath);
