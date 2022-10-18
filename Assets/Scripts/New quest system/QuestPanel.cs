@@ -7,6 +7,7 @@ public class QuestPanel : MonoBehaviour
     [SerializeField] private List<Quest> first_Line_quest;
     [SerializeField] private List<Quest> second_Line_quest;
     [SerializeField] private List<Quest> third_Line_quest;
+    [SerializeField] private Raid_control raid_control;
 
     public int m_currentFirstLineQuestindex { get; set; } = 0;
     public int m_currentSecondLineQuestindex { get; set; } = 0;
@@ -2264,6 +2265,9 @@ public class QuestPanel : MonoBehaviour
                     line[m_rewardLine].Location.isNewZone = true;
                     //        checkAttentionIcon.CheckAttention();
                     m_displayReward.Initialise(line[m_rewardLine].Location);
+                    break;
+                case Quest.RewardType.Slot:
+                    raid_control.CheckGrade(PlayerPrefs.GetInt("TowerLvl"));
                     break;
             }
             m_currentThitrdLineQuestindex++;

@@ -49,18 +49,20 @@ public class DiceControll : MonoBehaviour
     public void StopRotate() => currentCube.StopRaid();
     private void CurrentWinPrize()
     {
-        if (currentCube.edges[currentWinIndex ].edgeType == EdgeScript.EdgeType.Neutral)
+        Debug.Log(currentCube.edges[currentWinIndex].edgeIndex, gameObject);
+        Debug.Log(currentCube.edges[currentWinIndex].edgeType, gameObject);
+        if (currentCube.edges[currentWinIndex  ].edgeType == EdgeScript.EdgeType.Neutral)
         {
             //формула голды
             prize = Prize.Gold;
         }
-        else if (currentCube.edges[currentWinIndex ].edgeType == EdgeScript.EdgeType.Luck)
+        else if (currentCube.edges[currentWinIndex  ].edgeType == EdgeScript.EdgeType.Luck)
         {
             //формула айтема рандомного
             winItem = CurrentZone.Current_Zone.ItemsOnZone[Random.Range(0, CurrentZone.Current_Zone.ItemsOnZone.Count)];
             prize = Prize.Item;
         }
-        else if (currentCube.edges[currentWinIndex ].edgeType == EdgeScript.EdgeType.Unluck)
+        else if (currentCube.edges[currentWinIndex  ].edgeType == EdgeScript.EdgeType.Unluck)
             prize = Prize.Death;
     }
 }

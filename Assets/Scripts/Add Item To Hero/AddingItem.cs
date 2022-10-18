@@ -29,18 +29,7 @@ public class AddingItem : MonoBehaviour
             return 0;
     }
 
-    public void ActivateEvent()
-    {
-        GlovalEventSystem.OnAddingSword += OpenPanel_Sword;
-        GlovalEventSystem.OnAddingShield += OpenPanel_Shield;
-        GlovalEventSystem.OnAddingAmulet += OpenPanel_Amulet;
-    }
-    public void DeActivateEvent()
-    {
-        GlovalEventSystem.OnAddingSword -= OpenPanel_Sword;
-        GlovalEventSystem.OnAddingShield -= OpenPanel_Shield;
-        GlovalEventSystem.OnAddingAmulet -= OpenPanel_Amulet;
-    }
+ 
     public void OpenPanel_Sword(Hero hero)
     {
         frontPanel.SetActive(true);

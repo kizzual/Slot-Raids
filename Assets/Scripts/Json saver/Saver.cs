@@ -35,7 +35,6 @@ public class Saver : MonoBehaviour
     public List<AllZonesSaver> allZonesSaver;
     private InventorySaver m_inventorySavers;
     private BoostSaver m_boostSaver;
-    private bool m_FastQuit = false;
     private void Awake()
     {
         EventController.ActivateEvents();
@@ -60,6 +59,8 @@ public class Saver : MonoBehaviour
             CurrentZone.SetZone(zones[0]);
             switchLocation.SwitchRaidLocation(CurrentZone.Current_Zone);
         }
+        //////////  загрузка башни    ////////
+        upgradeTower.Initialise();
 
     }
     private void Start()
@@ -75,11 +76,6 @@ public class Saver : MonoBehaviour
             raid_control.StopRaid();
             EventController.DeactivateEvents();
             FullSave();
-        }
-        else
-        {
-            EventController.ActivateEvents();
-            checkCombo.CheckOfflinePrize();
         }
     }
 
@@ -136,8 +132,7 @@ public class Saver : MonoBehaviour
         m_questSaver = FileHandler.ReadListFromJSON<QuestSaver>(QuestSaverPath);
         m_boostSaver = FileHandler.ReadFromJSON<BoostSaver>(BoostSaverPath);
 
-        //////////  загрузка башни    ////////
-        upgradeTower.Initialise();
+        
         ////////// загрузка характеристик карт ////////
         if (allZonesSaver != null)
         {
@@ -256,7 +251,6 @@ public class Saver : MonoBehaviour
                 zones[0].isOpened = true;
         */
         Debug.Log("QUIT");
-        m_FastQuit = true;
         Application.Quit();
     }
  

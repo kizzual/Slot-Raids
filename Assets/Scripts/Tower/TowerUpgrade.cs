@@ -102,7 +102,7 @@ public class TowerUpgrade : MonoBehaviour
             PlayerPrefs.SetInt("TowerLvl", currentGrade);
             CheckGoldToGrade();
             m_tower_ui.ChangeTowerSprite(currentGrade, m_goldToGrade);
-            GlovalEventSystem.UpgradeTower(currentGrade);
+            
        //     GlovalEventSystem.TutorialSteps(1);
             SoundControl._instance.UpgradeTower();
             _upgradeParticle.Play();

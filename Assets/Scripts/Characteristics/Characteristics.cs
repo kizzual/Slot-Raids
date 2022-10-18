@@ -7,6 +7,9 @@ public class Characteristics : MonoBehaviour
     [SerializeField] private GameObject front_panel;
     [SerializeField] private ParticleSystem _upgradeParticle;
     [SerializeField] private Char_Controller char_Controller;
+    [SerializeField] private Raid_control raid_control;
+    [SerializeField] private AddingItem addingItem;
+
     private Hero m_currentHero;
     public void ActivateEvent()
     {
@@ -58,16 +61,16 @@ public class Characteristics : MonoBehaviour
     public void AddItem(int itemIndex)
     {
         if (itemIndex == 1)
-            GlovalEventSystem.Adding_sword(m_currentHero);
+            addingItem.OpenPanel_Sword(m_currentHero);
         else if (itemIndex == 2)
-            GlovalEventSystem.Adding_shield(m_currentHero);
+            addingItem.OpenPanel_Shield(m_currentHero);
         else if (itemIndex == 3)
-            GlovalEventSystem.Adding_amulet(m_currentHero);
+            addingItem.OpenPanel_Amulet(m_currentHero);
 
     }
     public void RemoveHero()
     {
-        GlovalEventSystem.RemoveFromSlot(m_currentHero.currentRaidSlot);
+        raid_control.RemoveHero(m_currentHero.currentRaidSlot);
         m_currentHero.currentRaidSlot = 0;
         OpenHeroStats(m_currentHero);
     }

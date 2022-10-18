@@ -4,7 +4,10 @@ using UnityEngine.UI;
 
 public class Raid_control : MonoBehaviour
 {
-    [SerializeField] private List<Raid_UI> raid_slot;
+    [SerializeField] private Combo combo;
+    [SerializeField] private List<SlotControl> allSlots;
+    [SerializeField] private List<ParticleSlotControll> particleControll;
+    [SerializeField] private List<Raid_UI> raid_slot; 
     [SerializeField] private List<Text> winGold;
     [SerializeField] private List<Text> winSwords;
     [SerializeField] private List<Text> winShields;
@@ -20,29 +23,19 @@ public class Raid_control : MonoBehaviour
     [SerializeField] private List<Raid_button> raid_Buttons;
     [SerializeField] private List<GameObject> ManaButton;
     private int m_currentSlotCount = 0;
-
+    public ParticleSlotControll m_particleSlotControll;
 
     public void ActivateEvent()
     {
-        GlovalEventSystem.OnUpgradeTower += OnGradeTower;
         GlovalEventSystem.OnHeroUpgrade += UpdateHeroStats;
-        GlovalEventSystem.OnRemoveFromSlot += RemoveHero;
         GlovalEventSystem.OnSwitchLocation += Switchlocation;
-        GlovalEventSystem.OnWinGold += DisplayWinGold;
-        GlovalEventSystem.OnWinItems += DisplayWinItems;
         GlovalEventSystem.OnRotateComplete += RotateComplete;
-        GlovalEventSystem.OnRaidStopped += StopRaid;
     }
     public void DeActivateEvent()
     {
-        GlovalEventSystem.OnUpgradeTower -= OnGradeTower;
         GlovalEventSystem.OnHeroUpgrade -= UpdateHeroStats;
-        GlovalEventSystem.OnRemoveFromSlot -= RemoveHero;
         GlovalEventSystem.OnSwitchLocation -= Switchlocation;
-        GlovalEventSystem.OnWinGold -= DisplayWinGold;
-        GlovalEventSystem.OnWinItems -= DisplayWinItems;
         GlovalEventSystem.OnRotateComplete -= RotateComplete;
-        GlovalEventSystem.OnRaidStopped -= StopRaid;
     }
 
 
@@ -177,22 +170,27 @@ public class Raid_control : MonoBehaviour
         StartRaid();
     }
 
-    private void OnGradeTower(int gradeNumber)
-    {
-        for (int i = 0; i < gradeNumber; i++)
-        {
-            raid_slot[i].isOpened = true;
-            raid_slot[i].CheckSlot();
-
-        }
-    }
     public void CheckGrade(int grade)
     {
-        for (int i = 0; i < grade; i++)
+
+        for (int i = 0; i < allSlots.Count; i++)
         {
-            raid_slot[i].isOpened = true;
+            allSlots[i].DeActivateSlots();
+        }
+        if(grade != 0)
+        {
+            m_particleSlotControll = particleControll[grade - 1];
+            raid_slot = allSlots[grade - 1].GetSlots();
+            combo = allSlots[grade - 1].GetCombo();
+            allSlots[grade - 1].ActivateSlots();
+            for (int i = 0; i < raid_slot.Count; i++)
+            {
+                raid_slot[i].isOpened = true;
+                raid_slot[i].CheckSlot();
+            }
         }
     }
+    public ParticleSlotControll GetParticles() => m_particleSlotControll;
     public void StopRaid()
     {
         for (int i = 0; i < raid_slot.Count; i++)
@@ -210,6 +208,7 @@ public class Raid_control : MonoBehaviour
     }
     public void StartRaid()
     {
+        Debug.Log("START RAID CHECK");
         m_currentSlotCount = 0;
         DisplayWinGold(0);
         foreach (var item in winSwords)
@@ -246,7 +245,6 @@ public class Raid_control : MonoBehaviour
                 raid_Buttons[i].GoToAutoRaid();
             }
             CurrentZone.Current_Zone.GoToRaid();
-            GlovalEventSystem.RaidStart();
             SoundControl._instance.StartRaidSound();
         }  
     }
@@ -319,11 +317,15 @@ public class Raid_control : MonoBehaviour
         m_currentSlotCount--;
         if (m_currentSlotCount == 0)
         {
+            combo.CheckCombo(raid_slot, this);
             // проверка кубов и вызов партикла если зеленый
             Debug.Log("RAIDS COMPLETE");
-            GlovalEventSystem.RaidComplete(raid_slot);
            
         }
     }
+    public void GoldBoostActivate(int value) => combo.GoldBoostActivate(value);
+    public void ItemBoostActivate(int value) => combo.ItemBoostActivate(value);
+    public void GoldBoostDeActivate() => combo.GoldBoostDeActivate();
+    public void ItemBoostDeActivate() => combo.ItemBoostDeActivate();
 
 }

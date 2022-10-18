@@ -13,14 +13,7 @@ public class Sell_controll : MonoBehaviour
     public Item m_currentItem;
     private Inventory_controll m_inventory_Controll;
     public int m_maxCount;
-    public void ActivateEvent()
-    {
-        GlovalEventSystem.OnSellingItem += OpenSellPanel;
-    }
-    public void DeActivateEvent()
-    {
-        GlovalEventSystem.OnSellingItem -= OpenSellPanel;
-    }
+
 
     public void OpenSellPanel(Item item, int count, Inventory_controll inventory_Controll)
     {

@@ -23,6 +23,7 @@ public class Boost_Controll : MonoBehaviour
     public List<BoostCard> RandomCards = new List<BoostCard>();
     public List<ParticleSystem> actiateBoost;
     public List<GameObject> ActivePanel;
+    public Raid_control raid_Control;
 
     private void FixedUpdate()
     { 
@@ -44,14 +45,7 @@ public class Boost_Controll : MonoBehaviour
             }
         }
     }
-    public void ActivateEvent()
-    {
-        GlovalEventSystem.OnWinItems += RaidComplete;
-    }
-    public void DeActivateEvent()
-    {
-        GlovalEventSystem.OnWinItems -= RaidComplete;
-    }
+
     public void ActivateBoost()
     {
         if (CurrentBoost != null)
@@ -129,7 +123,7 @@ public class Boost_Controll : MonoBehaviour
     {
         if (CurrentBoost.cardBoostType == CardBoostType.GoldProfit)
         {
-            GlovalEventSystem.GoldBoostActivate(CurrentBoost.GoldProfit);
+            raid_Control.GoldBoostActivate(CurrentBoost.GoldProfit);
         }
         else if (CurrentBoost.cardBoostType == CardBoostType.GoldProfit_byElement)
         {
@@ -159,7 +153,7 @@ public class Boost_Controll : MonoBehaviour
         }
         else if (CurrentBoost.cardBoostType == CardBoostType.itemProfit)
         {
-            GlovalEventSystem.ItemBoostActivate(CurrentBoost.ItemProfit);
+            raid_Control.ItemBoostActivate(CurrentBoost.ItemProfit);
         }
         else if (CurrentBoost.cardBoostType == CardBoostType.itemProfit_byElement)
         {
@@ -306,8 +300,8 @@ public class Boost_Controll : MonoBehaviour
         {
             item.RemoveBoost();
         }
-        GlovalEventSystem.GoldBoostDeActivate();
-        GlovalEventSystem.ItemBoostDeActivate();
+        raid_Control.GoldBoostDeActivate();
+        raid_Control.ItemBoostDeActivate();
         CurrentBoost.isActive = false;
         SoundControl._instance.DeActivateBoost();
         CurrentBoost = null;
@@ -317,7 +311,7 @@ public class Boost_Controll : MonoBehaviour
             item.SetActive(false);
         }
     }
-    private void RaidComplete(List<Item> items)
+    public void RaidComplete()
     {
         if (m_currentRaid < RaidToActivateBoost_required)
         {

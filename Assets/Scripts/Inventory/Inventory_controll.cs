@@ -14,7 +14,7 @@ public class Inventory_controll : MonoBehaviour
     public List<Item> m_Amuulet_1 = new List<Item>();
     public List<Item> m_Amuulet_2 = new List<Item>();
     public List<Item> m_Amuulet_3 = new List<Item>();
-
+    [SerializeField] private Sell_controll sell_controll;
     private int m_neutralCount;
     private int m_undeadCount;
     private int m_orderCount;
@@ -24,15 +24,7 @@ public class Inventory_controll : MonoBehaviour
     private long m_totalPrice_order;
     private long m_totalPrice_demon;
 
-    public void ActivateEvent()
-    {
-        GlovalEventSystem.OnItemAddingToInventory += ReturnItem;
-    }
-    public void DeActivateEvent()
-    {
-        GlovalEventSystem.OnItemAddingToInventory -= ReturnItem;
-    }
-    private void OnEnable()
+       private void OnEnable()
     {
         DisplayInventoryItems();
     }
@@ -573,7 +565,7 @@ public class Inventory_controll : MonoBehaviour
                     item = m_Sword_1[i];
                 }
             }
-            GlovalEventSystem.SellingItem(item, count,this);
+            sell_controll.OpenSellPanel(item, count, this);
         }
         if (itemIndex == 2)
         {
@@ -585,7 +577,7 @@ public class Inventory_controll : MonoBehaviour
                     item = m_Sword_2[i];
                 }
             }
-            GlovalEventSystem.SellingItem(item, count, this);
+            sell_controll.OpenSellPanel(item, count, this);
         }
         if (itemIndex == 3)
         {
@@ -597,7 +589,7 @@ public class Inventory_controll : MonoBehaviour
                     item = m_Sword_3[i];
                 }
             }
-            GlovalEventSystem.SellingItem(item, count, this);
+            sell_controll.OpenSellPanel(item, count, this);
         }
         if (itemIndex == 4)
         {
@@ -609,7 +601,7 @@ public class Inventory_controll : MonoBehaviour
                     item = m_Shield_1[i];
                 }
             }
-            GlovalEventSystem.SellingItem(item, count, this);
+            sell_controll.OpenSellPanel(item, count, this);
         }
         if (itemIndex == 5)
         {
@@ -621,7 +613,7 @@ public class Inventory_controll : MonoBehaviour
                     item = m_Shield_2[i];
                 }
             }
-            GlovalEventSystem.SellingItem(item, count, this);
+            sell_controll.OpenSellPanel(item, count, this);
         }
         if (itemIndex == 6)
         {
@@ -633,7 +625,7 @@ public class Inventory_controll : MonoBehaviour
                     item = m_Shield_3[i];
                 }
             }
-            GlovalEventSystem.SellingItem(item, count, this);
+            sell_controll.OpenSellPanel(item, count, this);
         }
         if (itemIndex == 7)
         {
@@ -645,7 +637,7 @@ public class Inventory_controll : MonoBehaviour
                     item = m_Amuulet_1[i];
                 }
             }
-            GlovalEventSystem.SellingItem(item, count, this);
+            sell_controll.OpenSellPanel(item, count, this);
         }
         if (itemIndex == 8)
         {
@@ -657,7 +649,7 @@ public class Inventory_controll : MonoBehaviour
                     item = m_Amuulet_2[i];
                 }
             }
-            GlovalEventSystem.SellingItem(item, count, this);
+            sell_controll.OpenSellPanel(item, count, this);
         }
         if (itemIndex == 9)
         {
@@ -669,7 +661,7 @@ public class Inventory_controll : MonoBehaviour
                     item = m_Amuulet_3[i];
                 }
             }
-            GlovalEventSystem.SellingItem(item, count, this);
+            sell_controll.OpenSellPanel(item, count, this);
         }
 
 
@@ -689,7 +681,7 @@ public class Inventory_controll : MonoBehaviour
                     item = m_Sword_1[i];
                 }
             }
-            GlovalEventSystem.SellingItem(item, count, this);
+            sell_controll.OpenSellPanel(item, count, this);
         }
         if (itemIndex == 2)
         {
@@ -701,7 +693,7 @@ public class Inventory_controll : MonoBehaviour
                     item = m_Sword_2[i];
                 }
             }
-            GlovalEventSystem.SellingItem(item, count, this);
+            sell_controll.OpenSellPanel(item, count, this);
         }
         if (itemIndex == 3)
         {
@@ -713,7 +705,7 @@ public class Inventory_controll : MonoBehaviour
                     item = m_Sword_3[i];
                 }
             }
-            GlovalEventSystem.SellingItem(item, count, this);
+            sell_controll.OpenSellPanel(item, count, this);
         }
         if (itemIndex == 4)
         {
@@ -725,7 +717,7 @@ public class Inventory_controll : MonoBehaviour
                     item = m_Shield_1[i];
                 }
             }
-            GlovalEventSystem.SellingItem(item, count, this);
+            sell_controll.OpenSellPanel(item, count, this);
         }
         if (itemIndex == 5)
         {
@@ -737,7 +729,7 @@ public class Inventory_controll : MonoBehaviour
                     item = m_Shield_2[i];
                 }
             }
-            GlovalEventSystem.SellingItem(item, count, this);
+            sell_controll.OpenSellPanel(item, count, this);
         }
         if (itemIndex == 6)
         {
@@ -749,7 +741,7 @@ public class Inventory_controll : MonoBehaviour
                     item = m_Shield_3[i];
                 }
             }
-            GlovalEventSystem.SellingItem(item, count, this);
+            sell_controll.OpenSellPanel(item, count, this);
         }
         if (itemIndex == 7)
         {
@@ -761,7 +753,7 @@ public class Inventory_controll : MonoBehaviour
                     item = m_Amuulet_1[i];
                 }
             }
-            GlovalEventSystem.SellingItem(item, count, this);
+            sell_controll.OpenSellPanel(item, count, this);
         }
         if (itemIndex == 8)
         {
@@ -773,7 +765,7 @@ public class Inventory_controll : MonoBehaviour
                     item = m_Amuulet_2[i];
                 }
             }
-            GlovalEventSystem.SellingItem(item, count, this);
+            sell_controll.OpenSellPanel(item, count, this);
         }
         if (itemIndex == 9)
         {
@@ -785,7 +777,7 @@ public class Inventory_controll : MonoBehaviour
                     item = m_Amuulet_3[i];
                 }
             }
-            GlovalEventSystem.SellingItem(item, count, this);
+            sell_controll.OpenSellPanel(item, count, this);
         }
 
 
@@ -805,7 +797,7 @@ public class Inventory_controll : MonoBehaviour
                     item = m_Sword_1[i];
                 }
             }
-            GlovalEventSystem.SellingItem(item, count, this);
+            sell_controll.OpenSellPanel(item, count, this);
         }
         if (itemIndex == 2)
         {
@@ -817,7 +809,7 @@ public class Inventory_controll : MonoBehaviour
                     item = m_Sword_2[i];
                 }
             }
-            GlovalEventSystem.SellingItem(item, count, this);
+            sell_controll.OpenSellPanel(item, count, this);
         }
         if (itemIndex == 3)
         {
@@ -829,7 +821,7 @@ public class Inventory_controll : MonoBehaviour
                     item = m_Sword_3[i];
                 }
             }
-            GlovalEventSystem.SellingItem(item, count, this);
+            sell_controll.OpenSellPanel(item, count, this);
         }
         if (itemIndex == 4)
         {
@@ -841,7 +833,7 @@ public class Inventory_controll : MonoBehaviour
                     item = m_Shield_1[i];
                 }
             }
-            GlovalEventSystem.SellingItem(item, count, this);
+            sell_controll.OpenSellPanel(item, count, this);
         }
         if (itemIndex == 5)
         {
@@ -853,7 +845,7 @@ public class Inventory_controll : MonoBehaviour
                     item = m_Shield_2[i];
                 }
             }
-            GlovalEventSystem.SellingItem(item, count, this);
+            sell_controll.OpenSellPanel(item, count, this);
         }
         if (itemIndex == 6)
         {
@@ -865,7 +857,7 @@ public class Inventory_controll : MonoBehaviour
                     item = m_Shield_3[i];
                 }
             }
-            GlovalEventSystem.SellingItem(item, count, this);
+            sell_controll.OpenSellPanel(item, count, this);
         }
         if (itemIndex == 7)
         {
@@ -877,7 +869,7 @@ public class Inventory_controll : MonoBehaviour
                     item = m_Amuulet_1[i];
                 }
             }
-            GlovalEventSystem.SellingItem(item, count, this);
+            sell_controll.OpenSellPanel(item, count, this);
         }
         if (itemIndex == 8)
         {
@@ -889,7 +881,7 @@ public class Inventory_controll : MonoBehaviour
                     item = m_Amuulet_2[i];
                 }
             }
-            GlovalEventSystem.SellingItem(item, count, this);
+            sell_controll.OpenSellPanel(item, count, this);
         }
         if (itemIndex == 9)
         {
@@ -901,7 +893,7 @@ public class Inventory_controll : MonoBehaviour
                     item = m_Amuulet_3[i];
                 }
             }
-            GlovalEventSystem.SellingItem(item, count, this);
+            sell_controll.OpenSellPanel(item, count, this);
         }
 
 
@@ -921,7 +913,7 @@ public class Inventory_controll : MonoBehaviour
                     item = m_Sword_1[i];
                 }
             }
-            GlovalEventSystem.SellingItem(item, count, this);
+            sell_controll.OpenSellPanel(item, count, this);
         }
         if (itemIndex == 2)
         {
@@ -933,7 +925,7 @@ public class Inventory_controll : MonoBehaviour
                     item = m_Sword_2[i];
                 }
             }
-            GlovalEventSystem.SellingItem(item, count, this);
+            sell_controll.OpenSellPanel(item, count, this);
         }
         if (itemIndex == 3)
         {
@@ -945,7 +937,7 @@ public class Inventory_controll : MonoBehaviour
                     item = m_Sword_3[i];
                 }
             }
-            GlovalEventSystem.SellingItem(item, count, this);
+            sell_controll.OpenSellPanel(item, count, this);
         }
         if (itemIndex == 4)
         {
@@ -957,7 +949,7 @@ public class Inventory_controll : MonoBehaviour
                     item = m_Shield_1[i];
                 }
             }
-            GlovalEventSystem.SellingItem(item, count, this);
+            sell_controll.OpenSellPanel(item, count, this);
         }
         if (itemIndex == 5)
         {
@@ -969,7 +961,7 @@ public class Inventory_controll : MonoBehaviour
                     item = m_Shield_2[i];
                 }
             }
-            GlovalEventSystem.SellingItem(item, count, this);
+            sell_controll.OpenSellPanel(item, count, this);
         }
         if (itemIndex == 6)
         {
@@ -981,7 +973,7 @@ public class Inventory_controll : MonoBehaviour
                     item = m_Shield_3[i];
                 }
             }
-            GlovalEventSystem.SellingItem(item, count, this);
+            sell_controll.OpenSellPanel(item, count, this);
         }
         if (itemIndex == 7)
         {
@@ -993,7 +985,7 @@ public class Inventory_controll : MonoBehaviour
                     item = m_Amuulet_1[i];
                 }
             }
-            GlovalEventSystem.SellingItem(item, count, this);
+            sell_controll.OpenSellPanel(item, count, this);
         }
         if (itemIndex == 8)
         {
@@ -1005,7 +997,7 @@ public class Inventory_controll : MonoBehaviour
                     item = m_Amuulet_2[i];
                 }
             }
-            GlovalEventSystem.SellingItem(item, count, this);
+            sell_controll.OpenSellPanel(item, count, this);
         }
         if (itemIndex == 9)
         {
@@ -1017,7 +1009,7 @@ public class Inventory_controll : MonoBehaviour
                     item = m_Amuulet_3[i];
                 }
             }
-            GlovalEventSystem.SellingItem(item, count, this);
+            sell_controll.OpenSellPanel(item, count, this);
         }
 
 

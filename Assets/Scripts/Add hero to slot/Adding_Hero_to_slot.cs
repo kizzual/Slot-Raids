@@ -12,6 +12,7 @@ public class Adding_Hero_to_slot : MonoBehaviour
     [SerializeField] private GameObject frontPanel;
     [SerializeField] private List<Raid_button> raid_buttons;
     [SerializeField] private Char_Controller char_Controller;
+    [SerializeField] private Raid_control raid_Control;
     private Raid_UI currentSlot;
     public void ActivateEvent()
     {
@@ -29,7 +30,7 @@ public class Adding_Hero_to_slot : MonoBehaviour
         gameObject.SetActive(true);
         foreach (var item in raid_buttons)
         {
-            item.PauseRaid();
+            item.ForceStopRaid();
         }
     }
     public void AddHeroToSlot(Slot_UI slot_ui)
@@ -66,7 +67,7 @@ public class Adding_Hero_to_slot : MonoBehaviour
                     break;
 
             }
-            GlovalEventSystem.RemoveFromSlot(currentSlot.m_currentHero.currentRaidSlot);
+            raid_Control.RemoveHero(currentSlot.m_currentHero.currentRaidSlot);
         }
         currentSlot.Initialise(slot_ui.m_CurrentHero);
         
@@ -77,7 +78,7 @@ public class Adding_Hero_to_slot : MonoBehaviour
     }
     public void RemoveHeroToSlot(Slot_UI slot_UI)
     {
-        GlovalEventSystem.RemoveFromSlot(slot_UI.m_CurrentHero.currentRaidSlot);
+        raid_Control.RemoveHero(slot_UI.m_CurrentHero.currentRaidSlot);
         slot_UI.m_CurrentHero.currentRaidSlot = 0;
         slot_UI.Initialise();
 
@@ -87,6 +88,7 @@ public class Adding_Hero_to_slot : MonoBehaviour
         Debug.Log("CLOSE PANEL");
         frontPanel.SetActive(false);
         gameObject.SetActive(false);
+        raid_Control.StartRaid();
     //    GlovalEventSystem.TutorialSteps(8);
     }
 

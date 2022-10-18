@@ -31,6 +31,7 @@ public class Raid_UI : MonoBehaviour
 
     [SerializeField] private DiceControll diceControll;
 
+  
     public Hero m_currentHero;
     public bool isOpened { get; set; }
     public int SlotNumber;
@@ -218,7 +219,7 @@ public class Raid_UI : MonoBehaviour
     public void AddHero()
     {
         GlovalEventSystem.AddingHeroToSlot(this);
-     //   GlovalEventSystem.TutorialSteps(6);
+
     }
     public void OpenStats() => GlovalEventSystem.OpenHeroStats(m_currentHero);
     public void CloseUnraidPanel() => unraid_panel.SetActive(false);
