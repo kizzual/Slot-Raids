@@ -30,15 +30,15 @@ public class Raid_UI : MonoBehaviour
     [SerializeField] private List<Image> diceBackGround;
 
     [SerializeField] private DiceControll diceControll;
+    [SerializeField] private Raid_control raid_control;
+    [SerializeField] private Char_Controller char_Controller;
+    [SerializeField] private Characteristics characteristics;
+    [SerializeField] private Adding_Hero_to_slot adding_Hero_to_slot;
 
-  
+
     public Hero m_currentHero;
     public bool isOpened { get; set; }
     public int SlotNumber;
-    public void Tester()
-    {
-        Debug.Log(m_currentHero.GoldToGrade);
-    }
     public void Initialise(Hero hero)
     {
         ActivePanel_Hero();
@@ -188,7 +188,9 @@ public class Raid_UI : MonoBehaviour
             m_currentHero.LevelUp();
 
             //    DisplayHeroInfirmation();
-            GlovalEventSystem.HeroUpgrade(m_currentHero);
+            raid_control.UpdateHeroStats(m_currentHero);
+            char_Controller.ChangeHeroStats(m_currentHero);
+            characteristics.UpgradeHeroStats(m_currentHero);
             SoundControl._instance.UpgradeHero();
             _upgradeParticle.Play();
             if (Gold.GetCurrentGold() >= m_currentHero.GoldToGrade)
@@ -216,12 +218,10 @@ public class Raid_UI : MonoBehaviour
         CheckSlot();
     }
     public DiceControll GetDice() => diceControll;
-    public void AddHero()
-    {
-        GlovalEventSystem.AddingHeroToSlot(this);
+    public void AddHero() => adding_Hero_to_slot.OpenHeroPanel(this);
 
-    }
-    public void OpenStats() => GlovalEventSystem.OpenHeroStats(m_currentHero);
+
+    public void OpenStats() => characteristics.OpenHeroStats(m_currentHero);
     public void CloseUnraidPanel() => unraid_panel.SetActive(false);
     public void OpenUnraidPanel() => unraid_panel.SetActive(true);
 }

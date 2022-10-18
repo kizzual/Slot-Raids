@@ -7,14 +7,7 @@ public class CheckAttentionIcon : MonoBehaviour
     [SerializeField] private List<Zone> zones;
     [SerializeField] private GameObject ZoneAttention;
 
-    public void ActivateEvent()
-    {
-        GlovalEventSystem.OnSwitchLocation += test;
-    }
-    public void DeActivateEvent()
-    {
-        GlovalEventSystem.OnSwitchLocation -= test;
-    }
+
 
     public void CheckAttention()
     {

@@ -15,7 +15,7 @@ public class CurrentZone : MonoBehaviour
         Current_Zone = zone;
    
         PlayerPrefs.SetInt("CurrentZone", Current_Zone.ID);
-        Debug.Log("Current zone after =  " + Current_Zone.nameLocation);
+    //    Debug.Log("Current zone after =  " + Current_Zone.nameLocation);
     }
 }
 

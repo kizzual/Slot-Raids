@@ -88,82 +88,132 @@ public class Combo : MonoBehaviour
     }
     private void DeactivateCombo()
     {
-        if (FullCombo.activeSelf)
-            FullCombo.SetActive(false);
-        if (LineCombo.activeSelf)
-            LineCombo.SetActive(false);
-        if (firstH3.activeSelf)
-            firstH3.SetActive(false);
-        if (firstV3.activeSelf)
-            firstV3.SetActive(false);
-        if (secondV3.activeSelf)
-            secondV3.SetActive(false);
-        if (firstH4.activeSelf)
-            firstH4.SetActive(false);
-        if (secondH4.activeSelf)
-            secondH4.SetActive(false);
-        if (firstV4.activeSelf)
-            firstV4.SetActive(false);
-        if (secondV4.activeSelf)
-            secondV4.SetActive(false);
-        if (firstH5.activeSelf)
-            firstH5.SetActive(false);
-        if (leftSecondH5.activeSelf)
-            leftSecondH5.SetActive(false);
-        if (rightSecondH5.activeSelf)
-            rightSecondH5.SetActive(false);
-        if (middleV5.activeSelf)
-            middleV5.SetActive(false);
-        if (firstH6.activeSelf)
-            firstH6.SetActive(false);
-        if (secondH6.activeSelf)
-            secondH6.SetActive(false);
-        if (leftV6.activeSelf)
-            leftV6.SetActive(false);
-        if (middleV6.activeSelf)
-            middleV6.SetActive(false);
-        if (rightV6.activeSelf)
-            rightV6.SetActive(false);
-        if (firstH7.activeSelf)
-            firstH7.SetActive(false);
-        if (secondH7.activeSelf)
-            secondH7.SetActive(false);
-        if (leftV7.activeSelf)
-            leftV7.SetActive(false);
-        if (middleV7.activeSelf)
-            middleV7.SetActive(false);
-        if (rightV7.activeSelf)
-            rightV7.SetActive(false);
-        if (rightV7.activeSelf)
-            rightV7.SetActive(false);
-        if (firstH8.activeSelf)
-            firstH8.SetActive(false);
-        if (secondH8.activeSelf)
-            secondH8.SetActive(false);
-        if (thirdH8.activeSelf)
-            thirdH8.SetActive(false);
-        if (leftV8.activeSelf)
-            leftV8.SetActive(false);
-        if (middleV8.activeSelf)
-            middleV8.SetActive(false);
-        if (rightV8.activeSelf)
-            rightV8.SetActive(false);
-        if (firstH9.activeSelf)
-            firstH9.SetActive(false);
-        if (secondH9.activeSelf)
-            secondH9.SetActive(false);
-        if (thirdH9.activeSelf)
-            thirdH9.SetActive(false);
-        if (firstV9.activeSelf)
-            firstV9.SetActive(false);
-        if (secondV9.activeSelf)
-            secondV9.SetActive(false);
-        if (thirdV9.activeSelf)
-            thirdV9.SetActive(false);
-        if (diagonallyUpToDown.activeSelf)
-            diagonallyUpToDown.SetActive(false);
-        if (diagonallyDonwToUp.activeSelf)
-            diagonallyDonwToUp.SetActive(false);
+        if(comboType == ComboType.second)
+        {
+            if (FullCombo.activeSelf)
+                FullCombo.SetActive(false);
+        }
+        else if (comboType == ComboType.third)
+        {
+            if (FullCombo.activeSelf)
+                FullCombo.SetActive(false);
+            if (LineCombo.activeSelf)
+                LineCombo.SetActive(false);
+            if (firstH3.activeSelf)
+                firstH3.SetActive(false);
+            if (firstV3.activeSelf)
+                firstV3.SetActive(false);
+            if (secondV3.activeSelf)
+                secondV3.SetActive(false);
+        }
+        else if(comboType == ComboType.fourth)
+        {
+            if (FullCombo.activeSelf)
+                FullCombo.SetActive(false);
+            if (LineCombo.activeSelf)
+                LineCombo.SetActive(false);
+            if (firstH4.activeSelf)
+                firstH4.SetActive(false);
+            if (secondH4.activeSelf)
+                secondH4.SetActive(false);
+            if (firstV4.activeSelf)
+                firstV4.SetActive(false);
+            if (secondV4.activeSelf)
+                secondV4.SetActive(false);
+        }
+        else if(comboType == ComboType.fifth)
+        {
+            if (FullCombo.activeSelf)
+                FullCombo.SetActive(false);
+            if (LineCombo.activeSelf)
+                LineCombo.SetActive(false);
+            if (firstH5.activeSelf)
+                firstH5.SetActive(false);
+            if (leftSecondH5.activeSelf)
+                leftSecondH5.SetActive(false);
+            if (rightSecondH5.activeSelf)
+                rightSecondH5.SetActive(false);
+            if (middleV5.activeSelf)
+                middleV5.SetActive(false);
+        }
+        else if(comboType == ComboType.sixth)
+        {
+            if (FullCombo.activeSelf)
+                FullCombo.SetActive(false);
+            if (LineCombo.activeSelf)
+                LineCombo.SetActive(false);
+            if (firstH6.activeSelf)
+                firstH6.SetActive(false);
+            if (secondH6.activeSelf)
+                secondH6.SetActive(false);
+            if (leftV6.activeSelf)
+                leftV6.SetActive(false);
+            if (middleV6.activeSelf)
+                middleV6.SetActive(false);
+            if (rightV6.activeSelf)
+                rightV6.SetActive(false);
+        }
+        else if(comboType == ComboType.seventh)
+        {
+            if (FullCombo.activeSelf)
+                FullCombo.SetActive(false);
+            if (LineCombo.activeSelf)
+                LineCombo.SetActive(false);
+            if (firstH7.activeSelf)
+                firstH7.SetActive(false);
+            if (secondH7.activeSelf)
+                secondH7.SetActive(false);
+            if (leftV7.activeSelf)
+                leftV7.SetActive(false);
+            if (middleV7.activeSelf)
+                middleV7.SetActive(false);
+            if (rightV7.activeSelf)
+                rightV7.SetActive(false);
+            if (rightV7.activeSelf)
+                rightV7.SetActive(false);
+        }
+        else if (comboType == ComboType.eighth)
+        {
+            if (FullCombo.activeSelf)
+                FullCombo.SetActive(false);
+            if (LineCombo.activeSelf)
+                LineCombo.SetActive(false);
+            if (firstH8.activeSelf)
+                firstH8.SetActive(false);
+            if (secondH8.activeSelf)
+                secondH8.SetActive(false);
+            if (thirdH8.activeSelf)
+                thirdH8.SetActive(false);
+            if (leftV8.activeSelf)
+                leftV8.SetActive(false);
+            if (middleV8.activeSelf)
+                middleV8.SetActive(false);
+            if (rightV8.activeSelf)
+                rightV8.SetActive(false);
+        }
+        else if (comboType == ComboType.ninth)
+        {
+            if (FullCombo.activeSelf)
+                FullCombo.SetActive(false);
+            if (LineCombo.activeSelf)
+                LineCombo.SetActive(false);
+            if (firstH9.activeSelf)
+                firstH9.SetActive(false);
+            if (secondH9.activeSelf)
+                secondH9.SetActive(false);
+            if (thirdH9.activeSelf)
+                thirdH9.SetActive(false);
+            if (firstV9.activeSelf)
+                firstV9.SetActive(false);
+            if (secondV9.activeSelf)
+                secondV9.SetActive(false);
+            if (thirdV9.activeSelf)
+                thirdV9.SetActive(false);
+            if (diagonallyUpToDown.activeSelf)
+                diagonallyUpToDown.SetActive(false);
+            if (diagonallyDonwToUp.activeSelf)
+                diagonallyDonwToUp.SetActive(false);
+        }
     }
     public void CheckCombo(List<Raid_UI> slots, Raid_control raidControl)
     {
@@ -217,7 +267,8 @@ public class Combo : MonoBehaviour
                         {
                             winItems.Add(slots[i].GetDice().winItem);
                         }
-                        raidControl.GetParticles().PlayParticleWitItem(i, slots[i].GetDice().winItem);
+                        if(raidControl.GetParticles() != null)
+                            raidControl.GetParticles().PlayParticleWitItem(i, slots[i].GetDice().winItem);
                         winGold += slots[i].m_currentHero.GetGoldProfit();
                     }
                     else if (slots[i].GetDice().prize == DiceControll.Prize.Gold)
@@ -298,7 +349,7 @@ public class Combo : MonoBehaviour
                     GoldAwarding(winGold * m_boostGold);
                     ItemsAwarding(winItems);
                 }
-                else if(comboType == ComboType.fourth)
+                else if (comboType == ComboType.fourth)
                 {
                     bool isCombo = false;
                     int totalCombo = 0;
@@ -391,7 +442,7 @@ public class Combo : MonoBehaviour
                 }
                 else if (comboType == ComboType.fifth)
                 {
-                    bool isCombo = false; 
+                    bool isCombo = false;
                     int totalCombo = 0;
 
                     if (slots[0].isOpened && slots[0].m_currentHero != null &&
@@ -520,7 +571,7 @@ public class Combo : MonoBehaviour
                     }
                     if (slots[0].isOpened && slots[0].m_currentHero != null &&
                         slots[3].isOpened && slots[3].m_currentHero != null)
-                       
+
                     {
                         if (slots[0].GetDice().prize == DiceControll.Prize.Item &&
                             slots[3].GetDice().prize == DiceControll.Prize.Item)
@@ -545,7 +596,7 @@ public class Combo : MonoBehaviour
                         {
                             int combo = slots[2].m_currentHero.GetCombo() + slots[5].m_currentHero.GetCombo();
                             totalCombo += combo;
-                            long totalComgoGold = slots[2].m_currentHero.GetGoldProfit() +  slots[5].m_currentHero.GetGoldProfit();
+                            long totalComgoGold = slots[2].m_currentHero.GetGoldProfit() + slots[5].m_currentHero.GetGoldProfit();
                             totalComgoGold *= combo;
                             winGold += totalComgoGold;
                             winItems.Add(slots[2].GetDice().winItem);
@@ -570,7 +621,7 @@ public class Combo : MonoBehaviour
                             winItems.Add(slots[4].GetDice().winItem);
                             isCombo = true;
                             LineCombo.SetActive(true);
-                            middleV6.SetActive(true); 
+                            middleV6.SetActive(true);
                         }
                     }
                     if (slots[3].isOpened && slots[3].m_currentHero != null &&
@@ -1082,6 +1133,40 @@ public class Combo : MonoBehaviour
 
             }
 
+
+        }
+        else if (comboType == ComboType.first)
+        {
+            List<Item> winItems = new List<Item>();
+            long winGold = 0;
+            int comboFull = 0;
+
+
+            // фул комбо 
+            for (int i = 0; i < slots.Count; i++)
+            {
+                if (slots[i].isOpened && slots[i].m_currentHero != null)
+                {
+                    for (int j = 0; j < m_boostItem; j++)
+                    {
+                        winItems.Add(slots[i].GetDice().winItem);
+                    }
+                    raidControl.GetParticles().PlayParticleWitItem(i, slots[i].GetDice().winItem);
+                    winGold += slots[i].m_currentHero.GetGoldProfit() * slots[i].m_currentHero.GetCombo();
+                }
+                else if (slots[i].GetDice().prize == DiceControll.Prize.Gold)
+                {
+                    winGold += slots[i].m_currentHero.GetGoldProfit() * slots[i].m_currentHero.GetCombo();
+                    raidControl.GetParticles().PlayParticleWitoutItem(i);
+                }
+                comboFull += slots[i].m_currentHero.GetCombo();
+            }
+       
+
+            Gold.AddGold(winGold * m_boostGold);
+
+            GoldAwarding(winGold * m_boostGold);
+            ItemsAwarding(winItems);
 
         }
     }

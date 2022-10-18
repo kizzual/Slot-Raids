@@ -3,18 +3,27 @@ using UnityEngine;
 
 public class QuestPanel : MonoBehaviour
 {
+    public enum QuestPanelType
+    {
+        Tower,
+        Green,
+        Blue,
+        Yellow,
+        Red
+    }
+    public QuestPanelType questPanelType;
     [SerializeField] private List<Tower_q_UI> tower_Quest_UI;
     [SerializeField] private List<Quest> first_Line_quest;
     [SerializeField] private List<Quest> second_Line_quest;
     [SerializeField] private List<Quest> third_Line_quest;
     [SerializeField] private Raid_control raid_control;
+    [SerializeField] private Inventory_controll inventory_controll;
+    [SerializeField] private DisplayReward m_displayReward;
+    [SerializeField] private Boost_Controll m_boostControll;
 
     public int m_currentFirstLineQuestindex { get; set; } = 0;
     public int m_currentSecondLineQuestindex { get; set; } = 0;
     public int m_currentThitrdLineQuestindex { get; set; } = 0;
-    private DisplayReward m_displayReward;
-    private Boost_Controll m_boostControll;
-    private Inventory_controll inventory_controll;
     private int m_rewardLine;
     public int raidsCount { get; set; }
     public long goldsCount { get; set; }
@@ -2054,11 +2063,6 @@ public class QuestPanel : MonoBehaviour
         }
     }
 
-    public void SetInventoryControll(Inventory_controll inventory_controll) => this.inventory_controll = inventory_controll;
-    public void SetDisplayReward(DisplayReward DisplayReward) => this.m_displayReward = DisplayReward;
-    public void SetBoost_Controll(Boost_Controll Boost_Controll) => this.m_boostControll = Boost_Controll;
-
-
     public void CompleteQuestAndReward(int lineIndex)
     {
         List<Quest> line = new List<Quest>();
@@ -2267,6 +2271,7 @@ public class QuestPanel : MonoBehaviour
                     m_displayReward.Initialise(line[m_rewardLine].Location);
                     break;
                 case Quest.RewardType.Slot:
+                    m_displayReward.Initialise();
                     raid_control.CheckGrade(PlayerPrefs.GetInt("TowerLvl"));
                     break;
             }

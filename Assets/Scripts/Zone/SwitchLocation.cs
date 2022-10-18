@@ -5,6 +5,7 @@ using UnityEngine;
 public class SwitchLocation : MonoBehaviour
 {
     [SerializeField] private GameObject[] _raidLocation;
+    [SerializeField] private Raid_control raid_Control;
     public void SwitchRaidLocation(Zone zone)
     {
         for (int i = 0; i < _raidLocation.Length; i++)
@@ -27,14 +28,8 @@ public class SwitchLocation : MonoBehaviour
                 break;
 
         }
+        raid_Control.Switchlocation(zone);
     }
-    public void ActivateEvent()
-    {
-        GlovalEventSystem.OnSwitchLocation += SwitchRaidLocation;
-    }
-    public void DeActivateEvent()
-    {
-        GlovalEventSystem.OnSwitchLocation -= SwitchRaidLocation;
-    }
+
 
 }
