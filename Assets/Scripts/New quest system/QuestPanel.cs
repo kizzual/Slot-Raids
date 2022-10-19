@@ -689,8 +689,6 @@ public class QuestPanel : MonoBehaviour
                     }
                 case GoalType.Raid_ByZone:
                     {
-                        Debug.Log(first_Line_quest[m_currentFirstLineQuestindex].goal.ZoneToRaid.nameLocation);
-                        Debug.Log(CurrentZone.Current_Zone.nameLocation);
 
                         first_Line_quest[m_currentFirstLineQuestindex].goal.RaidGarhering_byZone(first_Line_quest[m_currentFirstLineQuestindex].goal.ZoneToRaid.RaidsCount);
                         tower_Quest_UI[0].Initialise_quest(first_Line_quest[m_currentFirstLineQuestindex]);
@@ -2064,6 +2062,44 @@ public class QuestPanel : MonoBehaviour
         }
     }
 
+    public bool CheckCompleteQuest()
+    {
+        Debug.Log("Check" ,gameObject);
+        if (first_Line_quest[m_currentFirstLineQuestindex].goal.goalType == GoalType.Item_Gathering)
+        {
+            if (third_Line_quest[m_currentThitrdLineQuestindex].goal.IsItemColeted())
+                return true;
+        }
+        else if (first_Line_quest[m_currentFirstLineQuestindex].goal.goalType != GoalType.Item_Gathering)
+        {
+            if (first_Line_quest[m_currentFirstLineQuestindex].goal.IsReached())
+                return true;
+        }
+        if (second_Line_quest[m_currentSecondLineQuestindex].goal.goalType == GoalType.Item_Gathering)
+        {
+            if (second_Line_quest[m_currentSecondLineQuestindex].goal.IsItemColeted())
+                return true;
+        }
+        else if (second_Line_quest[m_currentSecondLineQuestindex].goal.goalType != GoalType.Item_Gathering)
+        {
+            if (second_Line_quest[m_currentSecondLineQuestindex].goal.IsReached())
+                return true;
+        }
+        if(third_Line_quest[m_currentThitrdLineQuestindex].goal.goalType == GoalType.Item_Gathering)
+        {
+            if (third_Line_quest[m_currentThitrdLineQuestindex].goal.IsItemColeted())
+                return true;
+        }
+        else if(third_Line_quest[m_currentThitrdLineQuestindex].goal.goalType != GoalType.Item_Gathering)
+        {
+            if (third_Line_quest[m_currentThitrdLineQuestindex].goal.IsReached())
+                return true;
+        }
+        Debug.Log("false", gameObject);
+        return false;
+
+       
+    }
     public void CompleteQuestAndReward(int lineIndex)
     {
         List<Quest> line = new List<Quest>();

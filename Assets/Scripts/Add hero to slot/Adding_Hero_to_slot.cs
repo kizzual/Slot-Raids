@@ -68,6 +68,7 @@ public class Adding_Hero_to_slot : MonoBehaviour
         slot_ui.Initialise();
         currentSlot.m_currentHero.isNewHero = false;
         char_Controller.CheckForNewHeroes();
+        ClosePanel();
     }
     public void RemoveHeroToSlot(Slot_UI slot_UI)
     {
