@@ -20,6 +20,7 @@ public class QuestPanel : MonoBehaviour
     [SerializeField] private Inventory_controll inventory_controll;
     [SerializeField] private DisplayReward m_displayReward;
     [SerializeField] private Boost_Controll m_boostControll;
+    [SerializeField] private GameObject CardButton;
 
     public int m_currentFirstLineQuestindex { get; set; } = 0;
     public int m_currentSecondLineQuestindex { get; set; } = 0;
@@ -2245,37 +2246,51 @@ public class QuestPanel : MonoBehaviour
                                 m_displayReward.Initialise(line[m_rewardLine].Location);
                                 break;
                         }
-                        m_currentThitrdLineQuestindex++;
                         break;
                     }
             }
         }
         else if (!line[m_rewardLine].PassItems)
         {
-            switch (line[m_rewardLine].rewardType)
+            if (!line[m_rewardLine].isCustomReward)
             {
-                case Quest.RewardType.Hero:
-                    line[m_rewardLine].HeroReward.isOpened = true;
-                    line[m_rewardLine].HeroReward.isNewHero = true;
-                    //             char_Controller.CheckForNewHeroes();
-                    m_displayReward.Initialise(line[m_rewardLine].HeroReward);
-                    break;
-                case Quest.RewardType.Boost:
-                    m_boostControll.OpenCard(line[m_rewardLine].BoostCard);
-                    m_displayReward.Initialise(line[m_rewardLine].BoostCard);
-                    break;
-                case Quest.RewardType.Location:
-                    line[m_rewardLine].Location.isOpened = true;
-                    line[m_rewardLine].Location.isNewZone = true;
-                    //        checkAttentionIcon.CheckAttention();
-                    m_displayReward.Initialise(line[m_rewardLine].Location);
-                    break;
-                case Quest.RewardType.Slot:
-                    m_displayReward.Initialise();
-                    raid_control.CheckGrade(PlayerPrefs.GetInt("TowerLvl"));
-                    break;
+                switch (line[m_rewardLine].rewardType)
+                {
+                    case Quest.RewardType.Hero:
+                        line[m_rewardLine].HeroReward.isOpened = true;
+                        line[m_rewardLine].HeroReward.isNewHero = true;
+                        //             char_Controller.CheckForNewHeroes();
+                        m_displayReward.Initialise(line[m_rewardLine].HeroReward);
+                        break;
+                    case Quest.RewardType.Boost:
+                        m_boostControll.OpenCard(line[m_rewardLine].BoostCard);
+                        m_displayReward.Initialise(line[m_rewardLine].BoostCard);
+                        break;
+                    case Quest.RewardType.Location:
+                        line[m_rewardLine].Location.isOpened = true;
+                        line[m_rewardLine].Location.isNewZone = true;
+                        //        checkAttentionIcon.CheckAttention();
+                        m_displayReward.Initialise(line[m_rewardLine].Location);
+                        break;
+                    case Quest.RewardType.Slot:
+                        m_displayReward.Initialise();
+                        raid_control.StopRaid();
+                        raid_control.CheckGrade(PlayerPrefs.GetInt("TowerLvl"));
+                        raid_control.StartRaid();
+
+                        break;
+                }
             }
-            m_currentThitrdLineQuestindex++;
+            else if(line[m_rewardLine].isCustomReward)
+            {
+                if(line[m_rewardLine].customRewardID == 0)
+                {
+                    CardButton.SetActive(true);
+                    m_boostControll.OpenCard(line[m_rewardLine].BoostCard);
+                    m_boostControll.OpenCard(line[m_rewardLine].customBoost);
+                    m_displayReward.Initialise(line[m_rewardLine].BoostCard);
+                }
+            }
 
         }
 

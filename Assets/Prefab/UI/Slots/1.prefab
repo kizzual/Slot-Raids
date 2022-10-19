@@ -54454,8 +54454,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 299.3, y: 299.3}
+  m_AnchoredPosition: {x: -8.1417, y: 10.4679}
+  m_SizeDelta: {x: 818.0423, y: 861.5059}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &3343506169897512594
 CanvasRenderer:
@@ -56521,6 +56521,10 @@ MonoBehaviour:
   - {fileID: 7703680447734196178}
   - {fileID: 8943814783664530465}
   diceControll: {fileID: 7968332153050873517}
+  raid_control: {fileID: 0}
+  char_Controller: {fileID: 0}
+  characteristics: {fileID: 0}
+  adding_Hero_to_slot: {fileID: 0}
   m_currentHero: {fileID: 0}
   SlotNumber: 1
 --- !u!1 &3578474281480915588

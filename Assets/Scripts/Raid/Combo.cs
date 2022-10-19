@@ -24,6 +24,7 @@ public class Combo : MonoBehaviour
     [SerializeField] private List<TextMeshProUGUI> textCombo;
     [SerializeField] private GameObject FullCombo;
     [SerializeField] private GameObject LineCombo;
+    [SerializeField] private QuestControll questControll;
 
     [Header("3lvl")]
     [SerializeField] private GameObject firstH3;
@@ -1164,7 +1165,7 @@ public class Combo : MonoBehaviour
        
 
             Gold.AddGold(winGold * m_boostGold);
-
+            
             GoldAwarding(winGold * m_boostGold);
             ItemsAwarding(winItems);
 
@@ -1199,7 +1200,11 @@ public class Combo : MonoBehaviour
         boost_Controll.RaidComplete();
         raid_Control.DisplayWinItems(winItems);
     }
-    private void GoldAwarding(long value) => raid_Control.DisplayWinGold(value);
+    private void GoldAwarding(long value)
+    {
+        questControll.RaidConplete(value);
+        raid_Control.DisplayWinGold(value);
+    }
     public void GoldBoostActivate(int value) => m_boostGold = value;
     public void ItemBoostActivate(int value) => m_boostItem = value;
     public void GoldBoostDeActivate() => m_boostGold = 1;

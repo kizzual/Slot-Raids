@@ -29,11 +29,11 @@ public class QuestControll : MonoBehaviour
             item.GetRaidInfo(towergrade.currentGrade, m_currentRaid, m_currentGold);
         }
     }
-    public void RaidConplete(long goldValue, int combo = 0, int unLuck = 0)
+    public void RaidConplete(long goldValue)
     {
         m_currentRaid++;
         m_currentGold += goldValue;
-
+        questUI.Initialise(m_currentGold, m_currentRaid);
         InitialiseQuest();
     }
     public List<QuestPanel> GetQuestPanels() => questPanel;

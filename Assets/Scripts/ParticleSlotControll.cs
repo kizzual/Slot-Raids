@@ -11,6 +11,7 @@ public class ParticleSlotControll : MonoBehaviour
     [SerializeField] private List<Material> amuet_materials;
     public void PlayParticleWitItem(int index, Item item )
     {
+
         switch (item.typeItem)
         {
             case TypeItem.Sword:

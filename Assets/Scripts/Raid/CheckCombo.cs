@@ -76,7 +76,6 @@ public class CheckCombo : MonoBehaviour
        //         Debug.Log(winGold * m_boostGold + "  win + boost");
                 Gold.AddGold(winGold * m_boostGold);
 
-                QuestControll.RaidConplete( winGold * m_boostGold);
                 
                 ItemsAwarding(winItems);
 

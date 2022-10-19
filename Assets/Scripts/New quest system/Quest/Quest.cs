@@ -23,6 +23,7 @@ public class Quest
     public Sprite RewardIcon;
     public bool isCustomReward = false;
     public int customRewardID = 0;
+    public BoostCard customBoost;
     public Goal goal;
 
 }
