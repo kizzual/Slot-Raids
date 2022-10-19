@@ -15,6 +15,7 @@ public class SwitchTabs : MonoBehaviour
     public GameObject Inventory;
     public Image InventoryBtn;
     public GameObject boostPanel;
+    public GameObject questPanel;
     private void Start()
     {
         image = InventoryBtn.GetComponent<Image>(); 
@@ -49,7 +50,7 @@ public class SwitchTabs : MonoBehaviour
     {
         InventoryOnOff(true);
         boostPanel.SetActive(false);
-
+        questPanel.SetActive(false);
 
         for (int i = 0; i < panel.Length; i++)
         {

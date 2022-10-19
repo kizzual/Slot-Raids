@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 public class Zone : MonoBehaviour
 {
@@ -16,35 +17,30 @@ public class Zone : MonoBehaviour
     public int itemProfit { get; set; } = 1;
     public List<Item> ItemsOnZone;
     public Sprite ZoneSprite;
-    public Sprite ZoneSprite_closed;
-    public Sprite elementLogo;
     public Sprite logo;
     public bool isOpened;
     [Space]
     [Header("UI")]
-    [SerializeField] private GameObject IsOpenedPanel;
     [SerializeField] private GameObject IscloseddPanel;
     [SerializeField] private GameObject currentZoneCheck;
-    [SerializeField] private Text name_Location;
-    [SerializeField] private Text Luck_value;
-    [SerializeField] private Text UnLuck_value;
+    [SerializeField] private TextMeshProUGUI Luck_value;
+    [SerializeField] private TextMeshProUGUI UnLuck_value;
+    [SerializeField] private TextMeshProUGUI Rank_text;
     [SerializeField] private List<Image> itemIcons;
-    [SerializeField] private Image element;
-    [SerializeField] private Image OpenBG;
-    [SerializeField] private Image CloseBG;
+    [SerializeField] private Button pickButton;
+
     public int RaidsCount { get; set; } = 0;
     private int m_luckBoost { get; set; } = 0;
     private int m_unLuckBoost { get; set; } = 0;
     private int m_goldBoost { get; set; } = 0;
     private int m_itemBoost { get; set; } = 0;
-    [SerializeField] private GameObject AttentionIcon;
+
     [SerializeField] private SwitchTabs switchTabs;
     [SerializeField] private SwitchLocation switchLocation;
     public bool isNewZone { get; set; }  = false;
     public void SwitchLocation(Zone zone)
     {
         isNewZone = false;
-        AttentionIcon.SetActive(false);
         CurrentZone.SetZone(zone);
         switchLocation.SwitchRaidLocation(zone);
         switchTabs.GoToRaid(zone);
@@ -53,22 +49,19 @@ public class Zone : MonoBehaviour
     {
         Luck_value.text = Luck.ToString() + "%";
         UnLuck_value.text = UnLuck.ToString() + "%";
-        OpenBG.sprite = ZoneSprite;
-        CloseBG.sprite = ZoneSprite_closed;
-        name_Location.text = nameLocation;
+        Rank_text.text = Rank.ToString();
         if (ItemsOnZone[0] != null)
             itemIcons[0].sprite = ItemsOnZone[0].Icon;
         if (ItemsOnZone[1] != null)
             itemIcons[1].sprite = ItemsOnZone[1].Icon;
-        element.sprite = elementLogo;
         if (isOpened)
         {
-            IsOpenedPanel.SetActive(true);
+            pickButton.interactable = true;
             IscloseddPanel.SetActive(false);
         }
         else
         {
-            IsOpenedPanel.SetActive(false);
+            pickButton.interactable = false;
             IscloseddPanel.SetActive(true);
         }
     }
@@ -103,7 +96,8 @@ public class Zone : MonoBehaviour
     {
         if(isOpened)
         {
-            if(CurrentZone.Current_Zone == this)
+            pickButton.interactable = true;
+            if (CurrentZone.Current_Zone == this)
             {
                 currentZoneCheck.SetActive(true);
             }
@@ -111,13 +105,12 @@ public class Zone : MonoBehaviour
             {
                 currentZoneCheck.SetActive(false);
             }
-            IsOpenedPanel.SetActive(true);
             IscloseddPanel.SetActive(false);
         }
         else
         {
+            pickButton.interactable = false;
             currentZoneCheck.SetActive(false);
-            IsOpenedPanel.SetActive(false);
             IscloseddPanel.SetActive(true);
         }
     }
