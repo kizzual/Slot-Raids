@@ -177,6 +177,16 @@ public class Raid_UI : MonoBehaviour
             else
                 ActivePanel_Empty();
         }
+        if (Gold.GetCurrentGold() >= m_currentHero.GoldToGrade)
+        {
+            canGrade.SetActive(true);
+            cannotGrade.SetActive(false);
+        }
+        else
+        {
+            canGrade.SetActive(false);
+            cannotGrade.SetActive(true);
+        }
     }
     public void CheckSlot()
     {
