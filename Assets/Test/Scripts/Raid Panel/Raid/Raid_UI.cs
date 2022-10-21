@@ -157,6 +157,27 @@ public class Raid_UI : MonoBehaviour
         hero_panel.SetActive(true);
         empty_panel.SetActive(false);
     }
+    public void CloseDice()
+    {
+        if (SlotNumber != 10)
+        {
+            if (m_currentHero != null)
+            {
+                ActivePanel_Hero();
+            }
+            else
+                ActivePanel_Empty();
+        }
+        else
+        {
+            if (m_currentHero != null)
+            {
+                ActivePanel_Hero();
+            }
+            else
+                ActivePanel_Empty();
+        }
+    }
     public void CheckSlot()
     {
         if (SlotNumber != 10)

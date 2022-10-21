@@ -18,7 +18,9 @@ public class CheckCombo : MonoBehaviour
 
     public void CheckOfflinePrize()
     {
-        if (PlayerPrefs.HasKey("LastSession"))
+        if (MainTutorial.instance.mainTutorIsEnded &&
+                MainTutorial.instance.secondTutorIsEnded &&
+                MainTutorial.instance.thirdTutorIsEnded)
         { 
 
             long tmp = Utils.GetSeconds("LastSession");
@@ -49,7 +51,6 @@ public class CheckCombo : MonoBehaviour
                             {
                                 winItems.Add(slots[i].GetDice().winItem);
                             }
-                            raidControl.GetParticles().PlayParticleWitItem(i, slots[i].GetDice().winItem);
                             winGold += slots[i].m_currentHero.GetGoldProfit();
                        //     Debug.Log("item  id =   " + i);
                         }

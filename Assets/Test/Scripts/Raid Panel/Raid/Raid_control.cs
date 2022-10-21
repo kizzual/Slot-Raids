@@ -24,7 +24,11 @@ public class Raid_control : MonoBehaviour
     [SerializeField] private List<GameObject> ManaButton;
     private int m_currentSlotCount = 0;
     public ParticleSlotControll m_particleSlotControll;
-
+    [Header("tutor")]
+    public MainTutorial tutorial;
+    private int stepsTutorMain = 0;
+    [SerializeField] private Inventory_controll inventory_controll;
+    [SerializeField] private Item item_1item_1;
 
 
 
@@ -50,6 +54,14 @@ public class Raid_control : MonoBehaviour
         {
             item.OpenUnraidPanel();
             item.CheckSlot();
+        }
+    }
+    public void CloseDice()
+    {
+        foreach (var item in raid_slot)
+        {
+            item.OpenUnraidPanel();
+            item.CloseDice();
         }
     }
     public void UpdateHeroStats(Hero hero)
@@ -84,11 +96,11 @@ public class Raid_control : MonoBehaviour
         }
         foreach (var item in luckLocation)
         {
-            item.text = CurrentZone.Current_Zone.Luck.ToString();
+            item.text = CurrentZone.Current_Zone.Luck.ToString() + "%" ;
         }
         foreach (var item in unLuckLocation)
         {
-            item.text = CurrentZone.Current_Zone.UnLuck.ToString();
+            item.text = CurrentZone.Current_Zone.UnLuck.ToString() + "%";
         }
 
         switch (CurrentZone.Current_Zone.typeElement)
@@ -168,6 +180,7 @@ public class Raid_control : MonoBehaviour
         }
         if(grade != 0)
         {
+            StopRaid();
             List<Hero> heroes = new List<Hero>();
             for (int i = 0; i < raid_slot.Count; i++)
             {
@@ -189,6 +202,7 @@ public class Raid_control : MonoBehaviour
                 raid_slot[i].isOpened = true;
                 raid_slot[i].CheckSlot();
             }
+            StartRaid();
         }
     }
     public ParticleSlotControll GetParticles() => m_particleSlotControll;
@@ -229,24 +243,91 @@ public class Raid_control : MonoBehaviour
 
         if(ChecnCanRaid())
         {
-            for (int i = 0; i < raid_slot.Count; i++)
+            if(tutorial.mainStep == 12 || tutorial.mainStep == 14)
             {
-                if (raid_slot[i].isOpened && raid_slot[i].m_currentHero != null)
+                for (int i = 0; i < raid_slot.Count; i++)
                 {
-                    raid_slot[i].CloseUnraidPanel();
-                    raid_slot[i].GetDice().CheckRandomIndex();
-                    raid_slot[i].GetDice().StartRotate();
-                    raid_slot[i].m_currentHero.GoToRaid();
-                    
-                    m_currentSlotCount++;
+                    if (raid_slot[i].isOpened && raid_slot[i].m_currentHero != null)
+                    {
+                        raid_slot[i].CloseUnraidPanel();
+                        raid_slot[i].GetDice().SetLuckPrize();
+                        raid_slot[i].GetDice().StartRotate();
+                        raid_slot[i].m_currentHero.GoToRaid();
+
+                        m_currentSlotCount++;
+                    }
                 }
+                for (int i = 0; i < raid_Buttons.Count; i++)
+                {
+                    raid_Buttons[i].GoToAutoRaid();
+                }
+                CurrentZone.Current_Zone.GoToRaid();
+                SoundControl._instance.StartRaidSound();
             }
-            for (int i = 0; i < raid_Buttons.Count; i++)
+            else if(tutorial.mainStep == 13)
             {
-                raid_Buttons[i].GoToAutoRaid();
+                for (int i = 0; i < raid_slot.Count; i++)
+                {
+                    if (raid_slot[i].isOpened && raid_slot[i].m_currentHero != null)
+                    {
+                        raid_slot[i].CloseUnraidPanel();
+                        raid_slot[i].GetDice().SetUnLuckPrize();
+                        raid_slot[i].GetDice().StartRotate();
+                        raid_slot[i].m_currentHero.GoToRaid();
+
+                        m_currentSlotCount++;
+                    }
+                }
+                for (int i = 0; i < raid_Buttons.Count; i++)
+                {
+                    raid_Buttons[i].GoToAutoRaid();
+                }
+                CurrentZone.Current_Zone.GoToRaid();
+                SoundControl._instance.StartRaidSound();
             }
-            CurrentZone.Current_Zone.GoToRaid();
-            SoundControl._instance.StartRaidSound();
+            else if(tutorial.thirdStep == 9)
+            {
+                for (int i = 0; i < raid_slot.Count; i++)
+                {
+                    if (raid_slot[i].isOpened && raid_slot[i].m_currentHero != null)
+                    {
+                        raid_slot[i].CloseUnraidPanel();
+                        raid_slot[i].GetDice().SetLuckPrize();
+                        raid_slot[i].GetDice().StartRotate();
+                        raid_slot[i].m_currentHero.GoToRaid();
+
+                        m_currentSlotCount++;
+                    }
+                }
+                for (int i = 0; i < raid_Buttons.Count; i++)
+                {
+                    raid_Buttons[i].GoToAutoRaid();
+                }
+                CurrentZone.Current_Zone.GoToRaid();
+                SoundControl._instance.StartRaidSound();
+            }
+            else
+            {
+                for (int i = 0; i < raid_slot.Count; i++)
+                {
+                    if (raid_slot[i].isOpened && raid_slot[i].m_currentHero != null)
+                    {
+                        raid_slot[i].CloseUnraidPanel();
+                        raid_slot[i].GetDice().CheckRandomIndex();
+                        raid_slot[i].GetDice().StartRotate();
+                        raid_slot[i].m_currentHero.GoToRaid();
+
+                        m_currentSlotCount++;
+                    }
+                }
+                for (int i = 0; i < raid_Buttons.Count; i++)
+                {
+                    raid_Buttons[i].GoToAutoRaid();
+                }
+                CurrentZone.Current_Zone.GoToRaid();
+                SoundControl._instance.StartRaidSound();
+            }
+            
         }  
     }
     public void CheckOffLinePrize()
@@ -318,10 +399,28 @@ public class Raid_control : MonoBehaviour
         m_currentSlotCount--;
         if (m_currentSlotCount == 0)
         {
+            Debug.Log("TEST_1 = " + tutorial.mainStep);
+            if (tutorial.mainStep == 13 || tutorial.mainStep == 14 || tutorial.mainStep == 15)
+            {
+                tutorial.MainTutorialSteps();
+                Debug.Log("TEST_2");
+            }
+            if (tutorial.mainStep == 15)
+                inventory_controll.ReturnItem(item_1item_1);
+            if (tutorial.thirdStep == 9)
+            {
+                tutorial.THirdTutorialSteps();
+            }
             combo.CheckCombo(raid_slot, this);
             // проверка кубов и вызов партикла если зеленый
-       //     Debug.Log("RAIDS COMPLETE");
-           
+            //     Debug.Log("RAIDS COMPLETE");
+
+            for (int i = 0; i < raid_slot.Count; i++)
+            {
+                if (raid_slot[i].GetDice().prize == DiceControll.Prize.Item)
+                    raid_slot[i].GetDice().LuckParticle.Play();
+
+            }
         }
     }
     public void GoldBoostActivate(int value) => combo.GoldBoostActivate(value);

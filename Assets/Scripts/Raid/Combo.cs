@@ -73,6 +73,7 @@ public class Combo : MonoBehaviour
     private int m_boostItem = 1;
     private float m_timer = 0;
     private bool m_isCombo;
+    public List<Item> winItems = new List<Item>();
     private void Update()
     {
        
@@ -216,11 +217,11 @@ public class Combo : MonoBehaviour
                 diagonallyDonwToUp.SetActive(false);
         }
     }
+    
     public void CheckCombo(List<Raid_UI> slots, Raid_control raidControl)
     {
         if (comboType != ComboType.first)
         {
-            List<Item> winItems = new List<Item>();
             long winGold = 0;
             int comboFull = 0;
 
@@ -231,11 +232,14 @@ public class Combo : MonoBehaviour
                 {
                     if (slots[i].isOpened && slots[i].m_currentHero != null)
                     {
-                        for (int j = 0; j < m_boostItem; j++)
+                        if (slots[i].GetDice().prize == DiceControll.Prize.Item)
                         {
-                            winItems.Add(slots[i].GetDice().winItem);
+                            for (int j = 0; j < m_boostItem; j++)
+                            {
+                                winItems.Add(slots[i].GetDice().winItem);
+                            }
+                            raidControl.GetParticles().PlayParticleWitItem(i, slots[i].GetDice().winItem);
                         }
-                        raidControl.GetParticles().PlayParticleWitItem(i, slots[i].GetDice().winItem);
                         winGold += slots[i].m_currentHero.GetGoldProfit() * slots[i].m_currentHero.GetCombo();
                     }
                     else if (slots[i].GetDice().prize == DiceControll.Prize.Gold)
@@ -247,7 +251,7 @@ public class Combo : MonoBehaviour
                 }
                 foreach (var item in textCombo)
                 {
-                    item.text = comboFull.ToString();
+                    item.text = "X" + comboFull.ToString();
                 }
 
                 SoundControl._instance.Combo();
@@ -257,6 +261,8 @@ public class Combo : MonoBehaviour
                 ItemsAwarding(winItems);
                 FullCombo.SetActive(true);
                 m_isCombo = true;
+                winItems.Clear();
+                questControll.RaidCount();
             }
             else
             {
@@ -264,12 +270,15 @@ public class Combo : MonoBehaviour
                 {
                     if (slots[i].isOpened && slots[i].m_currentHero != null)
                     {
-                        for (int j = 0; j < m_boostItem; j++)
+
+                        if (slots[i].GetDice().prize == DiceControll.Prize.Item)
                         {
-                            winItems.Add(slots[i].GetDice().winItem);
-                        }
-                        if(raidControl.GetParticles() != null)
+                            for (int j = 0; j < m_boostItem; j++)
+                            {
+                                winItems.Add(slots[i].GetDice().winItem);
+                            }
                             raidControl.GetParticles().PlayParticleWitItem(i, slots[i].GetDice().winItem);
+                        }
                         winGold += slots[i].m_currentHero.GetGoldProfit();
                     }
                     else if (slots[i].GetDice().prize == DiceControll.Prize.Gold)
@@ -343,7 +352,7 @@ public class Combo : MonoBehaviour
                     }
                     foreach (var item in textCombo)
                     {
-                        item.text = totalCombo.ToString();
+                        item.text = "X" + totalCombo.ToString();
                     }
 
                     Gold.AddGold(winGold * m_boostGold);
@@ -434,7 +443,7 @@ public class Combo : MonoBehaviour
                     }
                     foreach (var item in textCombo)
                     {
-                        item.text = totalCombo.ToString();
+                        item.text = "X" + totalCombo.ToString();
                     }
 
                     Gold.AddGold(winGold * m_boostGold);
@@ -537,7 +546,7 @@ public class Combo : MonoBehaviour
                     }
                     foreach (var item in textCombo)
                     {
-                        item.text = totalCombo.ToString();
+                        item.text = "X" + totalCombo.ToString();
                     }
 
                     Gold.AddGold(winGold * m_boostGold);
@@ -654,7 +663,7 @@ public class Combo : MonoBehaviour
                     }
                     foreach (var item in textCombo)
                     {
-                        item.text = totalCombo.ToString();
+                        item.text = "X" + totalCombo.ToString();
                     }
 
                     Gold.AddGold(winGold * m_boostGold);
@@ -794,7 +803,7 @@ public class Combo : MonoBehaviour
                     }
                     foreach (var item in textCombo)
                     {
-                        item.text = totalCombo.ToString();
+                        item.text = "X" + totalCombo.ToString();
                     }
 
                     Gold.AddGold(winGold * m_boostGold);
@@ -936,7 +945,7 @@ public class Combo : MonoBehaviour
                     }
                     foreach (var item in textCombo)
                     {
-                        item.text = totalCombo.ToString();
+                        item.text = "X" + totalCombo.ToString();
                     }
                     Gold.AddGold(winGold * m_boostGold);
                     GoldAwarding(winGold * m_boostGold);
@@ -1125,13 +1134,14 @@ public class Combo : MonoBehaviour
                     }
                     foreach (var item in textCombo)
                     {
-                        item.text = totalCombo.ToString();
+                        item.text = "X" + totalCombo.ToString();
                     }
                     Gold.AddGold(winGold * m_boostGold);
                     GoldAwarding(winGold * m_boostGold);
                     ItemsAwarding(winItems);
                 }
-
+                winItems.Clear();
+                questControll.RaidCount();
             }
 
 
@@ -1148,11 +1158,15 @@ public class Combo : MonoBehaviour
             {
                 if (slots[i].isOpened && slots[i].m_currentHero != null)
                 {
-                    for (int j = 0; j < m_boostItem; j++)
+                   
+                    if (slots[i].GetDice().prize == DiceControll.Prize.Item)
                     {
-                        winItems.Add(slots[i].GetDice().winItem);
+                        for (int j = 0; j < m_boostItem; j++)
+                        {
+                            winItems.Add(slots[i].GetDice().winItem);
+                        }
+                        raidControl.GetParticles().PlayParticleWitItem(i, slots[i].GetDice().winItem);
                     }
-                    raidControl.GetParticles().PlayParticleWitItem(i, slots[i].GetDice().winItem);
                     winGold += slots[i].m_currentHero.GetGoldProfit() * slots[i].m_currentHero.GetCombo();
                 }
                 else if (slots[i].GetDice().prize == DiceControll.Prize.Gold)
@@ -1168,6 +1182,8 @@ public class Combo : MonoBehaviour
             
             GoldAwarding(winGold * m_boostGold);
             ItemsAwarding(winItems);
+            questControll.RaidCount();
+            winItems.Clear();
 
         }
     }

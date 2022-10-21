@@ -24,7 +24,7 @@ public class QuestControll : MonoBehaviour
         ActivateAttentionIcon(false);
     }
 
-    private void InitialiseQuest()
+    public void InitialiseQuest()
     {
         foreach (var item in questPanel)
         {
@@ -33,15 +33,19 @@ public class QuestControll : MonoBehaviour
     }
     public void RaidConplete(long goldValue)
     {
-        m_currentRaid++;
         m_currentGold += goldValue;
-        questUI.Initialise(m_currentGold, m_currentRaid);
+        questUI.GoldValue(goldValue);
         InitialiseQuest();
         if(!QuestPanel.activeSelf)
             CheckAttention();
     }
+    public void RaidCount()
+    {
+        m_currentRaid++;
+        questUI.RaidValue(m_currentRaid);
+    }
     public List<QuestPanel> GetQuestPanels() => questPanel;
-    private void CheckAttention()
+    public void CheckAttention()
     {
         for (int i = 0; i < questPanel.Count; i++)
         {

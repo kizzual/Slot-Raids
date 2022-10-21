@@ -25,7 +25,6 @@ public class Zone : MonoBehaviour
     [SerializeField] private GameObject currentZoneCheck;
     [SerializeField] private TextMeshProUGUI Luck_value;
     [SerializeField] private TextMeshProUGUI UnLuck_value;
-    [SerializeField] private TextMeshProUGUI Rank_text;
     [SerializeField] private List<Image> itemIcons;
     [SerializeField] private Button pickButton;
 
@@ -49,7 +48,6 @@ public class Zone : MonoBehaviour
     {
         Luck_value.text = Luck.ToString() + "%";
         UnLuck_value.text = UnLuck.ToString() + "%";
-        Rank_text.text = Rank.ToString();
         if (ItemsOnZone[0] != null)
             itemIcons[0].sprite = ItemsOnZone[0].Icon;
         if (ItemsOnZone[1] != null)

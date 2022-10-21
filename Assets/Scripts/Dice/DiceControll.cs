@@ -4,6 +4,7 @@ using UnityEngine;
 public class DiceControll : MonoBehaviour
 {
     [SerializeField] private List<Cube> dices;
+    public ParticleSystem LuckParticle;
     private Hero m_currentHero { get; set; }
     public enum Prize
     {
@@ -15,7 +16,6 @@ public class DiceControll : MonoBehaviour
     public Item winItem { get; set; }
     public Cube currentCube { get; set; }
     private int currentWinIndex;
-
     public void OpenCurrentDice(Hero hero)
     {
         m_currentHero = hero;
@@ -42,15 +42,40 @@ public class DiceControll : MonoBehaviour
     }
     public void CheckRandomIndex()
     {
-        currentWinIndex = Random.Range(0, currentCube.edges.Length );  // возможно +1 убрать    !!!!
+          currentWinIndex = Random.Range(0, currentCube.edges.Length );  // возможно +1 убрать    !!!!
+        CurrentWinPrize();
+    }
+    public void SetLuckPrize()
+    {
+         for (int i = 0; i < currentCube.edges.Length; i++)
+         {
+             if (currentCube.edges[i].edgeType == EdgeScript.EdgeType.Luck)
+             {
+                 currentWinIndex = i;
+                 break;
+             }
+
+         }
+        CurrentWinPrize();
+    }
+    public void SetUnLuckPrize()
+    {
+          for (int i = 0; i < currentCube.edges.Length; i++)
+          {
+              if (currentCube.edges[i].edgeType == EdgeScript.EdgeType.Unluck)
+              {
+                  currentWinIndex = i;
+                  break;
+              }
+          }
         CurrentWinPrize();
     }
     public void StartRotate() => currentCube.StartRotate(currentWinIndex);
     public void StopRotate() => currentCube.StopRaid();
     private void CurrentWinPrize()
     {
-   //     Debug.Log(currentCube.edges[currentWinIndex].edgeIndex, gameObject);
-    //    Debug.Log(currentCube.edges[currentWinIndex].edgeType, gameObject);
+        Debug.Log(currentCube.edges[currentWinIndex].edgeIndex, gameObject);
+        Debug.Log(currentCube.edges[currentWinIndex].edgeType, gameObject);
         if (currentCube.edges[currentWinIndex  ].edgeType == EdgeScript.EdgeType.Neutral)
         {
             //формула голды
@@ -59,7 +84,11 @@ public class DiceControll : MonoBehaviour
         else if (currentCube.edges[currentWinIndex  ].edgeType == EdgeScript.EdgeType.Luck)
         {
             //формула айтема рандомного
-            winItem = CurrentZone.Current_Zone.ItemsOnZone[Random.Range(0, CurrentZone.Current_Zone.ItemsOnZone.Count)];
+            int random = Random.Range(0, 10);
+            if (random < 5)
+                winItem = CurrentZone.Current_Zone.ItemsOnZone[0];
+            else
+                winItem = CurrentZone.Current_Zone.ItemsOnZone[1];
             prize = Prize.Item;
         }
         else if (currentCube.edges[currentWinIndex  ].edgeType == EdgeScript.EdgeType.Unluck)

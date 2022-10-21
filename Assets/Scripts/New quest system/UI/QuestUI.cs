@@ -12,4 +12,6 @@ public class QuestUI : MonoBehaviour
         raidCount.text = ConvertText.FormatNumb(raidsCount);
         goldCount.text = ConvertText.FormatNumb(goldValue);
     }
+    public void GoldValue(long value) => goldCount.text = ConvertText.FormatNumb(value);
+    public void RaidValue(int value) => raidCount.text = ConvertText.FormatNumb(value);
 }

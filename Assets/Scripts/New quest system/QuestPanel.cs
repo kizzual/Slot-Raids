@@ -21,7 +21,8 @@ public class QuestPanel : MonoBehaviour
     [SerializeField] private DisplayReward m_displayReward;
     [SerializeField] private Boost_Controll m_boostControll;
     [SerializeField] private GameObject CardButton;
-
+    bool BlockFirstTutor = false;
+    bool BlockSecondTutor = false;
     public int m_currentFirstLineQuestindex { get; set; } = 0;
     public int m_currentSecondLineQuestindex { get; set; } = 0;
     public int m_currentThitrdLineQuestindex { get; set; } = 0;
@@ -73,13 +74,18 @@ public class QuestPanel : MonoBehaviour
                         tower_Quest_UI[0].Initialise_quest(first_Line_quest[m_currentFirstLineQuestindex]);
                         if (first_Line_quest[m_currentFirstLineQuestindex].goal. IsReached())
                         {
-                            Debug.Log("Cmplete");
                             tower_Quest_UI[0].QuestComplete();
+                            if (questPanelType == QuestPanelType.Tower && m_currentFirstLineQuestindex == 1 && !BlockSecondTutor)
+                            {
+                                BlockSecondTutor = true;
+                                MainTutorial.instance.THirdTutorialSteps();
+                            }
+
                         }
                         break;
                     }
                 // реализовать Luck_Gathering
-                // реализовать Death_Gathering
+                // реализовать Death_GatheringZ
                 case GoalType.Item_Gathering:
                     {
                         if (first_Line_quest[m_currentFirstLineQuestindex].goal.firstItem != null)
@@ -689,7 +695,6 @@ public class QuestPanel : MonoBehaviour
                     }
                 case GoalType.Raid_ByZone:
                     {
-
                         first_Line_quest[m_currentFirstLineQuestindex].goal.RaidGarhering_byZone(first_Line_quest[m_currentFirstLineQuestindex].goal.ZoneToRaid.RaidsCount);
                         tower_Quest_UI[0].Initialise_quest(first_Line_quest[m_currentFirstLineQuestindex]);
                         if (first_Line_quest[m_currentFirstLineQuestindex].goal.IsReached())
@@ -1411,6 +1416,11 @@ public class QuestPanel : MonoBehaviour
                         if (third_Line_quest[m_currentThitrdLineQuestindex].goal.IsReached())
                         {
                             tower_Quest_UI[2].QuestComplete();
+                            if(questPanelType == QuestPanelType.Tower && m_currentThitrdLineQuestindex == 0 && !BlockFirstTutor)
+                            {
+                                BlockFirstTutor = true;
+                                MainTutorial.instance.SecondTutorSteps();
+                            }
                         }
                         break;
                     }
@@ -2064,7 +2074,6 @@ public class QuestPanel : MonoBehaviour
 
     public bool CheckCompleteQuest()
     {
-        Debug.Log("Check" ,gameObject);
         if (first_Line_quest[m_currentFirstLineQuestindex].goal.goalType == GoalType.Item_Gathering)
         {
             if (third_Line_quest[m_currentThitrdLineQuestindex].goal.IsItemColeted())
@@ -2095,7 +2104,6 @@ public class QuestPanel : MonoBehaviour
             if (third_Line_quest[m_currentThitrdLineQuestindex].goal.IsReached())
                 return true;
         }
-        Debug.Log("false", gameObject);
         return false;
 
        
@@ -2321,10 +2329,12 @@ public class QuestPanel : MonoBehaviour
             {
                 if(line[m_rewardLine].customRewardID == 0)
                 {
+                    Debug.Log("New quest STARTET");
                     CardButton.SetActive(true);
                     m_boostControll.OpenCard(line[m_rewardLine].BoostCard);
                     m_boostControll.OpenCard(line[m_rewardLine].customBoost);
                     m_displayReward.Initialise(line[m_rewardLine].BoostCard);
+                   
                 }
             }
 

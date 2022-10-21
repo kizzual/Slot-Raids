@@ -7,7 +7,9 @@ public class BaseLoader : MonoBehaviour
     [SerializeField] private Pause pause;
     [SerializeField] private Saver saver;
     [SerializeField] private CheckCombo checkCombo;
+    [SerializeField] private QuestControll questControll;
     [SerializeField] private List<ParticleAdaptive> particleAdaptive;
+    [SerializeField] private List<CheckOneTutuor> miniTutorials;
 
     void Awake()
     {
@@ -25,13 +27,24 @@ public class BaseLoader : MonoBehaviour
     {
         if (pause)
         {
-            Utils.SetLastTime("LastSession");
-            saver.FullSave();
+            if (MainTutorial.instance.mainTutorIsEnded &&
+                MainTutorial.instance.secondTutorIsEnded &&
+                MainTutorial.instance.thirdTutorIsEnded)
+            {
+                Utils.SetLastTime("LastSession");
+                saver.FullSave();
+            }
         }
 
     }
     private void LoadAllSystem()
     {
+        for (int i = 0; i < miniTutorials.Count; i++)
+        {
+            miniTutorials[i].CheckSave();
+        }
+        saver.TutorialLoad();
+        questControll.InitialiseQuest();
         pause.CheckSave();
         saver.MapLoad();
         saver.MapStatsLoad();
@@ -40,5 +53,9 @@ public class BaseLoader : MonoBehaviour
         saver.BoostLoadBoostLoad();
         saver.QuestSystemLoad();
     }
-
+    public void SaveAll()
+    {
+        saver.FullSave();
+        
+    }
 }

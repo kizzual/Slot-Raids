@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using System.IO;
 
 public class Saver : MonoBehaviour
 {
@@ -24,6 +25,7 @@ public class Saver : MonoBehaviour
     [SerializeField] private SwitchLocation switchLocation;
     [SerializeField] private Boost_Controll boost_Controll;
     [SerializeField] private TowerUpgrade upgradeTower;
+    [SerializeField] private MainTutorial tutorial;
     
 
 
@@ -42,7 +44,10 @@ public class Saver : MonoBehaviour
     }
    
 
-
+    public void TutorialLoad()
+    {
+        tutorial.Initialise();
+    }
     public void MapLoad()
     {
         //////////// загрузка текущей карты ///////////
@@ -200,45 +205,29 @@ public class Saver : MonoBehaviour
   
     public void DeleteAllSaves()
     {
-        m_heroSaver = FileHandler.ReadListFromJSON<HeroSaver>(heroSaverPath);
-        m_inventorySavers = FileHandler.ReadFromJSON<InventorySaver>(inventorySaverPath);
-        m_questSaver = FileHandler.ReadListFromJSON<QuestSaver>(QuestSaverPath);
-        allZonesSaver = FileHandler.ReadListFromJSON<AllZonesSaver>(allZoneSaverPath);
-        m_boostSaver = FileHandler.ReadFromJSON<BoostSaver>(BoostSaverPath);
-        m_heroSaver.Clear();
-        m_inventorySavers = null;
-        m_questSaver.Clear();
-        allZonesSaver.Clear();
-        m_boostSaver = null;
-        FileHandler.SaveToJSON<HeroSaver>(m_heroSaver, heroSaverPath);
-        FileHandler.SaveToJSON<InventorySaver>(m_inventorySavers, inventorySaverPath);
-        FileHandler.SaveToJSON<AllZonesSaver>(allZonesSaver, allZoneSaverPath);
-        FileHandler.SaveToJSON<QuestSaver>(m_questSaver, QuestSaverPath);
-        FileHandler.SaveToJSON<BoostSaver>(m_boostSaver, BoostSaverPath);
-
-        /*        foreach (var item in heroes)
-                {
-                    item.isOpened = false;
-                }
-                inventory_Controll.m_Sword_1.Clear();
-                inventory_Controll.m_Sword_2.Clear();
-                inventory_Controll.m_Sword_3.Clear();
-                inventory_Controll.m_Shield_1.Clear();
-                inventory_Controll.m_Shield_2.Clear();
-                inventory_Controll.m_Shield_3.Clear();
-                inventory_Controll.m_Amuulet_1.Clear();
-                inventory_Controll.m_Amuulet_2.Clear();
-                inventory_Controll.m_Amuulet_3.Clear();
-                foreach (var item in zones)
-                {
-                    item.isOpened = false;
-                }
-                zones[0].isOpened = true;
-        */
+        File.Delete(FileHandler.GetPath(heroSaverPath));
+        File.Delete(FileHandler.GetPath(inventorySaverPath));
+        File.Delete(FileHandler.GetPath(allZoneSaverPath));
+        File.Delete(FileHandler.GetPath(QuestSaverPath));
+        File.Delete(FileHandler.GetPath(BoostSaverPath));
+        PlayerPrefs.DeleteAll();
         Debug.Log("QUIT");
         Application.Quit();
     }
- 
+ public void testDelete()
+    {
+        string check = Application.persistentDataPath + "/" + heroSaverPath;
+        File.Delete(check);
+    }
+    public void testCreate()
+    {
+        for (int i = 0; i < heroes.Count; i++)
+        {
+            m_heroSaver.Add(new HeroSaver(heroes[i]));
+        }
+        FileHandler.SaveToJSON<HeroSaver>(m_heroSaver, heroSaverPath);
+
+    }
 }
 [Serializable]
 public class HeroSaver

@@ -17,6 +17,7 @@ public class TowerUpgrade : MonoBehaviour
     [SerializeField] private List<ParticleSystem> boostParticle;
     [SerializeField] private GameObject ManaBottle;
     [SerializeField] private GameObject ManaBottle_deactive;
+    [SerializeField] private QuestControll questControll;
     public Text test_4;
     private void Awake()
     {
@@ -77,7 +78,8 @@ public class TowerUpgrade : MonoBehaviour
     }
     public void Initialise()
     {
-
+        if (PlayerPrefs.HasKey("BoostTower"))
+            BoostTower.SetActive(true);
         m_tower_ui = GetComponent<Tower_UI>();
         if (PlayerPrefs.HasKey("TowerLvl"))
         {
@@ -106,6 +108,8 @@ public class TowerUpgrade : MonoBehaviour
        //     GlovalEventSystem.TutorialSteps(1);
             SoundControl._instance.UpgradeTower();
             _upgradeParticle.Play();
+            questControll.InitialiseQuest();
+            questControll.CheckAttention();
         }
         else
         {

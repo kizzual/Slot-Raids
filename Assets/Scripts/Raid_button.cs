@@ -7,7 +7,7 @@ public class Raid_button : MonoBehaviour
 {
     [SerializeField] private Raid_control raid_control;
     [SerializeField] private Image scrolling;
-    [SerializeField] private float autoRaidTimer;
+    private float autoRaidTimer = 5;
     [SerializeField] private float playerRaidTimer;
     [SerializeField] private List<Sprite> ButtonsSprite;
     [SerializeField] private Image currentButton;
@@ -86,7 +86,7 @@ public class Raid_button : MonoBehaviour
                 if (m_hideTimer > 3f)
                 {
                     m_imageIsHide = false;
-                    raid_control.CheckSlots();
+                    raid_control.CloseDice();
                 }
             }
 
@@ -186,13 +186,10 @@ public class Raid_button : MonoBehaviour
     {
         m_isStopping = true;
         isActive = false;
-        Debug.Log("1");
         if (PauseBut_anim.GetBool("IsActive"))
         {
-            Debug.Log("2");
             if (raid_control.ChecnCanRaid())
             {
-                Debug.Log("3");
                 PauseBut_anim.SetBool("IsActive", false);
                 GoToAutoRaid();
                 PlayImg.SetActive(false);
@@ -201,7 +198,6 @@ public class Raid_button : MonoBehaviour
         }
         else
         {
-            Debug.Log("5");
             PauseBut_anim.SetBool("IsActive", true);
             PlayImg.SetActive(true);
             PauseImg.SetActive(false);
