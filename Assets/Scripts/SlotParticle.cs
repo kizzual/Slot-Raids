@@ -32,5 +32,12 @@ public class SlotParticle : MonoBehaviour
         particleToAmulet.Play();
     }
 
+    public void SwitchMaterial_sword(Material material) => particleToSword_rend.sharedMaterial = material;
+    public void SwitchMaterial_shield(Material material) => particleToShield_rend.sharedMaterial = material;
+    public void SwitchMaterial_amulet(Material material) => particleToAmulet_rend.sharedMaterial = material;
+
+    public void PlayeItems_sword() => particleToSword.Play();
+    public void PlayeItems_shield() => particleToShield.Play();
+    public void PlayeItems_amulet() => particleToAmulet.Play();
 
 }

@@ -52029,6 +52029,7 @@ MonoBehaviour:
   - {fileID: 1211469457394239523}
   LuckParticle: {fileID: 8205465401121899158}
   prize: 0
+  currentWinIndex: 0
 --- !u!1 &4744057746713374868
 GameObject:
   m_ObjectHideFlags: 0

@@ -47,15 +47,16 @@ public class QuestPanel : MonoBehaviour
             {
                 case GoalType.Gold_Gathering:
                     {
-                       
+
+
                         first_Line_quest[m_currentFirstLineQuestindex].goal.GoldGathering(Gold.GetCurrentGold());
                         tower_Quest_UI[0].Initialise_quest(first_Line_quest[m_currentFirstLineQuestindex]);
                         if (first_Line_quest[m_currentFirstLineQuestindex].goal.IsReached())
                         {
-                           
                             tower_Quest_UI[0].QuestComplete();
                         }
                         break;
+
                     }
                 // реализовать combo_Gathering:
                 case GoalType.Raid_Gathering:
@@ -726,13 +727,27 @@ public class QuestPanel : MonoBehaviour
             {
                 case GoalType.Gold_Gathering:
                     {
-                        second_Line_quest[m_currentSecondLineQuestindex].goal.GoldGathering(Gold.GetCurrentGold());
-                        tower_Quest_UI[1].Initialise_quest(second_Line_quest[m_currentSecondLineQuestindex]);
-                        if (second_Line_quest[m_currentSecondLineQuestindex].goal.IsReached())
+                        if (questPanelType == QuestPanelType.Tower && m_currentSecondLineQuestindex == 0)
                         {
-                            tower_Quest_UI[1].QuestComplete();
+                            second_Line_quest[m_currentSecondLineQuestindex].goal.GoldGathering(1000);
+                            tower_Quest_UI[1].Initialise_quest(second_Line_quest[m_currentSecondLineQuestindex]);
+                            if (second_Line_quest[m_currentSecondLineQuestindex].goal.IsReached())
+                            {
+                                tower_Quest_UI[1].QuestComplete();
+                            }
+                            break;
                         }
-                        break;
+                        else
+                        {
+                            second_Line_quest[m_currentSecondLineQuestindex].goal.GoldGathering(Gold.GetCurrentGold());
+                            tower_Quest_UI[1].Initialise_quest(second_Line_quest[m_currentSecondLineQuestindex]);
+                            if (second_Line_quest[m_currentSecondLineQuestindex].goal.IsReached())
+                            {
+                                tower_Quest_UI[1].QuestComplete();
+                            }
+                            break;
+                        }
+                    
                     }
                 // реализовать combo_Gathering:
                 case GoalType.Raid_Gathering:

@@ -261,7 +261,6 @@ public class Raid_control : MonoBehaviour
                 {
                     raid_Buttons[i].GoToAutoRaid();
                 }
-                CurrentZone.Current_Zone.GoToRaid();
                 SoundControl._instance.StartRaidSound();
             }
             else if(tutorial.mainStep == 13)
@@ -282,7 +281,6 @@ public class Raid_control : MonoBehaviour
                 {
                     raid_Buttons[i].GoToAutoRaid();
                 }
-                CurrentZone.Current_Zone.GoToRaid();
                 SoundControl._instance.StartRaidSound();
             }
             else if(tutorial.thirdStep == 9)
@@ -303,7 +301,7 @@ public class Raid_control : MonoBehaviour
                 {
                     raid_Buttons[i].GoToAutoRaid();
                 }
-                CurrentZone.Current_Zone.GoToRaid();
+                
                 SoundControl._instance.StartRaidSound();
             }
             else
@@ -324,7 +322,6 @@ public class Raid_control : MonoBehaviour
                 {
                     raid_Buttons[i].GoToAutoRaid();
                 }
-                CurrentZone.Current_Zone.GoToRaid();
                 SoundControl._instance.StartRaidSound();
             }
             
@@ -399,11 +396,10 @@ public class Raid_control : MonoBehaviour
         m_currentSlotCount--;
         if (m_currentSlotCount == 0)
         {
-            Debug.Log("TEST_1 = " + tutorial.mainStep);
+            CurrentZone.Current_Zone.GoToRaid();
             if (tutorial.mainStep == 13 || tutorial.mainStep == 14 || tutorial.mainStep == 15)
             {
                 tutorial.MainTutorialSteps();
-                Debug.Log("TEST_2");
             }
             if (tutorial.mainStep == 15)
                 inventory_controll.ReturnItem(item_1item_1);

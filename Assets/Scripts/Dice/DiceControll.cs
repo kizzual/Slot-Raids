@@ -15,7 +15,7 @@ public class DiceControll : MonoBehaviour
     public Prize prize;
     public Item winItem { get; set; }
     public Cube currentCube { get; set; }
-    private int currentWinIndex;
+    public int currentWinIndex;
     public void OpenCurrentDice(Hero hero)
     {
         m_currentHero = hero;
