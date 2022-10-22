@@ -44,7 +44,7 @@ public class Raid_UI : MonoBehaviour
         ActivePanel_Hero();
         m_currentHero = hero;
         m_currentHero.currentRaidSlot = SlotNumber;
-        Rank.text = "D " + hero.cube.edgesNumber.ToString();
+        Rank.text = "D" + hero.cube.edgesNumber.ToString();
         lvl.text = hero.Level.ToString();
         combo.text = ConvertText.FormatNumb(hero.GetGoldProfit());
         goldToGrade.text = ConvertText.FormatNumb(hero.GoldToGrade);

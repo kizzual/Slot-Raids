@@ -252,7 +252,6 @@ public class Raid_control : MonoBehaviour
                         raid_slot[i].CloseUnraidPanel();
                         raid_slot[i].GetDice().SetLuckPrize();
                         raid_slot[i].GetDice().StartRotate();
-                        raid_slot[i].m_currentHero.GoToRaid();
 
                         m_currentSlotCount++;
                     }
@@ -272,7 +271,6 @@ public class Raid_control : MonoBehaviour
                         raid_slot[i].CloseUnraidPanel();
                         raid_slot[i].GetDice().SetUnLuckPrize();
                         raid_slot[i].GetDice().StartRotate();
-                        raid_slot[i].m_currentHero.GoToRaid();
 
                         m_currentSlotCount++;
                     }
@@ -292,7 +290,6 @@ public class Raid_control : MonoBehaviour
                         raid_slot[i].CloseUnraidPanel();
                         raid_slot[i].GetDice().SetLuckPrize();
                         raid_slot[i].GetDice().StartRotate();
-                        raid_slot[i].m_currentHero.GoToRaid();
 
                         m_currentSlotCount++;
                     }
@@ -313,7 +310,6 @@ public class Raid_control : MonoBehaviour
                         raid_slot[i].CloseUnraidPanel();
                         raid_slot[i].GetDice().CheckRandomIndex();
                         raid_slot[i].GetDice().StartRotate();
-                        raid_slot[i].m_currentHero.GoToRaid();
 
                         m_currentSlotCount++;
                     }
@@ -416,6 +412,10 @@ public class Raid_control : MonoBehaviour
                 if (raid_slot[i].GetDice().prize == DiceControll.Prize.Item)
                     raid_slot[i].GetDice().LuckParticle.Play();
 
+                if (raid_slot[i].isOpened && raid_slot[i].m_currentHero != null)
+                {
+                    raid_slot[i].m_currentHero.GoToRaid();
+                }
             }
         }
     }

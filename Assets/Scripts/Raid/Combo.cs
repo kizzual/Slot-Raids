@@ -292,7 +292,6 @@ public class Combo : MonoBehaviour
                 }
                 if(comboType == ComboType.second)
                 {
-                    SoundControl._instance.Combo();
                     Gold.AddGold(winGold * m_boostGold);
                     GoldAwarding(winGold * m_boostGold);
                     ItemsAwarding(winItems);
