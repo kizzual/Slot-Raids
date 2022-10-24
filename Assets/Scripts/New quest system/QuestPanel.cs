@@ -21,6 +21,8 @@ public class QuestPanel : MonoBehaviour
     [SerializeField] private DisplayReward m_displayReward;
     [SerializeField] private Boost_Controll m_boostControll;
     [SerializeField] private GameObject CardButton;
+    [SerializeField] private CheckAttentionIcon checkAttention;
+    [SerializeField] private Char_Controller char_Controller;
     bool BlockFirstTutor = false;
     bool BlockSecondTutor = false;
     public int m_currentFirstLineQuestindex { get; set; } = 0;
@@ -49,7 +51,7 @@ public class QuestPanel : MonoBehaviour
                     {
 
 
-                        first_Line_quest[m_currentFirstLineQuestindex].goal.GoldGathering(Gold.GetCurrentGold());
+                        first_Line_quest[m_currentFirstLineQuestindex].goal.GoldGathering(goldsCount);
                         tower_Quest_UI[0].Initialise_quest(first_Line_quest[m_currentFirstLineQuestindex]);
                         if (first_Line_quest[m_currentFirstLineQuestindex].goal.IsReached())
                         {
@@ -739,7 +741,7 @@ public class QuestPanel : MonoBehaviour
                         }
                         else
                         {
-                            second_Line_quest[m_currentSecondLineQuestindex].goal.GoldGathering(Gold.GetCurrentGold());
+                            second_Line_quest[m_currentSecondLineQuestindex].goal.GoldGathering(goldsCount);
                             tower_Quest_UI[1].Initialise_quest(second_Line_quest[m_currentSecondLineQuestindex]);
                             if (second_Line_quest[m_currentSecondLineQuestindex].goal.IsReached())
                             {
@@ -1415,7 +1417,7 @@ public class QuestPanel : MonoBehaviour
             {
                 case GoalType.Gold_Gathering:
                     {
-                        third_Line_quest[m_currentThitrdLineQuestindex].goal.GoldGathering(Gold.GetCurrentGold());
+                        third_Line_quest[m_currentThitrdLineQuestindex].goal.GoldGathering(goldsCount);
                         tower_Quest_UI[2].Initialise_quest(third_Line_quest[m_currentThitrdLineQuestindex]);
                         if (third_Line_quest[m_currentThitrdLineQuestindex].goal.IsReached())
                         {
@@ -2144,6 +2146,7 @@ public class QuestPanel : MonoBehaviour
             m_rewardLine = m_currentThitrdLineQuestindex;
             m_currentThitrdLineQuestindex++;
         }
+
         if (line[m_rewardLine].PassItems)
         {
             switch (line[m_rewardLine].goal.goalType)
@@ -2291,7 +2294,7 @@ public class QuestPanel : MonoBehaviour
                             case Quest.RewardType.Hero:
                                 line[m_rewardLine].HeroReward.isOpened = true;
                                 line[m_rewardLine].HeroReward.isNewHero = true;
-                                //             char_Controller.CheckForNewHeroes();
+                                char_Controller.CheckForNewHeroes();
                                 m_displayReward.Initialise(line[m_rewardLine].HeroReward);
                                 break;
                             case Quest.RewardType.Boost:
@@ -2301,7 +2304,7 @@ public class QuestPanel : MonoBehaviour
                             case Quest.RewardType.Location:
                                 line[m_rewardLine].Location.isOpened = true;
                                 line[m_rewardLine].Location.isNewZone = true;
-                                //        checkAttentionIcon.CheckAttention();
+                                checkAttention.CheckAttention();
                                 m_displayReward.Initialise(line[m_rewardLine].Location);
                                 break;
                         }
@@ -2318,8 +2321,8 @@ public class QuestPanel : MonoBehaviour
                     case Quest.RewardType.Hero:
                         line[m_rewardLine].HeroReward.isOpened = true;
                         line[m_rewardLine].HeroReward.isNewHero = true;
-                        //             char_Controller.CheckForNewHeroes();
                         m_displayReward.Initialise(line[m_rewardLine].HeroReward);
+                        char_Controller.CheckForNewHeroes();
                         break;
                     case Quest.RewardType.Boost:
                         m_boostControll.OpenCard(line[m_rewardLine].BoostCard);
@@ -2328,8 +2331,8 @@ public class QuestPanel : MonoBehaviour
                     case Quest.RewardType.Location:
                         line[m_rewardLine].Location.isOpened = true;
                         line[m_rewardLine].Location.isNewZone = true;
-                        //        checkAttentionIcon.CheckAttention();
                         m_displayReward.Initialise(line[m_rewardLine].Location);
+                        checkAttention.CheckAttention();
                         break;
                     case Quest.RewardType.Slot:
                         m_displayReward.Initialise();

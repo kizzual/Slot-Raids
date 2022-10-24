@@ -44,12 +44,10 @@ public class FullParticlesToInv : MonoBehaviour
         if (amulet_item)
             slot_particles.PlayeItems_amulet();
         slot_particles.CoinParticle();
-        PlayCashSound();
     }
     public void PlayParticleWitoutItem()
     {
         slot_particles.CoinParticle();
-        PlayCashSound();
     }
     private void CheckMaterial(Item item)
     {

@@ -35,6 +35,10 @@ public class BaseLoader : MonoBehaviour
                 saver.FullSave();
             }
         }
+        else
+        {
+            checkCombo.CheckOfflinePrize();
+        }
 
     }
     private void LoadAllSystem()

@@ -122,39 +122,39 @@ public class TowerUpgrade : MonoBehaviour
     {
         if (currentGrade == 0)
         {
-            m_goldToGrade = 1000;  // 1000
+            m_goldToGrade = 10000;  // 10 000
         }
         else if (currentGrade == 1)
         {
-            m_goldToGrade = 10000;  // 10.000
+            m_goldToGrade = 50000;  // 50 000
         }
         else if (currentGrade == 2)
         {
-            m_goldToGrade = 100000; // 100.000
+            m_goldToGrade = 750000; // 750 000
         }
         else if (currentGrade == 3)
         {
-            m_goldToGrade = 1000000; // 1.000.000
+            m_goldToGrade = 5000000; // 5 000 000
         }
         else if (currentGrade == 4)
         {
-            m_goldToGrade = 10000000; // 10.000.000
+            m_goldToGrade = 75000000; // 75 000 000
         }
         else if (currentGrade == 5)
         {
-            m_goldToGrade = 100000000; // 100.000.000
+            m_goldToGrade = 1000000000; // 1 000 000 000
         }
         else if (currentGrade == 6)
         {
-            m_goldToGrade = 1000000000; // 1.000.000.000
+            m_goldToGrade = 10000000000; // 10.000.000.000
         }
         else if (currentGrade == 7)
         {
-            m_goldToGrade = 10000000000; // 10.000.000.000
+            m_goldToGrade = 100000000000; // 100.000.000.000
         }
         else if (currentGrade == 8)
         {
-            m_goldToGrade = 100000000000; // 100.000.000.000
+            m_goldToGrade = 1000000000000; // 1 000.000.000.000
         }
     }
 }

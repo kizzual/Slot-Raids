@@ -11,6 +11,7 @@ public class CheckCombo : MonoBehaviour
     [SerializeField] private QuestControll QuestControll;
     [SerializeField] private OfflineGreating offline_greatings;
     [SerializeField] private List<Raid_button> raid_buttons;
+    [SerializeField] private BaseLoader baseLoader;
 
     private int m_boostGold = 1;
     private int m_boostItem = 1;
@@ -40,7 +41,6 @@ public class CheckCombo : MonoBehaviour
 
                 for (int i = 0; i < slots.Count; i++)
                 {
-       //             Debug.Log("CheckSlot  id =   " + i + "   isOpened  " + slots[i].isOpened + "   and current hero   =   " + slots[i].m_currentHero);
                     if (slots[i].isOpened && slots[i].m_currentHero != null)
                     {
                         isEmptyRaid = false;
@@ -52,37 +52,34 @@ public class CheckCombo : MonoBehaviour
                                 winItems.Add(slots[i].GetDice().winItem);
                             }
                             winGold += slots[i].m_currentHero.GetGoldProfit();
-                       //     Debug.Log("item  id =   " + i);
                         }
                         else if (slots[i].GetDice().prize == DiceControll.Prize.Gold)
                         {
                             winGold += slots[i].m_currentHero.GetGoldProfit();
-                            raidControl.GetParticles().PlayParticleWitoutItem(i);
-                         //   Debug.Log("gold  id =   " + i);
                         }
 
                     }
                 }
+                boost_Controll.RaidComplete();
             }
             if (!isEmptyRaid)
             {
-                for (int i = 0; i < totalOfflineRaids; i++)
-                {
-                    CurrentZone.Current_Zone.GoToRaid();
-                }
+                QuestControll.OfflineRaids(totalOfflineRaids);
+                CurrentZone.Current_Zone.OffLineRaid(totalOfflineRaids);
             }
             if (totalOfflineRaids > 0)
             {
-        //        Debug.Log("CHECK Offline  _  1" );
-       //         Debug.Log(winGold * m_boostGold + "  win + boost");
                 Gold.AddGold(winGold * m_boostGold);
+               
+                QuestControll.RaidConplete(winGold * m_boostGold);
 
-                
                 ItemsAwarding(winItems);
 
                 offline_greatings.OfflineReward(winGold, winItems);
+                baseLoader.SaveAll();
             }
         }
+
         foreach (var item in raid_buttons)
         {  
             if (item.gameObject.activeSelf)
@@ -90,6 +87,7 @@ public class CheckCombo : MonoBehaviour
                 item.GoRaidAfterOffline();
             }
         }
+       
     }
 
     private void ItemsAwarding(List<Item> winItems)
@@ -98,7 +96,8 @@ public class CheckCombo : MonoBehaviour
         {
             inventory_Controll.ReturnItem(winItems[i]);
         }
-        boost_Controll.RaidComplete();
+        
         raidControl.DisplayWinItems(winItems);
     }
+
 }

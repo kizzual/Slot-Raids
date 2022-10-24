@@ -77,6 +77,7 @@ public class Boost_Controll : MonoBehaviour
                 {
                     item.SetActive(true);
                 }
+                raid_Control.ActivateBoost();
             }
         }
     }
@@ -309,6 +310,10 @@ public class Boost_Controll : MonoBehaviour
         foreach (var item in ActivePanel)
         {
             item.SetActive(false);
+        }
+        foreach (var item in actiateBoost)
+        {
+            item.Stop();
         }
     }
     public void RaidComplete()

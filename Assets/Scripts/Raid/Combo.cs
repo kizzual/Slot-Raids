@@ -81,7 +81,7 @@ public class Combo : MonoBehaviour
         if (m_isCombo)
         {
             m_timer += Time.fixedDeltaTime;
-            if (m_timer >= 2f)
+            if (m_timer >= 1.5f)
             {
                 m_isCombo = false;
                 m_timer = 0;
@@ -89,7 +89,7 @@ public class Combo : MonoBehaviour
             }
         }
     }
-    private void DeactivateCombo()
+    public void DeactivateCombo()
     {
         if(comboType == ComboType.second)
         {
@@ -244,7 +244,7 @@ public class Combo : MonoBehaviour
                         }
                         else if (slots[i].GetDice().prize == DiceControll.Prize.Gold)
                         {
-                            winGold += slots[i].m_currentHero.GetGoldProfit() * slots[i].m_currentHero.GetCombo();
+                            winGold += slots[i].m_currentHero.GetNeutralGold() * slots[i].m_currentHero.GetCombo();
                             raidControl.GetParticles().PlayParticleWitoutItem(i);
                         }
                         comboFull += slots[i].m_currentHero.GetCombo();
@@ -284,7 +284,7 @@ public class Combo : MonoBehaviour
                         }
                         else if (slots[i].GetDice().prize == DiceControll.Prize.Gold)
                         {
-                            winGold += slots[i].m_currentHero.GetGoldProfit();
+                            winGold += slots[i].m_currentHero.GetNeutralGold();
                             raidControl.GetParticles().PlayParticleWitoutItem(i);
                         }
                     }
@@ -1187,7 +1187,7 @@ public class Combo : MonoBehaviour
                     else if (slots[i].GetDice().currentCube.edges[slots[i].GetDice().currentWinIndex].edgeType == EdgeScript.EdgeType.Neutral)
                     {
                         Debug.Log("gold dropped =  " + slots[i].GetDice().prize);
-                        winGold += slots[i].m_currentHero.GetGoldProfit() * slots[i].m_currentHero.GetCombo();
+                        winGold += slots[i].m_currentHero.GetNeutralGold() * slots[i].m_currentHero.GetCombo();
                         raidControl.GetParticles().PlayParticleWitoutItem(i);
                     }
                     else if (slots[i].GetDice().currentCube.edges[slots[i].GetDice().currentWinIndex].edgeType == EdgeScript.EdgeType.Unluck)
@@ -1201,7 +1201,7 @@ public class Combo : MonoBehaviour
 
 
             Gold.AddGold(winGold * m_boostGold);
-
+            Debug.Log(winGold * m_boostGold + " gold from raid");
             GoldAwarding(winGold * m_boostGold);
             ItemsAwarding(winItems);
             StartCoroutine(fullparticle(winItems, winGold * m_boostGold));

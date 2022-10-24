@@ -7,7 +7,7 @@ public class Raid_button : MonoBehaviour
 {
     [SerializeField] private Raid_control raid_control;
     [SerializeField] private Image scrolling;
-    private float autoRaidTimer = 5;
+    private float autoRaidTimer = 6;
     [SerializeField] private float playerRaidTimer;
     [SerializeField] private List<Sprite> ButtonsSprite;
     [SerializeField] private Image currentButton;

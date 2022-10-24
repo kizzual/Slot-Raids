@@ -19,6 +19,7 @@ public class Char_slot : MonoBehaviour
     [SerializeField] private Text _heroGoldProfit_text;
     [SerializeField] private Text _heroGoldToLevelUp_text;
     [Space]
+    public GameObject attention;
     public Hero m_CurrentHero;
     public bool m_IsEmpty { get; set; } = true;
 
@@ -40,6 +41,10 @@ public class Char_slot : MonoBehaviour
             _NotEnoughGoldPanel.SetActive(false);
         else
             _NotEnoughGoldPanel.SetActive(true);
+        if (m_CurrentHero.raidsCount == 0 && m_CurrentHero.isOpened)
+            attention.SetActive(true);
+        else
+            attention.SetActive(false);
     }
 
     private void OnEnable()

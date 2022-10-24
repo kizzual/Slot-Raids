@@ -63,6 +63,7 @@ public class Raid_control : MonoBehaviour
             item.OpenUnraidPanel();
             item.CloseDice();
         }
+        combo.DeactivateCombo();
     }
     public void UpdateHeroStats(Hero hero)
     {
@@ -71,6 +72,14 @@ public class Raid_control : MonoBehaviour
             if (item.m_currentHero != null)
                 if (item.m_currentHero == hero)
                     item.Initialise(hero);
+        }
+    }
+    public void ActivateBoost()
+    {
+        foreach (var item in raid_slot)
+        {
+            if (item.m_currentHero != null)
+                    item.ActivateBoost();
         }
     }
     public void RemoveHero(int slotNum)

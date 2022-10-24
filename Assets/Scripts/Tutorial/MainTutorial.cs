@@ -19,6 +19,7 @@ public class MainTutorial : MonoBehaviour
     [SerializeField] private GameObject cardTower;
     [SerializeField] private GameObject boostTower;
     [SerializeField] private BaseLoader baseLoader;
+    [SerializeField] private SwitchTabs switchTabs;
 
     public int mainStep = 0;
     public int secondStep = 0;
@@ -67,6 +68,12 @@ public class MainTutorial : MonoBehaviour
     }
     public void SecondTutorSteps()
     {
+
+        if (switchTabs.CurrentPanel == 2 && secondStep == 0)
+        {
+            secondTutorial.RemoveAt(0);
+        }
+
         if (secondStep != 13)
         {
             Tutorial_2_6.SetActive(false);

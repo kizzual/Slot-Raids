@@ -31,14 +31,17 @@ public class DiceControll : MonoBehaviour
         }
         CheckColors();
     }
-    private void CheckColors()
+    public void CheckColors()
     {
         int luckCount = Mathf.RoundToInt((currentCube.edgesNumber / 100f) * m_currentHero.GetLuckProfit());
         int UnLuckCount = Mathf.RoundToInt((currentCube.edgesNumber / 100f) * m_currentHero.GetUnLuckProfit());
         currentCube.SwitchColors(UnLuckCount, luckCount);
+        Debug.Log(" DICE CONTROL  colors unluck   = " + UnLuckCount + "luck =    " + luckCount);
 
         //проверка % лак и анлак у героя
         //Передача кубу количество цветовых граней
+
+
     }
     public void CheckRandomIndex()
     {

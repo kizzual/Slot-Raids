@@ -44,6 +44,7 @@ public class QuestControll : MonoBehaviour
         m_currentRaid++;
         questUI.RaidValue(m_currentRaid);
     }
+    public void OfflineRaids(int value) => m_currentRaid += value;
     public List<QuestPanel> GetQuestPanels() => questPanel;
     public void CheckAttention()
     {

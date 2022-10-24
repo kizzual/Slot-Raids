@@ -172,6 +172,33 @@ public class Hero : MonoBehaviour
         else
             return StartGold * Multiplier;
     }
+    public long GetNeutralGold()
+    {
+        float rng = 0;
+        int tmp = Random.Range(0, 60);
+        if (tmp < 10)
+            rng = 0.4f;
+        else if (tmp >= 10 && tmp < 20)
+            rng = 0.5f;
+        else if (tmp >= 20 && tmp < 30)
+            rng = 0.6f;
+        else if (tmp >= 30 && tmp < 40)
+            rng = 0.7f;
+        else if (tmp >= 40 && tmp < 50)
+            rng = 0.8f;
+        else if (tmp >= 50 && tmp < 60)
+            rng = 0.9f;
+        if (CurrentZone.Current_Zone.typeElement == Type__Element.Neutral && typeElement == TypeElement.Neutral ||
+                CurrentZone.Current_Zone.typeElement == Type__Element.Undead && typeElement == TypeElement.Undead ||
+                CurrentZone.Current_Zone.typeElement == Type__Element.Order && typeElement == TypeElement.Order ||
+                CurrentZone.Current_Zone.typeElement == Type__Element.Demon && typeElement == TypeElement.Demon)
+            {
+                return (long)(((StartGold * Multiplier) + (StartGold * Multiplier / 100 * Gold_Element_bonus)) * rng);
+            }
+            else
+                return (long)((StartGold * Multiplier) * rng);
+        
+    }
     public int GetLuckProfit()
     {
         if (currentRaidSlot != 0)
@@ -285,6 +312,7 @@ public class Hero : MonoBehaviour
         int luckCount = Mathf.RoundToInt((cube.edgesNumber / 100f) * GetLuckProfit());
         int UnLuckCount = Mathf.RoundToInt((cube.edgesNumber / 100f) * GetUnLuckProfit());
         cube.SwitchColors(UnLuckCount, luckCount);
+        Debug.Log("HERO UI  colors unluck   = " + UnLuckCount + "luck =    " +luckCount);
     }
     public void LoadHero(HeroSaver hero)
     {

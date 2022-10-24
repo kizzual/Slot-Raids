@@ -27,7 +27,7 @@ public class Zone : MonoBehaviour
     [SerializeField] private TextMeshProUGUI UnLuck_value;
     [SerializeField] private List<Image> itemIcons;
     [SerializeField] private Button pickButton;
-
+    [SerializeField] private GameObject attention;
     public int RaidsCount { get; set; } = 0;
     private int m_luckBoost { get; set; } = 0;
     private int m_unLuckBoost { get; set; } = 0;
@@ -36,6 +36,7 @@ public class Zone : MonoBehaviour
 
     [SerializeField] private SwitchTabs switchTabs;
     [SerializeField] private SwitchLocation switchLocation;
+    [SerializeField] private CheckAttentionIcon checkAttention;
     public bool isNewZone { get; set; }  = false;
     public void SwitchLocation(Zone zone)
     {
@@ -43,6 +44,7 @@ public class Zone : MonoBehaviour
         CurrentZone.SetZone(zone);
         switchLocation.SwitchRaidLocation(zone);
         switchTabs.GoToRaid(zone);
+        checkAttention.CheckAttention();
     }
     public void Initialise()
     {
@@ -92,8 +94,13 @@ public class Zone : MonoBehaviour
     }
     private void OnEnable()
     {
-        if(isOpened)
+        if (isOpened)
         {
+            if(RaidsCount == 0)
+                attention.SetActive(true);
+            else
+                attention.SetActive(false);
+
             pickButton.interactable = true;
             if (CurrentZone.Current_Zone == this)
             {
@@ -110,9 +117,10 @@ public class Zone : MonoBehaviour
             pickButton.interactable = false;
             currentZoneCheck.SetActive(false);
             IscloseddPanel.SetActive(true);
+            attention.SetActive(false);
         }
     }
- 
+    public void OffLineRaid(int value) => RaidsCount += value;
 }
 [System.Serializable]
 public enum Type__Element

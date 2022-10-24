@@ -63,6 +63,9 @@ public class Raid_UI : MonoBehaviour
             cannotGrade.SetActive(true);
         }
     }
+    public void ActivateBoost() => diceControll.CheckColors();
+
+
     public void SwitchBorder_andArrows()
     {
 
