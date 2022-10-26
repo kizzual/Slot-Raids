@@ -43,6 +43,11 @@ public class QuestControll : MonoBehaviour
     {
         m_currentRaid++;
         questUI.RaidValue(m_currentRaid);
+        if(m_currentRaid == 25)
+        {
+            MainTutorial.instance.THirdTutorialSteps();
+        }
+
     }
     public void OfflineRaids(int value) => m_currentRaid += value;
     public List<QuestPanel> GetQuestPanels() => questPanel;

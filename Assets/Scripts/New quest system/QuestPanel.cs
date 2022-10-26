@@ -81,7 +81,6 @@ public class QuestPanel : MonoBehaviour
                             if (questPanelType == QuestPanelType.Tower && m_currentFirstLineQuestindex == 1 && !BlockSecondTutor)
                             {
                                 BlockSecondTutor = true;
-                                MainTutorial.instance.THirdTutorialSteps();
                             }
 
                         }

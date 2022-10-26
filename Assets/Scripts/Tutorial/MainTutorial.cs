@@ -20,6 +20,7 @@ public class MainTutorial : MonoBehaviour
     [SerializeField] private GameObject boostTower;
     [SerializeField] private BaseLoader baseLoader;
     [SerializeField] private SwitchTabs switchTabs;
+    [SerializeField] private ParticleSystem ps; 
 
     public int mainStep = 0;
     public int secondStep = 0;
@@ -109,7 +110,7 @@ public class MainTutorial : MonoBehaviour
     }
     public void THirdTutorialSteps()
     {
-        if (thirdStep != 12)
+        if (thirdStep != 16)
         {
 
             Tutorial_3_2.SetActive(false);
@@ -119,9 +120,14 @@ public class MainTutorial : MonoBehaviour
             {
                 thirdTutorial[thirdStep - 1].SetActive(false);
                 thirdTutorial[thirdStep].SetActive(true);
-                if (thirdStep == 1)
+                if (thirdStep == 2)
+                {
+                    ps.Play();
+                    Gold.AddGold(50000);
+                }
+                if (thirdStep == 5)
                     Tutorial_3_2.SetActive(true);
-                if (thirdStep == 3)
+                if (thirdStep == 7)
                     Tutorial_3_4.SetActive(true);
             }
             else
@@ -136,7 +142,6 @@ public class MainTutorial : MonoBehaviour
             PlayerPrefs.SetInt("third", 1);
         }
     }
-
     IEnumerator step_115_21()
     {
         yield return new WaitForSeconds(1f);
