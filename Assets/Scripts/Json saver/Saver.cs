@@ -336,6 +336,7 @@ public class BoostSaver
     public int CurrentRaids;
     public BoostCard currentCard;
     public float timer;
+    public int currentBottles;
     public BoostSaver(Boost_Controll boost_Controll)
     {
         FullCardList = boost_Controll.FullCardList;
@@ -350,5 +351,6 @@ public class BoostSaver
         }
         this.CurrentRaids = boost_Controll.m_currentRaid;
         this.timer = boost_Controll.m_timer;
+        currentBottles = boost_Controll.m_currentBottles;
     }
 }

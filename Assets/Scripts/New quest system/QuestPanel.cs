@@ -2127,21 +2127,25 @@ public class QuestPanel : MonoBehaviour
     public void CompleteQuestAndReward(int lineIndex)
     {
         List<Quest> line = new List<Quest>();
+        string questLine;
         if (lineIndex == 0)
         {
             line = first_Line_quest;
+            questLine = questPanelType.ToString() + " quest / " + " First line";
             m_rewardLine = m_currentFirstLineQuestindex;
             m_currentFirstLineQuestindex++;
         }
         else if( lineIndex == 1)
         {
             line =  second_Line_quest;
+            questLine = questPanelType.ToString() + " quest / " + " Second line";
             m_rewardLine = m_currentSecondLineQuestindex;
             m_currentSecondLineQuestindex++;
         }
         else
         {
             line = third_Line_quest;
+            questLine = questPanelType.ToString() + " quest / " + " Third line";
             m_rewardLine = m_currentThitrdLineQuestindex;
             m_currentThitrdLineQuestindex++;
         }
@@ -2356,7 +2360,6 @@ public class QuestPanel : MonoBehaviour
             }
 
         }
-
      
         if(lineIndex == 0)
         {

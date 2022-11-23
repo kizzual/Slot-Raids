@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 using UnityEngine.UI;
 
 public class Boost_Controll : MonoBehaviour
@@ -24,7 +25,9 @@ public class Boost_Controll : MonoBehaviour
     public List<ParticleSystem> actiateBoost;
     public List<GameObject> ActivePanel;
     public Raid_control raid_Control;
-
+    public int m_currentBottles { get; set; }
+    [SerializeField] private List<Text> bottles_count;
+    [SerializeField] private List<GameObject> bottles_image;
     private void FixedUpdate()
     { 
         if (CurrentBoost != null)
@@ -117,7 +120,25 @@ public class Boost_Controll : MonoBehaviour
             }
         }
         towerUpgrade.CheckBoostParticle();
-
+        m_currentBottles = card.currentBottles;
+        foreach (var item in bottles_count)
+        {
+            item.text = m_currentBottles.ToString();
+        }
+        if(m_currentBottles > 0 )
+        {
+            foreach (var item in bottles_image)
+            {
+                item.SetActive(true);
+            }
+        }
+        else
+        {
+            foreach (var item in bottles_image)
+            {
+                item.SetActive(false);
+            }
+        }
 
     }
     private void CheckBoostType()
@@ -327,6 +348,7 @@ public class Boost_Controll : MonoBehaviour
                 item.fillAmount = tmp;
             }
             mana_Img.fillAmount = tmp;
+           
         }
 
         /*        if (m_currentRaid >= RaidToActivateBoost_required)
@@ -335,16 +357,60 @@ public class Boost_Controll : MonoBehaviour
                                // буст не готов (аттеншин)*/
 
     }
-    public void FillMana(Animator animObject )
+    public void BuyBottles(int value) 
     {
-        m_currentRaid = RaidToActivateBoost_required;
-
-        float tmp = ((float)m_currentRaid / (float)RaidToActivateBoost_required);
-        foreach (var item in manaImg)
+        m_currentBottles += value;
+        foreach (var item in bottles_count)
         {
-            item.fillAmount = tmp;
+            item.text = m_currentBottles.ToString();
         }
-        mana_Img.fillAmount = tmp;
+        if (m_currentBottles > 0)
+        {
+            foreach (var item in bottles_image)
+            {
+                item.SetActive(true);
+            }
+        }
+        else
+        {
+            foreach (var item in bottles_image)
+            {
+                item.SetActive(false);
+            }
+        }
+    }
+    public void FillMana( )
+    {
+        if(m_currentBottles > 0)
+        {
+            m_currentBottles--;
+               m_currentRaid = RaidToActivateBoost_required;
+
+            float tmp = ((float)m_currentRaid / (float)RaidToActivateBoost_required);
+            foreach (var item in manaImg)
+            {
+                item.fillAmount = tmp;
+            }
+            mana_Img.fillAmount = tmp;
+            foreach (var item in bottles_count)
+            {
+                item.text = m_currentBottles.ToString();
+            }
+            if (m_currentBottles > 0)
+            {
+                foreach (var item in bottles_image)
+                {
+                    item.SetActive(true);
+                }
+            }
+            else
+            {
+                foreach (var item in bottles_image)
+                {
+                    item.SetActive(false);
+                }
+            }
+        }
 
 
         /*        if (m_currentRaid >= RaidToActivateBoost_required)
@@ -425,7 +491,27 @@ public class Boost_Controll : MonoBehaviour
         }
         boostUI.ShowCard(RandomCards);
     }
-
+    private void Awake()
+    {
+        foreach (var item in bottles_count)
+        {
+            item.text = m_currentBottles.ToString();
+        }
+        if (m_currentBottles > 0)
+        {
+            foreach (var item in bottles_image)
+            {
+                item.SetActive(true);
+            }
+        }
+        else
+        {
+            foreach (var item in bottles_image)
+            {
+                item.SetActive(false);
+            }
+        }
+    }
     public void ChooseBoostCard(int index)
     {
         CurrentBoost = RandomCards[index];

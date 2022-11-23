@@ -35,6 +35,8 @@ public class SoundControl : MonoBehaviour
         if (!m_raidIsMute)
             source.PlayOneShot(cash);
     }
+    public void PlayCash() => source.PlayOneShot(cash);
+
     public void DeActivateBoost() => source.PlayOneShot(DeActiveBoost);
     public void UpgradeTower() => source.PlayOneShot(upgradeTower);
     public void UpgradeHero() => source.PlayOneShot(upgradeHero);

@@ -39,16 +39,21 @@ public class MainTutorial : MonoBehaviour
         Tutorial_1_5.SetActive(false);
         Tutorial_1_7.SetActive(false);
 
-        if (mainStep != 26)
+        if (mainStep != 27)
         {
             if (mainStep > 0)
             {
+                Debug.Log("STEP = " + mainStep);
                 mainTutorial[mainStep - 1].SetActive(false);
                 mainTutorial[mainStep].SetActive(true);
                 if (mainStep == 5)
                     Tutorial_1_5.SetActive(true);
                 if (mainStep == 7)
                     Tutorial_1_7.SetActive(true);
+                if (mainStep == 12)
+                    StartCoroutine(step_112_13());
+                if (mainStep == 13)
+                    raid_Button.GoToAutoRaid();
                 if (mainStep == 15)
                 {
                     raid_Button.PauseRaid();
@@ -93,7 +98,6 @@ public class MainTutorial : MonoBehaviour
                     PlayerPrefs.SetInt("BoostTower", 1);
                     boostTower.SetActive(true);
                 }
-
             }
             else
                 secondTutorial[secondStep].SetActive(true);
@@ -142,6 +146,11 @@ public class MainTutorial : MonoBehaviour
             PlayerPrefs.SetInt("third", 1);
         }
     }
+    IEnumerator step_112_13()
+    {
+        yield return new WaitForSeconds(2f);
+        raid_Button.PauseRaid();
+    }
     IEnumerator step_115_21()
     {
         yield return new WaitForSeconds(1f);
@@ -151,7 +160,7 @@ public class MainTutorial : MonoBehaviour
     {
         if (PlayerPrefs.HasKey("first"))
         {
-            mainStep = 26;
+            mainStep = 27;
             mainTutorIsEnded = true;
         }
         if (PlayerPrefs.HasKey("second"))

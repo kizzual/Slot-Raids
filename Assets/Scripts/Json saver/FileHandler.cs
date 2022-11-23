@@ -49,7 +49,7 @@ public static class FileHandler {
         return Application.persistentDataPath + "/" + filename;
     }
 
-    private static void WriteFile (string path, string content) {
+    public static void WriteFile (string path, string content) {
         FileStream fileStream = new FileStream (path, FileMode.Create);
         using (StreamWriter writer = new StreamWriter (fileStream)) {
             writer.Write (content);
