@@ -12,6 +12,7 @@ public class CheckCombo : MonoBehaviour
     [SerializeField] private OfflineGreating offline_greatings;
     [SerializeField] private List<Raid_button> raid_buttons;
     [SerializeField] private BaseLoader baseLoader;
+    [SerializeField] private MainTutorial MainTutorial;
 
     private int m_boostGold = 1;
     private int m_boostItem = 1;
@@ -19,9 +20,9 @@ public class CheckCombo : MonoBehaviour
 
     public void CheckOfflinePrize()
     {
-        if (MainTutorial.instance.mainTutorIsEnded &&
-                MainTutorial.instance.secondTutorIsEnded &&
-                MainTutorial.instance.thirdTutorIsEnded)
+        if (MainTutorial.mainTutorIsEnded &&
+                MainTutorial.secondTutorIsEnded &&
+                MainTutorial.thirdTutorIsEnded)
         { 
 
             long tmp = Utils.GetSeconds("LastSession");

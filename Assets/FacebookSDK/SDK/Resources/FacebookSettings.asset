@@ -14,11 +14,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   selectedAppIndex: 0
   clientTokens:
-  - b3ff6b344461b3c2dde343a340e5c45b
+  - 86d268218b0ad60597acc8489a51a90f
   appIds:
   - 612235337282923
   appLabels:
-  - App Name
+  - RaidMaster
   cookie: 1
   logging: 1
   status: 1

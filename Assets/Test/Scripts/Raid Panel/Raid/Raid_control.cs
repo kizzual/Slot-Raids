@@ -290,7 +290,7 @@ public class Raid_control : MonoBehaviour
                 }
                 SoundControl._instance.StartRaidSound();
             }
-            else if(tutorial.thirdStep == 9)
+            else if(tutorial.thirdStep == 13)
             {
                 for (int i = 0; i < raid_slot.Count; i++)
                 {
@@ -402,13 +402,13 @@ public class Raid_control : MonoBehaviour
         if (m_currentSlotCount == 0)
         {
             CurrentZone.Current_Zone.GoToRaid();
-            if (tutorial.mainStep == 13 || tutorial.mainStep == 14 || tutorial.mainStep == 15)
+            if ( tutorial.mainStep == 14 || tutorial.mainStep == 15)
             {
                 tutorial.MainTutorialSteps();
             }
             if (tutorial.mainStep == 15)
                 inventory_controll.ReturnItem(item_1item_1);
-            if (tutorial.thirdStep == 9)
+            if (tutorial.thirdStep == 14)
             {
                 tutorial.THirdTutorialSteps();
             }

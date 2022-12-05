@@ -18,6 +18,7 @@ public class MainTutorial : MonoBehaviour
     [SerializeField] private GameObject manaBottle;
     [SerializeField] private GameObject cardTower;
     [SerializeField] private GameObject boostTower;
+    [SerializeField] private Boost_Controll Boost_Controll;
     [SerializeField] private BaseLoader baseLoader;
     [SerializeField] private SwitchTabs switchTabs;
     [SerializeField] private ParticleSystem ps; 
@@ -59,6 +60,10 @@ public class MainTutorial : MonoBehaviour
                     raid_Button.PauseRaid();
                     StartCoroutine(step_115_21());
                 }
+                if (mainStep == 16)
+                    raid_Button.PauseRaid();
+                if (mainStep == 17)
+                    raid_Button.PauseRaid();
             }
             else
                 mainTutorial[mainStep].SetActive(true);
@@ -75,13 +80,13 @@ public class MainTutorial : MonoBehaviour
     public void SecondTutorSteps()
     {
 
-        if (switchTabs.CurrentPanel == 2 && secondStep == 0)
-        {
-            secondTutorial.RemoveAt(0);
-        }
-
         if (secondStep != 13)
         {
+            if(secondStep == 0)
+            {
+                switchTabs.ActivateCurrentButton(2);
+                Boost_Controll.BuyBottles(1);
+            }
             Tutorial_2_6.SetActive(false);
             Tutorial_2_8.SetActive(false);
             manaBottle.SetActive(true);
@@ -116,6 +121,7 @@ public class MainTutorial : MonoBehaviour
     {
         if (thirdStep != 16)
         {
+                raid_Button.PauseRaid();
 
             Tutorial_3_2.SetActive(false);
             Tutorial_3_4.SetActive(false);
@@ -133,6 +139,13 @@ public class MainTutorial : MonoBehaviour
                     Tutorial_3_2.SetActive(true);
                 if (thirdStep == 7)
                     Tutorial_3_4.SetActive(true);
+                if (thirdStep == 14)
+                    raid_Button.PauseRaid();
+                if (thirdStep == 15)
+                    raid_Button.GoToAutoRaid();
+
+
+
             }
             else
                 thirdTutorial[thirdStep].SetActive(true);
@@ -140,6 +153,7 @@ public class MainTutorial : MonoBehaviour
         }
         else
         {
+            raid_Button.GoToAutoRaid();
             thirdTutorial[thirdStep - 1].SetActive(false);
             thirdTutorIsEnded = true;
             baseLoader.SaveAll();
