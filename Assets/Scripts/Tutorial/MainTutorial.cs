@@ -1,3 +1,4 @@
+using NSubstitute.Core.Arguments;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -42,6 +43,7 @@ public class MainTutorial : MonoBehaviour
 
         if (mainStep != 27)
         {
+            ApsFlyerEvents.Tutorial_event(mainStep);
             if (mainStep > 0)
             {
                 Debug.Log("STEP = " + mainStep);
@@ -82,7 +84,8 @@ public class MainTutorial : MonoBehaviour
 
         if (secondStep != 13)
         {
-            if(secondStep == 0)
+            ApsFlyerEvents.SoftTutorial_event("Boost Tower", secondStep);
+            if (secondStep == 0)
             {
                 switchTabs.ActivateCurrentButton(2);
                 Boost_Controll.BuyBottles(1);
@@ -125,7 +128,7 @@ public class MainTutorial : MonoBehaviour
 
             Tutorial_3_2.SetActive(false);
             Tutorial_3_4.SetActive(false);
-
+            ApsFlyerEvents.SoftTutorial_event("Upgrade Tower", thirdStep);
             if (thirdStep > 0)
             {
                 thirdTutorial[thirdStep - 1].SetActive(false);

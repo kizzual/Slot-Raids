@@ -23,7 +23,13 @@ public class QuestControll : MonoBehaviour
         transform.GetChild(0).gameObject.SetActive(true);
         ActivateAttentionIcon(false);
     }
-
+    public void FirstInitializeEvent()
+    {
+        foreach (var item in questPanel)
+        {
+            item.FirstInitializeEvent();
+        }
+    }
     public void InitialiseQuest()
     {
         foreach (var item in questPanel)

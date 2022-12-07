@@ -13,6 +13,8 @@ public class Zone : MonoBehaviour
     public int Rank;
     public int Luck;
     public int UnLuck;
+    public int localLvl;
+    public string localName;
     public int goldProfit { get; set; } = 1;
     public int itemProfit { get; set; } = 1;
     public List<Item> ItemsOnZone;

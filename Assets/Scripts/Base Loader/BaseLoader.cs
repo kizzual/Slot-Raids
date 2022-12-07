@@ -56,6 +56,11 @@ public class BaseLoader : MonoBehaviour
         saver.HeroLoad();
         saver.BoostLoadBoostLoad();
         saver.QuestSystemLoad();
+        if(!PlayerPrefs.HasKey("FirstQuestEvent"))
+        {
+            questControll.FirstInitializeEvent();
+            PlayerPrefs.SetInt("FirstQuestEvent", 1);
+        }
     }
     public void SaveAll()
     {

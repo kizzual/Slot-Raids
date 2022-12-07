@@ -327,7 +327,7 @@ public class Boost_Controll : MonoBehaviour
         CurrentBoost.isActive = false;
         SoundControl._instance.DeActivateBoost();
         CurrentBoost = null;
-        RandomizeCard();
+        ShowBaseCards();
         foreach (var item in ActivePanel)
         {
             item.SetActive(false);
@@ -436,13 +436,13 @@ public class Boost_Controll : MonoBehaviour
             }
             else
             {
-                RandomizeCard();
+                ShowBaseCards();
                 return;
             }
         }
         else
         {
-            RandomizeCard();
+            ShowBaseCards();
             return;
         }
        
@@ -451,6 +451,25 @@ public class Boost_Controll : MonoBehaviour
     {
         activeCard.Add(card);
         FullCardList.Remove(card);
+    }
+    private void ShowBaseCards()
+    {
+        RandomCards.Clear();
+        if (activeCard.Count <= 3)
+        {
+            for (int i = 0; i < activeCard.Count; i++)
+            {
+                RandomCards.Add(activeCard[i]);
+            }
+        }
+        else
+        {
+            for (int i = 0; i < 3; i++)
+            {
+                RandomCards.Add(activeCard[i]);
+            }
+        }
+        boostUI.ShowCard(RandomCards);
     }
     public void RandomizeCard()
     {

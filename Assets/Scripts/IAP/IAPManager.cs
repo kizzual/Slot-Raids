@@ -64,31 +64,60 @@ public class IAPManager : MonoBehaviour, IStoreListener
         {
             Debug.Log("coins_10m Succesful");
             ReceiptData receipt = GetReceiptData(args);
-
+            if(!PlayerPrefs.HasKey("FirstPurchaseEvent"))
+            {
+                PlayerPrefs.SetInt("FirstPurchaseEvent", 1);
+                ApsFlyerEvents.FirstPurchase_event(args);
+            }
+            ApsFlyerEvents.Purchase_event(args, receipt);
             shopIAP.SuccessBuy10m();
         }
         else if (String.Equals(args.purchasedProduct.definition.id, coins_100m, StringComparison.Ordinal))
         {
             Debug.Log("coins_100m Succesful");
             ReceiptData receipt = GetReceiptData(args);
+            if (!PlayerPrefs.HasKey("FirstPurchaseEvent"))
+            {
+                PlayerPrefs.SetInt("FirstPurchaseEvent", 1);
+                ApsFlyerEvents.FirstPurchase_event(args);
+            }
+            ApsFlyerEvents.Purchase_event(args, receipt);
             shopIAP.SuccessBuy100m();
         }
         else if (String.Equals(args.purchasedProduct.definition.id, bottles_10, StringComparison.Ordinal))
         {
             Debug.Log("bottles_10 Succesful");
             ReceiptData receipt = GetReceiptData(args);
+            if (!PlayerPrefs.HasKey("FirstPurchaseEvent"))
+            {
+                PlayerPrefs.SetInt("FirstPurchaseEvent", 1);
+                ApsFlyerEvents.FirstPurchase_event(args);
+            }
+            ApsFlyerEvents.Purchase_event(args, receipt);
             shopIAP.SuccessBuy10b();
         }
         else if (String.Equals(args.purchasedProduct.definition.id, bottles_50, StringComparison.Ordinal))
         {
             Debug.Log("bottles_50 Succesful");
             ReceiptData receipt = GetReceiptData(args);
+            if (!PlayerPrefs.HasKey("FirstPurchaseEvent"))
+            {
+                PlayerPrefs.SetInt("FirstPurchaseEvent", 1);
+                ApsFlyerEvents.FirstPurchase_event(args);
+            }
+            ApsFlyerEvents.Purchase_event(args, receipt);
             shopIAP.SuccessBuy50b();
         }
         else if (String.Equals(args.purchasedProduct.definition.id, Combo, StringComparison.Ordinal))
         {
             Debug.Log("Combo Succesful");
             ReceiptData receipt = GetReceiptData(args);
+            if (!PlayerPrefs.HasKey("FirstPurchaseEvent"))
+            {
+                PlayerPrefs.SetInt("FirstPurchaseEvent", 1);
+                ApsFlyerEvents.FirstPurchase_event(args);
+            }
+            ApsFlyerEvents.Purchase_event(args, receipt);
             shopIAP.SuccessBuyCombo();
         }
         else
