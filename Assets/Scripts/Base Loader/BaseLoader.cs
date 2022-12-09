@@ -18,6 +18,11 @@ public class BaseLoader : MonoBehaviour
         {
             particleAdaptive[i].Initialise();
         }
+        if(!PlayerPrefs.HasKey("FirstEventtOpenLvlv") && PlayerPrefs.GetInt("FirstEventtOpenLvlv") != 1)
+        {
+            ApsFlyerEvents.Level_event("MAGIC WOOD", 1);
+            PlayerPrefs.SetInt("FirstEventtOpenLvlv", 1);
+        }
     }
     private void Start()
     {

@@ -1,25 +1,13 @@
 {
     "m_SelectedDeviceId": "062175240405",
     "m_SelectedPackage": {
-        "deviceId": "062175240405",
-        "name": "com.DefaultCompany.SlotRaids",
-        "processId": 26964,
+        "deviceId": "",
+        "name": "",
+        "processId": 0,
         "exited": false
     },
     "m_SelectedPriority": 0,
     "m_KnownPackagesForSerialization": [
-        {
-            "deviceId": "062175240405",
-            "name": "com.miui.home",
-            "processId": 2054,
-            "exited": false
-        },
-        {
-            "deviceId": "062175240405",
-            "name": "com.DefaultCompany.SlotRaids",
-            "processId": 14994,
-            "exited": true
-        },
         {
             "deviceId": "062175240405",
             "name": "com.DefaultCompany.SlotRaids",
@@ -42,6 +30,18 @@
             "deviceId": "062175240405",
             "name": "com.DefaultCompany.SlotRaids",
             "processId": 26964,
+            "exited": true
+        },
+        {
+            "deviceId": "062175240405",
+            "name": "com.miui.home",
+            "processId": 2056,
+            "exited": false
+        },
+        {
+            "deviceId": "062175240405",
+            "name": "com.android.settings",
+            "processId": 24344,
             "exited": false
         }
     ],
@@ -96,7 +96,7 @@
         "Behavior": 0
     },
     "m_FilterOptions": {
-        "m_Filter": "SlotRaids",
+        "m_Filter": "admob",
         "m_UseRegularExpressions": false,
         "m_MatchCase": false
     },

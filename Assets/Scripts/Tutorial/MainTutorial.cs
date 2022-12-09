@@ -23,6 +23,8 @@ public class MainTutorial : MonoBehaviour
     [SerializeField] private BaseLoader baseLoader;
     [SerializeField] private SwitchTabs switchTabs;
     [SerializeField] private ParticleSystem ps; 
+    [SerializeField] private GameObject blockBuyBottle; 
+    [SerializeField] private GameObject blockBuyMoney; 
 
     public int mainStep = 0;
     public int secondStep = 0;
@@ -34,6 +36,10 @@ public class MainTutorial : MonoBehaviour
     {
         instance = this;
         MainTutorialSteps();
+        if(PlayerPrefs.HasKey("BoostTower"))
+            blockBuyBottle.SetActive(false);
+        if (PlayerPrefs.HasKey("third"))
+            blockBuyMoney.SetActive(false);
     }
 
     public void MainTutorialSteps()
@@ -118,6 +124,7 @@ public class MainTutorial : MonoBehaviour
             baseLoader.SaveAll();
             PlayerPrefs.SetInt("BoostTower", 1);
             PlayerPrefs.SetInt("second", 1);
+            blockBuyBottle.SetActive(false);
         }
     }
     public void THirdTutorialSteps()
@@ -129,6 +136,8 @@ public class MainTutorial : MonoBehaviour
             Tutorial_3_2.SetActive(false);
             Tutorial_3_4.SetActive(false);
             ApsFlyerEvents.SoftTutorial_event("Upgrade Tower", thirdStep);
+            if(thirdStep == 0 || thirdStep == 1)
+                blockBuyMoney.SetActive(false);
             if (thirdStep > 0)
             {
                 thirdTutorial[thirdStep - 1].SetActive(false);

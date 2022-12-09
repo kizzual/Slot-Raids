@@ -8,7 +8,7 @@ public static class FileHandler {
 
     public static void SaveToJSON<T> (List<T> toSave, string filename) {
         Debug.Log (GetPath (filename));
-        string content = JsonHelper.ToJson<T> (toSave.ToArray (), true);
+        string content = JsonHelper_.ToJson<T> (toSave.ToArray (), true);
         WriteFile (GetPath (filename), content);
         
     }
@@ -26,7 +26,7 @@ public static class FileHandler {
             return new List<T> ();
         }
 
-        List<T> res = JsonHelper.FromJson<T> (content).ToList ();
+        List<T> res = JsonHelper_.FromJson<T> (content).ToList ();
 
         return res;
 
@@ -67,7 +67,7 @@ public static class FileHandler {
     }
 }
 
-public static class JsonHelper {
+public static class JsonHelper_ {
     public static T[] FromJson<T> (string json) {
         Wrapper<T> wrapper = JsonUtility.FromJson<Wrapper<T>> (json);
         return wrapper.Items;
