@@ -40,7 +40,7 @@ public class QuestControll : MonoBehaviour
     public void RaidConplete(long goldValue)
     {
         m_currentGold += goldValue;
-        questUI.GoldValue(goldValue);
+        questUI.GoldValue(m_currentGold);
         InitialiseQuest();
         if(!QuestPanel.activeSelf)
             CheckAttention();
@@ -49,7 +49,8 @@ public class QuestControll : MonoBehaviour
     {
         m_currentRaid++;
         questUI.RaidValue(m_currentRaid);
-        if(m_currentRaid == 25)
+        InitialiseQuest();
+        if (m_currentRaid == 25)
         {
             MainTutorial.instance.THirdTutorialSteps();
         }

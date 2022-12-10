@@ -47,7 +47,7 @@ public class MainTutorial : MonoBehaviour
         Tutorial_1_5.SetActive(false);
         Tutorial_1_7.SetActive(false);
 
-        if (mainStep != 27)
+        if (mainStep != 28)
         {
             ApsFlyerEvents.Tutorial_event(mainStep);
             if (mainStep > 0)
@@ -88,7 +88,7 @@ public class MainTutorial : MonoBehaviour
     public void SecondTutorSteps()
     {
 
-        if (secondStep != 13)
+        if (secondStep != 14)
         {
             ApsFlyerEvents.SoftTutorial_event("Boost Tower", secondStep);
             if (secondStep == 0)
@@ -129,7 +129,7 @@ public class MainTutorial : MonoBehaviour
     }
     public void THirdTutorialSteps()
     {
-        if (thirdStep != 16)
+        if (thirdStep != 15)
         {
                 raid_Button.PauseRaid();
 

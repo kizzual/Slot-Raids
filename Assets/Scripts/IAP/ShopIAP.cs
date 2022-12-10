@@ -16,12 +16,16 @@ public class ShopIAP : MonoBehaviour
     public void Buy50k()
     {
         Gold.AddGold(50000);
-      //  StartCoroutine(BlockAdsImg(0));
+        //  StartCoroutine(BlockAdsImg(0));
+        particles[0].GetComponent<ParticleAdaptive>().Initialise();
+        particles[0].Play();
     }
     public void Buy1b()
     {
         boost_Controll.BuyBottles(1);
-       // StartCoroutine(BlockAdsImg(1));
+        particles[1].GetComponent<ParticleAdaptive>().Initialise();
+        particles[1].Play();
+        // StartCoroutine(BlockAdsImg(1));
     }
     public void SuccessBuy10m()
     {

@@ -154,6 +154,8 @@ public class Raid_UI : MonoBehaviour
     {
         hero_panel.SetActive(false);
         empty_panel.SetActive(true);
+        unraid_panel.SetActive(true);
+
     }
     private void ActivePanel_Hero()
     {
@@ -180,7 +182,7 @@ public class Raid_UI : MonoBehaviour
             else
                 ActivePanel_Empty();
         }
-        if (Gold.GetCurrentGold() >= m_currentHero.GoldToGrade)
+        if (m_currentHero != null && Gold.GetCurrentGold() >= m_currentHero.GoldToGrade)
         {
             canGrade.SetActive(true);
             cannotGrade.SetActive(false);

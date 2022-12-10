@@ -77,8 +77,6 @@ public class DiceControll : MonoBehaviour
     public void StopRotate() => currentCube.StopRaid();
     private void CurrentWinPrize()
     {
-        Debug.Log(currentCube.edges[currentWinIndex].edgeIndex, gameObject);
-        Debug.Log(currentCube.edges[currentWinIndex].edgeType, gameObject);
         if (currentCube.edges[currentWinIndex  ].edgeType == EdgeScript.EdgeType.Neutral)
         {
             //формула голды

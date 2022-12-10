@@ -11,21 +11,21 @@ public class ApsFlyerEvents : MonoBehaviour
         DontDestroyOnLoad(gameObject);
     }
 
-    public static void Purchase_event(PurchaseEventArgs args, ReceiptData receipt)
+    public static void Purchase_event(PurchaseEventArgs args)//, ReceiptData receipt)
     {
         Dictionary<string, string> purchaseEvent = new Dictionary<string, string>();
-
+        Debug.Log("SKU =  " + args.purchasedProduct.definition.id + "    TRANSACTION_ID =   " + args.purchasedProduct.transactionID);
         purchaseEvent.Add(AFInAppEvents.CURRENCY, args.purchasedProduct.metadata.isoCurrencyCode);
         purchaseEvent.Add(AFInAppEvents.REVENUE, args.purchasedProduct.metadata.localizedPrice.ToString());
         purchaseEvent.Add("product_id", args.purchasedProduct.definition.id);
-        purchaseEvent.Add("SKU", receipt.productId);
-        purchaseEvent.Add("TRANSACTION_ID", receipt.orderId);
+        purchaseEvent.Add("SKU", args.purchasedProduct.definition.id);
+        purchaseEvent.Add("TRANSACTION_ID", args.purchasedProduct.transactionID);
         AppsFlyer.sendEvent("af_purchase", purchaseEvent);
     }
     public static void FirstPurchase_event(PurchaseEventArgs args)
     {
         Dictionary<string, string> uniquepuEvent = new Dictionary<string, string>();
-        uniquepuEvent.Add("SKU", args.purchasedProduct.definition.id);
+        uniquepuEvent.Add("product_id", args.purchasedProduct.definition.id);
         AppsFlyer.sendEvent("unique_pu", uniquepuEvent);
     }
 

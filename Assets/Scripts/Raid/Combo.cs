@@ -1176,7 +1176,6 @@ public class Combo : MonoBehaviour
                 {
                     if (slots[i].GetDice().currentCube.edges[slots[i].GetDice().currentWinIndex].edgeType == EdgeScript.EdgeType.Luck)
                     {
-                        Debug.Log("item dropped =  " + slots[i].GetDice().prize);
                         for (int j = 0; j < m_boostItem; j++)
                         {
                             winItems.Add(slots[i].GetDice().winItem);
@@ -1186,13 +1185,11 @@ public class Combo : MonoBehaviour
                     }
                     else if (slots[i].GetDice().currentCube.edges[slots[i].GetDice().currentWinIndex].edgeType == EdgeScript.EdgeType.Neutral)
                     {
-                        Debug.Log("gold dropped =  " + slots[i].GetDice().prize);
                         winGold += slots[i].m_currentHero.GetNeutralGold() * slots[i].m_currentHero.GetCombo();
                         raidControl.GetParticles().PlayParticleWitoutItem(i);
                     }
                     else if (slots[i].GetDice().currentCube.edges[slots[i].GetDice().currentWinIndex].edgeType == EdgeScript.EdgeType.Unluck)
                     {
-                        Debug.Log("DEATH dropped =  " + slots[i].GetDice().prize);
                     }
                 }
 
@@ -1201,7 +1198,6 @@ public class Combo : MonoBehaviour
 
 
             Gold.AddGold(winGold * m_boostGold);
-            Debug.Log(winGold * m_boostGold + " gold from raid");
             GoldAwarding(winGold * m_boostGold);
             ItemsAwarding(winItems);
             StartCoroutine(fullparticle(winItems, winGold * m_boostGold));
@@ -1211,22 +1207,33 @@ public class Combo : MonoBehaviour
     private bool CheckFullCombo(List<Raid_UI> slots)
     {
         bool isFullCombo = false;
-        if (slots[0].GetDice().prize == DiceControll.Prize.Item)
+        bool slotIsFull = true;
+        for (int i = 0; i < slots.Count; i++)
         {
-            isFullCombo = true;
-            for (int i = 0; i < slots.Count; i++)
+            if (slots[i].m_currentHero == null)
+                slotIsFull = false;
+        }
+        if (slotIsFull)
+        {
+            if ( slots[0].GetDice().prize == DiceControll.Prize.Item)
             {
-                if (slots[i].GetDice().prize != DiceControll.Prize.Item)
+                isFullCombo = true;
+                for (int i = 0; i < slots.Count; i++)
                 {
-                    isFullCombo = false;
-                    return isFullCombo;
+                    if (slots[i].GetDice().prize != DiceControll.Prize.Item)
+                    {
+                        isFullCombo = false;
+                        return isFullCombo;
+                    }
                 }
+                return isFullCombo;
             }
-            return isFullCombo;
+            else
+                return isFullCombo;
         }
         else
             return isFullCombo;
-        
+
     }
     private void ItemsAwarding(List<Item> winItems)
     {
@@ -1250,7 +1257,6 @@ public class Combo : MonoBehaviour
 
     IEnumerator fullparticle(List<Item> items, long gold)
     {
-        Debug.Log("START PARTICLES");
         yield return new WaitForSeconds(1f);
         if(items.Count > 0)
         {

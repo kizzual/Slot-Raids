@@ -1,6 +1,9 @@
-﻿using Newtonsoft.Json;
+﻿using AppsFlyerSDK;
+using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
+using NSubstitute;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Purchasing;
@@ -63,61 +66,61 @@ public class IAPManager : MonoBehaviour, IStoreListener
         if (String.Equals(args.purchasedProduct.definition.id, coins_10m, StringComparison.Ordinal))
         {
             Debug.Log("coins_10m Succesful");
-            ReceiptData receipt = GetReceiptData(args);
+      //      ReceiptData receipt = GetReceiptData(args);
             if(!PlayerPrefs.HasKey("FirstPurchaseEvent"))
             {
                 PlayerPrefs.SetInt("FirstPurchaseEvent", 1);
                 ApsFlyerEvents.FirstPurchase_event(args);
             }
-            ApsFlyerEvents.Purchase_event(args, receipt);
+            ApsFlyerEvents.Purchase_event(args);
             shopIAP.SuccessBuy10m();
         }
         else if (String.Equals(args.purchasedProduct.definition.id, coins_100m, StringComparison.Ordinal))
         {
             Debug.Log("coins_100m Succesful");
-            ReceiptData receipt = GetReceiptData(args);
+         //   ReceiptData receipt = GetReceiptData(args);
             if (!PlayerPrefs.HasKey("FirstPurchaseEvent"))
             {
                 PlayerPrefs.SetInt("FirstPurchaseEvent", 1);
                 ApsFlyerEvents.FirstPurchase_event(args);
             }
-            ApsFlyerEvents.Purchase_event(args, receipt);
+            ApsFlyerEvents.Purchase_event(args);
             shopIAP.SuccessBuy100m();
         }
         else if (String.Equals(args.purchasedProduct.definition.id, bottles_10, StringComparison.Ordinal))
         {
             Debug.Log("bottles_10 Succesful");
-            ReceiptData receipt = GetReceiptData(args);
+         //   ReceiptData receipt = GetReceiptData(args);
             if (!PlayerPrefs.HasKey("FirstPurchaseEvent"))
             {
                 PlayerPrefs.SetInt("FirstPurchaseEvent", 1);
                 ApsFlyerEvents.FirstPurchase_event(args);
             }
-            ApsFlyerEvents.Purchase_event(args, receipt);
+            ApsFlyerEvents.Purchase_event(args);
             shopIAP.SuccessBuy10b();
         }
         else if (String.Equals(args.purchasedProduct.definition.id, bottles_50, StringComparison.Ordinal))
         {
             Debug.Log("bottles_50 Succesful");
-            ReceiptData receipt = GetReceiptData(args);
+          //  ReceiptData receipt = GetReceiptData(args);
             if (!PlayerPrefs.HasKey("FirstPurchaseEvent"))
             {
                 PlayerPrefs.SetInt("FirstPurchaseEvent", 1);
                 ApsFlyerEvents.FirstPurchase_event(args);
             }
-            ApsFlyerEvents.Purchase_event(args, receipt);
+            ApsFlyerEvents.Purchase_event(args);
             shopIAP.SuccessBuy50b();
         }
         else if (String.Equals(args.purchasedProduct.definition.id, Combo, StringComparison.Ordinal))
         {
             Debug.Log("Combo Succesful");
-            ReceiptData receipt = GetReceiptData(args);
+        //    ReceiptData receipt = GetReceiptData(args);
             if (!PlayerPrefs.HasKey("FirstPurchaseEvent"))
             {
                 PlayerPrefs.SetInt("FirstPurchaseEvent", 1);
                 ApsFlyerEvents.FirstPurchase_event(args);
             }
-            ApsFlyerEvents.Purchase_event(args, receipt);
+            ApsFlyerEvents.Purchase_event(args);
             shopIAP.SuccessBuyCombo();
         }
         else
@@ -193,7 +196,60 @@ public class IAPManager : MonoBehaviour, IStoreListener
 
         return data;
     }
+   /* public void TestParse(PurchaseEventArgs args)
+    {
+        var receipt = (Hashtable)MiniJson.JsonDecode(args.purchasedProduct.receipt);
+        if (!receipt.ContainsKey("Store") || !receipt.ContainsKey("Payload"))
+        {
+            Debug.LogError("The product receipt does not contain enough information");
+            return;
+        }
 
+        var payloadString = (string)receipt["Payload"];
+        Hashtable payload = (Hashtable)MiniJson.JsonDecode(payloadString);
+        var googleSignature = "";
+        var googleJsonData = "";
+        if (payload.ContainsKey("signature"))
+        {
+            googleSignature = payload["signature"].ToString();
+        }
+        else
+        {
+            Debug.LogError("The product receipt does not contain signature");
+            return;
+        }
+
+        if (payload.ContainsKey("json"))
+        {
+            googleJsonData = payload["json"].ToString();
+        }
+        else
+        {
+            Debug.LogError("The product receipt does not contain json data");
+            return;
+        }
+*//*        if (Core.AndroidStoreConfig == null || string.IsNullOrEmpty(Core.AndroidStoreConfig.PublicApiKey))
+        {
+            Debug.LogError("Not found google public api key");
+            return;
+        }*//*
+
+        AppsFlyer.validateAndSendInAppPurchase(
+        "123",
+          googleSignature,
+            googleJsonData,
+          args.purchasedProduct.metadata.localizedPrice.ToString(),
+          args.purchasedProduct.metadata.isoCurrencyCode,
+          new Dictionary<string, string>() {
+              {
+                "SKU", args.purchasedProduct.definition.id
+              },
+              {
+                "TRANSACTION_ID", args.purchasedProduct.transactionID
+              }
+          }, _appsFlyerObject);
+    }
+*/
     private void Test(PurchaseEventArgs e)
     {
         var gpDetails = JObject.Parse(e.purchasedProduct.receipt);
@@ -287,6 +343,7 @@ public class IAPManager : MonoBehaviour, IStoreListener
     {
         Debug.Log(string.Format("OnPurchaseFailed: FAIL. Product: '{0}', PurchaseFailureReason: {1}", product.definition.storeSpecificId, failureReason));
     }
+
 }
 public class ReceiptData
 {

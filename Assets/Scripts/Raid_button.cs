@@ -159,7 +159,7 @@ public class Raid_button : MonoBehaviour
     }
     public void GoRaidAfterOffline()
     {
-        Debug.Log("ChecnCanRaid =  " + raid_control.ChecnCanRaid());
+   //     Debug.Log("ChecnCanRaid =  " + raid_control.ChecnCanRaid());
         if (raid_control.ChecnCanRaid())
         {
             isActive = true;
@@ -177,9 +177,7 @@ public class Raid_button : MonoBehaviour
                 m_animator.SetTrigger("Press");
                 PlayImg.SetActive(false);
                 PauseImg.SetActive(true);
-                Debug.Log("CAN _1");
             }
-                Debug.Log("CAN _2");
         }
     }
     public void PauseRaid()

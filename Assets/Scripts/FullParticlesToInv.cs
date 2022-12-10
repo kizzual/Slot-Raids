@@ -13,8 +13,6 @@ public class FullParticlesToInv : MonoBehaviour
 
     public void PlayParticleWitItem(List<Item> item)
     {
-        Debug.Log("CHECK NEW PART");
-        Debug.Log("ITEM COUNT   " + item.Count);
 
         bool sword_item = false;
         bool shield_item = false;

@@ -316,6 +316,7 @@ public class Raid_control : MonoBehaviour
                 {
                     if (raid_slot[i].isOpened && raid_slot[i].m_currentHero != null)
                     {
+                        Debug.Log("raid_slot[i]  " + raid_slot[i].name);
                         raid_slot[i].CloseUnraidPanel();
                         raid_slot[i].GetDice().CheckRandomIndex();
                         raid_slot[i].GetDice().StartRotate();
@@ -418,7 +419,7 @@ public class Raid_control : MonoBehaviour
 
             for (int i = 0; i < raid_slot.Count; i++)
             {
-                if (raid_slot[i].GetDice().prize == DiceControll.Prize.Item)
+                if (raid_slot[i].m_currentHero != null && raid_slot[i].GetDice().prize == DiceControll.Prize.Item)
                     raid_slot[i].GetDice().LuckParticle.Play();
 
                 if (raid_slot[i].isOpened && raid_slot[i].m_currentHero != null)
