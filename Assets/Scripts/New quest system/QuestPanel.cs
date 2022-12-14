@@ -2092,54 +2092,54 @@ public class QuestPanel : MonoBehaviour
         switch (questPanelType)
         {
             case QuestPanelType.Tower:
-                ApsFlyerEvents.Quest_event("available", first_Line_quest[m_currentFirstLineQuestindex].id, "Tower quests");
-                ApsFlyerEvents.Quest_event("start", first_Line_quest[m_currentFirstLineQuestindex].id, "Tower quests");
+                ApsFlyerEvents.Quest_event("available", first_Line_quest[m_currentFirstLineQuestindex].id, "Tower quests", CurrentZone.Current_Zone.localName, CurrentZone.Current_Zone.localLvl);
+                ApsFlyerEvents.Quest_event("start", first_Line_quest[m_currentFirstLineQuestindex].id, "Tower quests", CurrentZone.Current_Zone.localName, CurrentZone.Current_Zone.localLvl);
 
-                ApsFlyerEvents.Quest_event("available", second_Line_quest[m_currentSecondLineQuestindex].id, "Tower quests");
-                ApsFlyerEvents.Quest_event("start", second_Line_quest[m_currentSecondLineQuestindex].id, "Tower quests");
+                ApsFlyerEvents.Quest_event("available", second_Line_quest[m_currentSecondLineQuestindex].id, "Tower quests", CurrentZone.Current_Zone.localName, CurrentZone.Current_Zone.localLvl);
+                ApsFlyerEvents.Quest_event("start", second_Line_quest[m_currentSecondLineQuestindex].id, "Tower quests", CurrentZone.Current_Zone.localName, CurrentZone.Current_Zone.localLvl);
 
-                ApsFlyerEvents.Quest_event("available", third_Line_quest[m_currentThitrdLineQuestindex].id, "Tower quests");
-                ApsFlyerEvents.Quest_event("start", third_Line_quest[m_currentThitrdLineQuestindex].id, "Tower quests");
+                ApsFlyerEvents.Quest_event("available", third_Line_quest[m_currentThitrdLineQuestindex].id, "Tower quests", CurrentZone.Current_Zone.localName, CurrentZone.Current_Zone.localLvl);
+                ApsFlyerEvents.Quest_event("start", third_Line_quest[m_currentThitrdLineQuestindex].id, "Tower quests", CurrentZone.Current_Zone.localName, CurrentZone.Current_Zone.localLvl);
                 break;
             case QuestPanelType.Green:
-                ApsFlyerEvents.Quest_event("available", first_Line_quest[m_currentFirstLineQuestindex].id, "Green quests");
-                ApsFlyerEvents.Quest_event("start", first_Line_quest[m_currentFirstLineQuestindex].id, "Green quests");
+                ApsFlyerEvents.Quest_event("available", first_Line_quest[m_currentFirstLineQuestindex].id, "Green quests", CurrentZone.Current_Zone.localName, CurrentZone.Current_Zone.localLvl);
+                ApsFlyerEvents.Quest_event("start", first_Line_quest[m_currentFirstLineQuestindex].id, "Green quests", CurrentZone.Current_Zone.localName, CurrentZone.Current_Zone.localLvl);
 
-                ApsFlyerEvents.Quest_event("available", second_Line_quest[m_currentSecondLineQuestindex].id, "Green quests");
-                ApsFlyerEvents.Quest_event("start", second_Line_quest[m_currentSecondLineQuestindex].id, "Green quests");
+                ApsFlyerEvents.Quest_event("available", second_Line_quest[m_currentSecondLineQuestindex].id, "Green quests", CurrentZone.Current_Zone.localName, CurrentZone.Current_Zone.localLvl);
+                ApsFlyerEvents.Quest_event("start", second_Line_quest[m_currentSecondLineQuestindex].id, "Green quests", CurrentZone.Current_Zone.localName, CurrentZone.Current_Zone.localLvl);
 
-                ApsFlyerEvents.Quest_event("available", third_Line_quest[m_currentThitrdLineQuestindex].id, "Green quests");
-                ApsFlyerEvents.Quest_event("start", third_Line_quest[m_currentThitrdLineQuestindex].id, "Green quests");
+                ApsFlyerEvents.Quest_event("available", third_Line_quest[m_currentThitrdLineQuestindex].id, "Green quests", CurrentZone.Current_Zone.localName, CurrentZone.Current_Zone.localLvl);
+                ApsFlyerEvents.Quest_event("start", third_Line_quest[m_currentThitrdLineQuestindex].id, "Green quests", CurrentZone.Current_Zone.localName, CurrentZone.Current_Zone.localLvl);
                 break;
             case QuestPanelType.Blue:
-                ApsFlyerEvents.Quest_event("available", first_Line_quest[m_currentFirstLineQuestindex].id, "Blue quests");
-                ApsFlyerEvents.Quest_event("start", first_Line_quest[m_currentFirstLineQuestindex].id, "Blue quests");
+                ApsFlyerEvents.Quest_event("available", first_Line_quest[m_currentFirstLineQuestindex].id, "Blue quests", CurrentZone.Current_Zone.localName, CurrentZone.Current_Zone.localLvl);
+                ApsFlyerEvents.Quest_event("start", first_Line_quest[m_currentFirstLineQuestindex].id, "Blue quests", CurrentZone.Current_Zone.localName, CurrentZone.Current_Zone.localLvl);
 
-                ApsFlyerEvents.Quest_event("available", second_Line_quest[m_currentSecondLineQuestindex].id, "Blue quests");
-                ApsFlyerEvents.Quest_event("start", second_Line_quest[m_currentSecondLineQuestindex].id, "Blue quests");
+                ApsFlyerEvents.Quest_event("available", second_Line_quest[m_currentSecondLineQuestindex].id, "Blue quests", CurrentZone.Current_Zone.localName, CurrentZone.Current_Zone.localLvl);
+                ApsFlyerEvents.Quest_event("start", second_Line_quest[m_currentSecondLineQuestindex].id, "Blue quests", CurrentZone.Current_Zone.localName, CurrentZone.Current_Zone.localLvl);
 
-                ApsFlyerEvents.Quest_event("available", third_Line_quest[m_currentThitrdLineQuestindex].id, "Blue quests");
-                ApsFlyerEvents.Quest_event("start", third_Line_quest[m_currentThitrdLineQuestindex].id, "Blue quests");
+                ApsFlyerEvents.Quest_event("available", third_Line_quest[m_currentThitrdLineQuestindex].id, "Blue quests", CurrentZone.Current_Zone.localName, CurrentZone.Current_Zone.localLvl);
+                ApsFlyerEvents.Quest_event("start", third_Line_quest[m_currentThitrdLineQuestindex].id, "Blue quests", CurrentZone.Current_Zone.localName, CurrentZone.Current_Zone.localLvl);
                 break;
             case QuestPanelType.Yellow:
-                ApsFlyerEvents.Quest_event("available", first_Line_quest[m_currentFirstLineQuestindex].id, "Yellow quests");
-                ApsFlyerEvents.Quest_event("start", first_Line_quest[m_currentFirstLineQuestindex].id, "Yellow quests");
+                ApsFlyerEvents.Quest_event("available", first_Line_quest[m_currentFirstLineQuestindex].id, "Yellow quests", CurrentZone.Current_Zone.localName, CurrentZone.Current_Zone.localLvl);
+                ApsFlyerEvents.Quest_event("start", first_Line_quest[m_currentFirstLineQuestindex].id, "Yellow quests", CurrentZone.Current_Zone.localName, CurrentZone.Current_Zone.localLvl);
 
-                ApsFlyerEvents.Quest_event("available", second_Line_quest[m_currentSecondLineQuestindex].id, "Yellow quests");
-                ApsFlyerEvents.Quest_event("start", second_Line_quest[m_currentSecondLineQuestindex].id, "Yellow quests");
+                ApsFlyerEvents.Quest_event("available", second_Line_quest[m_currentSecondLineQuestindex].id, "Yellow quests", CurrentZone.Current_Zone.localName, CurrentZone.Current_Zone.localLvl);
+                ApsFlyerEvents.Quest_event("start", second_Line_quest[m_currentSecondLineQuestindex].id, "Yellow quests", CurrentZone.Current_Zone.localName, CurrentZone.Current_Zone.localLvl);
 
-                ApsFlyerEvents.Quest_event("available", third_Line_quest[m_currentThitrdLineQuestindex].id, "Yellow quests");
-                ApsFlyerEvents.Quest_event("start", third_Line_quest[m_currentThitrdLineQuestindex].id, "Yellow quests");
+                ApsFlyerEvents.Quest_event("available", third_Line_quest[m_currentThitrdLineQuestindex].id, "Yellow quests", CurrentZone.Current_Zone.localName, CurrentZone.Current_Zone.localLvl);
+                ApsFlyerEvents.Quest_event("start", third_Line_quest[m_currentThitrdLineQuestindex].id, "Yellow quests", CurrentZone.Current_Zone.localName, CurrentZone.Current_Zone.localLvl);
                 break;
             case QuestPanelType.Red:
-                ApsFlyerEvents.Quest_event("available", first_Line_quest[m_currentFirstLineQuestindex].id, "Red quests");
-                ApsFlyerEvents.Quest_event("start", first_Line_quest[m_currentFirstLineQuestindex].id, "Red quests");
+                ApsFlyerEvents.Quest_event("available", first_Line_quest[m_currentFirstLineQuestindex].id, "Red quests", CurrentZone.Current_Zone.localName, CurrentZone.Current_Zone.localLvl);
+                ApsFlyerEvents.Quest_event("start", first_Line_quest[m_currentFirstLineQuestindex].id, "Red quests", CurrentZone.Current_Zone.localName, CurrentZone.Current_Zone.localLvl);
 
-                ApsFlyerEvents.Quest_event("available", second_Line_quest[m_currentSecondLineQuestindex].id, "Red quests");
-                ApsFlyerEvents.Quest_event("start", second_Line_quest[m_currentSecondLineQuestindex].id, "Red quests");
+                ApsFlyerEvents.Quest_event("available", second_Line_quest[m_currentSecondLineQuestindex].id, "Red quests", CurrentZone.Current_Zone.localName, CurrentZone.Current_Zone.localLvl);
+                ApsFlyerEvents.Quest_event("start", second_Line_quest[m_currentSecondLineQuestindex].id, "Red quests", CurrentZone.Current_Zone.localName, CurrentZone.Current_Zone.localLvl);
 
-                ApsFlyerEvents.Quest_event("available", third_Line_quest[m_currentThitrdLineQuestindex].id, "Red quests");
-                ApsFlyerEvents.Quest_event("start", third_Line_quest[m_currentThitrdLineQuestindex].id, "Red quests");
+                ApsFlyerEvents.Quest_event("available", third_Line_quest[m_currentThitrdLineQuestindex].id, "Red quests", CurrentZone.Current_Zone.localName, CurrentZone.Current_Zone.localLvl);
+                ApsFlyerEvents.Quest_event("start", third_Line_quest[m_currentThitrdLineQuestindex].id, "Red quests", CurrentZone.Current_Zone.localName, CurrentZone.Current_Zone.localLvl);
                 break;
         }
     }
@@ -2422,34 +2422,34 @@ public class QuestPanel : MonoBehaviour
         switch (questPanelType)
         {
             case QuestPanelType.Tower:
-                ApsFlyerEvents.Quest_event("complete", line[m_rewardLine].id, "Tower quests");
-                ApsFlyerEvents.Quest_event("finish", line[m_rewardLine].id, "Tower quests");
-                ApsFlyerEvents.Quest_event("available", line[m_rewardLine + 1].id, "Tower quests");
-                ApsFlyerEvents.Quest_event("start", line[m_rewardLine + 1].id, "Tower quests");
+                ApsFlyerEvents.Quest_event("complete", line[m_rewardLine].id, "Tower quests", CurrentZone.Current_Zone.localName, CurrentZone.Current_Zone.localLvl);
+                ApsFlyerEvents.Quest_event("finish", line[m_rewardLine].id, "Tower quests", CurrentZone.Current_Zone.localName, CurrentZone.Current_Zone.localLvl);
+                ApsFlyerEvents.Quest_event("available", line[m_rewardLine + 1].id, "Tower quests", CurrentZone.Current_Zone.localName, CurrentZone.Current_Zone.localLvl);
+                ApsFlyerEvents.Quest_event("start", line[m_rewardLine + 1].id, "Tower quests", CurrentZone.Current_Zone.localName, CurrentZone.Current_Zone.localLvl);
                 break;
             case QuestPanelType.Green:
-                ApsFlyerEvents.Quest_event("complete", line[m_rewardLine].id, "Green quests");
-                ApsFlyerEvents.Quest_event("finish", line[m_rewardLine].id, "Green quests");
-                ApsFlyerEvents.Quest_event("available", line[m_rewardLine + 1].id, "Green quests");
-                ApsFlyerEvents.Quest_event("start", line[m_rewardLine + 1].id, "Green quests");
+                ApsFlyerEvents.Quest_event("complete", line[m_rewardLine].id, "Green quests", CurrentZone.Current_Zone.localName, CurrentZone.Current_Zone.localLvl);
+                ApsFlyerEvents.Quest_event("finish", line[m_rewardLine].id, "Green quests", CurrentZone.Current_Zone.localName, CurrentZone.Current_Zone.localLvl);
+                ApsFlyerEvents.Quest_event("available", line[m_rewardLine + 1].id, "Green quests", CurrentZone.Current_Zone.localName, CurrentZone.Current_Zone.localLvl);
+                ApsFlyerEvents.Quest_event("start", line[m_rewardLine + 1].id, "Green quests", CurrentZone.Current_Zone.localName, CurrentZone.Current_Zone.localLvl);
                 break;
             case QuestPanelType.Blue:
-                ApsFlyerEvents.Quest_event("complete", line[m_rewardLine].id, "Blue quests");
-                ApsFlyerEvents.Quest_event("finish", line[m_rewardLine].id, "Blue quests");
-                ApsFlyerEvents.Quest_event("available", line[m_rewardLine + 1].id, "Blue quests");
-                ApsFlyerEvents.Quest_event("start", line[m_rewardLine + 1].id, "Blue quests");
+                ApsFlyerEvents.Quest_event("complete", line[m_rewardLine].id, "Blue quests", CurrentZone.Current_Zone.localName, CurrentZone.Current_Zone.localLvl);
+                ApsFlyerEvents.Quest_event("finish", line[m_rewardLine].id, "Blue quests", CurrentZone.Current_Zone.localName, CurrentZone.Current_Zone.localLvl);
+                ApsFlyerEvents.Quest_event("available", line[m_rewardLine + 1].id, "Blue quests", CurrentZone.Current_Zone.localName, CurrentZone.Current_Zone.localLvl);
+                ApsFlyerEvents.Quest_event("start", line[m_rewardLine + 1].id, "Blue quests", CurrentZone.Current_Zone.localName, CurrentZone.Current_Zone.localLvl);
                 break;
             case QuestPanelType.Yellow:
-                ApsFlyerEvents.Quest_event("complete", line[m_rewardLine].id, "Yellow quests");
-                ApsFlyerEvents.Quest_event("finish", line[m_rewardLine].id, "Yellow quests");
-                ApsFlyerEvents.Quest_event("available", line[m_rewardLine + 1].id, "Yellow quests");
-                ApsFlyerEvents.Quest_event("start", line[m_rewardLine + 1].id, "Yellow quests");
+                ApsFlyerEvents.Quest_event("complete", line[m_rewardLine].id, "Yellow quests", CurrentZone.Current_Zone.localName, CurrentZone.Current_Zone.localLvl);
+                ApsFlyerEvents.Quest_event("finish", line[m_rewardLine].id, "Yellow quests", CurrentZone.Current_Zone.localName, CurrentZone.Current_Zone.localLvl);
+                ApsFlyerEvents.Quest_event("available", line[m_rewardLine + 1].id, "Yellow quests", CurrentZone.Current_Zone.localName, CurrentZone.Current_Zone.localLvl);
+                ApsFlyerEvents.Quest_event("start", line[m_rewardLine + 1].id, "Yellow quests", CurrentZone.Current_Zone.localName, CurrentZone.Current_Zone.localLvl);
                 break;
             case QuestPanelType.Red:
-                ApsFlyerEvents.Quest_event("complete", line[m_rewardLine].id, "Red quests");
-                ApsFlyerEvents.Quest_event("finish", line[m_rewardLine].id, "Red quests");
-                ApsFlyerEvents.Quest_event("available", line[m_rewardLine + 1].id, "Red quests");
-                ApsFlyerEvents.Quest_event("start", line[m_rewardLine + 1].id, "Red quests");
+                ApsFlyerEvents.Quest_event("complete", line[m_rewardLine].id, "Red quests", CurrentZone.Current_Zone.localName, CurrentZone.Current_Zone.localLvl);
+                ApsFlyerEvents.Quest_event("finish", line[m_rewardLine].id, "Red quests", CurrentZone.Current_Zone.localName, CurrentZone.Current_Zone.localLvl);
+                ApsFlyerEvents.Quest_event("available", line[m_rewardLine + 1].id, "Red quests", CurrentZone.Current_Zone.localName, CurrentZone.Current_Zone.localLvl);
+                ApsFlyerEvents.Quest_event("start", line[m_rewardLine + 1].id, "Red quests", CurrentZone.Current_Zone.localName, CurrentZone.Current_Zone.localLvl);
                 break;
         }
 

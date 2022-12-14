@@ -161,7 +161,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 965868281968068292}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
   m_Name: 
@@ -403,7 +403,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 1
     m_VerticalOverflow: 1
     m_LineSpacing: 1
-  m_Text: BUSY
+  m_Text: REMOVE
 --- !u!114 &4585187036226297170
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1042,7 +1042,7 @@ RectTransform:
   m_Children:
   - {fileID: 8084201732722467934}
   m_Father: {fileID: 0}
-  m_RootOrder: 0
+  m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -1106,6 +1106,7 @@ MonoBehaviour:
   _freePanel: {fileID: 7490871469884031749}
   _choosePanel: {fileID: 9023643971069438617}
   _closedHero: {fileID: 7155232799026614946}
+  characteristics: {fileID: 0}
   m_CurrentHero: {fileID: 0}
 --- !u!1 &6099288600248181390
 GameObject:
@@ -1487,7 +1488,7 @@ MonoBehaviour:
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
-  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 35}
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: -261.37}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -1697,7 +1698,7 @@ MonoBehaviour:
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
-  m_RaycastPadding: {x: 0, y: 0, z: 0, w: -5.69}
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: -264.6}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:

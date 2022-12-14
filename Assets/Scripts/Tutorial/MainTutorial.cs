@@ -35,6 +35,7 @@ public class MainTutorial : MonoBehaviour
     void Start()
     {
         instance = this;
+
         MainTutorialSteps();
         if(PlayerPrefs.HasKey("BoostTower"))
             blockBuyBottle.SetActive(false);
@@ -186,7 +187,7 @@ public class MainTutorial : MonoBehaviour
     {
         if (PlayerPrefs.HasKey("first"))
         {
-            mainStep = 27;
+            mainStep = 28;
             mainTutorIsEnded = true;
         }
         if (PlayerPrefs.HasKey("second"))

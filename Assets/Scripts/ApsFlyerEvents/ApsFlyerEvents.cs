@@ -46,7 +46,7 @@ public class ApsFlyerEvents : MonoBehaviour
         AppsFlyer.sendEvent("level", levelEvent);
     }
 
-    public static void Quest_event(string status, int id, string block_name)
+    public static void Quest_event(string status, int id, string block_name, string lvl_name, int level_id)
     {
         Debug.Log("Events 'Quest_event' sended with parametrs:  status = " + status + "  *id = " + id + "  *block_name = " + block_name);
         Dictionary<string, string> questEvent = new Dictionary<string, string>();
@@ -54,8 +54,8 @@ public class ApsFlyerEvents : MonoBehaviour
         questEvent.Add("quest_number", id.ToString());
         questEvent.Add("quest_name", id.ToString());
         questEvent.Add("quest_type", block_name);
-        questEvent.Add("level_number", " - ");
-        questEvent.Add("level_name", " - ");
+        questEvent.Add("level_number", level_id.ToString());
+        questEvent.Add("level_name", lvl_name);
 
         AppsFlyer.sendEvent("quest", questEvent);
     }

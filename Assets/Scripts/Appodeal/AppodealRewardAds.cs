@@ -36,21 +36,21 @@ public class AppodealRewardAds : MonoBehaviour, IRewardedVideoAdListener
     }
     private void ChacheReloadVideo()
     {
-        Appodeal.setTesting(true);
+        Appodeal.setTesting(isTesting);
         Ad_reload =  Appodeal.REWARDED_VIDEO;
         Appodeal.muteVideosIfCallsMuted(true);
         Appodeal.initialize(appKey, Ad_reload, this);
     }
     private void Chache50cVideo()
     {
-        Appodeal.setTesting(true);
+        Appodeal.setTesting(isTesting);
         Ad_coins = Appodeal.REWARDED_VIDEO;
         Appodeal.muteVideosIfCallsMuted(true);
         Appodeal.initialize(appKey, Ad_coins, this);
     }
     private void Chache1bVideo()
     {
-        Appodeal.setTesting(true);
+        Appodeal.setTesting(isTesting);
         Ad_bottle = Appodeal.REWARDED_VIDEO;
         Appodeal.muteVideosIfCallsMuted(true);
         Appodeal.initialize(appKey, Ad_bottle, this);
