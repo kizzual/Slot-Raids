@@ -1,47 +1,47 @@
 {
     "m_SelectedDeviceId": "062175240405",
     "m_SelectedPackage": {
-        "deviceId": "",
-        "name": "",
-        "processId": 0,
+        "deviceId": "062175240405",
+        "name": "com.DefaultCompany.SlotRaids",
+        "processId": 23613,
         "exited": false
     },
     "m_SelectedPriority": 0,
     "m_KnownPackagesForSerialization": [
         {
             "deviceId": "062175240405",
-            "name": "com.DefaultCompany.SlotRaids",
-            "processId": 22209,
-            "exited": true
-        },
-        {
-            "deviceId": "062175240405",
-            "name": "com.DefaultCompany.SlotRaids",
-            "processId": 22432,
-            "exited": true
-        },
-        {
-            "deviceId": "062175240405",
-            "name": "com.DefaultCompany.SlotRaids",
-            "processId": 26373,
-            "exited": true
-        },
-        {
-            "deviceId": "062175240405",
-            "name": "com.DefaultCompany.SlotRaids",
-            "processId": 26964,
-            "exited": true
-        },
-        {
-            "deviceId": "062175240405",
             "name": "com.miui.home",
-            "processId": 2056,
+            "processId": 2262,
             "exited": false
         },
         {
             "deviceId": "062175240405",
-            "name": "com.android.settings",
-            "processId": 24344,
+            "name": "com.DefaultCompany.SlotRaids",
+            "processId": 7609,
+            "exited": true
+        },
+        {
+            "deviceId": "062175240405",
+            "name": "com.DefaultCompany.SlotRaids",
+            "processId": 11533,
+            "exited": true
+        },
+        {
+            "deviceId": "062175240405",
+            "name": "com.miui.global.packageinstaller",
+            "processId": 15064,
+            "exited": true
+        },
+        {
+            "deviceId": "062175240405",
+            "name": "com.DefaultCompany.SlotRaids",
+            "processId": 15445,
+            "exited": true
+        },
+        {
+            "deviceId": "062175240405",
+            "name": "com.DefaultCompany.SlotRaids",
+            "processId": 23613,
             "exited": false
         }
     ],
@@ -96,7 +96,7 @@
         "Behavior": 0
     },
     "m_FilterOptions": {
-        "m_Filter": "admob",
+        "m_Filter": "",
         "m_UseRegularExpressions": false,
         "m_MatchCase": false
     },

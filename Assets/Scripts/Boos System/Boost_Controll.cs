@@ -25,8 +25,11 @@ public class Boost_Controll : MonoBehaviour
     public List<ParticleSystem> actiateBoost;
     public List<GameObject> ActivePanel;
     public Raid_control raid_Control;
-    public int m_currentBottles { get; set; }
-    [SerializeField] private List<Text> bottles_count;
+    public int m_currentBottles;
+    [SerializeField] private TextMeshProUGUI bottles_count_green;
+    [SerializeField] private TextMeshProUGUI bottles_count_Blue;
+    [SerializeField] private TextMeshProUGUI bottles_count_Yellow;
+    [SerializeField] private TextMeshProUGUI bottles_count_Red;
     [SerializeField] private List<GameObject> bottles_image;
     private void FixedUpdate()
     { 
@@ -121,11 +124,8 @@ public class Boost_Controll : MonoBehaviour
         }
         towerUpgrade.CheckBoostParticle();
         m_currentBottles = card.currentBottles;
-        foreach (var item in bottles_count)
-        {
-            item.text = m_currentBottles.ToString();
-        }
-        if(m_currentBottles > 0 )
+        DisplayCurrentBottles();
+        if (m_currentBottles > 0 )
         {
             foreach (var item in bottles_image)
             {
@@ -357,27 +357,123 @@ public class Boost_Controll : MonoBehaviour
                                // буст не готов (аттеншин)*/
 
     }
-    public void BuyBottles(int value) 
+    public void AddBottles(int value)
     {
         m_currentBottles += value;
-        foreach (var item in bottles_count)
+    }
+    public int getBottlesCount() => m_currentBottles;
+    public void BuyBottles(int value) 
+    {
+        Debug.Log("Start buy bottle (boost control)");
+        try
         {
-            item.text = m_currentBottles.ToString();
+            m_currentBottles += value;
+            Debug.Log("Bottles added  (boost control)  =    " + m_currentBottles);
         }
-        if (m_currentBottles > 0)
+        catch
         {
-            foreach (var item in bottles_image)
+            Debug.Log("Bottles not added  (boost control)");
+        }
+
+        try
+        {
+            DisplayCurrentBottles();
+            Debug.Log("Text bottle diplayed  (boost control)");
+        }
+        catch
+        {
+            Debug.Log("Text bottle NOT diplayed  (boost control)");
+        }
+
+        try
+        {
+            if (m_currentBottles > 0)
             {
-                item.SetActive(true);
+                foreach (var item in bottles_image)
+                {
+                    item.SetActive(true);
+                }
+            }
+            else
+            {
+                foreach (var item in bottles_image)
+                {
+                    item.SetActive(false);
+                }
+            }
+            Debug.Log("Image diplayed (boost control)");
+        }
+        catch
+        {
+            Debug.Log("Image NOT diplayed (boost control)");
+        }
+
+
+
+    }
+    private void DisplayCurrentBottles()
+    {
+        try
+        {
+            if(bottles_count_green.gameObject != null)
+            {
+                bottles_count_green.text = m_currentBottles.ToString();
+            }
+            else
+            {
+                Debug.Log("bottles_count_green  = NULL (boost control)");
             }
         }
-        else
+        catch
         {
-            foreach (var item in bottles_image)
+            Debug.Log("bottles_count_green  NOT displayed (boost control)");
+        }
+        try
+        {
+            if (bottles_count_Blue.gameObject != null)
             {
-                item.SetActive(false);
+                bottles_count_Blue.text = m_currentBottles.ToString();
+            }
+            else
+            {
+                Debug.Log("bottles_count_Blue  = NULL (boost control)");
             }
         }
+        catch
+        {
+            Debug.Log("bottles_count_Blue  NOT displayed (boost control)");
+        }
+        try
+        {
+            if (bottles_count_Yellow.gameObject != null)
+            {
+                bottles_count_Yellow.text = m_currentBottles.ToString();
+            }
+            else
+            {
+                Debug.Log("bottles_count_Yellow  = NULL (boost control)");
+            }
+        }
+        catch
+        {
+            Debug.Log("bottles_count_Yellow  NOT displayed (boost control)");
+        }
+        try
+        {
+            if (bottles_count_Red.gameObject != null)
+            {
+                bottles_count_Red.text = m_currentBottles.ToString();
+            }
+            else
+            {
+                Debug.Log("bottles_count_Red  = NULL (boost control)");
+            }
+        }
+        catch
+        {
+            Debug.Log("bottles_count_Red  NOT displayed (boost control)");
+        }
+       
     }
     public void FillMana( )
     {
@@ -392,10 +488,7 @@ public class Boost_Controll : MonoBehaviour
                 item.fillAmount = tmp;
             }
             mana_Img.fillAmount = tmp;
-            foreach (var item in bottles_count)
-            {
-                item.text = m_currentBottles.ToString();
-            }
+           DisplayCurrentBottles();
             if (m_currentBottles > 0)
             {
                 foreach (var item in bottles_image)
@@ -512,10 +605,7 @@ public class Boost_Controll : MonoBehaviour
     }
     private void Awake()
     {
-        foreach (var item in bottles_count)
-        {
-            item.text = m_currentBottles.ToString();
-        }
+        DisplayCurrentBottles();
         if (m_currentBottles > 0)
         {
             foreach (var item in bottles_image)

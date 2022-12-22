@@ -1,13 +1,12 @@
-﻿using AppsFlyerSDK;
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
-using NSubstitute;
 using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Purchasing;
 using UnityEngine.Purchasing.Security;
+using TMPro;
 
 public class IAPManager : MonoBehaviour, IStoreListener
 {
@@ -22,10 +21,26 @@ public class IAPManager : MonoBehaviour, IStoreListener
     private string bottles_10 = "10_bottles"; 
     private string bottles_50 = "50_bottles";  
     private string Combo = "100m_50_bottles";
-    // secondary link
+    // secondary link bn
     [SerializeField] private ShopIAP shopIAP;
+    [SerializeField] private Boost_Controll Boost_Controll;
 
+    public ParticleSystem gold_10m;
+    public ParticleSystem gold_100m;
+    public ParticleSystem bottle_10b;
+    public ParticleSystem bottle_50b;
+    public ParticleSystem combo_bottle;
+    public ParticleSystem combo_gold;
 
+    public TextMeshProUGUI green;
+    public TextMeshProUGUI blue;
+    public TextMeshProUGUI yellow;
+    public TextMeshProUGUI red;
+
+    public GameObject Bottle_green;
+    public GameObject Bottle_blue;
+    public GameObject Bottle_yellow;
+    public GameObject Bottle_red;
 
     //************************** Adjust these methods **************************************
     public void InitializePurchasing()
@@ -65,63 +80,195 @@ public class IAPManager : MonoBehaviour, IStoreListener
     {
         if (String.Equals(args.purchasedProduct.definition.id, coins_10m, StringComparison.Ordinal))
         {
-            Debug.Log("coins_10m Succesful");
-      //      ReceiptData receipt = GetReceiptData(args);
-            if(!PlayerPrefs.HasKey("FirstPurchaseEvent"))
+            Debug.Log(" START Buy coins_10m ");
+            gold_10m.GetComponent<ParticleAdaptive>().Initialise();
+            try
             {
-                PlayerPrefs.SetInt("FirstPurchaseEvent", 1);
-                ApsFlyerEvents.FirstPurchase_event(args);
+                Gold.AddGold(10000000);
+                Debug.Log(" Gold Added");
             }
-            ApsFlyerEvents.Purchase_event(args);
-            shopIAP.SuccessBuy10m();
+            catch
+            {
+                Debug.Log("Gold not added");
+            }
+            try
+            {
+                if (gold_10m != null)
+                {
+                    gold_10m.Play();
+                    Debug.Log(" gold_10m played");
+                }
+                else
+                {
+                    Debug.Log("gold_10m not found");
+                }
+            }
+            catch
+            {
+                Debug.Log("gold_10m not played");
+            }
+            SoundControl._instance.PlayCash();
+
+            Debug.Log(" coins_10m Succesful");
         }
         else if (String.Equals(args.purchasedProduct.definition.id, coins_100m, StringComparison.Ordinal))
         {
-            Debug.Log("coins_100m Succesful");
-         //   ReceiptData receipt = GetReceiptData(args);
-            if (!PlayerPrefs.HasKey("FirstPurchaseEvent"))
+            Debug.Log("START coins_100m ");
+            try
             {
-                PlayerPrefs.SetInt("FirstPurchaseEvent", 1);
-                ApsFlyerEvents.FirstPurchase_event(args);
+                Gold.AddGold(100000000);
+                Debug.Log(" Gold Added");
             }
-            ApsFlyerEvents.Purchase_event(args);
-            shopIAP.SuccessBuy100m();
+            catch
+            {
+                Debug.Log("Gold not added");
+            }
+            try
+            {
+                if (gold_100m != null)
+                {
+                    gold_100m.Play();
+                    Debug.Log(" gold_100m played");
+                }
+                else
+                {
+                    Debug.Log("gold_100m not found");
+                }
+            }
+            catch
+            {
+                Debug.Log("gold_100m not played");
+            }
+
+            SoundControl._instance.PlayCash();
+            Debug.Log("coins_100m Succesful");
         }
         else if (String.Equals(args.purchasedProduct.definition.id, bottles_10, StringComparison.Ordinal))
         {
-            Debug.Log("bottles_10 Succesful");
-         //   ReceiptData receipt = GetReceiptData(args);
-            if (!PlayerPrefs.HasKey("FirstPurchaseEvent"))
+            Debug.Log("START bottles_10 ");
+            try
             {
-                PlayerPrefs.SetInt("FirstPurchaseEvent", 1);
-                ApsFlyerEvents.FirstPurchase_event(args);
+                Boost_Controll.AddBottles(10);
+                Debug.Log(" bottle Added");
             }
-            ApsFlyerEvents.Purchase_event(args);
-            shopIAP.SuccessBuy10b();
+            catch
+            {
+                Debug.Log("bottle not added");
+            }
+            try
+            {
+                if (bottle_10b != null)
+                {
+                    bottle_10b.Play();
+                    Debug.Log(" bottle_10b played");
+                }
+                else
+                {
+                    Debug.Log("bottle_10b not found");
+                }
+            }
+            catch
+            {
+                Debug.Log("bottle_10b not played");
+            }
+            DisplayBottleInfo();
+
+            SoundControl._instance.PlayCash();
+            Debug.Log("bottles_10 Succesful (IAP)");
         }
         else if (String.Equals(args.purchasedProduct.definition.id, bottles_50, StringComparison.Ordinal))
         {
-            Debug.Log("bottles_50 Succesful");
-          //  ReceiptData receipt = GetReceiptData(args);
-            if (!PlayerPrefs.HasKey("FirstPurchaseEvent"))
+            Debug.Log("START bottles_50 ");
+
+            try
             {
-                PlayerPrefs.SetInt("FirstPurchaseEvent", 1);
-                ApsFlyerEvents.FirstPurchase_event(args);
+                Boost_Controll.AddBottles(50);
+                Debug.Log(" bottle Added");
             }
-            ApsFlyerEvents.Purchase_event(args);
-            shopIAP.SuccessBuy50b();
+            catch
+            {
+                Debug.Log("bottle not added");
+            }
+            try
+            {
+                if (bottle_50b != null)
+                {
+                    bottle_50b.Play();
+                    Debug.Log(" bottle_50b played");
+                }
+                else
+                {
+                    Debug.Log("bottle_50b not found");
+                }
+            }
+            catch
+            {
+                Debug.Log("bottle_50b not played");
+            }
+            DisplayBottleInfo();
+
+            SoundControl._instance.PlayCash();
+            Debug.Log("bottles_50 Succesful");
         }
         else if (String.Equals(args.purchasedProduct.definition.id, Combo, StringComparison.Ordinal))
         {
-            Debug.Log("Combo Succesful");
-        //    ReceiptData receipt = GetReceiptData(args);
-            if (!PlayerPrefs.HasKey("FirstPurchaseEvent"))
+            Debug.Log("START Combo ");
+
+            try
             {
-                PlayerPrefs.SetInt("FirstPurchaseEvent", 1);
-                ApsFlyerEvents.FirstPurchase_event(args);
+                Gold.AddGold(100000000);
+                Debug.Log(" Gold Added");
             }
-            ApsFlyerEvents.Purchase_event(args);
-            shopIAP.SuccessBuyCombo();
+            catch
+            {
+                Debug.Log("Gold not added");
+            }
+            try
+            {
+                if (combo_gold != null)
+                {
+                    combo_gold.Play();
+                    Debug.Log(" combo_gold played");
+                }
+                else
+                {
+                    Debug.Log("combo_gold not found");
+                }
+            }
+            catch
+            {
+                Debug.Log("combo_gold not played");
+            }
+
+            try
+            {
+                Boost_Controll.AddBottles(50);
+                Debug.Log(" bottle Added");
+            }
+            catch
+            {
+                Debug.Log("bottle not added");
+            }
+            try
+            {
+                if (combo_bottle != null)
+                {
+                    combo_bottle.Play();
+                    Debug.Log(" combo_bottle played");
+                }
+                else
+                {
+                    Debug.Log("combo_bottle not found");
+                }
+            }
+            catch
+            {
+                Debug.Log("combo_bottle not played");
+            }
+            DisplayBottleInfo();
+            SoundControl._instance.PlayCash();
+
+            Debug.Log("Combo Succesful");
         }
         else
         {
@@ -129,6 +276,287 @@ public class IAPManager : MonoBehaviour, IStoreListener
         }
         return PurchaseProcessingResult.Complete;
     }
+    private void DisplayBottleInfo()
+    {
+        // text
+        try
+        {
+            if (green != null)
+            {
+                green.text = Boost_Controll.getBottlesCount().ToString();
+            }
+            else
+            {
+                Debug.Log("green  = NULL (IAP)");
+            }
+        }
+        catch
+        {
+            Debug.Log("bottles_count_green  NOT displayed (IAP)");
+        }
+        try
+        {
+            if (blue != null)
+            {
+                blue.text = Boost_Controll.getBottlesCount().ToString();
+            }
+            else
+            {
+                Debug.Log("blue  = NULL (IAP)");
+            }
+        }
+        catch
+        {
+            Debug.Log("bottles_count blue  NOT displayed (IAP)");
+        }
+        try
+        {
+            if (yellow != null)
+            {
+                yellow.text = Boost_Controll.getBottlesCount().ToString();
+            }
+            else
+            {
+                Debug.Log("yellow  = NULL (IAP)");
+            }
+        }
+        catch
+        {
+            Debug.Log("bottles_count_yellow  NOT displayed (IAP)");
+        }
+        try
+        {
+            if (red != null)
+            {
+                red.text = Boost_Controll.getBottlesCount().ToString();
+            }
+            else
+            {
+                Debug.Log("red  = NULL (IAP)");
+            }
+        }
+        catch
+        {
+            Debug.Log("bottles_count_red  NOT displayed (IAP)");
+        }
+
+        // image
+
+        try
+        {
+            if (Boost_Controll.getBottlesCount() > 0)
+            {
+                try
+                {
+                    if(Bottle_green != null)
+                    {
+                        Bottle_green.SetActive(true);
+                    }
+                    else
+                    {
+                        Debug.Log("Bottle_green image NULL");
+                    }
+                }
+                catch
+                {
+                    Debug.Log("Bottle_green  NOT DISPLAYED");
+                }
+                try
+                {
+                    if (Bottle_blue != null)
+                    {
+                        Bottle_blue.SetActive(true);
+                    }
+                    else
+                    {
+                        Debug.Log("Bottle_blue image NULL");
+                    }
+                }
+                catch
+                {
+                    Debug.Log("Bottle_blue  NOT DISPLAYED");
+                }
+                try
+                {
+                    if (Bottle_yellow != null)
+                    {
+                        Bottle_yellow.SetActive(true);
+                    }
+                    else
+                    {
+                        Debug.Log("Bottle_yellow image NULL");
+                    }
+                }
+                catch
+                {
+                    Debug.Log("Bottle_yellow  NOT DISPLAYED");
+                }
+                try
+                {
+                    if (Bottle_red != null)
+                    {
+                        Bottle_red.SetActive(true);
+                    }
+                    else
+                    {
+                        Debug.Log("Bottle_red image NULL");
+                    }
+                }
+                catch
+                {
+                    Debug.Log("Bottle_red  NOT DISPLAYED");
+                }
+
+            }
+            else
+            {
+                try
+                {
+                    if (Bottle_green != null)
+                    {
+                        Bottle_green.SetActive(false);
+                    }
+                    else
+                    {
+                        Debug.Log("Bottle_green image NULL");
+                    }
+                }
+                catch
+                {
+                    Debug.Log("Bottle_green  NOT DISPLAYED");
+                }
+                try
+                {
+                    if (Bottle_blue != null)
+                    {
+                        Bottle_blue.SetActive(false);
+                    }
+                    else
+                    {
+                        Debug.Log("Bottle_blue image NULL");
+                    }
+                }
+                catch
+                {
+                    Debug.Log("Bottle_blue  NOT DISPLAYED");
+                }
+                try
+                {
+                    if (Bottle_yellow != null)
+                    {
+                        Bottle_yellow.SetActive(false);
+                    }
+                    else
+                    {
+                        Debug.Log("Bottle_yellow image NULL");
+                    }
+                }
+                catch
+                {
+                    Debug.Log("Bottle_yellow  NOT DISPLAYED");
+                }
+                try
+                {
+                    if (Bottle_red != null)
+                    {
+                        Bottle_red.SetActive(false);
+                    }
+                    else
+                    {
+                        Debug.Log("Bottle_red image NULL");
+                    }
+                }
+                catch
+                {
+                    Debug.Log("Bottle_red  NOT DISPLAYED");
+                }
+
+            }
+            Debug.Log("Image diplayed (boost control)");
+        }
+        catch
+        {
+            Debug.Log("Image NOT diplayed (boost control)");
+        }
+    }
+
+    public void Test()
+    {
+        try
+        {
+            Gold.AddGold(100000000);
+            Debug.Log(" Gold Added");
+        }
+        catch
+        {
+            Debug.Log("Gold not added");
+        }
+        try
+        {
+            if (gold_100m != null)
+            {
+                gold_100m.Play();
+                Debug.Log(" gold_100m played");
+            }
+            else
+            {
+                Debug.Log("gold_100m not found");
+            }
+        }
+        catch
+        {
+            Debug.Log("gold_100m not played");
+        }
+
+        SoundControl._instance.PlayCash();
+
+
+        Debug.Log("coins_100m Succesful");
+    }
+    public void Test2()
+    {
+        Debug.Log("START bottles_50 ");
+
+        try
+        {
+            Boost_Controll.AddBottles(50);
+            Debug.Log(" bottle Added");
+        }
+        catch
+        {
+            Debug.Log("bottle not added");
+        }
+        try
+        {
+            if (bottle_50b != null)
+            {
+                bottle_50b.Play();
+                Debug.Log(" bottle_50b played");
+            }
+            else
+            {
+                Debug.Log("bottle_50b not found");
+            }
+        }
+        catch
+        {
+            Debug.Log("bottle_50b not played");
+        }
+        DisplayBottleInfo();
+        SoundControl._instance.PlayCash();
+        Debug.Log("bottles_50 Succesful");
+    }
+    private void EventSender(PurchaseEventArgs args)
+    {
+        if (!PlayerPrefs.HasKey("FirstPurchaseEvent"))
+        {
+            PlayerPrefs.SetInt("FirstPurchaseEvent", 1);
+            ApsFlyerEvents.FirstPurchase_event(args);
+        }
+        ApsFlyerEvents.Purchase_event(args);
+        
+    }
+
 
 
     public ReceiptData GetReceiptData(PurchaseEventArgs e)
@@ -196,60 +624,7 @@ public class IAPManager : MonoBehaviour, IStoreListener
 
         return data;
     }
-   /* public void TestParse(PurchaseEventArgs args)
-    {
-        var receipt = (Hashtable)MiniJson.JsonDecode(args.purchasedProduct.receipt);
-        if (!receipt.ContainsKey("Store") || !receipt.ContainsKey("Payload"))
-        {
-            Debug.LogError("The product receipt does not contain enough information");
-            return;
-        }
-
-        var payloadString = (string)receipt["Payload"];
-        Hashtable payload = (Hashtable)MiniJson.JsonDecode(payloadString);
-        var googleSignature = "";
-        var googleJsonData = "";
-        if (payload.ContainsKey("signature"))
-        {
-            googleSignature = payload["signature"].ToString();
-        }
-        else
-        {
-            Debug.LogError("The product receipt does not contain signature");
-            return;
-        }
-
-        if (payload.ContainsKey("json"))
-        {
-            googleJsonData = payload["json"].ToString();
-        }
-        else
-        {
-            Debug.LogError("The product receipt does not contain json data");
-            return;
-        }
-*//*        if (Core.AndroidStoreConfig == null || string.IsNullOrEmpty(Core.AndroidStoreConfig.PublicApiKey))
-        {
-            Debug.LogError("Not found google public api key");
-            return;
-        }*//*
-
-        AppsFlyer.validateAndSendInAppPurchase(
-        "123",
-          googleSignature,
-            googleJsonData,
-          args.purchasedProduct.metadata.localizedPrice.ToString(),
-          args.purchasedProduct.metadata.isoCurrencyCode,
-          new Dictionary<string, string>() {
-              {
-                "SKU", args.purchasedProduct.definition.id
-              },
-              {
-                "TRANSACTION_ID", args.purchasedProduct.transactionID
-              }
-          }, _appsFlyerObject);
-    }
-*/
+   
     private void Test(PurchaseEventArgs e)
     {
         var gpDetails = JObject.Parse(e.purchasedProduct.receipt);
@@ -343,6 +718,7 @@ public class IAPManager : MonoBehaviour, IStoreListener
     {
         Debug.Log(string.Format("OnPurchaseFailed: FAIL. Product: '{0}', PurchaseFailureReason: {1}", product.definition.storeSpecificId, failureReason));
     }
+
 
 }
 public class ReceiptData

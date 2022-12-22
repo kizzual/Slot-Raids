@@ -180,7 +180,7 @@ public class MainTutorial : MonoBehaviour
     }
     IEnumerator step_115_21()
     {
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(0.1f);
         MainTutorialSteps();
     }
     public void Initialise()

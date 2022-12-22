@@ -4,16 +4,16 @@ using UnityEngine;
 
 public class ParticleAdaptive : MonoBehaviour
 {
-    private ParticleSystem particleSystem;
-    private Transform target;
+    public ParticleSystem _particleSystem;
+    public ParticleSystem.MainModule _particleSystemModule;
+    public Transform target;
     public float stepByDistance;
 
     public void Initialise()
     {
-        particleSystem = GetComponent<ParticleSystem>();
-
-        target = particleSystem.externalForces.GetInfluence(0).transform;
-        float c = Vector2.Distance(particleSystem.transform.position, target.position);
-        particleSystem.startLifetime = stepByDistance * c;
+        _particleSystemModule = _particleSystem.main;
+        target = _particleSystem.externalForces.GetInfluence(0).transform;
+        float c = Vector2.Distance(_particleSystem.transform.position, target.position);
+        _particleSystemModule.startLifetime = stepByDistance * c;
     }
 }
