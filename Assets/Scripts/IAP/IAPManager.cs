@@ -107,7 +107,11 @@ public class IAPManager : MonoBehaviour, IStoreListener
             {
                 Debug.Log("gold_10m not played");
             }
-            SoundControl._instance.PlayCash();
+            try
+            {
+                SoundControl._instance.PlayCash();
+            }
+            catch { }
 
             Debug.Log(" coins_10m Succesful");
         }
@@ -274,6 +278,8 @@ public class IAPManager : MonoBehaviour, IStoreListener
         {
             Debug.Log("Purchase Failed");
         }
+
+        Debug.Log("PurchaseProcessingResult.Complete");
         return PurchaseProcessingResult.Complete;
     }
     private void DisplayBottleInfo()
@@ -479,7 +485,17 @@ public class IAPManager : MonoBehaviour, IStoreListener
             Debug.Log("Image NOT diplayed (boost control)");
         }
     }
-
+    private void EventSender(PurchaseEventArgs args)
+    {
+        if (!PlayerPrefs.HasKey("FirstPurchaseEvent"))
+        {
+            PlayerPrefs.SetInt("FirstPurchaseEvent", 1);
+            ApsFlyerEvents.FirstPurchase_event(args);
+        }
+        ApsFlyerEvents.Purchase_event(args);
+        
+    }
+    #region Tests
     public void Test()
     {
         try
@@ -545,16 +561,6 @@ public class IAPManager : MonoBehaviour, IStoreListener
         DisplayBottleInfo();
         SoundControl._instance.PlayCash();
         Debug.Log("bottles_50 Succesful");
-    }
-    private void EventSender(PurchaseEventArgs args)
-    {
-        if (!PlayerPrefs.HasKey("FirstPurchaseEvent"))
-        {
-            PlayerPrefs.SetInt("FirstPurchaseEvent", 1);
-            ApsFlyerEvents.FirstPurchase_event(args);
-        }
-        ApsFlyerEvents.Purchase_event(args);
-        
     }
 
 
@@ -636,6 +642,7 @@ public class IAPManager : MonoBehaviour, IStoreListener
         Debug.Log(gpSign + " sign");
     }
 
+    #endregion
 
 
     //**************************** Dont worry about these methods ***********************************
@@ -646,9 +653,14 @@ public class IAPManager : MonoBehaviour, IStoreListener
 
     void Start()
     {
-        if (m_StoreController == null) { InitializePurchasing(); }
+        StartCoroutine(StartDelay());
     }
 
+    IEnumerator StartDelay()
+    {
+        yield return new WaitForSeconds(3f);
+        if (m_StoreController == null) { InitializePurchasing(); }
+    }
     private void TestSingleton()
     {
         if (instance != null) { Destroy(gameObject); return; }
